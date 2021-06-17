@@ -3,3 +3,4 @@
 export(book)
 export(geom_flat_violin)
 export(geom_split_violin)
+export(workbook)

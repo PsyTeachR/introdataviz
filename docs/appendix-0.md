@@ -158,10 +158,6 @@ ggplot(dat_long, aes(x = rt, y = age)) +
   geom_smooth(method = "lm")
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 <div class="figure" style="text-align: center">
 <img src="appendix-0_files/figure-html/smooth-plot-add-1.png" alt="Line of best fit for reaction time versus age." width="100%" />
 <p class="caption">(\#fig:smooth-plot-add)Line of best fit for reaction time versus age.</p>
@@ -181,10 +177,6 @@ ggplot(dat_long_scale, aes(x = rt_zscore, y = age_zscore)) +
   geom_abline(slope = 1, intercept = 0)
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 <div class="figure" style="text-align: center">
 <img src="appendix-0_files/figure-html/smooth-plot-abline1-1.png" alt="Line of best fit (blue line) for reaction time versus age with true diagonal shown (black line)." width="100%" />
 <p class="caption">(\#fig:smooth-plot-abline1)Line of best fit (blue line) for reaction time versus age with true diagonal shown (black line).</p>
@@ -200,10 +192,6 @@ ggplot(dat_long_scale, aes(x = rt_zscore, y = age_zscore)) +
   geom_vline(xintercept = 0, linetype = "solid", color = "black", size = .5) + 
   geom_point() +
     geom_smooth(method = "lm")
-```
-
-```
-## `geom_smooth()` using formula 'y ~ x'
 ```
 
 <div class="figure" style="text-align: center">
@@ -225,10 +213,6 @@ ggplot(dat_long, aes(x = rt, y = age)) +
   geom_abline(slope = 1, intercept = 0)
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 <div class="figure" style="text-align: center">
 <img src="appendix-0_files/figure-html/smooth-plot-abline3-1.png" alt="Line of best fit (blue solid line) for reaction time versus age with missing true diagonal." width="100%" />
 <p class="caption">(\#fig:smooth-plot-abline3)Line of best fit (blue solid line) for reaction time versus age with missing true diagonal.</p>
@@ -243,10 +227,6 @@ ggplot(dat_long, aes(x = rt, y = age)) +
   geom_smooth(method = "lm") +
   geom_abline(slope = 1, intercept = 0) +
   coord_cartesian(xlim = c(0,1000), ylim = c(0,60))
-```
-
-```
-## `geom_smooth()` using formula 'y ~ x'
 ```
 
 <div class="figure" style="text-align: center">
@@ -268,10 +248,6 @@ ggplot(dat_long, aes(x = rt, y = age)) +
   coord_cartesian(xlim = c(0,1000), ylim = c(0,100), expand = FALSE)
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 <div class="figure" style="text-align: center">
 <img src="appendix-0_files/figure-html/smooth-plot-coord1-1.png" alt="Zoomed out on scatterplot with no expansion around set limits" width="100%" />
 <p class="caption">(\#fig:smooth-plot-coord1)Zoomed out on scatterplot with no expansion around set limits</p>
@@ -287,10 +263,6 @@ ggplot(dat_long, aes(x = rt, y = age)) +
   coord_cartesian(xlim = c(0,1000), ylim = c(0,100), expand = TRUE)
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 <div class="figure" style="text-align: center">
 <img src="appendix-0_files/figure-html/smooth-plot-coord2-1.png" alt="Zoomed out on scatterplot with small expansion around set limits" width="100%" />
 <p class="caption">(\#fig:smooth-plot-coord2)Zoomed out on scatterplot with small expansion around set limits</p>
@@ -304,10 +276,6 @@ ggplot(dat_long, aes(x = rt, y = age)) +
   geom_point() +
   geom_smooth(method = "lm") +
   coord_cartesian(xlim = c(500,725), ylim = c(15,55), expand = TRUE)
-```
-
-```
-## `geom_smooth()` using formula 'y ~ x'
 ```
 
 <div class="figure" style="text-align: center">
@@ -332,10 +300,6 @@ ggplot(dat_long, aes(x = rt, y = age)) +
   scale_y_continuous(limits = c(0,100), breaks = 0:100)
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 <div class="figure" style="text-align: center">
 <img src="appendix-0_files/figure-html/smooth-plot-scales1-1.png" alt="Changing the values on the axes" width="100%" />
 <p class="caption">(\#fig:smooth-plot-scales1)Changing the values on the axes</p>
@@ -350,10 +314,6 @@ ggplot(dat_long, aes(x = rt, y = age)) +
   geom_smooth(method = "lm") +
   scale_x_continuous(limits = c(0,1000), breaks = seq(0,1000,50)) +
   scale_y_continuous(limits = c(0,100), breaks = seq(0,100,5))
-```
-
-```
-## `geom_smooth()` using formula 'y ~ x'
 ```
 
 <div class="figure" style="text-align: center">
@@ -373,10 +333,6 @@ ggplot(dat_long, aes(x = rt, y = age)) +
   coord_cartesian(xlim = c(250,750), ylim = c(15,55))
 ```
 
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 <div class="figure" style="text-align: center">
 <img src="appendix-0_files/figure-html/smooth-plot-scales3-1.png" alt="Combining scale functions and zoom functions" width="100%" />
 <p class="caption">(\#fig:smooth-plot-scales3)Combining scale functions and zoom functions</p>
@@ -390,10 +346,6 @@ ggplot(dat_long, aes(x = rt, y = age)) +
   geom_point() +
   geom_smooth(method = "lm") +
   scale_x_continuous(limits = c(500,600))
-```
-
-```
-## `geom_smooth()` using formula 'y ~ x'
 ```
 
 ```
@@ -632,10 +584,6 @@ theme(
 ggplot(diamonds, aes(carat, price, color = cut)) +
   geom_smooth() + 
   mytheme
-```
-
-```
-## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
 ```
 
 <div class="figure" style="text-align: center">

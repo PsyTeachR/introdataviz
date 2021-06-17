@@ -1,8 +1,8 @@
 # Introduction
 
-Use of the programming language R for data processing and statistical analysis by researchers is increasingly common, with an average yearly growth of 87% in the number of citations of the R Core Team between 2006-2018 [@barrett2019six]. In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means [@newman2012bar].
+Use of the programming language R [@R-base] for data processing and statistical analysis by researchers is increasingly common, with an average yearly growth of 87% in the number of citations of the R Core Team between 2006-2018 [@barrett2019six]. In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means [@newman2012bar].
 
-Yet, the benefits of using R are obscured for many researchers by the perception that coding skills are difficult to learn [@robins2003learning]. Coupled with this, only a minority of psychology programmes currently teach coding skills [@rminr] with the majority of both undergraduate and postgraduate courses using proprietary and point-and-click software such as SAS, SPSS or Microsoft Excel. While the sophisticated use of proprietary software often necessitates the use of computational thinking skills akin to coding (for instance SPSS scripts or formulas in Excel), we have found that many researchers do not perceive that they already have introductory coding skills. In the following tutorial we intend to change that perception by showing how experienced researchers can redevelop their existing computational skills to utilise the powerful data visualisation tools offered by R.
+Yet, the benefits of using R are obscured for many researchers by the perception that coding skills are difficult to learn [@robins2003learning]. Coupled with this, only a minority of psychology programmes currently teach coding skills [@rminr] with the majority of both undergraduate and postgraduate courses using proprietary point-and-click software such as SAS, SPSS or Microsoft Excel. While the sophisticated use of proprietary software often necessitates the use of computational thinking skills akin to coding (for instance SPSS scripts or formulas in Excel), we have found that many researchers do not perceive that they already have introductory coding skills. In the following tutorial we intend to change that perception by showing how experienced researchers can redevelop their existing computational skills to utilise the powerful data visualisation tools offered by R.
 
 In this tutorial, we aim to provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the "grammar of graphics" that underlies data visualisation using the `ggplot` package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these "basic" plots can be easily extended to less commonly available options such as violin-boxplots.
 
@@ -10,7 +10,7 @@ In this tutorial, we aim to provide a practical introduction to data visualisati
 
 Data visualisation benefits from the same advantages as statistical analysis when writing code rather than using point-and-click software -- reproducibility and transparency. The need for psychological researchers to work in reproducible ways has been well-documented and discussed in response to the replication crisis [e.g. @munafo2017manifesto] and we will not repeat those arguments here. However, there is an additional benefit to reproducibility that is less frequently acknowledged compared to the loftier goals of improving psychological science: if you write code to produce your plots, you can reuse and adapt that code in the future rather than starting from scratch each time.
 
-In addition to the benefits of reproducibility, using R for data visualisation gives the researcher almost total control over each element of the plot. Whilst this flexibility can seem daunting at first, the ability to write reusable code recipes (and use recipes created by others) is highly advantageous. The level of customisation and the professional outputs available using R has for instance lead news outlets such as the BBC [@BBC-R] and the New York Times [@NYT-R] adopting R as their preferred data visualisation tool.
+In addition to the benefits of reproducibility, using R for data visualisation gives the researcher almost total control over each element of the plot. Whilst this flexibility can seem daunting at first, the ability to write reusable code recipes (and use recipes created by others) is highly advantageous. The level of customisation and the professional outputs available using R has, for instance, lead news outlets such as the BBC [@BBC-R] and the New York Times [@NYT-R] to adopt R as their preferred data visualisation tool.
 
 ## A layered grammar of graphics
 
@@ -20,11 +20,9 @@ There are multiple approaches to data visualisation in R; in this paper we use t
 
 [^ch1-2]: Because there are so many different ways to achieve the same thing in R, when Googling for help with R, it is useful to append the name of the package or approach you are using, e.g., "how to make a histogram ggplot2".
 
-Figure \@ref(fig:layers) displays the evolution of a simple scatterplot using this layered approach. First, the plot space is built (layer 1); the variables are specified (layer 2); the type of visualisation (known as a `geom`) that is desired for these variables is specified (layer 3) - in this case `geom_point()` is called to visualise individual data points; a second geom is added to include a line of best fit (layer 4), the axis labels are edited for readability (layer 5), and finally, a theme is applied to change the overall appearance of the plot (layer 6).
+Figure\ \@ref(fig:layers) displays the evolution of a simple scatterplot using this layered approach. First, the plot space is built (layer 1); the variables are specified (layer 2); the type of visualisation (known as a `geom`) that is desired for these variables is specified (layer 3) - in this case `geom_point()` is called to visualise individual data points; a second geom is added to include a line of best fit (layer 4), the axis labels are edited for readability (layer 5), and finally, a theme is applied to change the overall appearance of the plot (layer 6).
 
-```{r layers, echo = FALSE, message = FALSE, fig.cap="Evolution of a layered plot"}
-library(patchwork)
-library(tidyverse)
+```{r layers, fig.cap="Evolution of a layered plot"}
 a <- ggplot() + labs(subtitle = "Layer 1")
 b <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) + labs(subtitle = "Layer 2")
 c <- b + geom_point() + labs(subtitle = "Layer 3")
@@ -35,9 +33,9 @@ f <- e + theme_minimal(base_family = "Times") + labs(subtitle = "Layer 6")
 a + b + c + d + e + f + plot_layout(nrow = 2)
 ```
 
-Importantly, each layer is independent and independently customisable. For example, the size, colour and position of each component can be adjusted, or one could, for example, remove the first geom (the data points) to only visualise the line of best fit, simply by removing the layer that draws the data points (Figure  \@ref(fig:remove-layer)). The use of layers makes it easy to build up complex plots step-by-step, and to adapt or extend plots from existing code.
+Importantly, each layer is independent and independently customisable. For example, the size, colour and position of each component can be adjusted, or one could, for example, remove the first geom (the data points) to only visualise the line of best fit, simply by removing the layer that draws the data points (Figure\ \@ref(fig:remove-layer)). The use of layers makes it easy to build up complex plots step-by-step, and to adapt or extend plots from existing code.
 
-```{r remove-layer, message=FALSE, echo=FALSE, fig.cap="Plot with scatterplot layer removed."}
+```{r remove-layer, fig.cap="Plot with scatterplot layer removed."}
 iris %>% ggplot(aes(Sepal.Length, Sepal.Width)) + 
   geom_smooth(method = "lm") +
   labs(x = "Sepal Length (mm)", y = "Sepal Width (mm)")+
@@ -55,7 +53,7 @@ For the purpose of this tutorial, we will use simulated data for a 2 x 2 mixed-d
 
 -   1 between-subject IV:
 
-    -   `language`: Language group (1 = monolingual/2 = bilingual)
+    -   `language`: Language group (1 = monolingual, 2 = bilingual)
 
 -   4 columns for the 2 dependent variables for RT and accuracy, crossed by the within-subject IV of condition:
 
@@ -68,9 +66,9 @@ The simulated dataset and tutorial code can be found in the online supplementary
 
 ## Setting up R and RStudio
 
-We strongly encourage the use of RStudio to write code in R. R is the programming language whilst RStudio is an *integrated development environment* that makes working with R easier. More information on installing both R and RStudio can be found in the additional resources.
+We strongly encourage the use of RStudio [@RStudio] to write code in R. R is the programming language whilst RStudio is an *integrated development environment* that makes working with R easier. More information on installing both R and RStudio can be found in the additional resources.
 
-Projects are a useful way of keeping all your code, data, and output in one place. To create a new project, open RStudio and click `File - New Project - New Directory - New Project`. You will be prompted to give the project a name, and select a location for where to store the project on your computer. Once you have done this, click `Create Project`. Download the simulated dataset and code tutorial Rmd file from [the online materials](https://osf.io/bj83f/files/) and then (`ldt_data.csv`, `workbook.Rmd`) to this folder. The files pane on the bottom right of RStudio should now display this folder and the files it contains - this is known as your *working directory* and it is where R will look for any data you wish to import and where it will save any output you create.
+Projects are a useful way of keeping all your code, data, and output in one place. To create a new project, open RStudio and click `File - New Project - New Directory - New Project`. You will be prompted to give the project a name, and select a location for where to store the project on your computer. Once you have done this, click `Create Project`. Download the simulated dataset and code tutorial Rmd file from [the online materials](https://osf.io/bj83f/files/){target="_blank"} and then (`ldt_data.csv`, `workbook.Rmd`) to this folder. The files pane on the bottom right of RStudio should now display this folder and the files it contains - this is known as your *working directory* and it is where R will look for any data you wish to import and where it will save any output you create.
 
 This tutorial will require you to use the packages contained with the `tidyverse` collection. Additionally, we will also require use of `patchwork`. To install these packages, copy and paste the below code into the console (the left hand pane) and press enter to execute the code.
 
@@ -80,7 +78,7 @@ package_list <- c("tidyverse", "patchwork")
 install.packages(package_list)
 ```
 
-The R Markdown workbook available in the [online materials](https://osf.io/bj83f/files/)contains all the code in this tutorial and there is more information and links to additional resources for how to use R Markdown for reproducible reports in the additional resources. 
+The R Markdown workbook available in the [online materials](https://osf.io/bj83f/files/){target="_blank"} contains all the code in this tutorial and there is more information and links to additional resources for how to use R Markdown for reproducible reports in the additional resources. 
 
 The reason that the above install packages code is not included in the workbook is that every time you run the install command code it will install the latest version of the package. Leaving this code in your script can lead you to unintentionally install a package update you didn't want. For this reason, avoid including install code in any script or Markdown document. 
 
@@ -102,6 +100,8 @@ When working with your own data, you can rename columns in Excel, but the resour
 
 ### Data values
 
-A great benefit to using R rather than SPSS is that categorical data can be entered as text. In the tutorial dataset, language group is entered as 1 or 2, so that we can show you  how to recode numeric values into factors with labels. However, we recommend recording meaningful labels rather than numbers from the beginning of data collection to avoid misinterpreting data due to coding errors. Note that values must match *exactly* in order to be considered in the same category and R is case sensitive, so "mono", "Mono", and "monolingual" would be classified as members of three separate categories.
+A great benefit to using R is that categorical data can be entered as text. In the tutorial dataset, language group is entered as 1 or 2, so that we can show you  how to recode numeric values into factors with labels. However, we recommend recording meaningful labels rather than numbers from the beginning of data collection to avoid misinterpreting data due to coding errors. Note that values must match *exactly* in order to be considered in the same category and R is case sensitive, so "mono", "Mono", and "monolingual" would be classified as members of three separate categories.
 
-Finally, cells that represent missing data should be left empty rather than containing values like `NA`, `missing` or `0`. A complementary rule of thumb is that each column should only contain one type of data, such as words or numbers, not both.
+Finally, cells that represent missing data should be left empty rather than containing values like `NA`, `missing` or `999`[^ch1-3]. A complementary rule of thumb is that each column should only contain one type of data, such as words or numbers, not both.
+
+[^ch1-3]: If your data use a missing value like `NA` or `999`, you can indicate this in the `na` argument of `read_csv()` when you read in your data. For example, `read_csv("data.csv", na = c("", "NA", 999))` allows you to use blank cells `""`, the letters `"NA"`, and the number `999` as missing values.

@@ -6,6 +6,7 @@ bookdown::gitbook:
     in_header: include/header.html
     after_body: [include/footer.html, include/webex.js]
   css: [include/psyteachr.css, include/webex.css, include/style.css]
+  csl: apa.csl
   config:
     toc:
       collapse: section

@@ -8,12 +8,11 @@
 #'    \item{id}{Participant ID}
 #'    \item{age}{Age of participant in years}
 #'    \item{language}{Languages (1 = monolingual, 2 = bilingual)}
-#'    \item{rt_word}{Mean reaction time for words}
-#'    \item{rt_nonword}{Mean reaction time for non-words}
+#'    \item{rt_word}{Mean reaction time (ms) for words}
+#'    \item{rt_nonword}{Mean reaction time (ms) for non-words}
 #'    \item{acc_word}{Accuracy for words}
 #'    \item{acc_nonword}{Accuracy for non-words}
 #' }
-#' @source \url{}
 "ldt_data"
 
 

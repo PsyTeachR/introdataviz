@@ -11,7 +11,7 @@ library(patchwork)
 
 ## Loading data
 
-To load the simulated data we use the function `read_csv()` from the `readr` tidyverse package. Note that there are many other ways of reading data into R, but the benefit of this function is that it enters the data into the R environment in such a way that it makes most sense for other tidyverse packages.
+To load the [simulated sata](https://osf.io/bj83f/files/){target="_blank"} we use the function `read_csv()` from the `readr` tidyverse package. Note that there are many other ways of reading data into R, but the benefit of this function is that it enters the data into the R environment in such a way that it makes most sense for other tidyverse packages.
 
 ```{r load3, message=FALSE}
 dat <- read_csv(file = "ldt_data.csv")
@@ -115,7 +115,7 @@ dat %>%
   knitr::kable(align = "c", digits = 2)
 ```
 
-This code produces summary data in the form of a column named `mean_age` that contains the result of calculating the mean of the variable `age.` It then creates `sd_age` which does the same but for standard deviation. Finally, it uses the function `n()` to add the number of values used to calculate the statistic in a column named `n_values` - this is a useful sanity check whenever you make summary statistics.
+This code produces summary data in the form of a column named `mean_age` that contains the result of calculating the mean of the variable `age`. It then creates `sd_age` which does the same but for standard deviation. Finally, it uses the function `n()` to add the number of values used to calculate the statistic in a column named `n_values` - this is a useful sanity check whenever you make summary statistics.
 
 
 Note that the above code will not save the result of this operation, it will simply output the result in the console. If you wish to save it for future use, you can store it in an object by using the `<-` notation and print it later by typing the object name.
@@ -244,6 +244,7 @@ ggplot(dat, aes(language)) +
 Another very common error is to map the wrong type of `scale_` function to a variable. Try running the below code:
 
 ```{r eval = FALSE}
+# produces an error
 ggplot(dat, aes(language)) +
   geom_bar() +
   scale_x_continuous(name = "Language group", 

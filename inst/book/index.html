@@ -62,7 +62,93 @@
 <link rel="shortcut icon" href="https://psyteachr.github.io/images/logo.png">
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="include/psyteachr.css" type="text/css" />
 <link rel="stylesheet" href="include/webex.css" type="text/css" />
@@ -161,8 +247,8 @@
 <li class="chapter" data-level="5.1" data-path="multi-part-plots.html"><a href="multi-part-plots.html#interaction-plots"><i class="fa fa-check"></i><b>5.1</b> Interaction plots</a></li>
 <li class="chapter" data-level="5.2" data-path="multi-part-plots.html"><a href="multi-part-plots.html#combined-interaction-plots"><i class="fa fa-check"></i><b>5.2</b> Combined interaction plots</a></li>
 <li class="chapter" data-level="5.3" data-path="multi-part-plots.html"><a href="multi-part-plots.html#facets"><i class="fa fa-check"></i><b>5.3</b> Facets</a></li>
-<li class="chapter" data-level="5.4" data-path="multi-part-plots.html"><a href="multi-part-plots.html#saving-plots"><i class="fa fa-check"></i><b>5.4</b> Saving plots</a></li>
-<li class="chapter" data-level="5.5" data-path="multi-part-plots.html"><a href="multi-part-plots.html#exporting-plots"><i class="fa fa-check"></i><b>5.5</b> Exporting plots</a></li>
+<li class="chapter" data-level="5.4" data-path="multi-part-plots.html"><a href="multi-part-plots.html#storing-plots"><i class="fa fa-check"></i><b>5.4</b> Storing plots</a></li>
+<li class="chapter" data-level="5.5" data-path="multi-part-plots.html"><a href="multi-part-plots.html#saving-plots-as-images"><i class="fa fa-check"></i><b>5.5</b> Saving plots as images</a></li>
 <li class="chapter" data-level="5.6" data-path="multi-part-plots.html"><a href="multi-part-plots.html#multiple-plots"><i class="fa fa-check"></i><b>5.6</b> Multiple plots</a>
 <ul>
 <li class="chapter" data-level="5.6.1" data-path="multi-part-plots.html"><a href="multi-part-plots.html#combining-two-plots"><i class="fa fa-check"></i><b>5.6.1</b> Combining two plots</a></li>
@@ -171,27 +257,30 @@
 <li class="chapter" data-level="5.7" data-path="multi-part-plots.html"><a href="multi-part-plots.html#customisation-part-4"><i class="fa fa-check"></i><b>5.7</b> Customisation part 4</a>
 <ul>
 <li class="chapter" data-level="5.7.1" data-path="multi-part-plots.html"><a href="multi-part-plots.html#axis-labels"><i class="fa fa-check"></i><b>5.7.1</b> Axis labels</a></li>
-<li class="chapter" data-level="5.7.2" data-path="multi-part-plots.html"><a href="multi-part-plots.html#non-meaningful-colours"><i class="fa fa-check"></i><b>5.7.2</b> Non-meaningful colours</a></li>
+<li class="chapter" data-level="5.7.2" data-path="multi-part-plots.html"><a href="multi-part-plots.html#redundant-aesthetics"><i class="fa fa-check"></i><b>5.7.2</b> Redundant aesthetics</a></li>
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="multi-part-plots.html"><a href="multi-part-plots.html#activities-4"><i class="fa fa-check"></i><b>5.8</b> Activities 4</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="advanced-plots.html"><a href="advanced-plots.html"><i class="fa fa-check"></i><b>6</b> Advanced Plots</a>
 <ul>
-<li class="chapter" data-level="6.0.1" data-path="advanced-plots.html"><a href="advanced-plots.html#split-violin-plots"><i class="fa fa-check"></i><b>6.0.1</b> Split-violin plots</a></li>
-<li class="chapter" data-level="6.0.2" data-path="advanced-plots.html"><a href="advanced-plots.html#raincloud-plots"><i class="fa fa-check"></i><b>6.0.2</b> Raincloud plots</a></li>
-<li class="chapter" data-level="6.0.3" data-path="advanced-plots.html"><a href="advanced-plots.html#ridge-plots"><i class="fa fa-check"></i><b>6.0.3</b> Ridge plots</a></li>
-<li class="chapter" data-level="6.0.4" data-path="advanced-plots.html"><a href="advanced-plots.html#alluvial-plots"><i class="fa fa-check"></i><b>6.0.4</b> Alluvial plots</a></li>
+<li class="chapter" data-level="6.1" data-path="advanced-plots.html"><a href="advanced-plots.html#split-violin-plots"><i class="fa fa-check"></i><b>6.1</b> Split-violin plots</a></li>
+<li class="chapter" data-level="6.2" data-path="advanced-plots.html"><a href="advanced-plots.html#raincloud-plots"><i class="fa fa-check"></i><b>6.2</b> Raincloud plots</a></li>
+<li class="chapter" data-level="6.3" data-path="advanced-plots.html"><a href="advanced-plots.html#ridge-plots"><i class="fa fa-check"></i><b>6.3</b> Ridge plots</a></li>
+<li class="chapter" data-level="6.4" data-path="advanced-plots.html"><a href="advanced-plots.html#alluvial-plots"><i class="fa fa-check"></i><b>6.4</b> Alluvial plots</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="appendices.html"><a href="appendices.html"><i class="fa fa-check"></i>Appendices</a>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="appendices.html"><a href="appendices.html"><i class="fa fa-check"></i>Appendices</a></li>
+<li class="chapter" data-level="8" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>8</b> Additional resources</a></li>
+<li class="chapter" data-level="9" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html"><i class="fa fa-check"></i><b>9</b> Additional advanced plots and customisation options</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="appendices.html"><a href="appendices.html#adding-lines-to-plots"><i class="fa fa-check"></i><b>6.1</b> Adding lines to plots</a></li>
-<li class="chapter" data-level="6.2" data-path="appendices.html"><a href="appendices.html#zooming-in-and-out"><i class="fa fa-check"></i><b>6.2</b> Zooming in and out</a></li>
-<li class="chapter" data-level="6.3" data-path="appendices.html"><a href="appendices.html#setting-the-axis-values"><i class="fa fa-check"></i><b>6.3</b> Setting the axis values</a></li>
-<li class="chapter" data-level="6.4" data-path="appendices.html"><a href="appendices.html#controlling-the-legend"><i class="fa fa-check"></i><b>6.4</b> Controlling the Legend</a></li>
-<li class="chapter" data-level="6.5" data-path="appendices.html"><a href="appendices.html#setting-a-lab-theme-using-theme"><i class="fa fa-check"></i><b>6.5</b> Setting A Lab Theme using <code>theme()</code></a></li>
-<li class="chapter" data-level="6.6" data-path="appendices.html"><a href="appendices.html#easter-egg---overlaying-plots"><i class="fa fa-check"></i><b>6.6</b> Easter Egg - Overlaying Plots</a></li>
-<li class="chapter" data-level="6.7" data-path="appendices.html"><a href="appendices.html#easter-egg---a-dumbbell-plot"><i class="fa fa-check"></i><b>6.7</b> Easter Egg - A Dumbbell Plot</a></li>
-<li class="chapter" data-level="6.8" data-path="appendices.html"><a href="appendices.html#easter-egg---a-pie-chart"><i class="fa fa-check"></i><b>6.8</b> Easter Egg - A Pie Chart</a></li>
+<li class="chapter" data-level="9.1" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#adding-lines-to-plots"><i class="fa fa-check"></i><b>9.1</b> Adding lines to plots</a></li>
+<li class="chapter" data-level="9.2" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#zooming-in-and-out"><i class="fa fa-check"></i><b>9.2</b> Zooming in and out</a></li>
+<li class="chapter" data-level="9.3" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-the-axis-values"><i class="fa fa-check"></i><b>9.3</b> Setting the axis values</a></li>
+<li class="chapter" data-level="9.4" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#controlling-the-legend"><i class="fa fa-check"></i><b>9.4</b> Controlling the Legend</a></li>
+<li class="chapter" data-level="9.5" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-a-lab-theme-using-theme"><i class="fa fa-check"></i><b>9.5</b> Setting A Lab Theme using <code>theme()</code></a></li>
+<li class="chapter" data-level="9.6" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---overlaying-plots"><i class="fa fa-check"></i><b>9.6</b> Easter Egg - Overlaying Plots</a></li>
+<li class="chapter" data-level="9.7" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-dumbbell-plot"><i class="fa fa-check"></i><b>9.7</b> Easter Egg - A Dumbbell Plot</a></li>
+<li class="chapter" data-level="9.8" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-pie-chart"><i class="fa fa-check"></i><b>9.8</b> Easter Egg - A Pie Chart</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" 

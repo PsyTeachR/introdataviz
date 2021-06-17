@@ -4,6 +4,11 @@ library(introdataviz)
 library(patchwork)
 library(knitr)
 
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE
+)
+
 theme_set(theme_grey())
 
 dat <- introdataviz::ldt_data %>%

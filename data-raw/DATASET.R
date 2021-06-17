@@ -74,10 +74,43 @@ itemdesc <- list(
   id = "Participant ID",
   age = "Age of participant in years",
   language = "Languages (1 = monolingual, 2 = bilingual)",
-  rt_word = "Mean reaction time for words",
-  rt_nonword = "Mean reaction time for non-words",
+  rt_word = "Mean reaction time (ms) for words",
+  rt_nonword = "Mean reaction time (ms) for non-words",
   acc_word = "Accuracy for words",
   acc_nonword = "Accuracy for non-words"
 )
 
 make_dataset("ldt_data", "Stroop Task Example Data", "Simulated stroop task data for monolingual and bilingual participants. DVs are mean reaction time (rt) and accuracy (acc) for words and non-words.", itemdesc = itemdesc) 
+
+# ldt_long ----
+library(dplyr)
+
+ldt_long <- introdataviz::ldt_data %>%
+  dplyr::mutate(language = factor(
+    x = language,
+    levels = c(1, 2),
+    labels = c("monolingual", "bilingual") 
+  )) %>%
+  tidyr::pivot_longer(
+    cols = rt_word:acc_nonword, 
+    names_to = c("dv_type", "condition"), 
+    names_sep = "_", 
+    values_to = "dv") %>%
+  tidyr::pivot_wider(
+    names_from = "dv_type", 
+    values_from = "dv")
+
+readr::write_csv(ldt_long, "data-raw/ldt_long.csv")
+
+usethis::use_data(ldt_long, overwrite = TRUE)
+
+itemdesc <- list(
+  id = "Participant ID",
+  age = "Age of participant in years",
+  language = "Languages (monolingual, bilingual)",
+  condition = "Trial condition (word, nonword)",
+  rt = "Mean reaction time (ms)",
+  acc = "Accuracy"
+)
+
+make_dataset("ldt_long", "Stroop Task Example Data - long format", "Simulated stroop task data for monolingual and bilingual participants. DVs are mean reaction time (rt) and accuracy (acc) for words and non-words.", itemdesc = itemdesc) 

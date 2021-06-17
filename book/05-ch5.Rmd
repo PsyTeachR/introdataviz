@@ -49,16 +49,14 @@ So far we have produced single plots that display all the desired variables in o
 
 -   Rather than using `colour = condition` to produce different colours for each level of `condition`, this variable is instead passed to `facet_wrap()`.
 
-```{r scatterplot-facet, fig.cap="Faceted scatterplot", message = FALSE}
+```{r scatterplot-facet, fig.cap="Faceted scatterplot"}
 ggplot(dat_long, aes(x = rt, y = age)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  facet_wrap(~condition) +
-  scale_color_discrete(name = "Condition",
-                      labels = c("Word", "Non-word"))
+  facet_wrap(~condition)
 ```
 
-As another example, we can use `facet_wrap()` as an alternative to the grouped violin-boxplot (see Figure X) in which the variable `language` is passed to `facet_wrap()` rather than `fill`.
+As another example, we can use `facet_wrap()` as an alternative to the grouped violin-boxplot (see Figure\ \@ref(fig:viobox3)) in which the variable `language` is passed to `facet_wrap()` rather than `fill`.
 
 ```{r violin-boxplot-facet, fig.cap="Facted violin-boxplot"}
 ggplot(dat_long, aes(x = condition, y= rt)) +
@@ -89,7 +87,7 @@ ggplot(dat_long, aes(x = condition, y= rt)) +
 
 Even though the `labeller` syntax is new, it is still fairly logical, for each level of the variable you want to facet by, you need to specify a label, so you call the variable by naming it: `labeller = labeller(language =` then you make a list of the levels (monolingual and bilingual) and for each you tell the function its new name `c(monolingual = "Monolingual participants", bilingual = "Bilingual participants")`.
 
-## Saving plots
+## Storing plots
 
 Just like with datasets, plots can be saved to objects. The below code saves the histograms we produced for reaction time and accuracy to objects named `p1` and `p2`. These plots can then be viewed by calling the object name in the console.
 
@@ -107,9 +105,9 @@ Importantly, layers can then be added to these saved objects. For example, the b
 p3 <- p1 + theme_minimal()
 ```
 
-## Exporting plots
+## Saving plots as images
 
-In addition to saving plots to objects for further use in R, the function `ggsave()` can be used to save plots to your hard drive. The only required argument for `ggsave` is the file name of the image file you will create, complete with file extension (this can be "eps", "ps", "tex", "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf"). By default, `ggsave()` will save the last plot displayed, however, you can also specify a specific plot object.
+In addition to saving plots to objects for further use in R, the function `ggsave()` can be used to save plots as images on your hard drive. The only required argument for `ggsave` is the file name of the image file you will create, complete with file extension (this can be "eps", "ps", "tex", "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf"). By default, `ggsave()` will save the last plot displayed, however, you can also specify a specific plot object if you have one saved.
 
 ```{r eval = FALSE}
 ggsave(filename = "my_plot.png") # save last displayed plot
@@ -182,11 +180,11 @@ p5 + labs(x = "Type of word",
 
 You can also use `labs()` to remove axis labels, for example, try adjusting the above code to `x = NULL`.
 
-### Non-meaningful colours
+### Redundant aesthetics
 
-So far when we have produced plots with colours, the colours were meaningful in that they represented different levels of a variable, but it is also possible to include colour for purely aesthetic reasons.
+So far when we have produced plots with colours, the colours were the only way that different levels of a variable were indicated, but it is sometimes preferable to indicate levels with both colour and other means, such as facets or x-axis categories.
 
-The below code adds `fill = language` to the faceted violin-boxplots, in addition to adjusting `alpha` and using the viridis colour palette.
+The code below adds `fill = language` to the violin-boxplots that are also faceted by language. We adjust `alpha` and use the viridis colour palette to customise the colours.
 
 ```{r warning=FALSE, fig.cap="Violin-boxplot with redundant legend"}
 ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
@@ -202,7 +200,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
   scale_fill_viridis_d(option = "E")
 ```
 
-Specifying a `fill` variable means that by default, R has produced a legend for that variable. However, given that the use of colour is not meaningful, this is a waste of plot space (it provides no more information than what is represented already by the x-axis). You can remove this legend with the `guides` function.
+Specifying a `fill` variable means that by default, R produces a legend for that variable. However, the use of colour is redundant with the facet labels, so you can remove this legend with the `guides` function.
 
 ```{r legend-suppress, fig.cap="Plot with suppressed redundant legend"}
 ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
@@ -225,7 +223,7 @@ Before you go on, do the following:
 
 `r hide("Solution")`
 
-```{r activity-facet}
+```{r activity-facet, fig.cap=NULL}
 ggplot(dat_long, aes(x = condition, y = rt, group = language, shape = language)) +
   geom_point(aes(colour = language),alpha = .2) +
   geom_line(aes(group = id, colour = language), alpha = .2) +
