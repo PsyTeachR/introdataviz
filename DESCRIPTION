@@ -1,0 +1,52 @@
+Package: introdataviz
+Title: Data Visualisation Using R, For Researchers Who Don’t Use R
+Version: 0.0.0.9000
+Authors@R: 
+    c(person(given = "Emily",
+           family = "Nordmann",
+           role = c("aut", "cre"),
+           email = "emily.nordmann@glasgow.ac.uk",
+           comment = c(ORCID = "0000-0002-0806-1081")),
+    person(given = "Phil",
+           family = "McAleer",
+           role = c("aut"),
+           email = "Philip.McAleer@glasgow.ac.uk",
+           comment = c(ORCID = "0000-0002-4523-2097")),
+    person(given = "Wilhelmiina",
+           family = "Toivo",
+           role = c("aut"),
+           email = "Wilhelmiina.Toivo@glasgow.ac.uk",
+           comment = c(ORCID = "0000-0002-5688-9537")),
+    person(given = "Helena",
+           family = "Paterson",
+           role = c("aut"),
+           email = "Helena.Paterson@glasgow.ac.uk",
+           comment = c(ORCID = "0000-0001-7715-5973")),
+    person(given = "Lisa",
+           family = "DeBruine",
+           role = c("aut"),
+           email = "debruine@gmail.com",
+           comment = c(ORCID = "0000-0002-7523-5539")))
+Description: Data Visualisation Using R, For Researchers Who Don’t Use R.
+License: CC BY 4.0
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    dplyr,
+    ggplot2,
+    tidyr,
+    patchwork,
+    readr,
+    knitr,
+    webex,
+    glossary,
+    broom,
+    plyr,
+    scales,
+    grid
+Depends: 
+    R (>= 2.10)
+Remotes:
+    psyteachr/glossary

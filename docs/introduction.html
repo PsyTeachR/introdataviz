@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Introduction | Data visualisation using R, for researchers who don’t use R</title>
+  <meta name="description" content="Abstract here." />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Introduction | Data visualisation using R, for researchers who don’t use R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Abstract here." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Introduction | Data visualisation using R, for researchers who don’t use R" />
+  
+  <meta name="twitter:description" content="Abstract here." />
+  
+
+<meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine" />
+
+
+<meta name="date" content="2021-06-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="chapter-2.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<meta property="og:title" content="IntroDataViz">
+<meta property="og:description" content="Data Visualisation Using R, For Researchers Who Don’t Use R.">
+<meta property="og:image" content="https://psyteachr.github.io/images/twitter/psyteachr.png">
+<meta property="og:url" content="https://psyteachr.github.io/introdataviz/">
+<meta property="twitter:card" content="summary_large_image">
+
+<link rel="shortcut icon" href="https://psyteachr.github.io/images/logo.png">
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="include/psyteachr.css" type="text/css" />
+<link rel="stylesheet" href="include/webex.css" type="text/css" />
+<link rel="stylesheet" href="include/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">IntroDataViz</a></li>
+<li><a href="https://zenodo.org/badge/latestdoi/166559207"><img src="https://zenodo.org/badge/166559207.svg" alt="DOI"></a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#why-r-for-data-visualisation"><i class="fa fa-check"></i><b>1.1</b> Why R for data visualisation?</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#a-layered-grammar-of-graphics"><i class="fa fa-check"></i><b>1.2</b> A layered grammar of graphics</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#simulated-dataset"><i class="fa fa-check"></i><b>1.3</b> Simulated dataset</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#setting-up-r-and-rstudio"><i class="fa fa-check"></i><b>1.4</b> Setting up R and RStudio</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#preparing-your-data"><i class="fa fa-check"></i><b>1.5</b> Preparing your data</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#data-format"><i class="fa fa-check"></i><b>1.5.1</b> Data format</a></li>
+<li class="chapter" data-level="1.5.2" data-path="introduction.html"><a href="introduction.html#variable-names"><i class="fa fa-check"></i><b>1.5.2</b> Variable names</a></li>
+<li class="chapter" data-level="1.5.3" data-path="introduction.html"><a href="introduction.html#data-values"><i class="fa fa-check"></i><b>1.5.3</b> Data values</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chapter-2.html"><a href="chapter-2.html"><i class="fa fa-check"></i><b>2</b> Chapter 2</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="chapter-2.html"><a href="chapter-2.html#loading-packages"><i class="fa fa-check"></i><b>2.1</b> Loading packages</a></li>
+<li class="chapter" data-level="2.2" data-path="chapter-2.html"><a href="chapter-2.html#loading-data"><i class="fa fa-check"></i><b>2.2</b> Loading data</a></li>
+<li class="chapter" data-level="2.3" data-path="chapter-2.html"><a href="chapter-2.html#handling-numeric-factors"><i class="fa fa-check"></i><b>2.3</b> Handling numeric factors</a></li>
+<li class="chapter" data-level="2.4" data-path="chapter-2.html"><a href="chapter-2.html#argument-names"><i class="fa fa-check"></i><b>2.4</b> Argument names</a></li>
+<li class="chapter" data-level="2.5" data-path="chapter-2.html"><a href="chapter-2.html#demographic-information"><i class="fa fa-check"></i><b>2.5</b> Demographic information</a></li>
+<li class="chapter" data-level="2.6" data-path="chapter-2.html"><a href="chapter-2.html#bar-chart-of-counts"><i class="fa fa-check"></i><b>2.6</b> Bar chart of counts</a></li>
+<li class="chapter" data-level="2.7" data-path="chapter-2.html"><a href="chapter-2.html#plotting-existing-aggregates-and-percent"><i class="fa fa-check"></i><b>2.7</b> Plotting existing aggregates and percent</a></li>
+<li class="chapter" data-level="2.8" data-path="chapter-2.html"><a href="chapter-2.html#histogram"><i class="fa fa-check"></i><b>2.8</b> Histogram</a></li>
+<li class="chapter" data-level="2.9" data-path="chapter-2.html"><a href="chapter-2.html#customisation-1"><i class="fa fa-check"></i><b>2.9</b> Customisation 1</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="chapter-2.html"><a href="chapter-2.html#changing-colours"><i class="fa fa-check"></i><b>2.9.1</b> Changing colours</a></li>
+<li class="chapter" data-level="2.9.2" data-path="chapter-2.html"><a href="chapter-2.html#editing-axis-names-and-labels"><i class="fa fa-check"></i><b>2.9.2</b> Editing axis names and labels</a></li>
+<li class="chapter" data-level="2.9.3" data-path="chapter-2.html"><a href="chapter-2.html#discrete-vs.-continuous-errors"><i class="fa fa-check"></i><b>2.9.3</b> Discrete vs. continuous errors</a></li>
+<li class="chapter" data-level="2.9.4" data-path="chapter-2.html"><a href="chapter-2.html#adding-a-theme"><i class="fa fa-check"></i><b>2.9.4</b> Adding a theme</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="chapter-2.html"><a href="chapter-2.html#activities-1"><i class="fa fa-check"></i><b>2.10</b> Activities 1</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>3</b> Chapter 3</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="chapter-3.html"><a href="chapter-3.html#data-formats"><i class="fa fa-check"></i><b>3.1</b> Data formats</a></li>
+<li class="chapter" data-level="3.2" data-path="chapter-3.html"><a href="chapter-3.html#transforming-data"><i class="fa fa-check"></i><b>3.2</b> Transforming data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="chapter-3.html"><a href="chapter-3.html#step-1-pivot_longer"><i class="fa fa-check"></i><b>3.2.1</b> Step 1: <code>pivot_longer()</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="chapter-3.html"><a href="chapter-3.html#step-2-pivot_longer-adjusted"><i class="fa fa-check"></i><b>3.2.2</b> Step 2: <code>pivot_longer()</code> adjusted</a></li>
+<li class="chapter" data-level="3.2.3" data-path="chapter-3.html"><a href="chapter-3.html#step-3-pivot_wider"><i class="fa fa-check"></i><b>3.2.3</b> Step 3: <code>pivot_wider()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chapter-3.html"><a href="chapter-3.html#histogram-2"><i class="fa fa-check"></i><b>3.3</b> Histogram 2</a></li>
+<li class="chapter" data-level="3.4" data-path="chapter-3.html"><a href="chapter-3.html#density-plots"><i class="fa fa-check"></i><b>3.4</b> Density plots</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="chapter-3.html"><a href="chapter-3.html#grouped-density-plots"><i class="fa fa-check"></i><b>3.4.1</b> Grouped density plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="chapter-3.html"><a href="chapter-3.html#scatterplots"><i class="fa fa-check"></i><b>3.5</b> Scatterplots</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="chapter-3.html"><a href="chapter-3.html#grouped-scatterplots"><i class="fa fa-check"></i><b>3.5.1</b> Grouped scatterplots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="chapter-3.html"><a href="chapter-3.html#transforming-data-2"><i class="fa fa-check"></i><b>3.6</b> Transforming data 2</a></li>
+<li class="chapter" data-level="3.7" data-path="chapter-3.html"><a href="chapter-3.html#customisation-2"><i class="fa fa-check"></i><b>3.7</b> Customisation 2</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="chapter-3.html"><a href="chapter-3.html#accessible-colour-schemes"><i class="fa fa-check"></i><b>3.7.1</b> Accessible colour schemes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="chapter-3.html"><a href="chapter-3.html#activities-2"><i class="fa fa-check"></i><b>3.8</b> Activities 2</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chapter-4.html"><a href="chapter-4.html"><i class="fa fa-check"></i><b>4</b> Chapter 4</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="chapter-4.html"><a href="chapter-4.html#boxplots"><i class="fa fa-check"></i><b>4.1</b> Boxplots</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="chapter-4.html"><a href="chapter-4.html#grouped-boxplots"><i class="fa fa-check"></i><b>4.1.1</b> Grouped boxplots</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="chapter-4.html"><a href="chapter-4.html#violin-plots"><i class="fa fa-check"></i><b>4.2</b> Violin plots</a></li>
+<li class="chapter" data-level="4.3" data-path="chapter-4.html"><a href="chapter-4.html#bar-chart-of-means"><i class="fa fa-check"></i><b>4.3</b> Bar chart of means</a></li>
+<li class="chapter" data-level="4.4" data-path="chapter-4.html"><a href="chapter-4.html#violin-boxplot"><i class="fa fa-check"></i><b>4.4</b> Violin-boxplot</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="chapter-4.html"><a href="chapter-4.html#grouped-violin-boxplots"><i class="fa fa-check"></i><b>4.4.1</b> Grouped violin-boxplots</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="chapter-4.html"><a href="chapter-4.html#customisation-part-3"><i class="fa fa-check"></i><b>4.5</b> Customisation part 3</a></li>
+<li class="chapter" data-level="4.6" data-path="chapter-4.html"><a href="chapter-4.html#activities-3"><i class="fa fa-check"></i><b>4.6</b> Activities 3</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>5</b> Chapter 5</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="chapter-5.html"><a href="chapter-5.html#interaction-plots"><i class="fa fa-check"></i><b>5.1</b> Interaction plots</a></li>
+<li class="chapter" data-level="5.2" data-path="chapter-5.html"><a href="chapter-5.html#combined-interaction-plots"><i class="fa fa-check"></i><b>5.2</b> Combined interaction plots</a></li>
+<li class="chapter" data-level="5.3" data-path="chapter-5.html"><a href="chapter-5.html#facets"><i class="fa fa-check"></i><b>5.3</b> Facets</a></li>
+<li class="chapter" data-level="5.4" data-path="chapter-5.html"><a href="chapter-5.html#saving-plots"><i class="fa fa-check"></i><b>5.4</b> Saving plots</a></li>
+<li class="chapter" data-level="5.5" data-path="chapter-5.html"><a href="chapter-5.html#exporting-plots"><i class="fa fa-check"></i><b>5.5</b> Exporting plots</a></li>
+<li class="chapter" data-level="5.6" data-path="chapter-5.html"><a href="chapter-5.html#multiple-plots"><i class="fa fa-check"></i><b>5.6</b> Multiple plots</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="chapter-5.html"><a href="chapter-5.html#combining-two-plots"><i class="fa fa-check"></i><b>5.6.1</b> Combining two plots</a></li>
+<li class="chapter" data-level="5.6.2" data-path="chapter-5.html"><a href="chapter-5.html#combining-three-or-more-plots"><i class="fa fa-check"></i><b>5.6.2</b> Combining three or more plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="chapter-5.html"><a href="chapter-5.html#customisation-part-4"><i class="fa fa-check"></i><b>5.7</b> Customisation part 4</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="chapter-5.html"><a href="chapter-5.html#axis-labels"><i class="fa fa-check"></i><b>5.7.1</b> Axis labels</a></li>
+<li class="chapter" data-level="5.7.2" data-path="chapter-5.html"><a href="chapter-5.html#non-meaningful-colours"><i class="fa fa-check"></i><b>5.7.2</b> Non-meaningful colours</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="chapter-5.html"><a href="chapter-5.html#activities-4"><i class="fa fa-check"></i><b>5.8</b> Activities 4</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="chapter-6.html"><a href="chapter-6.html"><i class="fa fa-check"></i><b>6</b> Chapter 6</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="chapter-6.html"><a href="chapter-6.html#split-violin-plots"><i class="fa fa-check"></i><b>6.0.1</b> Split-violin plots</a></li>
+<li class="chapter" data-level="6.0.2" data-path="chapter-6.html"><a href="chapter-6.html#raincloud-plots"><i class="fa fa-check"></i><b>6.0.2</b> Raincloud plots</a></li>
+<li class="chapter" data-level="6.0.3" data-path="chapter-6.html"><a href="chapter-6.html#ridge-plots"><i class="fa fa-check"></i><b>6.0.3</b> Ridge plots</a></li>
+<li class="chapter" data-level="6.0.4" data-path="chapter-6.html"><a href="chapter-6.html#alluvial-plots"><i class="fa fa-check"></i><b>6.0.4</b> Alluvial plots</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendices</b></span></li>
+<li class="chapter" data-level="A" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>A</b> Additional resources</a></li>
+<li class="chapter" data-level="B" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html"><i class="fa fa-check"></i><b>B</b> Additional advanced plots and customisation options</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#adding-lines-to-plots"><i class="fa fa-check"></i><b>B.1</b> Adding lines to plots</a></li>
+<li class="chapter" data-level="B.2" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#zooming-in-and-out"><i class="fa fa-check"></i><b>B.2</b> Zooming in and out</a></li>
+<li class="chapter" data-level="B.3" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-the-axis-values"><i class="fa fa-check"></i><b>B.3</b> Setting the axis values</a></li>
+<li class="chapter" data-level="B.4" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#controlling-the-legend"><i class="fa fa-check"></i><b>B.4</b> Controlling the Legend</a></li>
+<li class="chapter" data-level="B.5" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-a-lab-theme-using-theme"><i class="fa fa-check"></i><b>B.5</b> Setting A Lab Theme using <code>theme()</code></a></li>
+<li class="chapter" data-level="B.6" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---overlaying-plots"><i class="fa fa-check"></i><b>B.6</b> Easter Egg - Overlaying Plots</a></li>
+<li class="chapter" data-level="B.7" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-dumbbell-plot"><i class="fa fa-check"></i><b>B.7</b> Easter Egg - A Dumbbell Plot</a></li>
+<li class="chapter" data-level="B.8" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-pie-chart"><i class="fa fa-check"></i><b>B.8</b> Easter Egg - A Pie Chart</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" 
+    target="blank"><img alt="Creative Commons License" 
+    style="border-width:0" 
+    src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></li>
+<li><a href="https://psyteachr.github.io/books" target="blank">PsyTeachR Books</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data visualisation using R, for researchers who don’t use R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction" class="section level1" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
+<p>Use of the programming language R for data processing and statistical analysis by researchers is increasingly common, with an average yearly growth of 87% in the number of citations of the R Core Team between 2006-2018 <span class="citation">(<a href="#ref-barrett2019six" role="doc-biblioref">Barrett 2019</a>)</span>. In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means <span class="citation">(<a href="#ref-newman2012bar" role="doc-biblioref">Newman and Scholl 2012</a>)</span>.</p>
+<p>Yet, the benefits of using R are obscured for many researchers by the perception that coding skills are difficult to learn <span class="citation">(<a href="#ref-robins2003learning" role="doc-biblioref">Robins, Rountree, and Rountree 2003</a>)</span>. Coupled with this, only a minority of psychology programmes currently teach coding skills <span class="citation">(<a href="#ref-rminr" role="doc-biblioref">Wills, n.d.</a>)</span> with the majority of both undergraduate and postgraduate courses using proprietary and point-and-click software such as SAS, SPSS or Microsoft Excel. While the sophisticated use of proprietary software often necessitates the use of computational thinking skills akin to coding (for instance SPSS scripts or formulas in Excel), we have found that many researchers do not perceive that they already have introductory coding skills. In the following tutorial we intend to change that perception by showing how experienced researchers can redevelop their existing computational skills to utilise the powerful data visualisation tools offered by R.</p>
+<p>In this tutorial, we aim to provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the <code>ggplot</code> package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots.</p>
+<div id="why-r-for-data-visualisation" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Why R for data visualisation?</h2>
+<p>Data visualisation benefits from the same advantages as statistical analysis when writing code rather than using point-and-click software – reproducibility and transparency. The need for psychological researchers to work in reproducible ways has been well-documented and discussed in response to the replication crisis <span class="citation">(e.g. <a href="#ref-munafo2017manifesto" role="doc-biblioref">Munafò et al. 2017</a>)</span> and we will not repeat those arguments here. However, there is an additional benefit to reproducibility that is less frequently acknowledged compared to the loftier goals of improving psychological science: if you write code to produce your plots, you can reuse and adapt that code in the future rather than starting from scratch each time.</p>
+<p>In addition to the benefits of reproducibility, using R for data visualisation gives the researcher almost total control over each element of the plot. Whilst this flexibility can seem daunting at first, the ability to write reusable code recipes (and use recipes created by others) is highly advantageous. The level of customisation and the professional outputs available using R has for instance lead news outlets such as the BBC <span class="citation">(<a href="#ref-BBC-R" role="doc-biblioref">Visual and Journalism 2019</a>)</span> and the New York Times <span class="citation">(<a href="#ref-NYT-R" role="doc-biblioref">Bertini and Stefaner 2015</a>)</span> adopting R as their preferred data visualisation tool.</p>
+</div>
+<div id="a-layered-grammar-of-graphics" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> A layered grammar of graphics</h2>
+<p>There are multiple approaches to data visualisation in R; in this paper we use the popular package<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> <code>ggplot2</code> <span class="citation">(<a href="#ref-ggplot2" role="doc-biblioref">Wickham 2016</a>)</span> which is part of the larger <code>tidyverse</code><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> <span class="citation">(<a href="#ref-tidyverse" role="doc-biblioref">Wickham 2017</a>)</span> collection of packages that provide functions for data wrangling, descriptives, and visualisation. A grammar of graphics <span class="citation">(<a href="#ref-wilkinson2005graph" role="doc-biblioref">Wilkinson, Anand, and Grossman 2005</a>)</span> is a standardised way to describe the components of a graphic. <code>ggplot2</code> uses a layered grammar of graphics <span class="citation">(<a href="#ref-wickham2010layered" role="doc-biblioref">Wickham 2010</a>)</span>, in which plots are built up in a series of layers. It may be helpful to think about any picture as having multiple elements that sit semi-transparently over each other. A good analogy is old Disney movies where artists would create a background and then add moveable elements on top of the background via transparencies.</p>
+<p>Figure <a href="introduction.html#fig:layers">1.1</a> displays the evolution of a simple scatterplot using this layered approach. First, the plot space is built (layer 1); the variables are specified (layer 2); the type of visualisation (known as a <code>geom</code>) that is desired for these variables is specified (layer 3) - in this case <code>geom_point()</code> is called to visualise individual data points; a second geom is added to include a line of best fit (layer 4), the axis labels are edited for readability (layer 5), and finally, a theme is applied to change the overall appearance of the plot (layer 6).</p>
+<div class="figure" style="text-align: center"><span id="fig:layers"></span>
+<img src="01-ch1_files/figure-html/layers-1.png" alt="Evolution of a layered plot" width="100%" />
+<p class="caption">
+Figure 1.1: Evolution of a layered plot
+</p>
+</div>
+<p>Importantly, each layer is independent and independently customisable. For example, the size, colour and position of each component can be adjusted, or one could, for example, remove the first geom (the data points) to only visualise the line of best fit, simply by removing the layer that draws the data points (Figure  <a href="introduction.html#fig:remove-layer">1.2</a>). The use of layers makes it easy to build up complex plots step-by-step, and to adapt or extend plots from existing code.</p>
+<div class="figure" style="text-align: center"><span id="fig:remove-layer"></span>
+<img src="01-ch1_files/figure-html/remove-layer-1.png" alt="Plot with scatterplot layer removed." width="100%" />
+<p class="caption">
+Figure 1.2: Plot with scatterplot layer removed.
+</p>
+</div>
+</div>
+<div id="simulated-dataset" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Simulated dataset</h2>
+<p>For the purpose of this tutorial, we will use simulated data for a 2 x 2 mixed-design lexical decision task in which participants have to decide whether a presented word is a real word, or a non-word, with 100 participants. There are 100 rows (1 for each participant) and 7 variables:</p>
+<ul>
+<li><p>Participant information:</p>
+<ul>
+<li><code>id</code>: Participant ID</li>
+<li><code>age</code>: Age</li>
+</ul></li>
+<li><p>1 between-subject IV:</p>
+<ul>
+<li><code>language</code>: Language group (1 = monolingual/2 = bilingual)</li>
+</ul></li>
+<li><p>4 columns for the 2 dependent variables for RT and accuracy, crossed by the within-subject IV of condition:</p>
+<ul>
+<li><code>rt_word\</code>: Reaction time (ms) for word trials</li>
+<li><code>rt_nonword\</code>: Reaction time (ms) for non-word trials</li>
+<li><code>acc_word</code>: Accuracy for word trials</li>
+<li><code>acc_nonword</code>: Accuracy for non-word trials</li>
+</ul></li>
+</ul>
+<p>The simulated dataset and tutorial code can be found in the online supplementary materials. For newcomers to R, we would suggest working through this tutorial with the simulated dataset, then extending the code to your own datasets with a similar structure, and finally generalising the code to new structures and problems.</p>
+</div>
+<div id="setting-up-r-and-rstudio" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Setting up R and RStudio</h2>
+<p>We strongly encourage the use of RStudio to write code in R. R is the programming language whilst RStudio is an <em>integrated development environment</em> that makes working with R easier. More information on installing both R and RStudio can be found in the additional resources.</p>
+<p>Projects are a useful way of keeping all your code, data, and output in one place. To create a new project, open RStudio and click <code>File - New Project - New Directory - New Project</code>. You will be prompted to give the project a name, and select a location for where to store the project on your computer. Once you have done this, click <code>Create Project</code>. Download the simulated dataset and code tutorial Rmd file from <a href="https://osf.io/bj83f/files/">the online materials</a> and then (<code>ldt_data.csv</code>, <code>workbook.Rmd</code>) to this folder. The files pane on the bottom right of RStudio should now display this folder and the files it contains - this is known as your <em>working directory</em> and it is where R will look for any data you wish to import and where it will save any output you create.</p>
+<p>This tutorial will require you to use the packages contained with the <code>tidyverse</code> collection. Additionally, we will also require use of <code>patchwork</code>. To install these packages, copy and paste the below code into the console (the left hand pane) and press enter to execute the code.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># only run in the console, never put this in a script </span></span>
+<span id="cb1-2"><a href="introduction.html#cb1-2" aria-hidden="true" tabindex="-1"></a>package_list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;patchwork&quot;</span>)</span>
+<span id="cb1-3"><a href="introduction.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(package_list)</span></code></pre></div>
+<p>The R Markdown workbook available in the <a href="https://osf.io/bj83f/files/">online materials</a>contains all the code in this tutorial and there is more information and links to additional resources for how to use R Markdown for reproducible reports in the additional resources.</p>
+<p>The reason that the above install packages code is not included in the workbook is that every time you run the install command code it will install the latest version of the package. Leaving this code in your script can lead you to unintentionally install a package update you didn’t want. For this reason, avoid including install code in any script or Markdown document.</p>
+</div>
+<div id="preparing-your-data" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Preparing your data</h2>
+<p>Before you start visualising your data, you need to get it into an appropriate format. These preparatory steps can all be dealt with reproducibly using R and the additional resources section points to extra tutorials for doing so. However, performing these types of tasks in R can require more sophisticated coding skills and the solutions and tools are dependent on the idiosyncrasies of each dataset. For this reason, in this tutorial we encourage the reader to complete data preparation steps using the method they are most comfortable with and to focus on the aim of data visualisation.</p>
+<div id="data-format" class="section level3" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Data format</h3>
+<p>The simulated lexical decision data is provided in a <code>csv</code> file rather than e.g., <code>xslx</code>. Functions exist in R to read many other types of data files, however, we recommend that you convert any <code>xlsx</code> spreadsheets to <code>csv</code> by using the <code>Save As</code> function in Microsoft Excel. The <code>csv</code> file format strips all formatting and only stores data in a single sheet and so is simpler for new users to import to R. You may wish to create a <code>csv</code> file that contains only the data you want to visualise, rather than a full, larger workbook. When working with your own data, remove summary rows or additional notes from any files you import. All files should only contains the rows and columns of data you want to plot.</p>
+</div>
+<div id="variable-names" class="section level3" number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> Variable names</h3>
+<p>Ensuring that your variable names are consistent can make it much easier to work in R. We recommend using short but informative variable names, for example <code>rt_word</code> is preferred over <code>dv1_iv1</code> or <code>reaction_time_word_condition</code> because these are either hard to read or hard to type.</p>
+<p>It is also helpful to have a consistent naming scheme, particularly for variable names that require more than one word. Two popular options are <code>CamelCase</code> where each new word begins with a capital letter, or <code>snake_case</code> where all letters are lower case and words are separated by an underscore. For the purposes of naming variables, avoid using any spaces in variable names (e.g., <code>rt word</code>) and consider the additional meaning of a separator beyond making the variable names easier to read. For example, <code>rt_word</code>, <code>rt_nonword</code>, <code>acc_word</code>, and <code>acc_nonword</code> all have the DV to the left of the separator and the level of the IV to the right. <code>rt_word_condition</code> on the other hand has two separators but only one of them is meaningful and it is useful to be able to split variable names consistently. In this paper, we will use <code>snake_case</code> and lower case letters for all variable names so that we don’t have to remember where to put the capital letters.</p>
+<p>When working with your own data, you can rename columns in Excel, but the resources listed in the additional resources point to how to rename columns reproducibly with code.</p>
+</div>
+<div id="data-values" class="section level3" number="1.5.3">
+<h3><span class="header-section-number">1.5.3</span> Data values</h3>
+<p>A great benefit to using R rather than SPSS is that categorical data can be entered as text. In the tutorial dataset, language group is entered as 1 or 2, so that we can show you how to recode numeric values into factors with labels. However, we recommend recording meaningful labels rather than numbers from the beginning of data collection to avoid misinterpreting data due to coding errors. Note that values must match <em>exactly</em> in order to be considered in the same category and R is case sensitive, so “mono,” “Mono,” and “monolingual” would be classified as members of three separate categories.</p>
+<p>Finally, cells that represent missing data should be left empty rather than containing values like <code>NA</code>, <code>missing</code> or <code>0</code>. A complementary rule of thumb is that each column should only contain one type of data, such as words or numbers, not both.</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-barrett2019six" class="csl-entry">
+Barrett, Tyson S. 2019. <span>“Six Reasons to Consider Using r in Psychological Research.”</span>
+</div>
+<div id="ref-NYT-R" class="csl-entry">
+Bertini, Enrico, and Moritz Stefaner. 2015. <span>“Amanda Cox on Working with r, NYT Projects, Favorite Data [Podcast].”</span> <em>Data Stories</em>. <a href="https://datastori.es/ds-56-amanda-cox-nyt/">https://datastori.es/ds-56-amanda-cox-nyt/</a>.
+</div>
+<div id="ref-munafo2017manifesto" class="csl-entry">
+Munafò, Marcus R, Brian A Nosek, Dorothy VM Bishop, Katherine S Button, Christopher D Chambers, Nathalie Percie Du Sert, Uri Simonsohn, Eric-Jan Wagenmakers, Jennifer J Ware, and John PA Ioannidis. 2017. <span>“A Manifesto for Reproducible Science.”</span> <em>Nature Human Behaviour</em> 1 (1): 1–9.
+</div>
+<div id="ref-newman2012bar" class="csl-entry">
+Newman, George E, and Brian J Scholl. 2012. <span>“Bar Graphs Depicting Averages Are Perceptually Misinterpreted: The Within-the-Bar Bias.”</span> <em>Psychonomic Bulletin &amp; Review</em> 19 (4): 601–7.
+</div>
+<div id="ref-robins2003learning" class="csl-entry">
+Robins, Anthony, Janet Rountree, and Nathan Rountree. 2003. <span>“Learning and Teaching Programming: A Review and Discussion.”</span> <em>Computer Science Education</em> 13 (2): 137–72.
+</div>
+<div id="ref-BBC-R" class="csl-entry">
+Visual, BBC, and Data Journalism. 2019. <span>“How the BBC Visual and Data Journalism Team Works with Graphics in r.”</span> <em>Medium</em>. <a href="https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535">https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535</a>.
+</div>
+<div id="ref-wickham2010layered" class="csl-entry">
+Wickham, Hadley. 2010. <span>“A Layered Grammar of Graphics.”</span> <em>Journal of Computational and Graphical Statistics</em> 19 (1): 3–28.
+</div>
+<div id="ref-ggplot2" class="csl-entry">
+———. 2016. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.
+</div>
+<div id="ref-tidyverse" class="csl-entry">
+———. 2017. <em>Tidyverse: Easily Install and Load the ’Tidyverse’</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+</div>
+<div id="ref-wilkinson2005graph" class="csl-entry">
+Wilkinson, Leland, Anushka Anand, and Robert Grossman. 2005. <span>“Graph-Theoretic Scagnostics.”</span> In <em>IEEE Symposium on Information Visualization (InfoVis 05)</em>, 157–58. IEEE Computer Society.
+</div>
+<div id="ref-rminr" class="csl-entry">
+Wills, Andy. n.d. <span>“Teaching Research Methods in r.”</span> <em>Rminr</em>. <a href="https://www.andywills.info/rminr/rminrinpsy.html">https://www.andywills.info/rminr/rminrinpsy.html</a>.
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>The power of R is that it is extendable and open source - put simply, if a function doesn’t exist or is difficult to use, anyone can create a new <strong>package</strong> that contains data and code to allow you to perform new tasks. You may find it helpful to think of packages as additional apps that you need to download separately to extend the functionality beyond what comes with “Base R.”<a href="introduction.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Because there are so many different ways to achieve the same thing in R, when Googling for help with R, it is useful to append the name of the package or approach you are using, e.g., “how to make a histogram ggplot2.”<a href="introduction.html#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+<div class="psyteachr_footer">
+  
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  if (t = document.getElementById("webex-total_correct")) {
+    t.innerHTML =
+      document.getElementsByClassName("webex-correct").length + " of " +
+      document.getElementsByClassName("webex-solveme").length + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+  
+  if (my_answer !== "" & real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+  } else {
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);  
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }  
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }  
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+  
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off"); 
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+    
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+    
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  update_total_correct();
+}
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chapter-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
+"google": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": {},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+</body>
+
+</html>

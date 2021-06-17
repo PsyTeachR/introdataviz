@@ -1,0 +1,11 @@
+citHeader("To cite introdataviz in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "Data visualisation using R, for researchers who don't use R",
+  author   = "Nordmann, E., McAleer, P., Toivo, W., Paterson, H. & DeBruine, L.",
+  journal  = "Preprint",
+  year     = 2021,
+  url      = "https://psyteachr.github.io/introdataviz",
+  textVersion = "Nordmann, E., McAleer, P., Toivo, W., Paterson, H. & DeBruine, L. (2021). Data visualisation using R, for researchers who don't use R. Preprint."
+)

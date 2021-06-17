@@ -1,0 +1,690 @@
+---
+title: "workbook"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
+
+## Tutorial workbook
+
+This workbook contains the code from the tutorial paper. You can add notes to this file and/or make a duplicate copy to work with your own dataset.
+
+The document outline tool will help you navigate this workbook more easily (Ctrl+Shift+O on Windows, Cmd+Shift+O on Mac).
+
+This workbook contains code chunks for all the the code and activities in the tutorial. If you wish to create extra code chunks, you can use the Insert Code - R menu (a green box with a C and a plus sign) or use the keyboard shortcuts (Ctrl+Alt+I on Windows, Cmd+Option+I on Mac). 
+
+When you are working in a Markdown document, the working directory (where R looks for data files to import, and where it will save any output you create) will default to the folder that the .Rmd file is stored in when you open RStudio by opening the Markdown document. For this reason, make sure that the .Rmd file and the data file are in the same folder before you begin. 
+
+## Chapter 2
+
+### Loading packages
+
+Remember that you need to install the packages before you can load them - but never save the install code in your Markdown.
+
+```{r}
+library(tidyverse)
+library(patchwork)
+```
+
+### Loading data
+
+```{r}
+dat <- read_csv(file = "ldt_data.csv")
+```
+
+### Handling numeric factors
+
+```{r}
+summary(dat)
+str(dat)        
+```
+
+```{r}
+dat <- dat %>%
+  mutate(language = factor(
+    x = language, # column to translate
+    levels = c(1, 2), # values of the original data in preferred order
+    labels = c("monolingual", "bilingual") # labels for display
+  ))
+```
+
+### Demographic information
+
+```{r}
+dat %>%
+  group_by(language) %>%
+  count()
+```
+
+```{r}
+dat %>%
+  count()
+```
+
+```{r}
+dat %>%
+  summarise(mean_age = mean(age),
+            sd_age = sd(age),
+            n_values = n())
+```
+
+```{r}
+age_stats <- dat %>%
+  summarise(mean_age = mean(age),
+            sd_age = sd(age),
+            n_values = n())
+```
+
+```{r}
+dat %>%
+  group_by(language) %>%
+  summarise(mean_age = mean(age),
+            sd_age = sd(age),
+            n_values = n())
+```
+
+### Bar chart of counts
+
+```{r fig.cap = "Bar chart of counts."}
+ggplot(data = dat, mapping = aes(x = language)) +
+  geom_bar()
+```
+
+### Plotting existing aggregates and percent
+
+```{r fig.cap = "Bar chart of pre-calculated counts."}
+dat_percent <- dat %>%
+  group_by(language) %>%
+  count() %>%
+  ungroup() %>%
+  mutate(percent = (n/sum(n)*100))
+
+ggplot(dat_percent, aes(x = language, y = percent)) +
+  geom_bar(stat="identity") 
+```
+
+
+### Histogram
+
+```{r fig.cap = "Histogram of ages."}
+ggplot(dat, aes(x = age)) +
+  geom_histogram()
+```
+
+```{r fig.cap = "Histogram of ages where each bin covers one year."}
+ggplot(dat, aes(x = age)) +
+  geom_histogram(binwidth = 5)
+```
+
+### Customisation 1
+
+#### Changing colours
+
+```{r fig.cap="Histogram with custom colors for bar fill and line colors."}
+ggplot(dat, aes(age)) +
+  geom_histogram(binwidth = 1, 
+                 fill = "white", 
+                 colour = "black")
+```
+
+#### Editing axis names and labels
+
+```{r fig.cap = "Bar chart with custom axis labels."}
+ggplot(dat, aes(language)) +
+  geom_bar() +
+  scale_x_discrete(name = "Language group", 
+                   labels = c("Monolingual", "Bilingual")) +
+  scale_y_continuous(name = "Number of participants",
+                     breaks = c(0,10,20,30,40,50))
+```
+
+
+#### Discrete vs continuous errors
+
+```{r eval = FALSE}
+ggplot(dat, aes(language)) +
+  geom_bar() +
+  scale_x_continuous(name = "Language group", 
+                   labels = c("Monolingual", "Bilingual")) 
+```
+
+#### Adding a theme
+
+```{r fig.cap="Histogram with a custom theme."}
+ggplot(dat, aes(age)) +
+  geom_histogram(binwidth = 1, fill = "wheat", color = "black") +
+  scale_x_continuous(name = "Participant age (years)") +
+  theme_minimal()
+```
+
+```{r eval = FALSE}
+theme_set(theme_minimal())
+```
+
+### Activities 1
+
+1. 
+
+```{r}
+
+```
+
+2. 
+
+```{r}
+
+```
+
+3. 
+
+```{r}
+
+```
+
+4.
+
+```{r}
+
+```
+
+## Chapter 3
+
+### Transforming data
+
+Step 1
+
+```{r}
+long <- pivot_longer(data = dat, 
+                     cols = rt_word:acc_nonword, 
+                     names_to = c("dv_condition"),
+                     values_to = "dv")
+```
+
+Step 2
+
+```{r}
+long2 <- pivot_longer(data = dat, 
+                     cols = rt_word:acc_nonword, 
+                     names_sep = "_", 
+                     names_to = c("dv_type", "condition"),
+                     values_to = "dv")
+```
+
+Step 3
+
+```{r}
+dat_long <- pivot_wider(long2, 
+                        names_from = "dv_type", 
+                        values_from = "dv")
+```
+
+Combined steps
+
+```{r}
+dat_long <- pivot_longer(data = dat, 
+                     cols = rt_word:acc_nonword, 
+                     names_sep = "_", 
+                     names_to = c("dv_type", "condition"),
+                     values_to = "dv") %>%
+  pivot_wider(names_from = "dv_type", 
+              values_from = "dv")
+```
+
+### Histogram 2
+
+```{r}
+ggplot(dat_long, aes(x = rt)) +
+  geom_histogram(binwidth = 10, fill = "white", colour = "black") +
+  scale_x_continuous(name = "Reaction time (ms)")
+
+ggplot(dat_long, aes(x = acc)) +
+  geom_histogram(binwidth = 1, fill = "white", colour = "black") +
+  scale_x_continuous(name = "Accuracy (0-100)")
+```
+
+### Density plots
+
+```{r}
+ggplot(dat_long, aes(x = rt)) +
+  geom_density()+
+  scale_x_continuous(name = "Reaction time (ms)")
+```
+
+#### Grouped density plots
+
+```{r}
+ggplot(dat_long, aes(x = rt, fill = condition)) +
+  geom_density()+
+  scale_x_continuous(name = "Reaction time (ms)") +
+  scale_fill_discrete(name = "Condition",
+                      labels = c("Word", "Non-word"))
+```
+
+### Scatterplots
+
+```{r}
+ggplot(dat_long, aes(x = rt, y = age)) +
+  geom_point()
+```
+
+With line of best fit
+
+```{r}
+ggplot(dat_long, aes(x = rt, y = age)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+#### Grouped scatterplots
+
+```{r}
+ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_colour_discrete(name = "Condition",
+                      labels = c("Word", "Non-word"))
+```
+
+### Customisation 2
+
+#### Accessible colour schemes
+
+```{r}
+ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  # use "viridis_d" instead of "discrete" for better colours
+  scale_colour_viridis_d(name = "Condition",
+                        labels = c("Word", "Non-word"),
+                        option = "E")
+```
+
+### Activities 2
+
+1. 
+
+```{r}
+
+```
+
+2.
+
+```{r}
+
+```
+
+
+3.
+
+```{r}
+
+```
+
+4.
+
+```{r}
+
+```
+
+5. 
+
+```{r}
+
+```
+
+## Chapter 4
+
+### Boxplots
+
+```{r}
+ggplot(dat_long, aes(x = condition, y = acc)) +
+  geom_boxplot()
+```
+
+#### Grouped boxplots
+
+```{r}
+ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
+  geom_boxplot() +
+  scale_fill_viridis_d(option = "E",
+                       name = "Group",
+                       labels = c("Bilingual", "Monolingual")) +
+  theme_classic() +
+  scale_x_discrete(name = "Condition",
+                   labels = c("Word", "Non-word")) +
+  scale_y_continuous(name = "Accuracy")
+```
+
+### Violin plots
+
+```{r}
+ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
+  geom_violin() +
+  scale_fill_viridis_d(option = "D",
+                       name = "Group",
+                       labels = c("Bilingual", "Monolingual")) +
+  theme_classic() +
+  scale_x_discrete(name = "Condition",
+                   labels = c("Word", "Non-word")) +
+  scale_y_continuous(name = "Accuracy")
+```
+
+### Bar chart of means
+
+```{r}
+ggplot(dat_long, aes(x = condition, y = rt)) +
+  stat_summary(fun = "mean", geom = "bar")
+```
+
+```{r}
+ggplot(dat_long, aes(x = condition, y = rt)) +
+  stat_summary(fun = "mean", geom = "bar") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .2)
+```
+
+### Violin-boxplot
+
+```{r}
+ggplot(dat_long, aes(x = condition, y= rt)) +
+  geom_violin() +
+  # remove the median line with fatten = NULL
+  geom_boxplot(width = .2, fatten = NULL) +
+  stat_summary(fun = "mean", geom = "point") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1)
+```
+
+Messy layers
+
+```{r}
+ggplot(dat_long, aes(x = condition, y= rt)) +
+  geom_boxplot() +  
+  geom_violin() +
+  stat_summary(fun = "mean", geom = "point") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1)
+```
+
+#### Grouped violin-boxplots
+
+```{r}
+ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
+  geom_violin() +
+  geom_boxplot(width = .2, fatten = NULL) +
+  stat_summary(fun = "mean", geom = "point") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1)
+```
+
+Fixed positions
+
+```{r}
+ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
+  geom_violin() +
+  geom_boxplot(width = .2, fatten = NULL, position = position_dodge(.9)) +
+  stat_summary(fun = "mean", geom = "point", 
+               position = position_dodge(.9)) +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1,
+               position = position_dodge(.9))
+```
+
+### Customisation part 3
+
+#### Colours
+
+Hard to see colours
+
+```{r}
+ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
+  geom_violin() +
+  geom_boxplot(width = .2, fatten = NULL, position = position_dodge(.9)) +
+  stat_summary(fun = "mean", geom = "point", 
+               position = position_dodge(.9)) +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1,
+               position = position_dodge(.9)) +
+  scale_fill_viridis_d(option = "E") +
+  theme_minimal()
+```
+
+Adjusted geom colours
+
+```{r}
+ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
+  geom_violin() +
+  geom_boxplot(width = .2, fatten = NULL, colour = "grey") +
+  stat_summary(fun = "mean", geom = "point", colour = "grey") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1, colour = "grey") +
+  scale_fill_viridis_d(option = "E") +
+  theme_minimal()
+```
+
+Adjusted colour transparency
+
+```{r}
+ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
+  geom_violin(alpha = .4) +
+  geom_boxplot(width = .2, fatten = NULL, alpha = .5) +
+  stat_summary(fun = "mean", geom = "point") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
+  scale_fill_viridis_d(option = "E") +
+  theme_minimal()
+```
+
+### Activities 3
+
+1. Write any notes you have here.
+
+2. Give yourself a high five here.
+
+3. 
+
+```{r}
+
+```
+
+4.
+
+```{r}
+
+```
+
+5. 
+
+```{r}
+
+```
+
+## Chapter 5
+
+### Interaction plots
+
+```{r}
+ggplot(dat_long, aes(x = condition, y = rt, 
+                     shape = language,
+                     group = language,
+                     color = language)) +
+  stat_summary(fun = "mean", geom = "point", size = 3) +
+  stat_summary(fun = "mean", geom = "line") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .2) +
+  scale_color_manual(values = c("blue", "darkorange")) +
+  theme_classic()
+```
+
+### Combined interaction plots
+
+```{r}
+ggplot(dat_long, aes(x = condition, y = rt, group = language, shape = language)) +
+  geom_point(aes(colour = language),alpha = .2) +
+  geom_line(aes(group = id, colour = language), alpha = .2) +
+   stat_summary(fun = "mean", geom = "point", size = 2, colour = "black") +
+  stat_summary(fun = "mean", geom = "line", colour = "black") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .2, colour = "black") +
+  theme_minimal()
+```
+
+### Facets
+
+Faceted scatterplots
+
+```{r}
+ggplot(dat_long, aes(x = rt, y = age)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(~condition) +
+  scale_color_discrete(name = "Condition",
+                      labels = c("Word", "Non-word"))
+```
+
+Faceted violin-boxplots
+
+```{r}
+ggplot(dat_long, aes(x = condition, y= rt)) +
+  geom_violin() +
+  geom_boxplot(width = .2, fatten = NULL) +
+  stat_summary(fun = "mean", geom = "point") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
+  facet_wrap(~language) +
+  theme_minimal()
+```
+
+Adjusted the facet labels
+
+```{r}
+ggplot(dat_long, aes(x = condition, y= rt)) +
+  geom_violin() +
+  geom_boxplot(width = .2, fatten = NULL) +
+  stat_summary(fun = "mean", geom = "point") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
+  facet_wrap(~language, 
+             labeller = labeller(
+               language = c(monolingual = "Monolingual participants",
+                             bilingual = "Bilingual participants"))) +
+  theme_minimal()
+```
+
+### Saving plots
+
+```{r}
+p1 <- ggplot(dat_long, aes(x = rt)) +
+  geom_histogram(binwidth = 10, color = "black")
+
+p2 <- ggplot(dat_long, aes(x = acc)) +
+  geom_histogram(binwidth = 1, color = "black") 
+```
+
+```{r}
+p3 <- p1 + theme_minimal()
+```
+
+### Exporting plots
+
+```{r}
+ggsave(filename = "my_plot.png") # save last displayed plot
+ggsave(filename = "my_plot.png", plot = p3) # save plot p3
+```
+
+### Mulitple plots
+
+Combining two plots
+
+```{r}
+p1 + p2 # side-by-side
+```
+
+```{r}
+p1 / p2 # stacked
+```
+
+Combining three or more plots
+
+```{r}
+p5 <- ggplot(dat_long, aes(x = condition, y = rt, group = language, shape = language)) +
+  geom_point(aes(colour = language),alpha = .2) +
+  geom_line(aes(group = id, colour = language), alpha = .2) +
+  stat_summary(fun = "mean", geom = "point", size = 2, colour = "black") +
+  stat_summary(fun = "mean", geom = "line", colour = "black") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .2, colour = "black") +
+  theme_minimal()
+
+p6 <- ggplot(dat_long, aes(x = condition, y= rt)) +
+  geom_violin() +
+  geom_boxplot(width = .2, fatten = NULL) +
+  stat_summary(fun = "mean", geom = "point") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
+  facet_wrap(~language, 
+             labeller = labeller(
+               language = (c(monolingual = "Monolingual participants", 
+                             bilingual = "Bilingual participants")))) +
+  theme_minimal()
+```
+
+```{r}
+p1 /p5 / p6 
+(p1 + p6) / p5 
+p6 | p1 / p5
+```
+
+### Customisation 4
+
+#### Axis labels
+
+```{r}
+p5 + labs(x = "Type of word",
+          y = "Reaction time (ms)",
+          title = "Language group by word type interaction plot",
+          subtitle = "Reaction time data")
+```
+
+#### Non-meanginful colours
+
+With redundant legend
+
+```{r}
+ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
+  geom_violin(alpha = .4) +
+  geom_boxplot(width = .2, fatten = NULL, alpha = .6) +
+  stat_summary(fun = "mean", geom = "point") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
+  facet_wrap(~language, 
+             labeller = labeller(
+               language = (c(monolingual = "Monolingual participants", 
+                             bilingual = "Bilingual participants")))) +
+  theme_minimal() +
+  scale_fill_viridis_d(option = "E")
+```
+
+Without redundant legend
+
+```{r}
+ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
+  geom_violin(alpha = .4) +
+  geom_boxplot(width = .2, fatten = NULL, alpha = .6) +
+  stat_summary(fun = "mean", geom = "point") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
+  facet_wrap(~language, 
+             labeller = labeller(language = (c(monolingual = "Monolingual participants", bilingual = "Bilingual participants")))) +
+  theme_minimal() +
+  scale_fill_viridis_d(option = "E") +
+  guides(fill = FALSE)
+```
+
+### Acitivites 4
+
+1. 
+
+```{r}
+
+```
+
+2.
+
+```{r}
+
+```
+
+
