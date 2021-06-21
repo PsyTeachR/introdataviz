@@ -16,13 +16,15 @@ Split-violin plots remove the redundancy of mirrored violin plots and make it ea
 
 ```{r splitviolin, fig.cap = "Split-violin plot"}
 ggplot(dat_long, aes(x = condition, y = rt, fill = language)) +
-  introdataviz::geom_split_violin(alpha = .4) +
+  introdataviz::geom_split_violin(alpha = .4, trim = FALSE) +
   geom_boxplot(width = .2, alpha = .6, show.legend = FALSE) +
   stat_summary(fun.data = "mean_se", geom = "pointrange", show.legend = F, 
                position = position_dodge(.175)) +
   scale_x_discrete(name = "Condition", labels = c("Non-word", "Word")) +
-  scale_y_continuous(name = "Reaction time (ms)") +
-  scale_fill_viridis_d(option  ="E", name = "Language group") +
+  scale_y_continuous(name = "Reaction time (ms)",
+                     breaks = seq(200, 800, 100), 
+                     limits = c(200, 800)) +
+  scale_fill_viridis_d(option = "E", name = "Language group") +
   theme_minimal()
 ```
 
@@ -32,7 +34,6 @@ Raincloud plots combine a density plot, boxplot, raw data points, and any desire
 
 ```{r raincloud, fig.cap="Raincloud plot"}
 rain_height <- .1
-colours <- c("dodgerblue2", "darkorange")
 
 ggplot(dat_long, aes(x = "", y = rt, fill = language)) +
   # clouds
@@ -42,7 +43,7 @@ ggplot(dat_long, aes(x = "", y = rt, fill = language)) +
   geom_point(aes(colour = language), size = 2, alpha = .5, show.legend = FALSE, 
               position = position_jitter(width = rain_height, height = 0)) +
   # boxplots
-  geom_boxplot(width = rain_height, alpha = 0.5, show.legend = FALSE, 
+  geom_boxplot(width = rain_height, alpha = 0.4, show.legend = FALSE, 
                outlier.shape = NA,
                position = position_nudge(x = -rain_height*2)) +
   # mean and SE point in the cloud
@@ -56,11 +57,11 @@ ggplot(dat_long, aes(x = "", y = rt, fill = language)) +
   coord_flip() +
   facet_wrap(~factor(condition, 
                      levels = c("word", "nonword"), 
-                     labels = c("Words", "Non-Words")), 
+                     labels = c("Word", "Non-Word")), 
              nrow = 2) +
   # custom colours and theme
-  scale_fill_manual(values = colours, name = "Language group") +
-  scale_colour_manual(values = colours) +
+  scale_fill_viridis_d(option = "E", name = "Language group") +
+  scale_colour_viridis_d(option  ="E") +
   theme_minimal() +
   theme(panel.grid.major.y = element_blank(),
         legend.position = c(0.8, 0.8),
@@ -69,11 +70,27 @@ ggplot(dat_long, aes(x = "", y = rt, fill = language)) +
 
 ## Ridge plots
 
-Ridge plots are a series of density plots and show the distribution of numeric values for several groups. Figure  is by [@Nation2017] and demonstrates how effective this type of visualisation can be to convey a lot of information very intuitively whilst being visually attractive.
+Ridge plots are a series of density plots and show the distribution of numeric values for several groups. Figure\ \@ref(fig:ridgeplot) shows data from [@Nation2017] and demonstrates how effective this type of visualisation can be to convey a lot of information very intuitively whilst being visually attractive.
 
 
-```{r ridgeplot, echo = FALSE, fig.cap="A ridge plot."}
-knitr::include_graphics("https://raw.githubusercontent.com/zonination/perceptions/master/joy1.png")
+```{r ridgeplot, fig.cap="A ridge plot.", fig.width = 5, fig.height = 6}
+# read in data from Nation et al. 2017
+data <- read_csv("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv")
+
+# convert to long format and percents
+long <- pivot_longer(data, cols = everything(),
+                     names_to = "label",
+                     values_to = "prob") %>%
+  mutate(label = factor(label, names(data), names(data)),
+         prob = prob/100)
+
+# ridge plot
+ggplot(long, aes(x = prob, y = label, fill = label)) + 
+  ggridges::geom_density_ridges(scale = 2, show.legend = FALSE) +
+  scale_x_continuous(name = "Assigned Probability", 
+                     limits = c(0, 1), labels = scales::percent) +
+  # control space at top and bottom of plot
+  scale_y_discrete(name = "", expand = c(0.02, 0, .08, 0))
 ```
 
 ## Alluvial plots
@@ -100,10 +117,12 @@ dat <- faux::sim_design(
 
 # plot data with colours by Year1 grades
 ggplot(dat, aes(y = n, axis1 = Y1, axis2 = Y2, axis3 = Y3, axis4 = Y4)) +
-  geom_alluvium(aes(fill = Y1), width = 1/6) +
+  geom_alluvium(aes(fill = Y4), width = 1/6) +
   geom_stratum(fill = "grey", width = 1/3, color = "black") +
   geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
-  theme_minimal()
+  scale_fill_viridis_d(name = "Final Classification") +
+  theme_minimal() +
+  theme(legend.position = "top")
 ```
 
 # Conclusion

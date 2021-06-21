@@ -1,3 +1,9 @@
+# introdataviz 0.0.0.9002
+
+* wrote code for the ggridge plot
+* Updated advanced plots
+* papaja format
+
 # introdataviz 0.0.0.9001
 
 ## Phil's comments

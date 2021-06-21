@@ -1,0 +1,212 @@
+---
+title             : "Data visualisation using R, for researchers who don’t use R"
+shorttitle        : "Dataviz in R"
+author: 
+  - name          : "Emily Nordmann"
+    affiliation   : "1"
+    corresponding : yes
+    address       : "62 Hillhead Street, Glasgow, G12 8QB"
+    email         : "emily.nordmann@glasgow.ac.uk"
+  - name          : "Phil McAleer"
+    affiliation   : "1"
+    email         : "philip.mcaleer@glasgow.ac.uk"
+  - name          : "Wilhelmiina Toivo"
+    affiliation   : "1"
+    email         : "wilhelmiina.toivo@glasgow.ac.uk"
+  - name          : "Helena Paterson"
+    affiliation   : "1"
+    email         : "helena.paterson@glasgow.ac.uk"
+  - name          : "Lisa M. DeBruine"
+    affiliation   : "2"
+    email         : "lisa.debruine@glasgow.ac.uk"
+affiliation:
+  - id            : "1"
+    institution   : "School of Psychology, University of Glasgow"
+  - id            : "2"
+    institution   : "Institute of Neuroscience and Psychology, University of Glasgow"
+authornote: |
+  
+  Emily Nordmann ![](images/orcid.png) https://orcid.org/0000-0002-0806-1081
+  Phil McAleer ![](images/orcid.png) https://orcid.org/0000-0002-4523-2097
+  Wilhelmiina Toivo ![](images/orcid.png) https://orcid.org/0000-0002-5688-9537
+  Helena Paterson ![](images/orcid.png) https://orcid.org/0000-0001-7715-5973
+  Lisa DeBruine ![](images/orcid.png) https://orcid.org/0000-0002-7523-5539  
+abstract: |
+  
+  This is a pre-submission manuscript and tutorial and has not yet undergone peer-review. We welcome user feedback which you can provide using this form: <https://forms.office.com/r/ba1UvyykYR>. Please note that this tutorial is likely to undergo changes before it is accepted for publication and we would encourage you to check for updates before citing.  All materials associated with this article (including a version that is more accessible than the PDF version) can be accessed at <https://psyteachr.github.io/introdataviz>. 
+keywords          : "visualization, ggplot, plots, R"
+wordcount         : "11472"
+bibliography      : ["book.bib", "r-references.bib"]
+floatsintext      : yes
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+documentclass     : "apa6"
+classoption       : "doc"
+output            : 
+  papaja::apa6_pdf:
+    default
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
+    toc_depth: 4
+  rmarkdown::word_document:
+    default
+header-includes   :
+  - \usepackage{float}
+  - \floatplacement{figure}{H}
+  - \raggedbottom
+note              : "Preprint"
+---
+
+<style>
+  blockquote { 
+    font-size: 13px; 
+    border: 1px solid grey; 
+    background-color: #EEE;
+    border-radius: 1em;
+  }
+  
+  address { display: none; }
+</style>
+
+```{r setup, include = FALSE}
+library(papaja)
+library(tidyverse)
+library(introdataviz)
+library(patchwork)
+library(knitr)
+library(faux)
+library(ggalluvial)
+library(ggridges)
+
+theme_set(theme_grey())
+
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed,
+                      echo       = TRUE,
+                      fig.path   = "images/",
+                      fig.width  = 8,
+                      fig.height = 5,
+                      fig.align  = "center",
+                      out.width  = "100%",
+                      warning    = FALSE,
+                      message    = FALSE
+                      )
+
+# set up data
+dat <- introdataviz::ldt_data %>%
+  mutate(language = factor(
+    x = language, # column to translate
+    levels = c(1, 2), # values of the original data in preferred order
+    labels = c("monolingual", "bilingual") # labels for display
+  ))
+
+dat_long <- introdataviz::ldt_data
+```
+
+
+```{r file-copy, eval= FALSE, include = FALSE}
+# copy files from book
+file.copy("../book/book.bib", "./")
+file.copy("../book/ldt_data.csv", "./")
+
+# copy and process chapters
+files <- sprintf("0%d-ch%d.Rmd", 1:6, 1:6)
+for (file in files) {
+  file.copy(paste0("../book/", file), "./", overwrite = TRUE)
+
+  ch <- readLines(file) #%>%
+    #gsub("^#", "##", .) # increments header
+
+  # remove solutions
+  hides <- grep("^`r hide", ch)
+  unhides <- grep("^`r unhide", ch)
+  to_omit <- mapply(function(a, b) a:b, hides, unhides) %>% unlist()
+  if (length(to_omit) > 0) ch <- ch[-to_omit]
+  
+  write(ch, file)
+}
+
+# omit code from ch 6
+ch <- readLines(files[6]) %>%
+  gsub("r (splitviolin|raincloud|ridgeplot|alluvial),", "r \\1, echo = FALSE,", .)
+write(ch, files[6])
+```
+
+```{r child = '01-ch1.Rmd'}
+```
+
+```{r child = '02-ch2.Rmd'}
+```
+
+```{r child = '03-ch3.Rmd'}
+```
+
+```{r child = '04-ch4.Rmd'}
+```
+
+```{r child = '05-ch5.Rmd'}
+```
+
+```{r child = '06-ch6.Rmd'}
+```
+
+
+
+# Acknowledgements
+
+### Author Contributions
+
+<!--
+[1/con] Conceptualization: Ideas; formulation or evolution of overarching research goals and aims.
+[2/dat] Data curation: Management activities to annotate (produce metadata), scrub data and maintain research data (including software code, where it is necessary for interpreting the data itself) for initial use and later re-use.
+[3/ana] Formal analysis: Application of statistical, mathematical, computational, or other formal techniques to analyse or synthesize study data.
+[4/fun] Funding acquisition: Acquisition of the financial support for the project leading to this publication.
+[5/inv] Investigation: Conducting a research and investigation process, specifically performing the experiments, or data/evidence collection.
+[6/met] Methodology: Development or design of methodology; creation of models.
+[7/adm] Project administration: Management and coordination responsibility for the research activity planning and execution.
+[8/res] Resources: Provision of study materials, reagents, materials, patients, laboratory samples, animals, instrumentation, computing resources, or other analysis tools.
+[9/sof] Software: Programming, software development; designing computer programs; implementation of the computer code and supporting algorithms; testing of existing code components.
+[10/sup] Supervision: Oversight and leadership responsibility for the research activity planning and execution, including mentorship external to the core team.
+[11/val] Validation: Verification, whether as a part of the activity or separate, of the overall replication/reproducibility of results/experiments and other research outputs.
+[12/vis] Visualization: Preparation, creation and/or presentation of the published work, specifically visualization/data presentation.
+[13/dra] Writing - original draft: Preparation, creation and/or presentation of the published work, specifically writing the initial draft (including substantive translation).
+[14/edi] Writing - review & editing: Preparation, creation and/or presentation of the published work by those from the original research group, specifically critical review, commentary or revision -- including pre- or post-publication stages.
+-->
+
+
+* EN: Conceptualization; Visualization; Writing - original draft
+* PM: Visualization; Writing - original draft
+* WT: Visualization; Writing - original draft
+* HP: Visualization; Writing - original draft
+* LD: Software; Visualization; Writing - review & editing
+
+### Declaration of Conflicting Interests
+
+The author(s) declared that there were no conflicts of interest with respect to the authorship or the publication of this article.
+
+### Funding
+
+LMD is supported by European Research Council grant #647910.
+
+### Research Software
+
+This tutorial uses the following open-source research software: @R-base; @R-tidyverse; @R-faux; @R-papaja, @R-ggplot2, @R-patchwork, @R-ggalluvial-article, @R-ggridges.
+
+\newpage
+
+# References
+
+```{r create_r-references, echo = FALSE}
+r_refs(file = "r-references.bib")
+```
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id = "refs"></div>
+\endgroup

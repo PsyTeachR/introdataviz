@@ -82,7 +82,7 @@ long2 <- pivot_longer(data = dat,
 
 
 ```{r long-example, echo = FALSE}
-head(long2) %>% knitr::kable(digits = 2, caption = "Data in long format with dv_type and condition in separate columns.")
+head(long2) %>% knitr::kable(digits = 2, caption = "Data in long format with dv type and condition in separate columns.")
 ```
 
 ### Step 3: `pivot_wider()`

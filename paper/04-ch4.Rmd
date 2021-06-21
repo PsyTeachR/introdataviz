@@ -1,0 +1,178 @@
+# Representing Summary Statistics
+
+The layering approach that is used in `ggplot` to make figures comes into its own when you want to include information about the distribution and spread of scores. In this section we introduce different ways of including summary statistics on your figures.
+
+## Boxplots
+
+As with `geom_point()`, the boxplot geom also require an x and y-variable to be specified. In this case, `x` must be a discrete, or categorical variable, whilst `y` must be continuous.
+
+```{r boxplot1, fig.cap="Basic boxplot."}
+ggplot(dat_long, aes(x = condition, y = acc)) +
+  geom_boxplot()
+```
+
+### Grouped boxplots
+
+As with histograms and density plots, `fill` can be used to create grouped boxplots. This looks like a lot of complicated code at first glance, but most of it is just editing the axis labels.
+
+```{r boxplot3, fig.cap="Grouped boxplots"}
+ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
+  geom_boxplot() +
+  scale_fill_viridis_d(option = "E",
+                       name = "Group",
+                       labels = c("Bilingual", "Monolingual")) +
+  theme_classic() +
+  scale_x_discrete(name = "Condition",
+                   labels = c("Word", "Non-word")) +
+  scale_y_continuous(name = "Accuracy")
+```
+
+## Violin plots
+
+Violin plots display the distribution of a dataset and can be created by calling `geom_violin()`. They are so-called because the shape they make sometimes looks something like a violin. They are essentially a mirrored density plot on its side. Note that the below code is identical to the code used to draw the boxplots above, except for the call to `geom_violin()` rather than `geom_boxplot().`
+
+```{r violin1, fig.cap="Violin plot."}
+ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
+  geom_violin() +
+  scale_fill_viridis_d(option = "D",
+                       name = "Group",
+                       labels = c("Bilingual", "Monolingual")) +
+  theme_classic() +
+  scale_x_discrete(name = "Condition",
+                   labels = c("Word", "Non-word")) +
+  scale_y_continuous(name = "Accuracy")
+```
+
+## Bar chart of means
+
+Commonly, rather than visualising distributions of raw data researchers will wish to visualise means using a bar chart with error bars. As with SPSS and  Excel, `ggplot` requires you to calculate the summary statistics and then plot the summary. There are at least two ways to do this, in the first you make a table of summary statistics as we did earlier when calculating the participant demographics and then plot that table. The second approach is to calculate the statistics within a layer of the plot. That is the approach we will use below. 
+
+First we present code for making a bar chart. The code for bar charts is here because it is a common visualisation that is familiar to most researchers, however, we would urge you to use a visualisation that provides more transparency about the distribution of the raw data, such as the violin-boxplots we will present in the next section.
+
+To summarise the data into means we use a new function `stat_summary`. Rather than calling a `geom_*` function, we call `stat_summary()` and specify how we want to summarise the data and how we want to present that summary in our figure. 
+
+-   `fun` specifies the summary function that gives us the y-value we want to plot, in this case, `mean`.
+
+-   `geom` specifies what shape or plot we want to use to display the summary. For the first layer we will specify `bar`. As with the other geom-type functions we have shown you, this part of the `stat_summary()` function is tied to the aesthetic mapping in the first line of code.  The underlying statistics for a bar chart means that we must specify and IV (x-axis) as well as the DV (y-axis).
+
+```{r badbar1, fig.cap="Bar plot of means."}
+ggplot(dat_long, aes(x = condition, y = rt)) +
+  stat_summary(fun = "mean", geom = "bar")
+```
+
+To add the error bars, another layer is added with a second call to `stat_summary`. This time, the function represents the type of error bars we wish to draw, you can choose from `mean_se` for standard error, `mean_cl_normal` for confidence intervals, or `mean_sdl` for standard deviation. `width` controls the width of the error bars - try changing the value to see what happens.
+
+-   Whilst `fun` returns a single value (y) per condition, `fun.data` returns the y-values we want to plot plus their minimum and maximum values, in this case, `mean_se`
+
+```{r badbar2, fig.cap="Bar plot of means with error bars representing SE."}
+ggplot(dat_long, aes(x = condition, y = rt)) +
+  stat_summary(fun = "mean", geom = "bar") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .2)
+```
+
+## Violin-boxplot
+
+The power of the layered system for making figures is further highlighted by the ability to combine different types of plots. For example, rather than using a bar chart with error bars, one can easily create a single plot that includes density of the distribution, confidence intervals, means and standard errors. In the below code we first draw a violin plot, then layer on a boxplot, a point for the mean (note `geom = "point"` instead of `"bar"`) and standard error bars (`geom = "errorbar"`). This plot does not require much additional code to produce than the bar plot with error bars, yet the amount of information displayed is vastly superior.
+
+-   `fatten = NULL` in the boxplot geom removes the median line, which can make it easier to see the mean and error bars. Including this argument will result in the warning message `Removed 1 rows containing missing values (geom_segment)` and is not a cause for concern. Removing this argument will reinstate the median line.
+
+```{r viobox1, fig.cap="Violin-boxplot with mean dot and standard error bars.", warning = FALSE}
+ggplot(dat_long, aes(x = condition, y= rt)) +
+  geom_violin() +
+  # remove the median line with fatten = NULL
+  geom_boxplot(width = .2, fatten = NULL) +
+  stat_summary(fun = "mean", geom = "point") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1)
+```
+
+It is important to note that the order of the layers matters and it is worth experimenting with the order to see where the order matters. For example, if we call `geom_boxplot()` followed by `geom_violin()`, we get the following mess:
+
+```{r viobox1b, fig.cap="Plot with the geoms in the wrong order.", warning = FALSE}
+ggplot(dat_long, aes(x = condition, y= rt)) +
+  geom_boxplot() +  
+  geom_violin() +
+  stat_summary(fun = "mean", geom = "point") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1)
+```
+
+### Grouped violin-boxplots
+
+As with previous plots, another variable can be mapped to `fill` for the violin-boxplot. However, simply adding `fill` to the mapping causes the different components of the plot to become misaligned because they have different default positions:
+
+```{r viobox2, fig.cap="Grouped violin-boxplots without repositioning.", warning = FALSE}
+ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
+  geom_violin() +
+  geom_boxplot(width = .2, fatten = NULL) +
+  stat_summary(fun = "mean", geom = "point") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1)
+```
+
+To rectify this we need to adjust the argument `position` for each of the misaligned layers. `position_dodge()` instructs R to move (dodge) the position of the plot component by the specified value - finding what value you need can sometimes take trial and error.
+
+```{r viobox3, fig.cap="Grouped violin-boxplots with repositioning.", warning = FALSE}
+ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
+  geom_violin() +
+  geom_boxplot(width = .2, fatten = NULL, position = position_dodge(.9)) +
+  stat_summary(fun = "mean", geom = "point", 
+               position = position_dodge(.9)) +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1,
+               position = position_dodge(.9))
+
+```
+
+## Customisation part 3
+
+Combining multiple type of plots can present an issue with the colours, particularly when the viridis scheme is used - in the below example it is hard to make out the black lines of the boxplot and the mean/error bars.
+
+```{r viobox4, fig.cap="A color scheme that makes lines difficult to see.", warning = FALSE}
+ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
+  geom_violin() +
+  geom_boxplot(width = .2, fatten = NULL, position = position_dodge(.9)) +
+  stat_summary(fun = "mean", geom = "point", 
+               position = position_dodge(.9)) +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1,
+               position = position_dodge(.9)) +
+  scale_fill_viridis_d(option = "E") +
+  theme_minimal()
+```
+
+There are a number of solutions to this problem. First, we can change the colour of individual geoms by adding `colour = "colour"` to each relevant geom:
+
+```{r viobox5, fig.cap="Manually changing the line colors.",  warning = FALSE}
+ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
+  geom_violin() +
+  geom_boxplot(width = .2, fatten = NULL, colour = "grey") +
+  stat_summary(fun = "mean", geom = "point", colour = "grey") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1, colour = "grey") +
+  scale_fill_viridis_d(option = "E") +
+  theme_minimal()
+```
+
+We can also keep the original colours but adjust the transparency of each layer using `alpha`. Again, the exact values needed can take trial and error:
+
+```{r viobox6, fig.cap="Using transparency on the fill color.", warning = FALSE}
+ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
+  geom_violin(alpha = .4) +
+  geom_boxplot(width = .2, fatten = NULL, alpha = .5) +
+  stat_summary(fun = "mean", geom = "point") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
+  scale_fill_viridis_d(option = "E") +
+  theme_minimal()
+```
+
+## Activities 3
+
+Before you go on, do the following:
+
+1. Review all the code you have run so far. Try to identify the commonalities between each plot's code and the bits of the code you might change if you were using a different dataset.
+
+2. Take a moment to recognise the complexity of the code you are now able to read.
+
+3. For the violin-boxplot, for `geom = "point"`, try changing `fun` to `median`
+
+
+4. For the violin-boxplot, for `geom = "errorbar"`, try changing `fun.data` to `mean_cl_normal` (for 95% CI)
+
+
+5. Go back to the grouped density plots and try changing the transparency with `alpha`.
+

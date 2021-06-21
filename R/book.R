@@ -1,4 +1,4 @@
-' Open the introdataviz book
+#' Open the introdataviz book
 #'
 #' @return NULL
 #' @export
