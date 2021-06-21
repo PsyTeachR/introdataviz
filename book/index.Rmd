@@ -26,4 +26,4 @@ This is a pre-submission manuscript and tutorial and has not yet undergone peer-
 
 Please cite both the preprint and interactive online tutorial as: 
 
-Nordmann, E., McAleer, P., Toivo, W., Paterson, H. & DeBruine, L. (2021). Data visualisation using R, for researchers who don't use R. Preprint. DOI TBC.
+Nordmann, E., McAleer, P., Toivo, W., Paterson, H. & DeBruine, L. (2021). Data visualisation using R, for researchers who don't use R. Preprint. https://doi.org/10.31234/osf.io/4huvw
