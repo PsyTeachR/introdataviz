@@ -39,7 +39,7 @@ introdataviz::workbook()
 ## Data functions
 
 `ldt_data` is the main data set we use in the tutorials. It is simulated
-stroop task data for monolingual and bilingual participants. DVs are
+lexical decision task data for monolingual and bilingual participants. DVs are
 mean reaction time (rt) and accuracy (acc) for words and non-words.
 
 | id   | age | language | rt\_word | rt\_nonword | acc\_word | acc\_nonword |
