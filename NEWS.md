@@ -3,6 +3,7 @@
 * wrote code for the ggridge plot
 * Updated advanced plots
 * papaja format
+* changed labeller to factor for facet labels
 
 # introdataviz 0.0.0.9001
 
