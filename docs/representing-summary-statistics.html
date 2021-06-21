@@ -5,20 +5,20 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Representing Summary Statistics | Data visualisation using R, for researchers who don’t use R</title>
-  <meta name="description" content="Abstract here." />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Representing Summary Statistics | Data visualisation using R, for researchers who don’t use R" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Abstract here." />
+  <meta property="og:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 4 Representing Summary Statistics | Data visualisation using R, for researchers who don’t use R" />
   
-  <meta name="twitter:description" content="Abstract here." />
+  <meta name="twitter:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
   
 
 <meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="transforming-data.html"/>
 <link rel="next" href="multi-part-plots.html"/>
-<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +51,6 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <meta property="og:title" content="IntroDataViz">
 <meta property="og:description" content="Data Visualisation Using R, For Researchers Who Don’t Use R.">
 <meta property="og:image" content="https://psyteachr.github.io/introdataviz/images/card.png">
@@ -127,29 +125,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
-
 <link rel="stylesheet" href="include/psyteachr.css" type="text/css" />
 <link rel="stylesheet" href="include/webex.css" type="text/css" />
 <link rel="stylesheet" href="include/style.css" type="text/css" />
@@ -166,7 +141,6 @@ div.csl-indent {
 
 <ul class="summary">
 <li><a href="./">IntroDataViz</a></li>
-<li><a href="https://zenodo.org/badge/latestdoi/166559207"><img src="https://zenodo.org/badge/166559207.svg" alt="DOI"></a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
@@ -261,26 +235,18 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="multi-part-plots.html"><a href="multi-part-plots.html#activities-4"><i class="fa fa-check"></i><b>5.8</b> Activities 4</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="advanced-plots.html"><a href="advanced-plots.html"><i class="fa fa-check"></i><b>6</b> Advanced Plots</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="advanced-plots.html"><a href="advanced-plots.html#split-violin-plots"><i class="fa fa-check"></i><b>6.1</b> Split-violin plots</a></li>
-<li class="chapter" data-level="6.2" data-path="advanced-plots.html"><a href="advanced-plots.html#raincloud-plots"><i class="fa fa-check"></i><b>6.2</b> Raincloud plots</a></li>
-<li class="chapter" data-level="6.3" data-path="advanced-plots.html"><a href="advanced-plots.html#ridge-plots"><i class="fa fa-check"></i><b>6.3</b> Ridge plots</a></li>
-<li class="chapter" data-level="6.4" data-path="advanced-plots.html"><a href="advanced-plots.html#alluvial-plots"><i class="fa fa-check"></i><b>6.4</b> Alluvial plots</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="appendices.html"><a href="appendices.html"><i class="fa fa-check"></i>Appendices</a></li>
-<li class="chapter" data-level="8" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>8</b> Additional resources</a></li>
-<li class="chapter" data-level="9" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html"><i class="fa fa-check"></i><b>9</b> Additional advanced plots and customisation options</a>
+<li class="chapter" data-level="6" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>6</b> Additional resources</a></li>
+<li class="chapter" data-level="7" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html"><i class="fa fa-check"></i><b>7</b> Additional advanced plots and customisation options</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#adding-lines-to-plots"><i class="fa fa-check"></i><b>9.1</b> Adding lines to plots</a></li>
-<li class="chapter" data-level="9.2" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#zooming-in-and-out"><i class="fa fa-check"></i><b>9.2</b> Zooming in and out</a></li>
-<li class="chapter" data-level="9.3" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-the-axis-values"><i class="fa fa-check"></i><b>9.3</b> Setting the axis values</a></li>
-<li class="chapter" data-level="9.4" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#controlling-the-legend"><i class="fa fa-check"></i><b>9.4</b> Controlling the Legend</a></li>
-<li class="chapter" data-level="9.5" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-a-lab-theme-using-theme"><i class="fa fa-check"></i><b>9.5</b> Setting A Lab Theme using <code>theme()</code></a></li>
-<li class="chapter" data-level="9.6" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---overlaying-plots"><i class="fa fa-check"></i><b>9.6</b> Easter Egg - Overlaying Plots</a></li>
-<li class="chapter" data-level="9.7" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-dumbbell-plot"><i class="fa fa-check"></i><b>9.7</b> Easter Egg - A Dumbbell Plot</a></li>
-<li class="chapter" data-level="9.8" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-pie-chart"><i class="fa fa-check"></i><b>9.8</b> Easter Egg - A Pie Chart</a></li>
+<li class="chapter" data-level="7.1" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#adding-lines-to-plots"><i class="fa fa-check"></i><b>7.1</b> Adding lines to plots</a></li>
+<li class="chapter" data-level="7.2" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#zooming-in-and-out"><i class="fa fa-check"></i><b>7.2</b> Zooming in and out</a></li>
+<li class="chapter" data-level="7.3" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-the-axis-values"><i class="fa fa-check"></i><b>7.3</b> Setting the axis values</a></li>
+<li class="chapter" data-level="7.4" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#controlling-the-legend"><i class="fa fa-check"></i><b>7.4</b> Controlling the Legend</a></li>
+<li class="chapter" data-level="7.5" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-a-lab-theme-using-theme"><i class="fa fa-check"></i><b>7.5</b> Setting A Lab Theme using <code>theme()</code></a></li>
+<li class="chapter" data-level="7.6" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---overlaying-plots"><i class="fa fa-check"></i><b>7.6</b> Easter Egg - Overlaying Plots</a></li>
+<li class="chapter" data-level="7.7" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-dumbbell-plot"><i class="fa fa-check"></i><b>7.7</b> Easter Egg - A Dumbbell Plot</a></li>
+<li class="chapter" data-level="7.8" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-pie-chart"><i class="fa fa-check"></i><b>7.8</b> Easter Egg - A Pie Chart</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" 
@@ -312,8 +278,8 @@ div.csl-indent {
 <div id="boxplots" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Boxplots</h2>
 <p>As with <code>geom_point()</code>, the boxplot geom also require an x and y-variable to be specified. In this case, <code>x</code> must be a discrete, or categorical variable, whilst <code>y</code> must be continuous.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="representing-summary-statistics.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> acc)) <span class="sc">+</span></span>
-<span id="cb44-2"><a href="representing-summary-statistics.html#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="representing-summary-statistics.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> acc)) <span class="sc">+</span></span>
+<span id="cb42-2"><a href="representing-summary-statistics.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:boxplot1"></span>
 <img src="04-ch4_files/figure-html/boxplot1-1.png" alt="Basic boxplot." width="100%" />
 <p class="caption">
@@ -323,15 +289,15 @@ Figure 4.1: Basic boxplot.
 <div id="grouped-boxplots" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Grouped boxplots</h3>
 <p>As with histograms and density plots, <code>fill</code> can be used to create grouped boxplots. This looks like a lot of complicated code at first glance, but most of it is just editing the axis labels.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="representing-summary-statistics.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> acc, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
-<span id="cb45-2"><a href="representing-summary-statistics.html#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb45-3"><a href="representing-summary-statistics.html#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>,</span>
-<span id="cb45-4"><a href="representing-summary-statistics.html#cb45-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">&quot;Group&quot;</span>,</span>
-<span id="cb45-5"><a href="representing-summary-statistics.html#cb45-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Bilingual&quot;</span>, <span class="st">&quot;Monolingual&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb45-6"><a href="representing-summary-statistics.html#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb45-7"><a href="representing-summary-statistics.html#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
-<span id="cb45-8"><a href="representing-summary-statistics.html#cb45-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb45-9"><a href="representing-summary-statistics.html#cb45-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Accuracy&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="representing-summary-statistics.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> acc, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
+<span id="cb43-2"><a href="representing-summary-statistics.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb43-3"><a href="representing-summary-statistics.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>,</span>
+<span id="cb43-4"><a href="representing-summary-statistics.html#cb43-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">&quot;Group&quot;</span>,</span>
+<span id="cb43-5"><a href="representing-summary-statistics.html#cb43-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Bilingual&quot;</span>, <span class="st">&quot;Monolingual&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb43-6"><a href="representing-summary-statistics.html#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb43-7"><a href="representing-summary-statistics.html#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
+<span id="cb43-8"><a href="representing-summary-statistics.html#cb43-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb43-9"><a href="representing-summary-statistics.html#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Accuracy&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:boxplot3"></span>
 <img src="04-ch4_files/figure-html/boxplot3-1.png" alt="Grouped boxplots" width="100%" />
 <p class="caption">
@@ -343,15 +309,15 @@ Figure 4.2: Grouped boxplots
 <div id="violin-plots" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Violin plots</h2>
 <p>Violin plots display the distribution of a dataset and can be created by calling <code>geom_violin()</code>. They are so-called because the shape they make sometimes looks something like a violin. They are essentially a mirrored density plot on its side. Note that the below code is identical to the code used to draw the boxplots above, except for the call to <code>geom_violin()</code> rather than <code>geom_boxplot().</code></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="representing-summary-statistics.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> acc, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
-<span id="cb46-2"><a href="representing-summary-statistics.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb46-3"><a href="representing-summary-statistics.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;D&quot;</span>,</span>
-<span id="cb46-4"><a href="representing-summary-statistics.html#cb46-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">&quot;Group&quot;</span>,</span>
-<span id="cb46-5"><a href="representing-summary-statistics.html#cb46-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Bilingual&quot;</span>, <span class="st">&quot;Monolingual&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb46-6"><a href="representing-summary-statistics.html#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb46-7"><a href="representing-summary-statistics.html#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
-<span id="cb46-8"><a href="representing-summary-statistics.html#cb46-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb46-9"><a href="representing-summary-statistics.html#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Accuracy&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="representing-summary-statistics.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> acc, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="representing-summary-statistics.html#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb44-3"><a href="representing-summary-statistics.html#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;D&quot;</span>,</span>
+<span id="cb44-4"><a href="representing-summary-statistics.html#cb44-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">&quot;Group&quot;</span>,</span>
+<span id="cb44-5"><a href="representing-summary-statistics.html#cb44-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Bilingual&quot;</span>, <span class="st">&quot;Monolingual&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb44-6"><a href="representing-summary-statistics.html#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb44-7"><a href="representing-summary-statistics.html#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
+<span id="cb44-8"><a href="representing-summary-statistics.html#cb44-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb44-9"><a href="representing-summary-statistics.html#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Accuracy&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:violin1"></span>
 <img src="04-ch4_files/figure-html/violin1-1.png" alt="Violin plot." width="100%" />
 <p class="caption">
@@ -368,8 +334,8 @@ Figure 4.3: Violin plot.
 <li><p><code>fun</code> specifies the summary function that gives us the y-value we want to plot, in this case, <code>mean</code>.</p></li>
 <li><p><code>geom</code> specifies what shape or plot we want to use to display the summary. For the first layer we will specify <code>bar</code>. As with the other geom-type functions we have shown you, this part of the <code>stat_summary()</code> function is tied to the aesthetic mapping in the first line of code. The underlying statistics for a bar chart means that we must specify and IV (x-axis) as well as the DV (y-axis).</p></li>
 </ul>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="representing-summary-statistics.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt)) <span class="sc">+</span></span>
-<span id="cb47-2"><a href="representing-summary-statistics.html#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;bar&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="representing-summary-statistics.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt)) <span class="sc">+</span></span>
+<span id="cb45-2"><a href="representing-summary-statistics.html#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;bar&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:badbar1"></span>
 <img src="04-ch4_files/figure-html/badbar1-1.png" alt="Bar plot of means." width="100%" />
 <p class="caption">
@@ -380,9 +346,9 @@ Figure 4.4: Bar plot of means.
 <ul>
 <li>Whilst <code>fun</code> returns a single value (y) per condition, <code>fun.data</code> returns the y-values we want to plot plus their minimum and maximum values, in this case, <code>mean_se</code></li>
 </ul>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="representing-summary-statistics.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt)) <span class="sc">+</span></span>
-<span id="cb48-2"><a href="representing-summary-statistics.html#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;bar&quot;</span>) <span class="sc">+</span></span>
-<span id="cb48-3"><a href="representing-summary-statistics.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="representing-summary-statistics.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt)) <span class="sc">+</span></span>
+<span id="cb46-2"><a href="representing-summary-statistics.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;bar&quot;</span>) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="representing-summary-statistics.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">2</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:badbar2"></span>
 <img src="04-ch4_files/figure-html/badbar2-1.png" alt="Bar plot of means with error bars representing SE." width="100%" />
 <p class="caption">
@@ -396,12 +362,12 @@ Figure 4.5: Bar plot of means with error bars representing SE.
 <ul>
 <li><code>fatten = NULL</code> in the boxplot geom removes the median line, which can make it easier to see the mean and error bars. Including this argument will result in the warning message <code>Removed 1 rows containing missing values (geom_segment)</code> and is not a cause for concern. Removing this argument will reinstate the median line.</li>
 </ul>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="representing-summary-statistics.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
-<span id="cb49-2"><a href="representing-summary-statistics.html#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb49-3"><a href="representing-summary-statistics.html#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove the median line with fatten = NULL</span></span>
-<span id="cb49-4"><a href="representing-summary-statistics.html#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb49-5"><a href="representing-summary-statistics.html#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb49-6"><a href="representing-summary-statistics.html#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="representing-summary-statistics.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
+<span id="cb47-2"><a href="representing-summary-statistics.html#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb47-3"><a href="representing-summary-statistics.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove the median line with fatten = NULL</span></span>
+<span id="cb47-4"><a href="representing-summary-statistics.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb47-5"><a href="representing-summary-statistics.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb47-6"><a href="representing-summary-statistics.html#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:viobox1"></span>
 <img src="04-ch4_files/figure-html/viobox1-1.png" alt="Violin-boxplot with mean dot and standard error bars." width="100%" />
 <p class="caption">
@@ -409,11 +375,11 @@ Figure 4.6: Violin-boxplot with mean dot and standard error bars.
 </p>
 </div>
 <p>It is important to note that the order of the layers matters and it is worth experimenting with the order to see where the order matters. For example, if we call <code>geom_boxplot()</code> followed by <code>geom_violin()</code>, we get the following mess:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="representing-summary-statistics.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
-<span id="cb50-2"><a href="representing-summary-statistics.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span>  </span>
-<span id="cb50-3"><a href="representing-summary-statistics.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb50-4"><a href="representing-summary-statistics.html#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb50-5"><a href="representing-summary-statistics.html#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="representing-summary-statistics.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
+<span id="cb48-2"><a href="representing-summary-statistics.html#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span>  </span>
+<span id="cb48-3"><a href="representing-summary-statistics.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb48-4"><a href="representing-summary-statistics.html#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb48-5"><a href="representing-summary-statistics.html#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:viobox1b"></span>
 <img src="04-ch4_files/figure-html/viobox1b-1.png" alt="Plot with the geoms in the wrong order." width="100%" />
 <p class="caption">
@@ -423,11 +389,11 @@ Figure 4.7: Plot with the geoms in the wrong order.
 <div id="grouped-violin-boxplots" class="section level3" number="4.4.1">
 <h3><span class="header-section-number">4.4.1</span> Grouped violin-boxplots</h3>
 <p>As with previous plots, another variable can be mapped to <code>fill</code> for the violin-boxplot. However, simply adding <code>fill</code> to the mapping causes the different components of the plot to become misaligned because they have different default positions:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="representing-summary-statistics.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
-<span id="cb51-2"><a href="representing-summary-statistics.html#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb51-3"><a href="representing-summary-statistics.html#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb51-4"><a href="representing-summary-statistics.html#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb51-5"><a href="representing-summary-statistics.html#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="representing-summary-statistics.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
+<span id="cb49-2"><a href="representing-summary-statistics.html#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb49-3"><a href="representing-summary-statistics.html#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb49-4"><a href="representing-summary-statistics.html#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb49-5"><a href="representing-summary-statistics.html#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:viobox2"></span>
 <img src="04-ch4_files/figure-html/viobox2-1.png" alt="Grouped violin-boxplots without repositioning." width="100%" />
 <p class="caption">
@@ -435,13 +401,13 @@ Figure 4.8: Grouped violin-boxplots without repositioning.
 </p>
 </div>
 <p>To rectify this we need to adjust the argument <code>position</code> for each of the misaligned layers. <code>position_dodge()</code> instructs R to move (dodge) the position of the plot component by the specified value - finding what value you need can sometimes take trial and error.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="representing-summary-statistics.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
-<span id="cb52-2"><a href="representing-summary-statistics.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb52-3"><a href="representing-summary-statistics.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">9</span>)) <span class="sc">+</span></span>
-<span id="cb52-4"><a href="representing-summary-statistics.html#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, </span>
-<span id="cb52-5"><a href="representing-summary-statistics.html#cb52-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">9</span>)) <span class="sc">+</span></span>
-<span id="cb52-6"><a href="representing-summary-statistics.html#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>,</span>
-<span id="cb52-7"><a href="representing-summary-statistics.html#cb52-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">9</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="representing-summary-statistics.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
+<span id="cb50-2"><a href="representing-summary-statistics.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb50-3"><a href="representing-summary-statistics.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">9</span>)) <span class="sc">+</span></span>
+<span id="cb50-4"><a href="representing-summary-statistics.html#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, </span>
+<span id="cb50-5"><a href="representing-summary-statistics.html#cb50-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">9</span>)) <span class="sc">+</span></span>
+<span id="cb50-6"><a href="representing-summary-statistics.html#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>,</span>
+<span id="cb50-7"><a href="representing-summary-statistics.html#cb50-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">9</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:viobox3"></span>
 <img src="04-ch4_files/figure-html/viobox3-1.png" alt="Grouped violin-boxplots with repositioning." width="100%" />
 <p class="caption">
@@ -453,15 +419,15 @@ Figure 4.9: Grouped violin-boxplots with repositioning.
 <div id="customisation-part-3" class="section level2" number="4.5">
 <h2><span class="header-section-number">4.5</span> Customisation part 3</h2>
 <p>Combining multiple type of plots can present an issue with the colours, particularly when the viridis scheme is used - in the below example it is hard to make out the black lines of the boxplot and the mean/error bars.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="representing-summary-statistics.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
-<span id="cb53-2"><a href="representing-summary-statistics.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb53-3"><a href="representing-summary-statistics.html#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">9</span>)) <span class="sc">+</span></span>
-<span id="cb53-4"><a href="representing-summary-statistics.html#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, </span>
-<span id="cb53-5"><a href="representing-summary-statistics.html#cb53-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">9</span>)) <span class="sc">+</span></span>
-<span id="cb53-6"><a href="representing-summary-statistics.html#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>,</span>
-<span id="cb53-7"><a href="representing-summary-statistics.html#cb53-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">9</span>)) <span class="sc">+</span></span>
-<span id="cb53-8"><a href="representing-summary-statistics.html#cb53-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>) <span class="sc">+</span></span>
-<span id="cb53-9"><a href="representing-summary-statistics.html#cb53-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="representing-summary-statistics.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
+<span id="cb51-2"><a href="representing-summary-statistics.html#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb51-3"><a href="representing-summary-statistics.html#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">9</span>)) <span class="sc">+</span></span>
+<span id="cb51-4"><a href="representing-summary-statistics.html#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, </span>
+<span id="cb51-5"><a href="representing-summary-statistics.html#cb51-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">9</span>)) <span class="sc">+</span></span>
+<span id="cb51-6"><a href="representing-summary-statistics.html#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>,</span>
+<span id="cb51-7"><a href="representing-summary-statistics.html#cb51-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">9</span>)) <span class="sc">+</span></span>
+<span id="cb51-8"><a href="representing-summary-statistics.html#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>) <span class="sc">+</span></span>
+<span id="cb51-9"><a href="representing-summary-statistics.html#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:viobox4"></span>
 <img src="04-ch4_files/figure-html/viobox4-1.png" alt="A color scheme that makes lines difficult to see." width="100%" />
 <p class="caption">
@@ -469,13 +435,13 @@ Figure 4.10: A color scheme that makes lines difficult to see.
 </p>
 </div>
 <p>There are a number of solutions to this problem. First, we can change the colour of individual geoms by adding <code>colour = "colour"</code> to each relevant geom:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="representing-summary-statistics.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
-<span id="cb54-2"><a href="representing-summary-statistics.html#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb54-3"><a href="representing-summary-statistics.html#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>, <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-4"><a href="representing-summary-statistics.html#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-5"><a href="representing-summary-statistics.html#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>, <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-6"><a href="representing-summary-statistics.html#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-7"><a href="representing-summary-statistics.html#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="representing-summary-statistics.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
+<span id="cb52-2"><a href="representing-summary-statistics.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb52-3"><a href="representing-summary-statistics.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>, <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb52-4"><a href="representing-summary-statistics.html#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb52-5"><a href="representing-summary-statistics.html#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>, <span class="at">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb52-6"><a href="representing-summary-statistics.html#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>) <span class="sc">+</span></span>
+<span id="cb52-7"><a href="representing-summary-statistics.html#cb52-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:viobox5"></span>
 <img src="04-ch4_files/figure-html/viobox5-1.png" alt="Manually changing the line colors." width="100%" />
 <p class="caption">
@@ -483,13 +449,13 @@ Figure 4.11: Manually changing the line colors.
 </p>
 </div>
 <p>We can also keep the original colours but adjust the transparency of each layer using <code>alpha</code>. Again, the exact values needed can take trial and error:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="representing-summary-statistics.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
-<span id="cb55-2"><a href="representing-summary-statistics.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb55-3"><a href="representing-summary-statistics.html#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>, <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb55-4"><a href="representing-summary-statistics.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb55-5"><a href="representing-summary-statistics.html#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb55-6"><a href="representing-summary-statistics.html#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>) <span class="sc">+</span></span>
-<span id="cb55-7"><a href="representing-summary-statistics.html#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="representing-summary-statistics.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
+<span id="cb53-2"><a href="representing-summary-statistics.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb53-3"><a href="representing-summary-statistics.html#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>, <span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb53-4"><a href="representing-summary-statistics.html#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb53-5"><a href="representing-summary-statistics.html#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb53-6"><a href="representing-summary-statistics.html#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>) <span class="sc">+</span></span>
+<span id="cb53-7"><a href="representing-summary-statistics.html#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:viobox6"></span>
 <img src="04-ch4_files/figure-html/viobox6-1.png" alt="Using transparency on the fill color." width="100%" />
 <p class="caption">
@@ -505,43 +471,43 @@ Figure 4.12: Using transparency on the fill color.
 <li><p>Take a moment to recognise the complexity of the code you are now able to read.</p></li>
 <li><p>For the violin-boxplot, for <code>geom = "point"</code>, try changing <code>fun</code> to <code>median</code></p></li>
 </ol>
-<div class="webex-solution">
+<div class="solution">
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="representing-summary-statistics.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
-<span id="cb56-2"><a href="representing-summary-statistics.html#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb56-3"><a href="representing-summary-statistics.html#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove the median line with fatten = NULL</span></span>
-<span id="cb56-4"><a href="representing-summary-statistics.html#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb56-5"><a href="representing-summary-statistics.html#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;median&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb56-6"><a href="representing-summary-statistics.html#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="representing-summary-statistics.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
+<span id="cb54-2"><a href="representing-summary-statistics.html#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb54-3"><a href="representing-summary-statistics.html#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove the median line with fatten = NULL</span></span>
+<span id="cb54-4"><a href="representing-summary-statistics.html#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb54-5"><a href="representing-summary-statistics.html#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;median&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb54-6"><a href="representing-summary-statistics.html#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>)</span></code></pre></div>
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li>For the violin-boxplot, for <code>geom = "errorbar"</code>, try changing <code>fun.data</code> to <code>mean_cl_normal</code> (for 95% CI)</li>
 </ol>
-<div class="webex-solution">
+<div class="solution">
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="representing-summary-statistics.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
-<span id="cb57-2"><a href="representing-summary-statistics.html#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb57-3"><a href="representing-summary-statistics.html#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove the median line with fatten = NULL</span></span>
-<span id="cb57-4"><a href="representing-summary-statistics.html#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb57-5"><a href="representing-summary-statistics.html#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb57-6"><a href="representing-summary-statistics.html#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_cl_normal&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="representing-summary-statistics.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="representing-summary-statistics.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb55-3"><a href="representing-summary-statistics.html#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove the median line with fatten = NULL</span></span>
+<span id="cb55-4"><a href="representing-summary-statistics.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb55-5"><a href="representing-summary-statistics.html#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb55-6"><a href="representing-summary-statistics.html#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_cl_normal&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>)</span></code></pre></div>
 </div>
 <ol start="5" style="list-style-type: decimal">
 <li>Go back to the grouped density plots and try changing the transparency with <code>alpha</code>.</li>
 </ol>
-<div class="webex-solution">
+<div class="solution">
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="representing-summary-statistics.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
-<span id="cb58-2"><a href="representing-summary-statistics.html#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">4</span>)<span class="sc">+</span></span>
-<span id="cb58-3"><a href="representing-summary-statistics.html#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb58-4"><a href="representing-summary-statistics.html#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
-<span id="cb58-5"><a href="representing-summary-statistics.html#cb58-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="representing-summary-statistics.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
+<span id="cb56-2"><a href="representing-summary-statistics.html#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">4</span>)<span class="sc">+</span></span>
+<span id="cb56-3"><a href="representing-summary-statistics.html#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb56-4"><a href="representing-summary-statistics.html#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
+<span id="cb56-5"><a href="representing-summary-statistics.html#cb56-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>))</span></code></pre></div>
 </div>
 
 </div>
@@ -680,7 +646,6 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"whatsapp": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
 "google": false
 },

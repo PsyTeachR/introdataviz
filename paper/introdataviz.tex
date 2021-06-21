@@ -216,7 +216,8 @@ Correspondence concerning this article should be addressed to Emily Nordmann, 62
 \affiliation{\vspace{0.5cm}\textsuperscript{1} School of Psychology, University of Glasgow\\\textsuperscript{2} Institute of Neuroscience and Psychology, University of Glasgow}
 
 \abstract{
-This is a pre-submission manuscript and tutorial and has not yet undergone peer-review. We welcome user feedback which you can provide using this form: \url{https://forms.office.com/r/ba1UvyykYR}. Please note that this tutorial is likely to undergo changes before it is accepted for publication and we would encourage you to check for updates before citing. All materials associated with this article (including a version that is more accessible than the PDF version) can be accessed at \url{https://psyteachr.github.io/introdataviz}.
+In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the ``grammar of graphics'' that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these ``basic'' plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial as well as an interactive version with activity solutions, additional resources and advanced plotting options is available at \url{https://osf.io/bj83f/}.
+This is a pre-submission manuscript and tutorial and has not yet undergone peer-review. We welcome user feedback which you can provide using this form: \url{https://forms.office.com/r/ba1UvyykYR}. Please note that this tutorial is likely to undergo changes before it is accepted for publication and we would encourage you to check for updates before citing.
 }
 
 
@@ -247,19 +248,6 @@ There are multiple approaches to data visualisation in R; in this paper we use t
 
 Figure~\ref{fig:layers} displays the evolution of a simple scatterplot using this layered approach. First, the plot space is built (layer 1); the variables are specified (layer 2); the type of visualisation (known as a \texttt{geom}) that is desired for these variables is specified (layer 3) - in this case \texttt{geom\_point()} is called to visualise individual data points; a second geom is added to include a line of best fit (layer 4), the axis labels are edited for readability (layer 5), and finally, a theme is applied to change the overall appearance of the plot (layer 6).
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{a }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Layer 1"}\NormalTok{)}
-\NormalTok{b }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(iris, }\FunctionTok{aes}\NormalTok{(Sepal.Length, Sepal.Width)) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Layer 2"}\NormalTok{)}
-\NormalTok{c }\OtherTok{\textless{}{-}}\NormalTok{ b }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Layer 3"}\NormalTok{)}
-\NormalTok{d }\OtherTok{\textless{}{-}}\NormalTok{ c }\SpecialCharTok{+} \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Layer 4"}\NormalTok{)}
-\NormalTok{e }\OtherTok{\textless{}{-}}\NormalTok{ d }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sepal Length (mm)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Sepal Width (mm)"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Layer 5"}\NormalTok{)}
-\NormalTok{f }\OtherTok{\textless{}{-}}\NormalTok{ e }\SpecialCharTok{+} \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_family =} \StringTok{"Times"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Layer 6"}\NormalTok{)}
-
-\NormalTok{a }\SpecialCharTok{+}\NormalTok{ b }\SpecialCharTok{+}\NormalTok{ c }\SpecialCharTok{+}\NormalTok{ d }\SpecialCharTok{+}\NormalTok{ e }\SpecialCharTok{+}\NormalTok{ f }\SpecialCharTok{+} \FunctionTok{plot\_layout}\NormalTok{(}\AttributeTok{nrow =} \DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{figure}
 
 {\centering \includegraphics[width=1\linewidth]{images/layers-1} 
@@ -270,15 +258,6 @@ Figure~\ref{fig:layers} displays the evolution of a simple scatterplot using thi
 \end{figure}
 
 Importantly, each layer is independent and independently customisable. For example, the size, colour and position of each component can be adjusted, or one could, for example, remove the first geom (the data points) to only visualise the line of best fit, simply by removing the layer that draws the data points (Figure~\ref{fig:remove-layer}). The use of layers makes it easy to build up complex plots step-by-step, and to adapt or extend plots from existing code.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{iris }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(Sepal.Length, Sepal.Width)) }\SpecialCharTok{+} 
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sepal Length (mm)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Sepal Width (mm)"}\NormalTok{)}\SpecialCharTok{+}
-  \FunctionTok{theme\_minimal}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{figure}
 
@@ -1638,12 +1617,14 @@ This code is more complex than all prior code because it does not use a universa
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y =}\NormalTok{ rt, }\AttributeTok{group =}\NormalTok{ language, }\AttributeTok{shape =}\NormalTok{ language)) }\SpecialCharTok{+}
+\FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y =}\NormalTok{ rt, }
+                     \AttributeTok{group =}\NormalTok{ language, }\AttributeTok{shape =}\NormalTok{ language)) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ language),}\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{group =}\NormalTok{ id, }\AttributeTok{colour =}\NormalTok{ language), }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
    \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{, }\AttributeTok{size =} \DecValTok{2}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"line"}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }
+               \AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_minimal}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -1709,9 +1690,7 @@ As another example, we can use \texttt{facet\_wrap()} as an alternative to the g
 \caption{Facted violin-boxplot}\label{fig:violin-boxplot-facet}
 \end{figure}
 
-Finally, note that editing the labels for faceted variables uses the \texttt{labeller} function, calling it within \texttt{facet\_wrap}. \texttt{labeller} uses syntax that is different from what we have shown you up to now. Syntax simply refers to the rules about the words that a function uses. In the exercise about looking for the underlying rules to the code from the previous chapter you likely tapped into the rules for the various \texttt{ggplot} functions. However, once in a while you will come across something that just does not follow the rules you have been building on and \texttt{labeller} is an example of that.
-
-Before we explain it, read the below code and see if you can figure out the syntactic rules for the function.
+Finally, note that editing the labels for faceted variables involves converting the \texttt{language} column into a factor. This allows you to set the order of the \texttt{levels} and the \texttt{labels} to display.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1720,10 +1699,10 @@ Before we explain it, read the below code and see if you can figure out the synt
   \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{language, }
-             \AttributeTok{labeller =} \FunctionTok{labeller}\NormalTok{(}
-               \AttributeTok{language =} \FunctionTok{c}\NormalTok{(}\AttributeTok{monolingual =} \StringTok{"Monolingual participants"}\NormalTok{,}
-                             \AttributeTok{bilingual =} \StringTok{"Bilingual participants"}\NormalTok{))) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\FunctionTok{factor}\NormalTok{(language, }
+                     \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"monolingual"}\NormalTok{, }\StringTok{"bilingual"}\NormalTok{),}
+                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Monolingual participants"}\NormalTok{, }
+                                \StringTok{"Bilingual participants"}\NormalTok{))) }\SpecialCharTok{+}
   \FunctionTok{theme\_minimal}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -1736,8 +1715,6 @@ Before we explain it, read the below code and see if you can figure out the synt
 
 \caption{Faceted violin-boxplot with updated labels}\label{fig:violin-facet}
 \end{figure}
-
-Even though the \texttt{labeller} syntax is new, it is still fairly logical, for each level of the variable you want to facet by, you need to specify a label, so you call the variable by naming it: \texttt{labeller\ =\ labeller(language\ =} then you make a list of the levels (monolingual and bilingual) and for each you tell the function its new name \texttt{c(monolingual\ =\ "Monolingual\ participants",\ bilingual\ =\ "Bilingual\ participants")}.
 
 \hypertarget{storing-plots}{%
 \subsection{Storing plots}\label{storing-plots}}
@@ -1823,12 +1800,24 @@ Three or more plots can be combined in a number of ways and the \texttt{patchwor
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p5 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y =}\NormalTok{ rt, }\AttributeTok{group =}\NormalTok{ language, }\AttributeTok{shape =}\NormalTok{ language)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ language),}\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{group =}\NormalTok{ id, }\AttributeTok{colour =}\NormalTok{ language), }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{, }\AttributeTok{size =} \DecValTok{2}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"line"}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{p5 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y =}\NormalTok{ rt, }
+                           \AttributeTok{group =}\NormalTok{ language, }
+                           \AttributeTok{shape =}\NormalTok{ language)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ language),}
+             \AttributeTok{alpha =}\NormalTok{ .}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{group =}\NormalTok{ id, }\AttributeTok{colour =}\NormalTok{ language), }
+            \AttributeTok{alpha =}\NormalTok{ .}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }
+               \AttributeTok{geom =} \StringTok{"point"}\NormalTok{, }
+               \AttributeTok{size =} \DecValTok{2}\NormalTok{, }
+               \AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }
+               \AttributeTok{geom =} \StringTok{"line"}\NormalTok{, }
+               \AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }
+               \AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }
+               \AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }
+               \AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_minimal}\NormalTok{()}
 
 \NormalTok{p6 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y=}\NormalTok{ rt)) }\SpecialCharTok{+}
@@ -1836,10 +1825,10 @@ Three or more plots can be combined in a number of ways and the \texttt{patchwor
   \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{language, }
-             \AttributeTok{labeller =} \FunctionTok{labeller}\NormalTok{(}
-               \AttributeTok{language =}\NormalTok{ (}\FunctionTok{c}\NormalTok{(}\AttributeTok{monolingual =} \StringTok{"Monolingual participants"}\NormalTok{, }
-                             \AttributeTok{bilingual =} \StringTok{"Bilingual participants"}\NormalTok{)))) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\FunctionTok{factor}\NormalTok{(language, }
+                     \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"monolingual"}\NormalTok{, }\StringTok{"bilingual"}\NormalTok{),}
+                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Monolingual participants"}\NormalTok{, }
+                                \StringTok{"Bilingual participants"}\NormalTok{))) }\SpecialCharTok{+}
   \FunctionTok{theme\_minimal}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -1896,10 +1885,10 @@ The code below adds \texttt{fill\ =\ language} to the violin-boxplots that are a
   \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{6}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{language, }
-             \AttributeTok{labeller =} \FunctionTok{labeller}\NormalTok{(}
-               \AttributeTok{language =}\NormalTok{ (}\FunctionTok{c}\NormalTok{(}\AttributeTok{monolingual =} \StringTok{"Monolingual participants"}\NormalTok{, }
-                             \AttributeTok{bilingual =} \StringTok{"Bilingual participants"}\NormalTok{)))) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\FunctionTok{factor}\NormalTok{(language, }
+                     \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"monolingual"}\NormalTok{, }\StringTok{"bilingual"}\NormalTok{),}
+                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Monolingual participants"}\NormalTok{, }
+                                \StringTok{"Bilingual participants"}\NormalTok{))) }\SpecialCharTok{+}
   \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{scale\_fill\_viridis\_d}\NormalTok{(}\AttributeTok{option =} \StringTok{"E"}\NormalTok{)}
 \end{Highlighting}
@@ -1923,8 +1912,10 @@ Specifying a \texttt{fill} variable means that by default, R produces a legend f
   \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{6}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{language, }
-             \AttributeTok{labeller =} \FunctionTok{labeller}\NormalTok{(}\AttributeTok{language =}\NormalTok{ (}\FunctionTok{c}\NormalTok{(}\AttributeTok{monolingual =} \StringTok{"Monolingual participants"}\NormalTok{, }\AttributeTok{bilingual =} \StringTok{"Bilingual participants"}\NormalTok{)))) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\FunctionTok{factor}\NormalTok{(language, }
+                     \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"monolingual"}\NormalTok{, }\StringTok{"bilingual"}\NormalTok{),}
+                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Monolingual participants"}\NormalTok{, }
+                                \StringTok{"Bilingual participants"}\NormalTok{))) }\SpecialCharTok{+}
   \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{scale\_fill\_viridis\_d}\NormalTok{(}\AttributeTok{option =} \StringTok{"E"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{guides}\NormalTok{(}\AttributeTok{fill =} \ConstantTok{FALSE}\NormalTok{)}
@@ -1952,83 +1943,6 @@ Before you go on, do the following:
 \item
   Choose your favourite three plots you've produced so far in this tutorial, tidy them up with axis labels, your preferred colour scheme, and any necessary titles, and then combine them using \texttt{patchwork}. If you're feeling particularly proud of them, post them on Twitter using \#PsyTeachR.
 \end{enumerate}
-
-\hypertarget{advanced-plots}{%
-\section{Advanced Plots}\label{advanced-plots}}
-
-This tutorial has but scratched the surface of the visualisation options available using R - in the additional online resources we provide some further advanced plots and customisation options for those readers who are feeling confident with the content covered in this tutorial, however, the below plots give an idea of what is possible, and represent the favourite plots of the authorship team.
-
-We will use some custom functions: \texttt{geom\_split\_violin()} and \texttt{geom\_flat\_violin()}, which you can access through the \texttt{introdataviz} package. These functions are modified from (Allen et al., 2021).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# how to install the introdataviz package to get split and half violin plots}
-\NormalTok{devtools}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{"psyteachr/introdataviz"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{split-violin-plots}{%
-\subsection{Split-violin plots}\label{split-violin-plots}}
-
-Split-violin plots remove the redundancy of mirrored violin plots and make it easier to compare the distributions between multiple conditions.
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{images/splitviolin-1} 
-
-}
-
-\caption{Split-violin plot}\label{fig:splitviolin}
-\end{figure}
-
-\hypertarget{raincloud-plots}{%
-\subsection{Raincloud plots}\label{raincloud-plots}}
-
-Raincloud plots combine a density plot, boxplot, raw data points, and any desired summary statistics for a complete visualisation of the data. They are so called because the density plot plus raw data is reminiscent of a rain cloud.
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{images/raincloud-1} 
-
-}
-
-\caption{Raincloud plot}\label{fig:raincloud}
-\end{figure}
-
-\hypertarget{ridge-plots}{%
-\subsection{Ridge plots}\label{ridge-plots}}
-
-Ridge plots are a series of density plots and show the distribution of numeric values for several groups. Figure~\ref{fig:ridgeplot} shows data from (Nation, 2017) and demonstrates how effective this type of visualisation can be to convey a lot of information very intuitively whilst being visually attractive.
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{images/ridgeplot-1} 
-
-}
-
-\caption{A ridge plot.}\label{fig:ridgeplot}
-\end{figure}
-
-\hypertarget{alluvial-plots}{%
-\subsection{Alluvial plots}\label{alluvial-plots}}
-
-Alluvial plots visualise multi-level categorical data through flows that can easily be traced in the diagram.
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{images/alluvial-1} 
-
-}
-
-\caption{An alluvial plot showing the progression of student grades through the years.}\label{fig:alluvial}
-\end{figure}
-
-\hypertarget{conclusion}{%
-\section{Conclusion}\label{conclusion}}
-
-In this tutorial we aimed to provide a practical introduction to common data visualisation techniques using R. Whilst a number of the plots produced in this tutorial can be created in point-and-click software, the underlying skill-set developed by making these visualisations is as powerful as it is extendable.
-
-We hope that this tutorial serves as a jumping off point to encourage more researchers to adopt reproducible workflows and open-access software, in addition to beautiful data visualisations.
 
 \hypertarget{acknowledgements}{%
 \section{Acknowledgements}\label{acknowledgements}}
@@ -2076,9 +1990,6 @@ This tutorial uses the following open-source research software: R Core Team (202
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-raincloudplots}{}}%
-Allen, M., Poggiali, D., Whitaker, K., Marshall, T. R., van Langen, J., \& Kievit, R. A. (2021). Raincloud plots: A multi-platform tool for robust data visualization {[}version 2; peer review: 2 approved{]}. \emph{Wellcome Open Research}, \emph{4}. \url{https://doi.org/10.12688/wellcomeopenres.15191.2}
-
 \leavevmode\vadjust pre{\hypertarget{ref-R-papaja}{}}%
 Aust, F., \& Barth, M. (2020). \emph{{papaja}: {Create} {APA} manuscripts with {R Markdown}}. Retrieved from \url{https://github.com/crsh/papaja}
 
@@ -2096,9 +2007,6 @@ DeBruine, L. (2021). \emph{Faux: Simulation for factorial designs}. Zenodo. \url
 
 \leavevmode\vadjust pre{\hypertarget{ref-munafo2017manifesto}{}}%
 Munafò, M. R., Nosek, B. A., Bishop, D. V., Button, K. S., Chambers, C. D., Du Sert, N. P., \ldots{} Ioannidis, J. P. (2017). A manifesto for reproducible science. \emph{Nature Human Behaviour}, \emph{1}(1), 1--9.
-
-\leavevmode\vadjust pre{\hypertarget{ref-Nation2017}{}}%
-Nation, Z. (2017). Perceptions. \emph{GitHub repository}. \url{https://github.com/zonination/perceptions\%20\%20}; GitHub.
 
 \leavevmode\vadjust pre{\hypertarget{ref-newman2012bar}{}}%
 Newman, G. E., \& Scholl, B. J. (2012). Bar graphs depicting averages are perceptually misinterpreted: The within-the-bar bias. \emph{Psychonomic Bulletin \& Review}, \emph{19}(4), 601--607.

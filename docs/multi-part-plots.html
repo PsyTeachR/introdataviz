@@ -5,20 +5,20 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Multi-part Plots | Data visualisation using R, for researchers who don’t use R</title>
-  <meta name="description" content="Abstract here." />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Multi-part Plots | Data visualisation using R, for researchers who don’t use R" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Abstract here." />
+  <meta property="og:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 5 Multi-part Plots | Data visualisation using R, for researchers who don’t use R" />
   
-  <meta name="twitter:description" content="Abstract here." />
+  <meta name="twitter:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
   
 
 <meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine" />
@@ -32,8 +32,8 @@
   
   
 <link rel="prev" href="representing-summary-statistics.html"/>
-<link rel="next" href="advanced-plots.html"/>
-<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<link rel="next" href="appendices.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +51,6 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <meta property="og:title" content="IntroDataViz">
 <meta property="og:description" content="Data Visualisation Using R, For Researchers Who Don’t Use R.">
 <meta property="og:image" content="https://psyteachr.github.io/introdataviz/images/card.png">
@@ -127,29 +125,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
-
 <link rel="stylesheet" href="include/psyteachr.css" type="text/css" />
 <link rel="stylesheet" href="include/webex.css" type="text/css" />
 <link rel="stylesheet" href="include/style.css" type="text/css" />
@@ -166,7 +141,6 @@ div.csl-indent {
 
 <ul class="summary">
 <li><a href="./">IntroDataViz</a></li>
-<li><a href="https://zenodo.org/badge/latestdoi/166559207"><img src="https://zenodo.org/badge/166559207.svg" alt="DOI"></a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
@@ -261,26 +235,18 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="multi-part-plots.html"><a href="multi-part-plots.html#activities-4"><i class="fa fa-check"></i><b>5.8</b> Activities 4</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="advanced-plots.html"><a href="advanced-plots.html"><i class="fa fa-check"></i><b>6</b> Advanced Plots</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="advanced-plots.html"><a href="advanced-plots.html#split-violin-plots"><i class="fa fa-check"></i><b>6.1</b> Split-violin plots</a></li>
-<li class="chapter" data-level="6.2" data-path="advanced-plots.html"><a href="advanced-plots.html#raincloud-plots"><i class="fa fa-check"></i><b>6.2</b> Raincloud plots</a></li>
-<li class="chapter" data-level="6.3" data-path="advanced-plots.html"><a href="advanced-plots.html#ridge-plots"><i class="fa fa-check"></i><b>6.3</b> Ridge plots</a></li>
-<li class="chapter" data-level="6.4" data-path="advanced-plots.html"><a href="advanced-plots.html#alluvial-plots"><i class="fa fa-check"></i><b>6.4</b> Alluvial plots</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="appendices.html"><a href="appendices.html"><i class="fa fa-check"></i>Appendices</a></li>
-<li class="chapter" data-level="8" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>8</b> Additional resources</a></li>
-<li class="chapter" data-level="9" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html"><i class="fa fa-check"></i><b>9</b> Additional advanced plots and customisation options</a>
+<li class="chapter" data-level="6" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>6</b> Additional resources</a></li>
+<li class="chapter" data-level="7" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html"><i class="fa fa-check"></i><b>7</b> Additional advanced plots and customisation options</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#adding-lines-to-plots"><i class="fa fa-check"></i><b>9.1</b> Adding lines to plots</a></li>
-<li class="chapter" data-level="9.2" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#zooming-in-and-out"><i class="fa fa-check"></i><b>9.2</b> Zooming in and out</a></li>
-<li class="chapter" data-level="9.3" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-the-axis-values"><i class="fa fa-check"></i><b>9.3</b> Setting the axis values</a></li>
-<li class="chapter" data-level="9.4" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#controlling-the-legend"><i class="fa fa-check"></i><b>9.4</b> Controlling the Legend</a></li>
-<li class="chapter" data-level="9.5" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-a-lab-theme-using-theme"><i class="fa fa-check"></i><b>9.5</b> Setting A Lab Theme using <code>theme()</code></a></li>
-<li class="chapter" data-level="9.6" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---overlaying-plots"><i class="fa fa-check"></i><b>9.6</b> Easter Egg - Overlaying Plots</a></li>
-<li class="chapter" data-level="9.7" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-dumbbell-plot"><i class="fa fa-check"></i><b>9.7</b> Easter Egg - A Dumbbell Plot</a></li>
-<li class="chapter" data-level="9.8" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-pie-chart"><i class="fa fa-check"></i><b>9.8</b> Easter Egg - A Pie Chart</a></li>
+<li class="chapter" data-level="7.1" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#adding-lines-to-plots"><i class="fa fa-check"></i><b>7.1</b> Adding lines to plots</a></li>
+<li class="chapter" data-level="7.2" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#zooming-in-and-out"><i class="fa fa-check"></i><b>7.2</b> Zooming in and out</a></li>
+<li class="chapter" data-level="7.3" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-the-axis-values"><i class="fa fa-check"></i><b>7.3</b> Setting the axis values</a></li>
+<li class="chapter" data-level="7.4" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#controlling-the-legend"><i class="fa fa-check"></i><b>7.4</b> Controlling the Legend</a></li>
+<li class="chapter" data-level="7.5" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-a-lab-theme-using-theme"><i class="fa fa-check"></i><b>7.5</b> Setting A Lab Theme using <code>theme()</code></a></li>
+<li class="chapter" data-level="7.6" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---overlaying-plots"><i class="fa fa-check"></i><b>7.6</b> Easter Egg - Overlaying Plots</a></li>
+<li class="chapter" data-level="7.7" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-dumbbell-plot"><i class="fa fa-check"></i><b>7.7</b> Easter Egg - A Dumbbell Plot</a></li>
+<li class="chapter" data-level="7.8" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-pie-chart"><i class="fa fa-check"></i><b>7.8</b> Easter Egg - A Pie Chart</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" 
@@ -316,15 +282,15 @@ div.csl-indent {
 <li><p><code>size</code> lets you change the size of lines and points. You usually don’t want different groups to be different sizes, so this option is set inside the relevant <code>geom_*()</code> function, not inside the <code>aes()</code> function.</p></li>
 <li><p><code>scale_color_manual()</code> works much like <code>scale_color_discrete()</code> except that it lets you specify the colour values manually, instead of then being automatically applied based on the palette you choose/default to. You can specify RGB colour values or a list of predefined colour names - all available options can be found by running <code>colours()</code> in the console. Other manual scales are also available, for example, <code>scale_fill_manual</code>.</p></li>
 </ul>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="multi-part-plots.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt, </span>
-<span id="cb59-2"><a href="multi-part-plots.html#cb59-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">shape =</span> language,</span>
-<span id="cb59-3"><a href="multi-part-plots.html#cb59-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">group =</span> language,</span>
-<span id="cb59-4"><a href="multi-part-plots.html#cb59-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> language)) <span class="sc">+</span></span>
-<span id="cb59-5"><a href="multi-part-plots.html#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb59-6"><a href="multi-part-plots.html#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>) <span class="sc">+</span></span>
-<span id="cb59-7"><a href="multi-part-plots.html#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb59-8"><a href="multi-part-plots.html#cb59-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb59-9"><a href="multi-part-plots.html#cb59-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="multi-part-plots.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt, </span>
+<span id="cb57-2"><a href="multi-part-plots.html#cb57-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">shape =</span> language,</span>
+<span id="cb57-3"><a href="multi-part-plots.html#cb57-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">group =</span> language,</span>
+<span id="cb57-4"><a href="multi-part-plots.html#cb57-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> language)) <span class="sc">+</span></span>
+<span id="cb57-5"><a href="multi-part-plots.html#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb57-6"><a href="multi-part-plots.html#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-7"><a href="multi-part-plots.html#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb57-8"><a href="multi-part-plots.html#cb57-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb57-9"><a href="multi-part-plots.html#cb57-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:ixn"></span>
 <img src="05-ch5_files/figure-html/ixn-1.png" alt="Interaction plot." width="100%" />
 <p class="caption">
@@ -342,15 +308,15 @@ Figure 5.1: Interaction plot.
 <li>Similarly, <code>geom_line()</code> overrides the default grouping variable so that a line is drawn to connect the individual data points for each <em>participant</em> (<code>group = id</code>) rather than each language group, and also sets the colours. The default line type is also overridden and set for all lines to be solid.</li>
 <li>Finally, the calls to <code>stat_summary()</code> remain largely as they were, with the exception of setting <code>colour = "black"</code> and <code>size = 2</code> so that the overall means and error bars can be more easily distinguished from the individual data points. Because they do not specify an individual mapping, they use the defaults (e.g., the lines are connected by language group). For the error bars the lines are again made solid.</li>
 </ul>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="multi-part-plots.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt, </span>
-<span id="cb60-2"><a href="multi-part-plots.html#cb60-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">group =</span> language, <span class="at">shape =</span> language)) <span class="sc">+</span></span>
-<span id="cb60-3"><a href="multi-part-plots.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> language),<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb60-4"><a href="multi-part-plots.html#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> id, <span class="at">colour =</span> language), <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb60-5"><a href="multi-part-plots.html#cb60-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb60-6"><a href="multi-part-plots.html#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb60-7"><a href="multi-part-plots.html#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, </span>
-<span id="cb60-8"><a href="multi-part-plots.html#cb60-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">width =</span> .<span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb60-9"><a href="multi-part-plots.html#cb60-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="multi-part-plots.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt, </span>
+<span id="cb58-2"><a href="multi-part-plots.html#cb58-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">group =</span> language, <span class="at">shape =</span> language)) <span class="sc">+</span></span>
+<span id="cb58-3"><a href="multi-part-plots.html#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> language),<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb58-4"><a href="multi-part-plots.html#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> id, <span class="at">colour =</span> language), <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb58-5"><a href="multi-part-plots.html#cb58-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-6"><a href="multi-part-plots.html#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-7"><a href="multi-part-plots.html#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, </span>
+<span id="cb58-8"><a href="multi-part-plots.html#cb58-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">width =</span> .<span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-9"><a href="multi-part-plots.html#cb58-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:ixn-by-subj"></span>
 <img src="05-ch5_files/figure-html/ixn-by-subj-1.png" alt="Interaction plot with by-participant data" width="100%" />
 <p class="caption">
@@ -364,10 +330,10 @@ Figure 5.2: Interaction plot with by-participant data
 <ul>
 <li>Rather than using <code>colour = condition</code> to produce different colours for each level of <code>condition</code>, this variable is instead passed to <code>facet_wrap()</code>.</li>
 </ul>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="multi-part-plots.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age)) <span class="sc">+</span></span>
-<span id="cb61-2"><a href="multi-part-plots.html#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb61-3"><a href="multi-part-plots.html#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb61-4"><a href="multi-part-plots.html#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>condition)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="multi-part-plots.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age)) <span class="sc">+</span></span>
+<span id="cb59-2"><a href="multi-part-plots.html#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb59-3"><a href="multi-part-plots.html#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-4"><a href="multi-part-plots.html#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>condition)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:scatterplot-facet"></span>
 <img src="05-ch5_files/figure-html/scatterplot-facet-1.png" alt="Faceted scatterplot" width="100%" />
 <p class="caption">
@@ -375,13 +341,13 @@ Figure 5.3: Faceted scatterplot
 </p>
 </div>
 <p>As another example, we can use <code>facet_wrap()</code> as an alternative to the grouped violin-boxplot (see Figure <a href="representing-summary-statistics.html#fig:viobox3">4.9</a>) in which the variable <code>language</code> is passed to <code>facet_wrap()</code> rather than <code>fill</code>.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="multi-part-plots.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
-<span id="cb62-2"><a href="multi-part-plots.html#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb62-3"><a href="multi-part-plots.html#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb62-4"><a href="multi-part-plots.html#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb62-5"><a href="multi-part-plots.html#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb62-6"><a href="multi-part-plots.html#cb62-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>language) <span class="sc">+</span></span>
-<span id="cb62-7"><a href="multi-part-plots.html#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="multi-part-plots.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
+<span id="cb60-2"><a href="multi-part-plots.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb60-3"><a href="multi-part-plots.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb60-4"><a href="multi-part-plots.html#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb60-5"><a href="multi-part-plots.html#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb60-6"><a href="multi-part-plots.html#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>language) <span class="sc">+</span></span>
+<span id="cb60-7"><a href="multi-part-plots.html#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:violin-boxplot-facet"></span>
 <img src="05-ch5_files/figure-html/violin-boxplot-facet-1.png" alt="Facted violin-boxplot" width="100%" />
 <p class="caption">
@@ -389,16 +355,16 @@ Figure 5.4: Facted violin-boxplot
 </p>
 </div>
 <p>Finally, note that editing the labels for faceted variables involves converting the <code>language</code> column into a factor. This allows you to set the order of the <code>levels</code> and the <code>labels</code> to display.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="multi-part-plots.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
-<span id="cb63-2"><a href="multi-part-plots.html#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb63-3"><a href="multi-part-plots.html#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb63-4"><a href="multi-part-plots.html#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb63-5"><a href="multi-part-plots.html#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb63-6"><a href="multi-part-plots.html#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">factor</span>(language, </span>
-<span id="cb63-7"><a href="multi-part-plots.html#cb63-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;monolingual&quot;</span>, <span class="st">&quot;bilingual&quot;</span>),</span>
-<span id="cb63-8"><a href="multi-part-plots.html#cb63-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Monolingual participants&quot;</span>, </span>
-<span id="cb63-9"><a href="multi-part-plots.html#cb63-9" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Bilingual participants&quot;</span>))) <span class="sc">+</span></span>
-<span id="cb63-10"><a href="multi-part-plots.html#cb63-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="multi-part-plots.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
+<span id="cb61-2"><a href="multi-part-plots.html#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb61-3"><a href="multi-part-plots.html#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb61-4"><a href="multi-part-plots.html#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb61-5"><a href="multi-part-plots.html#cb61-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb61-6"><a href="multi-part-plots.html#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">factor</span>(language, </span>
+<span id="cb61-7"><a href="multi-part-plots.html#cb61-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;monolingual&quot;</span>, <span class="st">&quot;bilingual&quot;</span>),</span>
+<span id="cb61-8"><a href="multi-part-plots.html#cb61-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Monolingual participants&quot;</span>, </span>
+<span id="cb61-9"><a href="multi-part-plots.html#cb61-9" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Bilingual participants&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb61-10"><a href="multi-part-plots.html#cb61-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:violin-facet"></span>
 <img src="05-ch5_files/figure-html/violin-facet-1.png" alt="Faceted violin-boxplot with updated labels" width="100%" />
 <p class="caption">
@@ -409,19 +375,19 @@ Figure 5.5: Faceted violin-boxplot with updated labels
 <div id="storing-plots" class="section level2" number="5.4">
 <h2><span class="header-section-number">5.4</span> Storing plots</h2>
 <p>Just like with datasets, plots can be saved to objects. The below code saves the histograms we produced for reaction time and accuracy to objects named <code>p1</code> and <code>p2</code>. These plots can then be viewed by calling the object name in the console.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="multi-part-plots.html#cb64-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt)) <span class="sc">+</span></span>
-<span id="cb64-2"><a href="multi-part-plots.html#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)</span>
-<span id="cb64-3"><a href="multi-part-plots.html#cb64-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-4"><a href="multi-part-plots.html#cb64-4" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> acc)) <span class="sc">+</span></span>
-<span id="cb64-5"><a href="multi-part-plots.html#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="multi-part-plots.html#cb62-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt)) <span class="sc">+</span></span>
+<span id="cb62-2"><a href="multi-part-plots.html#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb62-3"><a href="multi-part-plots.html#cb62-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-4"><a href="multi-part-plots.html#cb62-4" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> acc)) <span class="sc">+</span></span>
+<span id="cb62-5"><a href="multi-part-plots.html#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) </span></code></pre></div>
 <p>Importantly, layers can then be added to these saved objects. For example, the below code adds a theme to the plot saved in <code>p1</code> and saves it as a new object <code>p3</code>. This is important because many of the examples of <code>ggplot</code> code you will find in online help forums use the <code>p +</code> format to build up plots but fail to explain what this means, which can be confusing to beginners.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="multi-part-plots.html#cb65-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> p1 <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="multi-part-plots.html#cb63-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> p1 <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
 </div>
 <div id="saving-plots-as-images" class="section level2" number="5.5">
 <h2><span class="header-section-number">5.5</span> Saving plots as images</h2>
 <p>In addition to saving plots to objects for further use in R, the function <code>ggsave()</code> can be used to save plots as images on your hard drive. The only required argument for <code>ggsave</code> is the file name of the image file you will create, complete with file extension (this can be “eps,” “ps,” “tex,” “pdf,” “jpeg,” “tiff,” “png,” “bmp,” “svg” or “wmf”). By default, <code>ggsave()</code> will save the last plot displayed, however, you can also specify a specific plot object if you have one saved.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="multi-part-plots.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">&quot;my_plot.png&quot;</span>) <span class="co"># save last displayed plot</span></span>
-<span id="cb66-2"><a href="multi-part-plots.html#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">&quot;my_plot.png&quot;</span>, <span class="at">plot =</span> p3) <span class="co"># save plot p3</span></span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="multi-part-plots.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">&quot;my_plot.png&quot;</span>) <span class="co"># save last displayed plot</span></span>
+<span id="cb64-2"><a href="multi-part-plots.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">&quot;my_plot.png&quot;</span>, <span class="at">plot =</span> p3) <span class="co"># save plot p3</span></span></code></pre></div>
 <p>The width, height and resolution of the image can all be manually adjusted and the help documentation for is useful here (type <code>?ggsave</code> in the console to access the help).</p>
 </div>
 <div id="multiple-plots" class="section level2" number="5.6">
@@ -430,14 +396,14 @@ Figure 5.5: Faceted violin-boxplot with updated labels
 <div id="combining-two-plots" class="section level3" number="5.6.1">
 <h3><span class="header-section-number">5.6.1</span> Combining two plots</h3>
 <p>Two plots can be combined side-by-side or stacked on top of each other. These combined plots could also be saved to an object and then passed to <code>ggsave</code>.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="multi-part-plots.html#cb67-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="co"># side-by-side</span></span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="multi-part-plots.html#cb65-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="co"># side-by-side</span></span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:patchwork-side"></span>
 <img src="05-ch5_files/figure-html/patchwork-side-1.png" alt="Side-by-side plots with patchwork" width="100%" />
 <p class="caption">
 Figure 5.6: Side-by-side plots with patchwork
 </p>
 </div>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="multi-part-plots.html#cb68-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">/</span> p2 <span class="co"># stacked</span></span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="multi-part-plots.html#cb66-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">/</span> p2 <span class="co"># stacked</span></span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:patchwork-stack"></span>
 <img src="05-ch5_files/figure-html/patchwork-stack-1.png" alt="Stacked plots with patchwork" width="100%" />
 <p class="caption">
@@ -448,30 +414,40 @@ Figure 5.7: Stacked plots with patchwork
 <div id="combining-three-or-more-plots" class="section level3" number="5.6.2">
 <h3><span class="header-section-number">5.6.2</span> Combining three or more plots</h3>
 <p>Three or more plots can be combined in a number of ways and the <code>patchwork</code> syntax is relatively easy to grasp with a few examples and a bit of trial and error. First, we save the complex interaction plot and faceted violin-boxplot to objects named <code>p5</code> and <code>p6</code>.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="multi-part-plots.html#cb69-1" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt, </span>
-<span id="cb69-2"><a href="multi-part-plots.html#cb69-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">group =</span> language, <span class="at">shape =</span> language)) <span class="sc">+</span></span>
-<span id="cb69-3"><a href="multi-part-plots.html#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> language),<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb69-4"><a href="multi-part-plots.html#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> id, <span class="at">colour =</span> language), <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb69-5"><a href="multi-part-plots.html#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb69-6"><a href="multi-part-plots.html#cb69-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb69-7"><a href="multi-part-plots.html#cb69-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, </span>
-<span id="cb69-8"><a href="multi-part-plots.html#cb69-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">width =</span> .<span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb69-9"><a href="multi-part-plots.html#cb69-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb69-10"><a href="multi-part-plots.html#cb69-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-11"><a href="multi-part-plots.html#cb69-11" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
-<span id="cb69-12"><a href="multi-part-plots.html#cb69-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
-<span id="cb69-13"><a href="multi-part-plots.html#cb69-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb69-14"><a href="multi-part-plots.html#cb69-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb69-15"><a href="multi-part-plots.html#cb69-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb69-16"><a href="multi-part-plots.html#cb69-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">factor</span>(language, </span>
-<span id="cb69-17"><a href="multi-part-plots.html#cb69-17" aria-hidden="true" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;monolingual&quot;</span>, <span class="st">&quot;bilingual&quot;</span>),</span>
-<span id="cb69-18"><a href="multi-part-plots.html#cb69-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Monolingual participants&quot;</span>, </span>
-<span id="cb69-19"><a href="multi-part-plots.html#cb69-19" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Bilingual participants&quot;</span>))) <span class="sc">+</span></span>
-<span id="cb69-20"><a href="multi-part-plots.html#cb69-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="multi-part-plots.html#cb67-1" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt, </span>
+<span id="cb67-2"><a href="multi-part-plots.html#cb67-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">group =</span> language, </span>
+<span id="cb67-3"><a href="multi-part-plots.html#cb67-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">shape =</span> language)) <span class="sc">+</span></span>
+<span id="cb67-4"><a href="multi-part-plots.html#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> language),</span>
+<span id="cb67-5"><a href="multi-part-plots.html#cb67-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb67-6"><a href="multi-part-plots.html#cb67-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> id, <span class="at">colour =</span> language), </span>
+<span id="cb67-7"><a href="multi-part-plots.html#cb67-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb67-8"><a href="multi-part-plots.html#cb67-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, </span>
+<span id="cb67-9"><a href="multi-part-plots.html#cb67-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, </span>
+<span id="cb67-10"><a href="multi-part-plots.html#cb67-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">2</span>, </span>
+<span id="cb67-11"><a href="multi-part-plots.html#cb67-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb67-12"><a href="multi-part-plots.html#cb67-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, </span>
+<span id="cb67-13"><a href="multi-part-plots.html#cb67-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>, </span>
+<span id="cb67-14"><a href="multi-part-plots.html#cb67-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb67-15"><a href="multi-part-plots.html#cb67-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, </span>
+<span id="cb67-16"><a href="multi-part-plots.html#cb67-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, </span>
+<span id="cb67-17"><a href="multi-part-plots.html#cb67-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">width =</span> .<span class="dv">2</span>, </span>
+<span id="cb67-18"><a href="multi-part-plots.html#cb67-18" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb67-19"><a href="multi-part-plots.html#cb67-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb67-20"><a href="multi-part-plots.html#cb67-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-21"><a href="multi-part-plots.html#cb67-21" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt)) <span class="sc">+</span></span>
+<span id="cb67-22"><a href="multi-part-plots.html#cb67-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb67-23"><a href="multi-part-plots.html#cb67-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb67-24"><a href="multi-part-plots.html#cb67-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb67-25"><a href="multi-part-plots.html#cb67-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb67-26"><a href="multi-part-plots.html#cb67-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">factor</span>(language, </span>
+<span id="cb67-27"><a href="multi-part-plots.html#cb67-27" aria-hidden="true" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;monolingual&quot;</span>, <span class="st">&quot;bilingual&quot;</span>),</span>
+<span id="cb67-28"><a href="multi-part-plots.html#cb67-28" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Monolingual participants&quot;</span>, </span>
+<span id="cb67-29"><a href="multi-part-plots.html#cb67-29" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Bilingual participants&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb67-30"><a href="multi-part-plots.html#cb67-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p>The exact layout of your plots will depend upon a number of factors. Try running the below examples and adjust the use of the operators to see how they change the layout. Each line of code will draw a different figure.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="multi-part-plots.html#cb70-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">/</span>p5 <span class="sc">/</span> p6 </span>
-<span id="cb70-2"><a href="multi-part-plots.html#cb70-2" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> p6) <span class="sc">/</span> p5 </span>
-<span id="cb70-3"><a href="multi-part-plots.html#cb70-3" aria-hidden="true" tabindex="-1"></a>p6 <span class="sc">|</span> p1 <span class="sc">/</span> p5 </span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="multi-part-plots.html#cb68-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">/</span>p5 <span class="sc">/</span> p6 </span>
+<span id="cb68-2"><a href="multi-part-plots.html#cb68-2" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> p6) <span class="sc">/</span> p5 </span>
+<span id="cb68-3"><a href="multi-part-plots.html#cb68-3" aria-hidden="true" tabindex="-1"></a>p6 <span class="sc">|</span> p1 <span class="sc">/</span> p5 </span></code></pre></div>
 </div>
 </div>
 <div id="customisation-part-4" class="section level2" number="5.7">
@@ -479,10 +455,10 @@ Figure 5.7: Stacked plots with patchwork
 <div id="axis-labels" class="section level3" number="5.7.1">
 <h3><span class="header-section-number">5.7.1</span> Axis labels</h3>
 <p>Previously when we edited the main axis labels we used the <code>scale_</code> functions to do so. These functions are useful to know because they allow you to customise each aspect of the scale, for example, the breaks and limits. However, if you only need to change the main axis <code>name</code>, there is a quicker way to do so using <code>labs()</code>. The below code adds a layer to the plot that changes the axis labels for the histogram saved in <code>p1</code> and adds a title and subtitle. The title and subtitle do not conform to APA standards (more on APA formatting in the additional resources), however, for presentations and social media they can be useful.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="multi-part-plots.html#cb71-1" aria-hidden="true" tabindex="-1"></a>p5 <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Type of word&quot;</span>,</span>
-<span id="cb71-2"><a href="multi-part-plots.html#cb71-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">y =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>,</span>
-<span id="cb71-3"><a href="multi-part-plots.html#cb71-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&quot;Language group by word type interaction plot&quot;</span>,</span>
-<span id="cb71-4"><a href="multi-part-plots.html#cb71-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">&quot;Reaction time data&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="multi-part-plots.html#cb69-1" aria-hidden="true" tabindex="-1"></a>p5 <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Type of word&quot;</span>,</span>
+<span id="cb69-2"><a href="multi-part-plots.html#cb69-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">y =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>,</span>
+<span id="cb69-3"><a href="multi-part-plots.html#cb69-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&quot;Language group by word type interaction plot&quot;</span>,</span>
+<span id="cb69-4"><a href="multi-part-plots.html#cb69-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">&quot;Reaction time data&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:edited-labels"></span>
 <img src="05-ch5_files/figure-html/edited-labels-1.png" alt="Plot with edited labels and title" width="100%" />
 <p class="caption">
@@ -495,17 +471,17 @@ Figure 5.8: Plot with edited labels and title
 <h3><span class="header-section-number">5.7.2</span> Redundant aesthetics</h3>
 <p>So far when we have produced plots with colours, the colours were the only way that different levels of a variable were indicated, but it is sometimes preferable to indicate levels with both colour and other means, such as facets or x-axis categories.</p>
 <p>The code below adds <code>fill = language</code> to the violin-boxplots that are also faceted by language. We adjust <code>alpha</code> and use the viridis colour palette to customise the colours.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="multi-part-plots.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
-<span id="cb72-2"><a href="multi-part-plots.html#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb72-3"><a href="multi-part-plots.html#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>, <span class="at">alpha =</span> .<span class="dv">6</span>) <span class="sc">+</span></span>
-<span id="cb72-4"><a href="multi-part-plots.html#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb72-5"><a href="multi-part-plots.html#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb72-6"><a href="multi-part-plots.html#cb72-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">factor</span>(language, </span>
-<span id="cb72-7"><a href="multi-part-plots.html#cb72-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;monolingual&quot;</span>, <span class="st">&quot;bilingual&quot;</span>),</span>
-<span id="cb72-8"><a href="multi-part-plots.html#cb72-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Monolingual participants&quot;</span>, </span>
-<span id="cb72-9"><a href="multi-part-plots.html#cb72-9" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Bilingual participants&quot;</span>))) <span class="sc">+</span></span>
-<span id="cb72-10"><a href="multi-part-plots.html#cb72-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb72-11"><a href="multi-part-plots.html#cb72-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="multi-part-plots.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
+<span id="cb70-2"><a href="multi-part-plots.html#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb70-3"><a href="multi-part-plots.html#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>, <span class="at">alpha =</span> .<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb70-4"><a href="multi-part-plots.html#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb70-5"><a href="multi-part-plots.html#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb70-6"><a href="multi-part-plots.html#cb70-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">factor</span>(language, </span>
+<span id="cb70-7"><a href="multi-part-plots.html#cb70-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;monolingual&quot;</span>, <span class="st">&quot;bilingual&quot;</span>),</span>
+<span id="cb70-8"><a href="multi-part-plots.html#cb70-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Monolingual participants&quot;</span>, </span>
+<span id="cb70-9"><a href="multi-part-plots.html#cb70-9" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Bilingual participants&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb70-10"><a href="multi-part-plots.html#cb70-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb70-11"><a href="multi-part-plots.html#cb70-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-6"></span>
 <img src="05-ch5_files/figure-html/unnamed-chunk-6-1.png" alt="Violin-boxplot with redundant legend" width="100%" />
 <p class="caption">
@@ -513,18 +489,18 @@ Figure 5.9: Violin-boxplot with redundant legend
 </p>
 </div>
 <p>Specifying a <code>fill</code> variable means that by default, R produces a legend for that variable. However, the use of colour is redundant with the facet labels, so you can remove this legend with the <code>guides</code> function.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="multi-part-plots.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
-<span id="cb73-2"><a href="multi-part-plots.html#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb73-3"><a href="multi-part-plots.html#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>, <span class="at">alpha =</span> .<span class="dv">6</span>) <span class="sc">+</span></span>
-<span id="cb73-4"><a href="multi-part-plots.html#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb73-5"><a href="multi-part-plots.html#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb73-6"><a href="multi-part-plots.html#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">factor</span>(language, </span>
-<span id="cb73-7"><a href="multi-part-plots.html#cb73-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;monolingual&quot;</span>, <span class="st">&quot;bilingual&quot;</span>),</span>
-<span id="cb73-8"><a href="multi-part-plots.html#cb73-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Monolingual participants&quot;</span>, </span>
-<span id="cb73-9"><a href="multi-part-plots.html#cb73-9" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Bilingual participants&quot;</span>))) <span class="sc">+</span></span>
-<span id="cb73-10"><a href="multi-part-plots.html#cb73-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb73-11"><a href="multi-part-plots.html#cb73-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>) <span class="sc">+</span></span>
-<span id="cb73-12"><a href="multi-part-plots.html#cb73-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="multi-part-plots.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y=</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
+<span id="cb71-2"><a href="multi-part-plots.html#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb71-3"><a href="multi-part-plots.html#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">fatten =</span> <span class="cn">NULL</span>, <span class="at">alpha =</span> .<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb71-4"><a href="multi-part-plots.html#cb71-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb71-5"><a href="multi-part-plots.html#cb71-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb71-6"><a href="multi-part-plots.html#cb71-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">factor</span>(language, </span>
+<span id="cb71-7"><a href="multi-part-plots.html#cb71-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;monolingual&quot;</span>, <span class="st">&quot;bilingual&quot;</span>),</span>
+<span id="cb71-8"><a href="multi-part-plots.html#cb71-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Monolingual participants&quot;</span>, </span>
+<span id="cb71-9"><a href="multi-part-plots.html#cb71-9" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Bilingual participants&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb71-10"><a href="multi-part-plots.html#cb71-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb71-11"><a href="multi-part-plots.html#cb71-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>) <span class="sc">+</span></span>
+<span id="cb71-12"><a href="multi-part-plots.html#cb71-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:legend-suppress"></span>
 <img src="05-ch5_files/figure-html/legend-suppress-1.png" alt="Plot with suppressed redundant legend" width="100%" />
 <p class="caption">
@@ -539,25 +515,26 @@ Figure 5.10: Plot with suppressed redundant legend
 <ol style="list-style-type: decimal">
 <li>Rather than mapping both variables (<code>condition</code> and <code>language)</code> to a single interaction plot with individual participant data, instead produce a faceted plot that separates the monolingual and bilingual data. All visual elements should remain the same (colours and shapes) and you should also take care not to have any redundant legends.</li>
 </ol>
-<div class="webex-solution">
+<div class="solution">
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="multi-part-plots.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt, <span class="at">group =</span> language, <span class="at">shape =</span> language)) <span class="sc">+</span></span>
-<span id="cb74-2"><a href="multi-part-plots.html#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> language),<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb74-3"><a href="multi-part-plots.html#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> id, <span class="at">colour =</span> language), <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb74-4"><a href="multi-part-plots.html#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb74-5"><a href="multi-part-plots.html#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb74-6"><a href="multi-part-plots.html#cb74-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb74-7"><a href="multi-part-plots.html#cb74-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb74-8"><a href="multi-part-plots.html#cb74-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>language) <span class="sc">+</span></span>
-<span id="cb74-9"><a href="multi-part-plots.html#cb74-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">shape =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="multi-part-plots.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt, <span class="at">group =</span> language, <span class="at">shape =</span> language)) <span class="sc">+</span></span>
+<span id="cb72-2"><a href="multi-part-plots.html#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> language),<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb72-3"><a href="multi-part-plots.html#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> id, <span class="at">colour =</span> language), <span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb72-4"><a href="multi-part-plots.html#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb72-5"><a href="multi-part-plots.html#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb72-6"><a href="multi-part-plots.html#cb72-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb72-7"><a href="multi-part-plots.html#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb72-8"><a href="multi-part-plots.html#cb72-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>language) <span class="sc">+</span></span>
+<span id="cb72-9"><a href="multi-part-plots.html#cb72-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">shape =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
 <p><img src="05-ch5_files/figure-html/activity-facet-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="multi-part-plots.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this wasn&#39;t easy so if you got it, well done!</span></span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="multi-part-plots.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this wasn&#39;t easy so if you got it, well done!</span></span></code></pre></div>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li>Choose your favourite three plots you’ve produced so far in this tutorial, tidy them up with axis labels, your preferred colour scheme, and any necessary titles, and then combine them using <code>patchwork</code>. If you’re feeling particularly proud of them, post them on Twitter using #PsyTeachR.</li>
 </ol>
+
 
 </div>
 </div>
@@ -672,7 +649,7 @@ window.onload = function() {
         </div>
       </div>
 <a href="representing-summary-statistics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="advanced-plots.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="appendices.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -695,7 +672,6 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"whatsapp": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
 "google": false
 },

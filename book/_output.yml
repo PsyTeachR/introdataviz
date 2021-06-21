@@ -13,7 +13,6 @@ bookdown::gitbook:
       scroll_highlight: yes
       before: |
         <li><a href="./">IntroDataViz</a></li>
-        <li><a href="https://zenodo.org/badge/latestdoi/166559207"><img src="https://zenodo.org/badge/166559207.svg" alt="DOI"></a></li>
       after: |
         <li><a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" 
             target="blank"><img alt="Creative Commons License" 

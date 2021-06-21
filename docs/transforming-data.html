@@ -5,20 +5,20 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Transforming Data | Data visualisation using R, for researchers who don’t use R</title>
-  <meta name="description" content="Abstract here." />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Transforming Data | Data visualisation using R, for researchers who don’t use R" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Abstract here." />
+  <meta property="og:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 3 Transforming Data | Data visualisation using R, for researchers who don’t use R" />
   
-  <meta name="twitter:description" content="Abstract here." />
+  <meta name="twitter:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
   
 
 <meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="getting-started.html"/>
 <link rel="next" href="representing-summary-statistics.html"/>
-<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +51,6 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <meta property="og:title" content="IntroDataViz">
 <meta property="og:description" content="Data Visualisation Using R, For Researchers Who Don’t Use R.">
 <meta property="og:image" content="https://psyteachr.github.io/introdataviz/images/card.png">
@@ -127,29 +125,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
-
 <link rel="stylesheet" href="include/psyteachr.css" type="text/css" />
 <link rel="stylesheet" href="include/webex.css" type="text/css" />
 <link rel="stylesheet" href="include/style.css" type="text/css" />
@@ -166,7 +141,6 @@ div.csl-indent {
 
 <ul class="summary">
 <li><a href="./">IntroDataViz</a></li>
-<li><a href="https://zenodo.org/badge/latestdoi/166559207"><img src="https://zenodo.org/badge/166559207.svg" alt="DOI"></a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
@@ -261,26 +235,18 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="multi-part-plots.html"><a href="multi-part-plots.html#activities-4"><i class="fa fa-check"></i><b>5.8</b> Activities 4</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="advanced-plots.html"><a href="advanced-plots.html"><i class="fa fa-check"></i><b>6</b> Advanced Plots</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="advanced-plots.html"><a href="advanced-plots.html#split-violin-plots"><i class="fa fa-check"></i><b>6.1</b> Split-violin plots</a></li>
-<li class="chapter" data-level="6.2" data-path="advanced-plots.html"><a href="advanced-plots.html#raincloud-plots"><i class="fa fa-check"></i><b>6.2</b> Raincloud plots</a></li>
-<li class="chapter" data-level="6.3" data-path="advanced-plots.html"><a href="advanced-plots.html#ridge-plots"><i class="fa fa-check"></i><b>6.3</b> Ridge plots</a></li>
-<li class="chapter" data-level="6.4" data-path="advanced-plots.html"><a href="advanced-plots.html#alluvial-plots"><i class="fa fa-check"></i><b>6.4</b> Alluvial plots</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="appendices.html"><a href="appendices.html"><i class="fa fa-check"></i>Appendices</a></li>
-<li class="chapter" data-level="8" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>8</b> Additional resources</a></li>
-<li class="chapter" data-level="9" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html"><i class="fa fa-check"></i><b>9</b> Additional advanced plots and customisation options</a>
+<li class="chapter" data-level="6" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>6</b> Additional resources</a></li>
+<li class="chapter" data-level="7" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html"><i class="fa fa-check"></i><b>7</b> Additional advanced plots and customisation options</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#adding-lines-to-plots"><i class="fa fa-check"></i><b>9.1</b> Adding lines to plots</a></li>
-<li class="chapter" data-level="9.2" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#zooming-in-and-out"><i class="fa fa-check"></i><b>9.2</b> Zooming in and out</a></li>
-<li class="chapter" data-level="9.3" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-the-axis-values"><i class="fa fa-check"></i><b>9.3</b> Setting the axis values</a></li>
-<li class="chapter" data-level="9.4" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#controlling-the-legend"><i class="fa fa-check"></i><b>9.4</b> Controlling the Legend</a></li>
-<li class="chapter" data-level="9.5" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-a-lab-theme-using-theme"><i class="fa fa-check"></i><b>9.5</b> Setting A Lab Theme using <code>theme()</code></a></li>
-<li class="chapter" data-level="9.6" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---overlaying-plots"><i class="fa fa-check"></i><b>9.6</b> Easter Egg - Overlaying Plots</a></li>
-<li class="chapter" data-level="9.7" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-dumbbell-plot"><i class="fa fa-check"></i><b>9.7</b> Easter Egg - A Dumbbell Plot</a></li>
-<li class="chapter" data-level="9.8" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-pie-chart"><i class="fa fa-check"></i><b>9.8</b> Easter Egg - A Pie Chart</a></li>
+<li class="chapter" data-level="7.1" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#adding-lines-to-plots"><i class="fa fa-check"></i><b>7.1</b> Adding lines to plots</a></li>
+<li class="chapter" data-level="7.2" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#zooming-in-and-out"><i class="fa fa-check"></i><b>7.2</b> Zooming in and out</a></li>
+<li class="chapter" data-level="7.3" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-the-axis-values"><i class="fa fa-check"></i><b>7.3</b> Setting the axis values</a></li>
+<li class="chapter" data-level="7.4" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#controlling-the-legend"><i class="fa fa-check"></i><b>7.4</b> Controlling the Legend</a></li>
+<li class="chapter" data-level="7.5" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-a-lab-theme-using-theme"><i class="fa fa-check"></i><b>7.5</b> Setting A Lab Theme using <code>theme()</code></a></li>
+<li class="chapter" data-level="7.6" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---overlaying-plots"><i class="fa fa-check"></i><b>7.6</b> Easter Egg - Overlaying Plots</a></li>
+<li class="chapter" data-level="7.7" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-dumbbell-plot"><i class="fa fa-check"></i><b>7.7</b> Easter Egg - A Dumbbell Plot</a></li>
+<li class="chapter" data-level="7.8" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-pie-chart"><i class="fa fa-check"></i><b>7.8</b> Easter Egg - A Pie Chart</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" 
@@ -382,7 +348,7 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>Wide-format is popular because it is intuitive to read and easy to enter data into as all the data for one participant is contained within a single row. However, for the purposes of analysis, and particularly for analysis using R, this format is unsuitable. Whilst it is intuitive to read by a human, the same is not true for a computer. Wide-format data concatenates multiple pieces of information in a single column, for example in Table <a href="transforming-data.html#tab:wide-data">3.1</a>, <code>rt_word</code> contains information related to both a DV and one level of an IV. In comparison, long-format data separates the DV from the IV’s so that each column represents only one variable. The less intuitive part is that long data has multiple rows for each participant and a column that encodes the level of the IV (<code>word</code> or <code>nonword</code>). In essence, the long-format encodes repeated-measures variable in the same way as a between-group variable in SPSS. Wickham <span class="citation">(<a href="#ref-wickham2014tidy" role="doc-biblioref">2014</a>)</span> provides a comprehensive overview of the benefits of a similar format known as tidy data, which is a standard way of mapping a dataset to its structure, but for the purposes of this tutorial there are two important rules: each column should be a <em>variable</em> and each row should be an <em>observation.</em></p>
+<p>Wide-format is popular because it is intuitive to read and easy to enter data into as all the data for one participant is contained within a single row. However, for the purposes of analysis, and particularly for analysis using R, this format is unsuitable. Whilst it is intuitive to read by a human, the same is not true for a computer. Wide-format data concatenates multiple pieces of information in a single column, for example in Table <a href="transforming-data.html#tab:wide-data">3.1</a>, <code>rt_word</code> contains information related to both a DV and one level of an IV. In comparison, long-format data separates the DV from the IV’s so that each column represents only one variable. The less intuitive part is that long data has multiple rows for each participant and a column that encodes the level of the IV (<code>word</code> or <code>nonword</code>). In essence, the long-format encodes repeated-measures variable in the same way as a between-group variable in SPSS. Wickham <span class="citation">(<a href="additional-advanced-plots-and-customisation-options.html#ref-wickham2014tidy" role="doc-biblioref">2014</a>)</span> provides a comprehensive overview of the benefits of a similar format known as tidy data, which is a standard way of mapping a dataset to its structure, but for the purposes of this tutorial there are two important rules: each column should be a <em>variable</em> and each row should be an <em>observation.</em></p>
 <p>Moving from using wide-form to long-form datasets can require a conceptual shift on the part of the researcher and one that usually only comes with practice and repeated exposure<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>. For our example dataset, adhering to these rules for reshaping the data would produce Table <a href="transforming-data.html#tab:long">3.2</a>. Rather than different observations of the same dependent variable being split across columns, there is now a single column for the DV reaction time, and a single column for the DV accuracy. Each participant now has multiple rows of data, one for each observation (i.e., for each participant there will be as many rows as there are levels of the within-subject IV). Although there is some repetition of age and language group, each row is unique when looking at the combination of measures.</p>
 <table>
 <caption><span id="tab:long">Table 3.2: </span>Data in the correct format for visualization.</caption>
@@ -456,10 +422,10 @@ div.csl-indent {
 <h3><span class="header-section-number">3.2.1</span> Step 1: <code>pivot_longer()</code></h3>
 <p>The first step is to use the function <code>pivot_longer()</code> to transform the data to long-form. We have purposefully used a more complex dataset with two DVs for this tutorial to aid researchers applying our code to their own datasets. Because of this, we will break down the steps involved to help show how the code works.</p>
 <p>This first code ignores that the dataset has two DVs, a problem we will fix in step 2. The pivot functions can be easier to show than tell - you may find it a useful exercise to run the below code and compare the newly created object <code>long</code> (Table <a href="transforming-data.html#tab:long1-example">3.3</a>) with the original <code>dat</code> Table <a href="transforming-data.html#tab:wide-data">3.1</a> before reading on.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="transforming-data.html#cb26-1" aria-hidden="true" tabindex="-1"></a>long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> dat, </span>
-<span id="cb26-2"><a href="transforming-data.html#cb26-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> rt_word<span class="sc">:</span>acc_nonword, </span>
-<span id="cb26-3"><a href="transforming-data.html#cb26-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="st">&quot;dv_condition&quot;</span>,</span>
-<span id="cb26-4"><a href="transforming-data.html#cb26-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">&quot;dv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="transforming-data.html#cb24-1" aria-hidden="true" tabindex="-1"></a>long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> dat, </span>
+<span id="cb24-2"><a href="transforming-data.html#cb24-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> rt_word<span class="sc">:</span>acc_nonword, </span>
+<span id="cb24-3"><a href="transforming-data.html#cb24-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="st">&quot;dv_condition&quot;</span>,</span>
+<span id="cb24-4"><a href="transforming-data.html#cb24-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">&quot;dv&quot;</span>)</span></code></pre></div>
 <ul>
 <li><p>As with the other tidyverse functions, the first argument specifies the dataset to use as the base, in this case <code>dat</code>. This argument name is often dropped in examples.</p></li>
 <li><p><code>cols</code> specifies all the columns you want to transform. The easiest way to visualise this is to think about which columns would be the same in the new long-form dataset and which will change. If you refer back to Table <a href="transforming-data.html#tab:wide-data">3.1</a>, you can see that <code>id</code>, <code>age</code>, and <code>language</code> all remain, while the columns that contain the measurements of the DVs change. The colon notation <code>first_column:last_column</code> is used to select all variables from the first column specified to the second. In our code, <code>cols</code> specifies that the columns we want to transform are <code>rt_word</code> to <code>acc_nonword</code>.</p></li>
@@ -530,11 +496,11 @@ div.csl-indent {
 <li><p><code>names_sep</code> specifies how to split up the variable name in cases where it has multiple components. This is when taking care to name your variables consistently and meaningfully pays off. Because the word to the left of the separator (<code>_</code>) is always the DV type and the word to the right is always the condition of the within-subject IV, it is easy to automatically split the columns.</p></li>
 <li><p>Note that when specifying more than one column name, they must be combined using <code>c()</code> and be enclosed in their own quotation marks.</p></li>
 </ul>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="transforming-data.html#cb27-1" aria-hidden="true" tabindex="-1"></a>long2 <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> dat, </span>
-<span id="cb27-2"><a href="transforming-data.html#cb27-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> rt_word<span class="sc">:</span>acc_nonword, </span>
-<span id="cb27-3"><a href="transforming-data.html#cb27-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, </span>
-<span id="cb27-4"><a href="transforming-data.html#cb27-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;dv_type&quot;</span>, <span class="st">&quot;condition&quot;</span>),</span>
-<span id="cb27-5"><a href="transforming-data.html#cb27-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">&quot;dv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="transforming-data.html#cb25-1" aria-hidden="true" tabindex="-1"></a>long2 <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> dat, </span>
+<span id="cb25-2"><a href="transforming-data.html#cb25-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> rt_word<span class="sc">:</span>acc_nonword, </span>
+<span id="cb25-3"><a href="transforming-data.html#cb25-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, </span>
+<span id="cb25-4"><a href="transforming-data.html#cb25-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;dv_type&quot;</span>, <span class="st">&quot;condition&quot;</span>),</span>
+<span id="cb25-5"><a href="transforming-data.html#cb25-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">&quot;dv&quot;</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:long-example">Table 3.4: </span>Data in long format with dv type and condition in separate columns.</caption>
 <thead>
@@ -603,9 +569,9 @@ div.csl-indent {
 <h3><span class="header-section-number">3.2.3</span> Step 3: <code>pivot_wider()</code></h3>
 <p>Although we have now split the columns so that there are separate variables for the DV type and level of condition, because we have two DVs, there is an additional bit of wrangling required to get the data in the right format for plotting.</p>
 <p>In the current long-form dataset, the column <code>dv</code> contains both reaction time and accuracy measures and keeping in mind the rule of thumb that <em>anything that shares an axis should probably be in the same column,</em> this creates a problem because we cannot plot two different units of measurement on the same axis. To fix this we need to use the function <code>pivot_wider()</code>. Again, we would encourage you at this point to compare <code>long2</code> and <code>dat_long</code> with the below code to try and map the connections before reading on.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="transforming-data.html#cb28-1" aria-hidden="true" tabindex="-1"></a>dat_long <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(long2, </span>
-<span id="cb28-2"><a href="transforming-data.html#cb28-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">names_from =</span> <span class="st">&quot;dv_type&quot;</span>, </span>
-<span id="cb28-3"><a href="transforming-data.html#cb28-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">values_from =</span> <span class="st">&quot;dv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="transforming-data.html#cb26-1" aria-hidden="true" tabindex="-1"></a>dat_long <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(long2, </span>
+<span id="cb26-2"><a href="transforming-data.html#cb26-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">names_from =</span> <span class="st">&quot;dv_type&quot;</span>, </span>
+<span id="cb26-3"><a href="transforming-data.html#cb26-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">values_from =</span> <span class="st">&quot;dv&quot;</span>)</span></code></pre></div>
 <ul>
 <li><p>The first argument is again the dataset you wish to work from, in this case <code>long2</code>. We have removed the argument name <code>data</code> in this example.</p></li>
 <li><p><code>names_from</code> acts somewhat like the reverse of <code>names_to</code> from <code>pivot_longer()</code>. It will take the values from the variable specified and use these as variable names, i.e., in this case, the values of <code>rt</code> and <code>acc</code> that are currently in the <code>dv_type</code> column, and turn these into the column names.</p></li>
@@ -613,25 +579,25 @@ div.csl-indent {
 </ul>
 <p>This final long-form data should look like Table <a href="transforming-data.html#tab:long">3.2</a>.</p>
 <p>If you are working with a dataset with only one DV, note that only step 1 of this process would be necessary. Also, be careful not to calculate demographic descriptive statistics from this long-form dataset. Because the process of transformation has introduced some repetition for these variables, the wide-form dataset where 1 row = 1 participant should be used for demographic information. Finally, the three step process noted above is broken down for teaching purposes, in reality, one would likely do this in a single pipeline of code, for example:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="transforming-data.html#cb29-1" aria-hidden="true" tabindex="-1"></a>dat_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> dat, </span>
-<span id="cb29-2"><a href="transforming-data.html#cb29-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> rt_word<span class="sc">:</span>acc_nonword, </span>
-<span id="cb29-3"><a href="transforming-data.html#cb29-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, </span>
-<span id="cb29-4"><a href="transforming-data.html#cb29-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;dv_type&quot;</span>, <span class="st">&quot;condition&quot;</span>),</span>
-<span id="cb29-5"><a href="transforming-data.html#cb29-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">&quot;dv&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb29-6"><a href="transforming-data.html#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&quot;dv_type&quot;</span>, </span>
-<span id="cb29-7"><a href="transforming-data.html#cb29-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="st">&quot;dv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="transforming-data.html#cb27-1" aria-hidden="true" tabindex="-1"></a>dat_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> dat, </span>
+<span id="cb27-2"><a href="transforming-data.html#cb27-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cols =</span> rt_word<span class="sc">:</span>acc_nonword, </span>
+<span id="cb27-3"><a href="transforming-data.html#cb27-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, </span>
+<span id="cb27-4"><a href="transforming-data.html#cb27-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;dv_type&quot;</span>, <span class="st">&quot;condition&quot;</span>),</span>
+<span id="cb27-5"><a href="transforming-data.html#cb27-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">&quot;dv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="transforming-data.html#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&quot;dv_type&quot;</span>, </span>
+<span id="cb27-7"><a href="transforming-data.html#cb27-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="st">&quot;dv&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="histogram-2" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Histogram 2</h2>
 <p>Now that we have the experimental data in the right form, we can begin to create some useful visualizations. First, to demonstrate how code recipes can be reused and adapted, we will create histograms of reaction time and accuracy. The below code uses the same template as before but changes the dataset (<code>dat_long</code>), the bin-widths of the histograms, the <code>x</code> variable to display (<code>rt</code>/<code>acc</code>), and the name of the x-axis.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="transforming-data.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt)) <span class="sc">+</span></span>
-<span id="cb30-2"><a href="transforming-data.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb30-3"><a href="transforming-data.html#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>)</span>
-<span id="cb30-4"><a href="transforming-data.html#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="transforming-data.html#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> acc)) <span class="sc">+</span></span>
-<span id="cb30-6"><a href="transforming-data.html#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb30-7"><a href="transforming-data.html#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Accuracy (0-100)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="transforming-data.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt)) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="transforming-data.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="transforming-data.html#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>)</span>
+<span id="cb28-4"><a href="transforming-data.html#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="transforming-data.html#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> acc)) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="transforming-data.html#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-7"><a href="transforming-data.html#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Accuracy (0-100)&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:histograms"></span>
 <img src="03-ch3_files/figure-html/histograms-1.png" alt="Histograms showing the distribution of reaction time (top) and accuracy (bottom)" width="100%" />
 <p class="caption">
@@ -642,9 +608,9 @@ Figure 3.1: Histograms showing the distribution of reaction time (top) and accur
 <div id="density-plots" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> Density plots</h2>
 <p>The layer system makes it easy to create new types of plots by adapting existing recipes. For example, rather than creating a histogram, we can create a smoothed density plot by calling <code>geom_density()</code> rather than <code>geom_histogram()</code>. The rest of the code remains identical.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="transforming-data.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt)) <span class="sc">+</span></span>
-<span id="cb31-2"><a href="transforming-data.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()<span class="sc">+</span></span>
-<span id="cb31-3"><a href="transforming-data.html#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="transforming-data.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt)) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="transforming-data.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()<span class="sc">+</span></span>
+<span id="cb29-3"><a href="transforming-data.html#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:density-rt"></span>
 <img src="03-ch3_files/figure-html/density-rt-1.png" alt="Density plot of reaction time." width="100%" />
 <p class="caption">
@@ -659,11 +625,11 @@ Figure 3.2: Density plot of reaction time.
 <li>As with the x and y-axis scale functions, we can edit the names and labels of our fill aesthetic by adding on another <code>scale_*</code> layer.</li>
 <li>Note that the <code>fill</code> here is set inside the <code>aes()</code> function, which tells ggplot to set the fill differently for each value in the <code>condition</code> column. You cannot specify which colour here (e.g., <code>fill="red"</code>), like you could when you set <code>fill</code> inside the <code>geom_*()</code> function before.</li>
 </ul>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="transforming-data.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
-<span id="cb32-2"><a href="transforming-data.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()<span class="sc">+</span></span>
-<span id="cb32-3"><a href="transforming-data.html#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb32-4"><a href="transforming-data.html#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
-<span id="cb32-5"><a href="transforming-data.html#cb32-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="transforming-data.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="transforming-data.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()<span class="sc">+</span></span>
+<span id="cb30-3"><a href="transforming-data.html#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb30-4"><a href="transforming-data.html#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
+<span id="cb30-5"><a href="transforming-data.html#cb30-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:density-grouped"></span>
 <img src="03-ch3_files/figure-html/density-grouped-1.png" alt="Density plot of reaction times grouped by condition." width="100%" />
 <p class="caption">
@@ -675,8 +641,8 @@ Figure 3.3: Density plot of reaction times grouped by condition.
 <div id="scatterplots" class="section level2" number="3.5">
 <h2><span class="header-section-number">3.5</span> Scatterplots</h2>
 <p>Scatterplots are created by calling <code>geom_point()</code> and require both an <code>x</code> and <code>y</code> variable to be specified in the mapping.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="transforming-data.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age)) <span class="sc">+</span></span>
-<span id="cb33-2"><a href="transforming-data.html#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="transforming-data.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age)) <span class="sc">+</span></span>
+<span id="cb31-2"><a href="transforming-data.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:point-plot"></span>
 <img src="03-ch3_files/figure-html/point-plot-1.png" alt="Point plot of reaction time versus age." width="100%" />
 <p class="caption">
@@ -684,9 +650,9 @@ Figure 3.4: Point plot of reaction time versus age.
 </p>
 </div>
 <p>A line of best fit can be added with an additional layer that calls the function <code>geom_smooth()</code>. The default is to draw a LOESS or curved regression line, however, a linear line of best fit can be specified using <code>method = "lm"</code>. By default, <code>geom_smooth()</code> will also draw a confidence envelope around the regression line, this can be removed by adding <code>se = FALSE</code> to <code>geom_smooth()</code>. A common error is to try and use <code>geom_line()</code> to draw the line of best fit, which whilst a sensible guess, will not work (try it).</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="transforming-data.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age)) <span class="sc">+</span></span>
-<span id="cb34-2"><a href="transforming-data.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb34-3"><a href="transforming-data.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="transforming-data.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="transforming-data.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb32-3"><a href="transforming-data.html#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:smooth-plot"></span>
 <img src="03-ch3_files/figure-html/smooth-plot-1.png" alt="Line of best fit for reaction time versus age." width="100%" />
 <p class="caption">
@@ -696,11 +662,11 @@ Figure 3.5: Line of best fit for reaction time versus age.
 <div id="grouped-scatterplots" class="section level3" number="3.5.1">
 <h3><span class="header-section-number">3.5.1</span> Grouped scatterplots</h3>
 <p>Similar to the density plot, the scatterplot can also be easily adjusted to display grouped data. For <code>geom_point()</code>, the grouping variable is mapped to <code>colour</code> rather than <code>fill</code> and the relevant <code>scale_</code> function is added.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="transforming-data.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age, <span class="at">colour =</span> condition)) <span class="sc">+</span></span>
-<span id="cb35-2"><a href="transforming-data.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb35-3"><a href="transforming-data.html#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb35-4"><a href="transforming-data.html#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
-<span id="cb35-5"><a href="transforming-data.html#cb35-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="transforming-data.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age, <span class="at">colour =</span> condition)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="transforming-data.html#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb33-3"><a href="transforming-data.html#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="transforming-data.html#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
+<span id="cb33-5"><a href="transforming-data.html#cb33-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:scatter-grouped"></span>
 <img src="03-ch3_files/figure-html/scatter-grouped-1.png" alt="Grouped scatter plot of reaction time versus age by condition." width="100%" />
 <p class="caption">
@@ -712,9 +678,9 @@ Figure 3.6: Grouped scatter plot of reaction time versus age by condition.
 <div id="transforming-data-2" class="section level2" number="3.6">
 <h2><span class="header-section-number">3.6</span> Transforming data 2</h2>
 <p>Following the rule that <em>anything that shares an axis should probably be in the same column</em> means that we will frequently need our data in long-form when using <code>ggplot2</code>, however, there are some cases when wide-form is necessary. For example, we may wish to visualise the relationship between reaction time in the word and non-word conditions. The easiest way to achieve this in our case would simply be to use the original wide-form data as the input:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="transforming-data.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> rt_word, <span class="at">y =</span> rt_nonword, <span class="at">colour =</span> language)) <span class="sc">+</span></span>
-<span id="cb36-2"><a href="transforming-data.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb36-3"><a href="transforming-data.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="transforming-data.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> rt_word, <span class="at">y =</span> rt_nonword, <span class="at">colour =</span> language)) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="transforming-data.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb34-3"><a href="transforming-data.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
 <img src="03-ch3_files/figure-html/unnamed-chunk-5-1.png" alt="Scatterplot with data grouped by langauge group" width="100%" />
 <p class="caption">
@@ -722,10 +688,10 @@ Figure 3.7: Scatterplot with data grouped by langauge group
 </p>
 </div>
 <p>However, there may also be cases when you do not have an original wide-form version and you can use the <code>pivot_wider()</code> function to transform from long to wide.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="transforming-data.html#cb37-1" aria-hidden="true" tabindex="-1"></a>dat_wide <span class="ot">&lt;-</span> dat_long <span class="sc">%&gt;%</span></span>
-<span id="cb37-2"><a href="transforming-data.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="st">&quot;id&quot;</span>,</span>
-<span id="cb37-3"><a href="transforming-data.html#cb37-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from =</span> <span class="st">&quot;condition&quot;</span>, </span>
-<span id="cb37-4"><a href="transforming-data.html#cb37-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(rt,acc))</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="transforming-data.html#cb35-1" aria-hidden="true" tabindex="-1"></a>dat_wide <span class="ot">&lt;-</span> dat_long <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="transforming-data.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="st">&quot;id&quot;</span>,</span>
+<span id="cb35-3"><a href="transforming-data.html#cb35-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from =</span> <span class="st">&quot;condition&quot;</span>, </span>
+<span id="cb35-4"><a href="transforming-data.html#cb35-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(rt,acc))</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -787,13 +753,13 @@ Figure 3.7: Scatterplot with data grouped by langauge group
 <div id="accessible-colour-schemes" class="section level3" number="3.7.1">
 <h3><span class="header-section-number">3.7.1</span> Accessible colour schemes</h3>
 <p>One of the drawbacks of using <code>ggplot</code> for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in grey scale. You can specify exact custom colours for your plots, but one easy option is to use a colour palette and the <code>viridis</code> scale functions call such a palette. These take the same arguments as their default <code>scale</code> sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. The <code>viridis</code> scale functions provide a number of different options for the colour - try setting <code>option</code> to any letter from A - E to see the different sets.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="transforming-data.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age, <span class="at">colour =</span> condition)) <span class="sc">+</span></span>
-<span id="cb38-2"><a href="transforming-data.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb38-3"><a href="transforming-data.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb38-4"><a href="transforming-data.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># use &quot;viridis_d&quot; instead of &quot;discrete&quot; for better colours</span></span>
-<span id="cb38-5"><a href="transforming-data.html#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
-<span id="cb38-6"><a href="transforming-data.html#cb38-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>),</span>
-<span id="cb38-7"><a href="transforming-data.html#cb38-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">option =</span> <span class="st">&quot;E&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="transforming-data.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age, <span class="at">colour =</span> condition)) <span class="sc">+</span></span>
+<span id="cb36-2"><a href="transforming-data.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-3"><a href="transforming-data.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb36-4"><a href="transforming-data.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># use &quot;viridis_d&quot; instead of &quot;discrete&quot; for better colours</span></span>
+<span id="cb36-5"><a href="transforming-data.html#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
+<span id="cb36-6"><a href="transforming-data.html#cb36-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>),</span>
+<span id="cb36-7"><a href="transforming-data.html#cb36-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">option =</span> <span class="st">&quot;E&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:viridis"></span>
 <img src="03-ch3_files/figure-html/viridis-1.png" alt="Use the viridis colour scheme for accessibility." width="100%" />
 <p class="caption">
@@ -808,83 +774,77 @@ Figure 3.8: Use the viridis colour scheme for accessibility.
 <ol style="list-style-type: decimal">
 <li>Use <code>fill</code> to created grouped histograms that display the distributions for <code>rt</code> for each <code>language</code> group separately and also edit the fill axis labels. Try adding <code>position = "dodge"</code> to <code>geom_histogram()</code> to see what happens.</li>
 </ol>
-<div class="webex-solution">
+<div class="solution">
 <button>
 Solution 1
 </button>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="transforming-data.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fill and axis changes</span></span>
-<span id="cb39-2"><a href="transforming-data.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
-<span id="cb39-3"><a href="transforming-data.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb39-4"><a href="transforming-data.html#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb39-5"><a href="transforming-data.html#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Group&quot;</span>,</span>
-<span id="cb39-6"><a href="transforming-data.html#cb39-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Monolingual&quot;</span>, <span class="st">&quot;Bilingual&quot;</span>))</span>
-<span id="cb39-7"><a href="transforming-data.html#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co"># add in dodge</span></span>
-<span id="cb39-8"><a href="transforming-data.html#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
-<span id="cb39-9"><a href="transforming-data.html#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
-<span id="cb39-10"><a href="transforming-data.html#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb39-11"><a href="transforming-data.html#cb39-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Group&quot;</span>,</span>
-<span id="cb39-12"><a href="transforming-data.html#cb39-12" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Monolingual&quot;</span>, <span class="st">&quot;Bilingual&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="transforming-data.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fill and axis changes</span></span>
+<span id="cb37-2"><a href="transforming-data.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="transforming-data.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb37-4"><a href="transforming-data.html#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-5"><a href="transforming-data.html#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Group&quot;</span>,</span>
+<span id="cb37-6"><a href="transforming-data.html#cb37-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Monolingual&quot;</span>, <span class="st">&quot;Bilingual&quot;</span>))</span>
+<span id="cb37-7"><a href="transforming-data.html#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co"># add in dodge</span></span>
+<span id="cb37-8"><a href="transforming-data.html#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
+<span id="cb37-9"><a href="transforming-data.html#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-10"><a href="transforming-data.html#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-11"><a href="transforming-data.html#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Group&quot;</span>,</span>
+<span id="cb37-12"><a href="transforming-data.html#cb37-12" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Monolingual&quot;</span>, <span class="st">&quot;Bilingual&quot;</span>))</span></code></pre></div>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>scale_*_*()</code> functions to edit the name of the x and y-axis on the scatterplot</li>
 </ol>
-<div class="webex-solution">
+<div class="solution">
 <button>
 Solution 2
 </button>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="transforming-data.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age)) <span class="sc">+</span></span>
-<span id="cb40-2"><a href="transforming-data.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb40-3"><a href="transforming-data.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb40-4"><a href="transforming-data.html#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time&quot;</span>) <span class="sc">+</span></span>
-<span id="cb40-5"><a href="transforming-data.html#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Age&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="transforming-data.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age)) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="transforming-data.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb38-3"><a href="transforming-data.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb38-4"><a href="transforming-data.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time&quot;</span>) <span class="sc">+</span></span>
+<span id="cb38-5"><a href="transforming-data.html#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Age&quot;</span>)</span></code></pre></div>
 </div>
 <ol start="3" style="list-style-type: decimal">
 <li>Use <code>se = FALSE</code> to remove the confidence envelope from the scatterplots</li>
 </ol>
-<div class="webex-solution">
+<div class="solution">
 <button>
 Solution 3
 </button>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="transforming-data.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age)) <span class="sc">+</span></span>
-<span id="cb41-2"><a href="transforming-data.html#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb41-3"><a href="transforming-data.html#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb41-4"><a href="transforming-data.html#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time&quot;</span>) <span class="sc">+</span></span>
-<span id="cb41-5"><a href="transforming-data.html#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Age&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="transforming-data.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age)) <span class="sc">+</span></span>
+<span id="cb39-2"><a href="transforming-data.html#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb39-3"><a href="transforming-data.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb39-4"><a href="transforming-data.html#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time&quot;</span>) <span class="sc">+</span></span>
+<span id="cb39-5"><a href="transforming-data.html#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Age&quot;</span>)</span></code></pre></div>
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li>Remove <code>method = "lm"</code> from <code>geom_smooth()</code> to produce a curved regression line.</li>
 </ol>
-<div class="webex-solution">
+<div class="solution">
 <button>
 Solution 4
 </button>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="transforming-data.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age)) <span class="sc">+</span></span>
-<span id="cb42-2"><a href="transforming-data.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb42-3"><a href="transforming-data.html#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb42-4"><a href="transforming-data.html#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time&quot;</span>) <span class="sc">+</span></span>
-<span id="cb42-5"><a href="transforming-data.html#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Age&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="transforming-data.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">y =</span> age)) <span class="sc">+</span></span>
+<span id="cb40-2"><a href="transforming-data.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb40-3"><a href="transforming-data.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb40-4"><a href="transforming-data.html#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-5"><a href="transforming-data.html#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Age&quot;</span>)</span></code></pre></div>
 </div>
 <ol start="5" style="list-style-type: decimal">
 <li>Replace the default <code>scale_fill_*()</code> on the grouped density plot with the colour-blind friendly version.</li>
 </ol>
-<div class="webex-solution">
+<div class="solution">
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="transforming-data.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
-<span id="cb43-2"><a href="transforming-data.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()<span class="sc">+</span></span>
-<span id="cb43-3"><a href="transforming-data.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb43-4"><a href="transforming-data.html#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>,</span>
-<span id="cb43-5"><a href="transforming-data.html#cb43-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
-<span id="cb43-6"><a href="transforming-data.html#cb43-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="transforming-data.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> rt, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
+<span id="cb41-2"><a href="transforming-data.html#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()<span class="sc">+</span></span>
+<span id="cb41-3"><a href="transforming-data.html#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="transforming-data.html#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>,</span>
+<span id="cb41-5"><a href="transforming-data.html#cb41-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>,</span>
+<span id="cb41-6"><a href="transforming-data.html#cb41-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-word&quot;</span>))</span></code></pre></div>
 </div>
 
-</div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-wickham2014tidy" class="csl-entry">
-Wickham, Hadley, and others. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical Software</em> 59 (10): 1–23.
 </div>
 </div>
 <div class="footnotes">
@@ -1028,7 +988,6 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"whatsapp": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
 "google": false
 },

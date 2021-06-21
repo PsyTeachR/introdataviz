@@ -22,7 +22,7 @@ There are multiple approaches to data visualisation in R; in this paper we use t
 
 Figure\ \@ref(fig:layers) displays the evolution of a simple scatterplot using this layered approach. First, the plot space is built (layer 1); the variables are specified (layer 2); the type of visualisation (known as a `geom`) that is desired for these variables is specified (layer 3) - in this case `geom_point()` is called to visualise individual data points; a second geom is added to include a line of best fit (layer 4), the axis labels are edited for readability (layer 5), and finally, a theme is applied to change the overall appearance of the plot (layer 6).
 
-```{r layers, fig.cap="Evolution of a layered plot"}
+```{r layers, fig.cap="Evolution of a layered plot", echo = FALSE}
 a <- ggplot() + labs(subtitle = "Layer 1")
 b <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) + 
   labs(subtitle = "Layer 2")
@@ -37,7 +37,7 @@ a + b + c + d + e + f + plot_layout(nrow = 2)
 
 Importantly, each layer is independent and independently customisable. For example, the size, colour and position of each component can be adjusted, or one could, for example, remove the first geom (the data points) to only visualise the line of best fit, simply by removing the layer that draws the data points (Figure\ \@ref(fig:remove-layer)). The use of layers makes it easy to build up complex plots step-by-step, and to adapt or extend plots from existing code.
 
-```{r remove-layer, fig.cap="Plot with scatterplot layer removed."}
+```{r remove-layer, fig.cap="Plot with scatterplot layer removed.", echo = FALSE}
 iris %>% ggplot(aes(Sepal.Length, Sepal.Width)) + 
   geom_smooth(method = "lm") +
   labs(x = "Sepal Length (mm)", y = "Sepal Width (mm)")+
