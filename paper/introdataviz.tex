@@ -1944,6 +1944,83 @@ Before you go on, do the following:
   Choose your favourite three plots you've produced so far in this tutorial, tidy them up with axis labels, your preferred colour scheme, and any necessary titles, and then combine them using \texttt{patchwork}. If you're feeling particularly proud of them, post them on Twitter using \#PsyTeachR.
 \end{enumerate}
 
+\hypertarget{advanced-plots}{%
+\section{Advanced Plots}\label{advanced-plots}}
+
+This tutorial has but scratched the surface of the visualisation options available using R - in the additional online resources we provide some further advanced plots and customisation options for those readers who are feeling confident with the content covered in this tutorial, however, the below plots give an idea of what is possible, and represent the favourite plots of the authorship team.
+
+We will use some custom functions: \texttt{geom\_split\_violin()} and \texttt{geom\_flat\_violin()}, which you can access through the \texttt{introdataviz} package. These functions are modified from (Allen et al., 2021).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# how to install the introdataviz package to get split and half violin plots}
+\NormalTok{devtools}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{"psyteachr/introdataviz"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{split-violin-plots}{%
+\subsection{Split-violin plots}\label{split-violin-plots}}
+
+Split-violin plots remove the redundancy of mirrored violin plots and make it easier to compare the distributions between multiple conditions.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/splitviolin-1} 
+
+}
+
+\caption{Split-violin plot}\label{fig:splitviolin}
+\end{figure}
+
+\hypertarget{raincloud-plots}{%
+\subsection{Raincloud plots}\label{raincloud-plots}}
+
+Raincloud plots combine a density plot, boxplot, raw data points, and any desired summary statistics for a complete visualisation of the data. They are so called because the density plot plus raw data is reminiscent of a rain cloud.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/raincloud-1} 
+
+}
+
+\caption{Raincloud plot}\label{fig:raincloud}
+\end{figure}
+
+\hypertarget{ridge-plots}{%
+\subsection{Ridge plots}\label{ridge-plots}}
+
+Ridge plots are a series of density plots and show the distribution of numeric values for several groups. Figure~\ref{fig:ridgeplot} shows data from (Nation, 2017) and demonstrates how effective this type of visualisation can be to convey a lot of information very intuitively whilst being visually attractive.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/ridgeplot-1} 
+
+}
+
+\caption{A ridge plot.}\label{fig:ridgeplot}
+\end{figure}
+
+\hypertarget{alluvial-plots}{%
+\subsection{Alluvial plots}\label{alluvial-plots}}
+
+Alluvial plots visualise multi-level categorical data through flows that can easily be traced in the diagram.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/alluvial-1} 
+
+}
+
+\caption{An alluvial plot showing the progression of student grades through the years.}\label{fig:alluvial}
+\end{figure}
+
+\hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+In this tutorial we aimed to provide a practical introduction to common data visualisation techniques using R. Whilst a number of the plots produced in this tutorial can be created in point-and-click software, the underlying skill-set developed by making these visualisations is as powerful as it is extendable.
+
+We hope that this tutorial serves as a jumping off point to encourage more researchers to adopt reproducible workflows and open-access software, in addition to beautiful data visualisations.
+
 \hypertarget{acknowledgements}{%
 \section{Acknowledgements}\label{acknowledgements}}
 
@@ -1990,6 +2067,9 @@ This tutorial uses the following open-source research software: R Core Team (202
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-raincloudplots}{}}%
+Allen, M., Poggiali, D., Whitaker, K., Marshall, T. R., van Langen, J., \& Kievit, R. A. (2021). Raincloud plots: A multi-platform tool for robust data visualization {[}version 2; peer review: 2 approved{]}. \emph{Wellcome Open Research}, \emph{4}. \url{https://doi.org/10.12688/wellcomeopenres.15191.2}
+
 \leavevmode\vadjust pre{\hypertarget{ref-R-papaja}{}}%
 Aust, F., \& Barth, M. (2020). \emph{{papaja}: {Create} {APA} manuscripts with {R Markdown}}. Retrieved from \url{https://github.com/crsh/papaja}
 
@@ -2007,6 +2087,9 @@ DeBruine, L. (2021). \emph{Faux: Simulation for factorial designs}. Zenodo. \url
 
 \leavevmode\vadjust pre{\hypertarget{ref-munafo2017manifesto}{}}%
 Munafò, M. R., Nosek, B. A., Bishop, D. V., Button, K. S., Chambers, C. D., Du Sert, N. P., \ldots{} Ioannidis, J. P. (2017). A manifesto for reproducible science. \emph{Nature Human Behaviour}, \emph{1}(1), 1--9.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Nation2017}{}}%
+Nation, Z. (2017). Perceptions. \emph{GitHub repository}. \url{https://github.com/zonination/perceptions\%20\%20}; GitHub.
 
 \leavevmode\vadjust pre{\hypertarget{ref-newman2012bar}{}}%
 Newman, G. E., \& Scholl, B. J. (2012). Bar graphs depicting averages are perceptually misinterpreted: The within-the-bar bias. \emph{Psychonomic Bulletin \& Review}, \emph{19}(4), 601--607.

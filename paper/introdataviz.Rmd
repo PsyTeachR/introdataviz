@@ -108,7 +108,7 @@ dat_long <- introdataviz::ldt_data
 ```
 
 
-```{r file-copy, eval= FALSE, include = FALSE}
+```{r file-copy, eval= TRUE, include = FALSE}
 # copy files from book
 file.copy("../book/book.bib", "./")
 file.copy("../book/ldt_data.csv", "./")
