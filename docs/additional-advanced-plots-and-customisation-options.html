@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Additional advanced plots and customisation options | Data visualisation using R, for researchers who don’t use R</title>
   <meta name="description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Additional advanced plots and customisation options | Data visualisation using R, for researchers who don’t use R" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine" />
 
 
-<meta name="date" content="2021-06-21" />
+<meta name="date" content="2021-06-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="additional-resources.html"/>
 
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <meta property="og:title" content="IntroDataViz">
 <meta property="og:description" content="Data Visualisation Using R, For Researchers Who Don’t Use R.">
 <meta property="og:image" content="https://psyteachr.github.io/introdataviz/images/card.png">
@@ -123,6 +125,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="include/psyteachr.css" type="text/css" />
@@ -285,7 +310,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="adding-lines-to-plots" class="section level2" number="9.1">
 <h2><span class="header-section-number">9.1</span> Adding lines to plots</h2>
 <p><strong>Vertical Lines - geom_vline()</strong></p>
-<p>Often it can be useful to put a marker into our plots to highlight a certain criterion value. For example, if you were working with a scale that has a cut-off, perhaps the Austim Spectrum Quotient 10 <span class="citation">(<a href="additional-advanced-plots-and-customisation-options.html#ref-allison2012toward" role="doc-biblioref">Allison, Auyeung, and Baron-Cohen 2012</a>)</span>, then you might want to put a line at a score of 7; the point at which the researchers suggest the participant is referred further. Alternatively, thinking about the Stroop test we have looked at in this paper, perhaps you had a level of accuracy that you wanted to make sure was reached - let’s say 80%. If we refer back to Figure <a href="transforming-data.html#fig:histograms">3.1</a>, which used the code below:</p>
+<p>Often it can be useful to put a marker into our plots to highlight a certain criterion value. For example, if you were working with a scale that has a cut-off, perhaps the Austim Spectrum Quotient 10 <span class="citation">(<a href="#ref-allison2012toward" role="doc-biblioref">Allison, Auyeung, and Baron-Cohen 2012</a>)</span>, then you might want to put a line at a score of 7; the point at which the researchers suggest the participant is referred further. Alternatively, thinking about the Stroop test we have looked at in this paper, perhaps you had a level of accuracy that you wanted to make sure was reached - let’s say 80%. If we refer back to Figure <a href="transforming-data.html#fig:histograms">3.1</a>, which used the code below:</p>
 <div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="additional-advanced-plots-and-customisation-options.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> acc)) <span class="sc">+</span></span>
 <span id="cb79-2"><a href="additional-advanced-plots-and-customisation-options.html#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb79-3"><a href="additional-advanced-plots-and-customisation-options.html#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Accuracy (0-100)&quot;</span>)</span></code></pre></div>
@@ -941,55 +966,55 @@ Figure 9.40: The basis of a pie chart
 <p>The remainder of the code is used to remove the various panel and tick lines, and text, setting them all to <code>element_blank()</code> through the <code>theme()</code> functions we saw above, and to add new labelling text on top of the pie chart at specific y-values (i.e. <code>y = c(75,25)</code>). But remember, <strong>friends don’t let friends make pie charts!</strong></p>
 
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-raincloudplots" class="csl-entry">
+<div class="csl-entry">
 Allen, Micah, Davide Poggiali, Kirstie Whitaker, Tom Rhys Marshall, Jordy van Langen, and Rogier A. Kievit. 2021. <span>“Raincloud Plots: A Multi-Platform Tool for Robust Data Visualization [Version 2; Peer Review: 2 Approved].”</span> <em>Wellcome Open Research</em> 4. <a href="https://doi.org/10.12688/wellcomeopenres.15191.2">https://doi.org/10.12688/wellcomeopenres.15191.2</a>.
 </div>
-<div id="ref-allison2012toward" class="csl-entry">
+<div class="csl-entry">
 Allison, Carrie, Bonnie Auyeung, and Simon Baron-Cohen. 2012. <span>“Toward Brief <span>‘Red Flags’</span> for Autism Screening: The Short Autism Spectrum Quotient and the Short Quantitative Checklist in 1,000 Cases and 3,000 Controls.”</span> <em>Journal of the American Academy of Child &amp; Adolescent Psychiatry</em> 51 (2): 202–12.
 </div>
-<div id="ref-barrett2019six" class="csl-entry">
+<div class="csl-entry">
 Barrett, Tyson S. 2019. <span>“Six Reasons to Consider Using r in Psychological Research.”</span>
 </div>
-<div id="ref-NYT-R" class="csl-entry">
+<div class="csl-entry">
 Bertini, Enrico, and Moritz Stefaner. 2015. <span>“Amanda Cox on Working with r, NYT Projects, Favorite Data [Podcast].”</span> <em>Data Stories</em>. <a href="https://datastori.es/ds-56-amanda-cox-nyt/">https://datastori.es/ds-56-amanda-cox-nyt/</a>.
 </div>
-<div id="ref-munafo2017manifesto" class="csl-entry">
+<div class="csl-entry">
 Munafò, Marcus R, Brian A Nosek, Dorothy VM Bishop, Katherine S Button, Christopher D Chambers, Nathalie Percie Du Sert, Uri Simonsohn, Eric-Jan Wagenmakers, Jennifer J Ware, and John PA Ioannidis. 2017. <span>“A Manifesto for Reproducible Science.”</span> <em>Nature Human Behaviour</em> 1 (1): 1–9.
 </div>
-<div id="ref-Nation2017" class="csl-entry">
+<div class="csl-entry">
 Nation, Z. 2017. <span>“Perceptions.”</span> <em>GitHub Repository</em>. <a href="https://github.com/zonination/perceptions  ">https://github.com/zonination/perceptions  </a>; GitHub.
 </div>
-<div id="ref-newman2012bar" class="csl-entry">
+<div class="csl-entry">
 Newman, George E, and Brian J Scholl. 2012. <span>“Bar Graphs Depicting Averages Are Perceptually Misinterpreted: The Within-the-Bar Bias.”</span> <em>Psychonomic Bulletin &amp; Review</em> 19 (4): 601–7.
 </div>
-<div id="ref-R-base" class="csl-entry">
+<div class="csl-entry">
 R Core Team. 2021. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
 </div>
-<div id="ref-robins2003learning" class="csl-entry">
+<div class="csl-entry">
 Robins, Anthony, Janet Rountree, and Nathan Rountree. 2003. <span>“Learning and Teaching Programming: A Review and Discussion.”</span> <em>Computer Science Education</em> 13 (2): 137–72.
 </div>
-<div id="ref-RStudio" class="csl-entry">
+<div class="csl-entry">
 RStudio Team. 2021. <em>RStudio: Integrated Development Environment for r</em>. Boston, MA: RStudio, PBC. <a href="http://www.rstudio.com/">http://www.rstudio.com/</a>.
 </div>
-<div id="ref-BBC-R" class="csl-entry">
+<div class="csl-entry">
 Visual, BBC, and Data Journalism. 2019. <span>“How the BBC Visual and Data Journalism Team Works with Graphics in r.”</span> <em>Medium</em>. <a href="https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535">https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535</a>.
 </div>
-<div id="ref-wickham2010layered" class="csl-entry">
+<div class="csl-entry">
 Wickham, Hadley. 2010. <span>“A Layered Grammar of Graphics.”</span> <em>Journal of Computational and Graphical Statistics</em> 19 (1): 3–28.
 </div>
-<div id="ref-ggplot2" class="csl-entry">
+<div class="csl-entry">
 ———. 2016. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.
 </div>
-<div id="ref-tidyverse" class="csl-entry">
+<div class="csl-entry">
 ———. 2017. <em>Tidyverse: Easily Install and Load the ’Tidyverse’</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
 </div>
-<div id="ref-wickham2014tidy" class="csl-entry">
+<div class="csl-entry">
 Wickham, Hadley, and others. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical Software</em> 59 (10): 1–23.
 </div>
-<div id="ref-wilkinson2005graph" class="csl-entry">
+<div class="csl-entry">
 Wilkinson, Leland, Anushka Anand, and Robert Grossman. 2005. <span>“Graph-Theoretic Scagnostics.”</span> In <em>IEEE Symposium on Information Visualization (InfoVis 05)</em>, 157–58. IEEE Computer Society.
 </div>
-<div id="ref-rminr" class="csl-entry">
+<div class="csl-entry">
 Wills, Andy. n.d. <span>“Teaching Research Methods in r.”</span> <em>Rminr</em>. <a href="https://www.andywills.info/rminr/rminrinpsy.html">https://www.andywills.info/rminr/rminrinpsy.html</a>.
 </div>
 </div>
@@ -1005,6 +1030,12 @@ Wills, Andy. n.d. <span>“Teaching Research Methods in r.”</span> <em>Rminr</
 
 
 
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-allison2012toward" class="csl-entry">
+Allison, Carrie, Bonnie Auyeung, and Simon Baron-Cohen. 2012. <span>“Toward Brief <span>‘Red Flags’</span> for Autism Screening: The Short Autism Spectrum Quotient and the Short Quantitative Checklist in 1,000 Cases and 3,000 Controls.”</span> <em>Journal of the American Academy of Child &amp; Adolescent Psychiatry</em> 51 (2): 202–12.
+</div>
+</div>
 <div class="psyteachr_footer">
   
 </div>
@@ -1139,6 +1170,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
 "google": false
 },

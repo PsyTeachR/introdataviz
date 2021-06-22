@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Getting Started | Data visualisation using R, for researchers who don’t use R</title>
   <meta name="description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Getting Started | Data visualisation using R, for researchers who don’t use R" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine" />
 
 
-<meta name="date" content="2021-06-21" />
+<meta name="date" content="2021-06-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="introduction.html"/>
 <link rel="next" href="transforming-data.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <meta property="og:title" content="IntroDataViz">
 <meta property="og:description" content="Data Visualisation Using R, For Researchers Who Don’t Use R.">
 <meta property="og:image" content="https://psyteachr.github.io/introdataviz/images/card.png">
@@ -123,6 +125,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="include/psyteachr.css" type="text/css" />
@@ -290,7 +315,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="loading-data" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Loading data</h2>
-<p>To load the <a href="https://osf.io/bj83f/files/" target="_blank">simulated sata</a> we use the function <code>read_csv()</code> from the <code>readr</code> tidyverse package. Note that there are many other ways of reading data into R, but the benefit of this function is that it enters the data into the R environment in such a way that it makes most sense for other tidyverse packages.</p>
+<p>To load the <a href="https://osf.io/bj83f/files/" target="_blank">simulated data</a> we use the function <code>read_csv()</code> from the <code>readr</code> tidyverse package. Note that there are many other ways of reading data into R, but the benefit of this function is that it enters the data into the R environment in such a way that it makes most sense for other tidyverse packages.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="getting-started.html#cb3-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;ldt_data.csv&quot;</span>)</span></code></pre></div>
 <p>This code has created an object <code>dat</code> into which you have read the data from the file <code>ldt_data.csv</code>. This object will appear in the environment pane in the top right. Note that the name of the data file must be in quotation marks and the file extension (<code>.csv</code>) must also be included. If you receive the error <code>…does not exist in current working directory</code> it is highly likely that you have made a typo in the file name (remember R is case sensitive), have forgotten to include the file extension <code>.csv</code>, or that the data file you want to load is not stored in your project folder. If you get the error <code>could not find function</code> it means you have either not loaded the correct package (a common beginner error is to write the code, but not run it), or you have made a typo in the function name.</p>
 <p>To view the dataset, click <code>dat</code> in the environment pane or run <code>View(dat)</code> in the console. The environment pane also tells us that the object <code>dat</code> has 100 observations of 7 variables, and this is a useful quick check to ensure one has loaded the right data. Note that the 7 variables have an additional piece of information <code>chr</code> and <code>num</code>; this specifies the kind of data in the column. Similar to Excel and SPSS, R used this information (or variable type) to specify allowable manipulations of data. For instance character data such as the <code>id</code> cannot be averaged, while it is possible to do this with numerical data such as the <code>age</code>.</p>
@@ -325,7 +350,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="demographic-information" class="section level2" number="2.5">
 <h2><span class="header-section-number">2.5</span> Demographic information</h2>
-<p>You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (or data processing). The code below uses the <code>%&gt;%</code> operator, otherwise known as the <em>pipe,</em> and can be translated as "<em>and then"</em>. For example, the below code can be read as:</p>
+<p>You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (i.e. data processing). The code below uses the <code>%&gt;%</code> operator, otherwise known as the <em>pipe,</em> and can be translated as "<em>and then"</em>. For example, the below code can be read as:</p>
 <ul>
 <li><p>Start with the dataset <code>dat</code> <em>and then;</em></p></li>
 <li><p>Group it by the variable <code>language</code> <em>and then;</em></p></li>
@@ -352,7 +377,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<p><code>group_by()</code> does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever function is called next is performed separately on each level of the grouping variable. The above code therefore counts the number of observations in each group of the variable <code>language</code>. If you just need the total number of observations, you could remove the <code>group_by()</code> line which would perform the operation on the whole dataset, rather than by groups:</p>
+<p><code>group_by()</code> does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever functions called next is performed separately on each level of the grouping variable. The above code therefore counts the number of observations in each group of the variable <code>language</code>. If you just need the total number of observations, you could remove the <code>group_by()</code> line which would perform the operation on the whole dataset, rather than by groups:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="getting-started.html#cb8-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="getting-started.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span></code></pre></div>
 <table>
@@ -447,16 +472,15 @@ Figure 2.1: Bar chart of counts.
 </div>
 <div id="plotting-existing-aggregates-and-percent" class="section level2" number="2.7">
 <h2><span class="header-section-number">2.7</span> Plotting existing aggregates and percent</h2>
-<p>If your data already have the counts that you want to plot, you can set <code>stat="identity"</code> inside of <code>geom_bar()</code> to use that number instead of counting rows. For example, there is currently no function to plot percentages rather than counts within <code>ggplot</code>, you need to calculate these and store them in an object which is then used as the dataset.</p>
+<p>If your dataset already has the counts that you want to plot, you can set <code>stat="identity"</code> inside of <code>geom_bar()</code> to use that number instead of counting rows. For example, there is currently no function to plot percentages rather than counts within <code>ggplot</code>, you need to calculate these and store them in a new object that is then used as the dataset.</p>
 <p>Notice that we are now omitting the names of the arguments <code>data</code> and <code>mapping</code> in the <code>ggplot()</code> function.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="getting-started.html#cb13-1" aria-hidden="true" tabindex="-1"></a>dat_percent <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="getting-started.html#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(language) <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="getting-started.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-4"><a href="getting-started.html#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-5"><a href="getting-started.html#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> (n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>))</span>
-<span id="cb13-6"><a href="getting-started.html#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="getting-started.html#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_percent, <span class="fu">aes</span>(<span class="at">x =</span> language, <span class="at">y =</span> percent)) <span class="sc">+</span></span>
-<span id="cb13-8"><a href="getting-started.html#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="getting-started.html#cb13-1" aria-hidden="true" tabindex="-1"></a>dat_percent <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span>    <span class="co"># start with the data in dat</span></span>
+<span id="cb13-2"><a href="getting-started.html#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(language) <span class="sc">%&gt;%</span>     <span class="co"># count rows per language (makes a new column called n)</span></span>
+<span id="cb13-3"><a href="getting-started.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> (n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>)) <span class="co"># make a new column &#39;percent&#39; equal to </span></span>
+<span id="cb13-4"><a href="getting-started.html#cb13-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="co"># n divided by the sum of n times 100</span></span>
+<span id="cb13-5"><a href="getting-started.html#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="getting-started.html#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_percent, <span class="fu">aes</span>(<span class="at">x =</span> language, <span class="at">y =</span> percent)) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="getting-started.html#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) </span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:bar-precalc"></span>
 <img src="02-ch2_files/figure-html/bar-precalc-1.png" alt="Bar chart of pre-calculated counts." width="100%" />
 <p class="caption">
@@ -559,7 +583,7 @@ Figure 2.7: Histogram with a custom theme.
 <ol style="list-style-type: decimal">
 <li>Add a layer that edits the <strong>name</strong> of the y-axis histogram label to <code>Number of participants</code>.</li>
 </ol>
-<div class="solution">
+<div class="webex-solution">
 <button>
 Solution 1
 </button>
@@ -572,7 +596,7 @@ Solution 1
 <ol start="2" style="list-style-type: decimal">
 <li>Change the colour of the bars in the bar chart to red.</li>
 </ol>
-<div class="solution">
+<div class="webex-solution">
 <button>
 Solution 2
 </button>
@@ -582,7 +606,7 @@ Solution 2
 <ol start="3" style="list-style-type: decimal">
 <li>Remove <code>theme_minimal()</code> from the histogram and instead apply one of the other available themes. To find out about other available themes, start typing <code>theme_</code> and the auto-complete will show you the available options - this will only work if you have loaded the <code>tidyverse</code> library with <code>library(tidyverse)</code>.</li>
 </ol>
-<div class="solution">
+<div class="webex-solution">
 <button>
 Solution 3
 </button>
@@ -735,6 +759,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
 "google": false
 },

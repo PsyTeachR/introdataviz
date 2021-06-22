@@ -339,7 +339,7 @@ Before you start visualising your data, you need to get it into an appropriate f
 \hypertarget{data-format}{%
 \subsubsection{Data format}\label{data-format}}
 
-The simulated lexical decision data is provided in a \texttt{csv} file rather than e.g., \texttt{xslx}. Functions exist in R to read many other types of data files, however, we recommend that you convert any \texttt{xlsx} spreadsheets to \texttt{csv} by using the \texttt{Save\ As} function in Microsoft Excel. The \texttt{csv} file format strips all formatting and only stores data in a single sheet and so is simpler for new users to import to R. You may wish to create a \texttt{csv} file that contains only the data you want to visualise, rather than a full, larger workbook. When working with your own data, remove summary rows or additional notes from any files you import. All files should only contains the rows and columns of data you want to plot.
+The simulated lexical decision data is provided in a \texttt{csv} file rather than e.g., \texttt{xslx}. Functions exist in R to read many other types of data files, however, we recommend that you convert any \texttt{xlsx} spreadsheets to \texttt{csv} by using the \texttt{Save\ As} function in Microsoft Excel. The \texttt{csv} file format strips all formatting and only stores data in a single sheet and so is simpler for new users to import to R. You may wish to create a \texttt{csv} file that contains only the data you want to visualise, rather than a full, larger workbook. When working with your own data, remove summary rows or additional notes from any files you import. All files should only contain the rows and columns of data you want to plot.
 
 \hypertarget{variable-names}{%
 \subsubsection{Variable names}\label{variable-names}}
@@ -375,7 +375,7 @@ To load the packages that have the functions we need, use the \texttt{library()}
 \hypertarget{loading-data}{%
 \subsection{Loading data}\label{loading-data}}
 
-To load the \href{https://osf.io/bj83f/files/}{simulated sata} we use the function \texttt{read\_csv()} from the \texttt{readr} tidyverse package. Note that there are many other ways of reading data into R, but the benefit of this function is that it enters the data into the R environment in such a way that it makes most sense for other tidyverse packages.
+To load the \href{https://osf.io/bj83f/files/}{simulated data} we use the function \texttt{read\_csv()} from the \texttt{readr} tidyverse package. Note that there are many other ways of reading data into R, but the benefit of this function is that it enters the data into the R environment in such a way that it makes most sense for other tidyverse packages.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -443,7 +443,7 @@ One of the challenges in learning R is that many of the ``helpful'' examples and
 \hypertarget{demographic-information}{%
 \subsection{Demographic information}\label{demographic-information}}
 
-You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (or data processing). The code below uses the \texttt{\%\textgreater{}\%} operator, otherwise known as the \emph{pipe,} and can be translated as "\emph{and then"}. For example, the below code can be read as:
+You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (i.e.~data processing). The code below uses the \texttt{\%\textgreater{}\%} operator, otherwise known as the \emph{pipe,} and can be translated as "\emph{and then"}. For example, the below code can be read as:
 
 \begin{itemize}
 \item
@@ -472,7 +472,7 @@ bilingual & 45\\
 \hline
 \end{tabular}
 
-\texttt{group\_by()} does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever function is called next is performed separately on each level of the grouping variable. The above code therefore counts the number of observations in each group of the variable \texttt{language}. If you just need the total number of observations, you could remove the \texttt{group\_by()} line which would perform the operation on the whole dataset, rather than by groups:
+\texttt{group\_by()} does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever functions called next is performed separately on each level of the grouping variable. The above code therefore counts the number of observations in each group of the variable \texttt{language}. If you just need the total number of observations, you could remove the \texttt{group\_by()} line which would perform the operation on the whole dataset, rather than by groups:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -582,17 +582,16 @@ The base layer and the geoms you add as layers work in symbiosis so it is worthw
 \hypertarget{plotting-existing-aggregates-and-percent}{%
 \subsection{Plotting existing aggregates and percent}\label{plotting-existing-aggregates-and-percent}}
 
-If your data already have the counts that you want to plot, you can set \texttt{stat="identity"} inside of \texttt{geom\_bar()} to use that number instead of counting rows. For example, there is currently no function to plot percentages rather than counts within \texttt{ggplot}, you need to calculate these and store them in an object which is then used as the dataset.
+If your dataset already has the counts that you want to plot, you can set \texttt{stat="identity"} inside of \texttt{geom\_bar()} to use that number instead of counting rows. For example, there is currently no function to plot percentages rather than counts within \texttt{ggplot}, you need to calculate these and store them in a new object that is then used as the dataset.
 
 Notice that we are now omitting the names of the arguments \texttt{data} and \texttt{mapping} in the \texttt{ggplot()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{dat\_percent }\OtherTok{\textless{}{-}}\NormalTok{ dat }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(language) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{count}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{percent =}\NormalTok{ (n}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n)}\SpecialCharTok{*}\DecValTok{100}\NormalTok{))}
+\NormalTok{dat\_percent }\OtherTok{\textless{}{-}}\NormalTok{ dat }\SpecialCharTok{\%\textgreater{}\%}    \CommentTok{\# start with the data in dat}
+  \FunctionTok{count}\NormalTok{(language) }\SpecialCharTok{\%\textgreater{}\%}     \CommentTok{\# count rows per language (makes a new column called n)}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{percent =}\NormalTok{ (n}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n)}\SpecialCharTok{*}\DecValTok{100}\NormalTok{)) }\CommentTok{\# make a new column \textquotesingle{}percent\textquotesingle{} equal to }
+                                   \CommentTok{\# n divided by the sum of n times 100}
 
 \FunctionTok{ggplot}\NormalTok{(dat\_percent, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ language, }\AttributeTok{y =}\NormalTok{ percent)) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }

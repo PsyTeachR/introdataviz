@@ -90,7 +90,7 @@ Before you start visualising your data, you need to get it into an appropriate f
 
 ### Data format
 
-The simulated lexical decision data is provided in a `csv` file rather than e.g., `xslx`. Functions exist in R to read many other types of data files, however, we recommend that you convert any `xlsx` spreadsheets to `csv` by using the `Save As` function in Microsoft Excel. The `csv` file format strips all formatting and only stores data in a single sheet and so is simpler for new users to import to R. You may wish to create a `csv` file that contains only the data you want to visualise, rather than a full, larger workbook. When working with your own data, remove summary rows or additional notes from any files you import. All files should only contains the rows and columns of data you want to plot.
+The simulated lexical decision data is provided in a `csv` file rather than e.g., `xslx`. Functions exist in R to read many other types of data files, however, we recommend that you convert any `xlsx` spreadsheets to `csv` by using the `Save As` function in Microsoft Excel. The `csv` file format strips all formatting and only stores data in a single sheet and so is simpler for new users to import to R. You may wish to create a `csv` file that contains only the data you want to visualise, rather than a full, larger workbook. When working with your own data, remove summary rows or additional notes from any files you import. All files should only contain the rows and columns of data you want to plot.
 
 ### Variable names
 

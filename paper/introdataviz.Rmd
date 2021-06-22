@@ -63,13 +63,6 @@ note              : "Preprint"
 ---
 
 <style>
-  blockquote { 
-    font-size: 13px; 
-    border: 1px solid grey; 
-    background-color: #EEE;
-    border-radius: 1em;
-  }
-  
   address { display: none; }
 </style>
 
@@ -107,34 +100,6 @@ dat <- introdataviz::ldt_data %>%
 dat_long <- introdataviz::ldt_data
 ```
 
-
-```{r file-copy, eval= TRUE, include = FALSE}
-# copy files from book
-file.copy("../book/book.bib", "./")
-file.copy("../book/ldt_data.csv", "./")
-
-# copy and process chapters
-files <- sprintf("0%d-ch%d.Rmd", 1:6, 1:6)
-for (file in files) {
-  file.copy(paste0("../book/", file), "./", overwrite = TRUE)
-
-  ch <- readLines(file) #%>%
-    #gsub("^#", "##", .) # increments header
-
-  # remove solutions
-  hides <- grep("^`r hide", ch)
-  unhides <- grep("^`r unhide", ch)
-  to_omit <- mapply(function(a, b) a:b, hides, unhides) %>% unlist()
-  if (length(to_omit) > 0) ch <- ch[-to_omit]
-  
-  write(ch, file)
-}
-
-# omit code from ch 6
-ch <- readLines(files[6]) %>%
-  gsub("r (splitviolin|raincloud|ridgeplot|alluvial),", "r \\1, echo = FALSE,", .)
-write(ch, files[6])
-```
 
 ```{r child = '01-ch1.Rmd'}
 ```
