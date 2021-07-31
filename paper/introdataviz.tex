@@ -217,7 +217,6 @@ Correspondence concerning this article should be addressed to Emily Nordmann, 62
 
 \abstract{
 In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the ``grammar of graphics'' that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these ``basic'' plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial as well as an interactive version with activity solutions, additional resources and advanced plotting options is available at \url{https://osf.io/bj83f/}.
-This is a pre-submission manuscript and tutorial and has not yet undergone peer-review. We welcome user feedback which you can provide using this form: \url{https://forms.office.com/r/ba1UvyykYR}. Please note that this tutorial is likely to undergo changes before it is accepted for publication and we would encourage you to check for updates before citing.
 }
 
 
@@ -232,7 +231,7 @@ Use of the programming language R (R Core Team, 2021) for data processing and st
 
 Yet, the benefits of using R are obscured for many researchers by the perception that coding skills are difficult to learn (Robins, Rountree, \& Rountree, 2003). Coupled with this, only a minority of psychology programmes currently teach coding skills (Wills, n.d.) with the majority of both undergraduate and postgraduate courses using proprietary point-and-click software such as SAS, SPSS or Microsoft Excel. While the sophisticated use of proprietary software often necessitates the use of computational thinking skills akin to coding (for instance SPSS scripts or formulas in Excel), we have found that many researchers do not perceive that they already have introductory coding skills. In the following tutorial we intend to change that perception by showing how experienced researchers can redevelop their existing computational skills to utilise the powerful data visualisation tools offered by R.
 
-In this tutorial, we aim to provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the ``grammar of graphics'' that underlies data visualisation using the \texttt{ggplot} package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these ``basic'' plots can be easily extended to less commonly available options such as violin-boxplots.
+In this tutorial, we aim to provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the ``grammar of graphics'' that underlies data visualisation using the \texttt{ggplot2} package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these ``basic'' plots can be easily extended to less commonly available options such as violin-boxplots.
 
 \hypertarget{why-r-for-data-visualisation}{%
 \subsection{Why R for data visualisation?}\label{why-r-for-data-visualisation}}
@@ -268,6 +267,22 @@ Importantly, each layer is independent and independently customisable. For examp
 \caption{Plot with scatterplot layer removed.}\label{fig:remove-layer}
 \end{figure}
 
+\hypertarget{tutorial-components}{%
+\subsection{Tutorial components}\label{tutorial-components}}
+
+This tutorial contains three components.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A traditional PDF manuscript that can easily be saved, printed, and cited.
+\item
+  An online version of the tutorial published at \url{https://psyteachr.github.io/introdataviz/} that may be easier to copy and paste code from and that also provides the optional activity solutions as well as additional appendices, including code tutorials for advanced plots beyond the scope of this paper and links to additional resources.
+\item
+  An Open Science Framework repository published at \url{https://osf.io/bj83f/} that contains the simulated dataset (see below), preprint, and R Markdown workbook.
+\end{enumerate}
+
 \hypertarget{simulated-dataset}{%
 \subsection{Simulated dataset}\label{simulated-dataset}}
 
@@ -285,7 +300,7 @@ For the purpose of this tutorial, we will use simulated data for a 2 x 2 mixed-d
     \texttt{age}: Age
   \end{itemize}
 \item
-  1 between-subject IV:
+  1 between-subject independent variable (VI):
 
   \begin{itemize}
   \tightlist
@@ -293,7 +308,7 @@ For the purpose of this tutorial, we will use simulated data for a 2 x 2 mixed-d
     \texttt{language}: Language group (1 = monolingual, 2 = bilingual)
   \end{itemize}
 \item
-  4 columns for the 2 dependent variables for RT and accuracy, crossed by the within-subject IV of condition:
+  4 columns for the 2 dependent variables (DVs) for RT and accuracy, crossed by the within-subject IV of condition:
 
   \begin{itemize}
   \tightlist
@@ -308,7 +323,7 @@ For the purpose of this tutorial, we will use simulated data for a 2 x 2 mixed-d
   \end{itemize}
 \end{itemize}
 
-The simulated dataset and tutorial code can be found in the online supplementary materials. For newcomers to R, we would suggest working through this tutorial with the simulated dataset, then extending the code to your own datasets with a similar structure, and finally generalising the code to new structures and problems.
+For newcomers to R, we would suggest working through this tutorial with the simulated dataset, then extending the code to your own datasets with a similar structure, and finally generalising the code to new structures and problems.
 
 \hypertarget{setting-up-r-and-rstudio}{%
 \subsection{Setting up R and RStudio}\label{setting-up-r-and-rstudio}}
@@ -339,7 +354,7 @@ Before you start visualising your data, you need to get it into an appropriate f
 \hypertarget{data-format}{%
 \subsubsection{Data format}\label{data-format}}
 
-The simulated lexical decision data is provided in a \texttt{csv} file rather than e.g., \texttt{xslx}. Functions exist in R to read many other types of data files, however, we recommend that you convert any \texttt{xlsx} spreadsheets to \texttt{csv} by using the \texttt{Save\ As} function in Microsoft Excel. The \texttt{csv} file format strips all formatting and only stores data in a single sheet and so is simpler for new users to import to R. You may wish to create a \texttt{csv} file that contains only the data you want to visualise, rather than a full, larger workbook. When working with your own data, remove summary rows or additional notes from any files you import. All files should only contain the rows and columns of data you want to plot.
+The simulated lexical decision data is provided in a \texttt{csv} file rather than e.g., \texttt{xslx}. Functions exist in R to read many other types of data files, however, we recommend that you convert any \texttt{xlsx} spreadsheets to \texttt{csv} by using the \texttt{Save\ As} function in Microsoft Excel. The \texttt{csv} file format strips all formatting and only stores data in a single sheet and so is simpler for new users to import to R. You may wish to create a \texttt{csv} file that contains only the data you want to visualise, rather than a full, larger workbook. When working with your own data, remove summary rows or additional notes from any files you import. All files should only contains the rows and columns of data you want to plot.
 
 \hypertarget{variable-names}{%
 \subsubsection{Variable names}\label{variable-names}}
@@ -348,7 +363,7 @@ Ensuring that your variable names are consistent can make it much easier to work
 
 It is also helpful to have a consistent naming scheme, particularly for variable names that require more than one word. Two popular options are \texttt{CamelCase} where each new word begins with a capital letter, or \texttt{snake\_case} where all letters are lower case and words are separated by an underscore. For the purposes of naming variables, avoid using any spaces in variable names (e.g., \texttt{rt\ word}) and consider the additional meaning of a separator beyond making the variable names easier to read. For example, \texttt{rt\_word}, \texttt{rt\_nonword}, \texttt{acc\_word}, and \texttt{acc\_nonword} all have the DV to the left of the separator and the level of the IV to the right. \texttt{rt\_word\_condition} on the other hand has two separators but only one of them is meaningful and it is useful to be able to split variable names consistently. In this paper, we will use \texttt{snake\_case} and lower case letters for all variable names so that we don't have to remember where to put the capital letters.
 
-When working with your own data, you can rename columns in Excel, but the resources listed in the additional resources point to how to rename columns reproducibly with code.
+When working with your own data, you can rename columns in Excel, but the resources listed in the online appendices point to how to rename columns reproducibly with code.
 
 \hypertarget{data-values}{%
 \subsubsection{Data values}\label{data-values}}
@@ -385,7 +400,7 @@ To load the \href{https://osf.io/bj83f/files/}{simulated data} we use the functi
 
 This code has created an object \texttt{dat} into which you have read the data from the file \texttt{ldt\_data.csv}. This object will appear in the environment pane in the top right. Note that the name of the data file must be in quotation marks and the file extension (\texttt{.csv}) must also be included. If you receive the error \texttt{\ldots{}does\ not\ exist\ in\ current\ working\ directory} it is highly likely that you have made a typo in the file name (remember R is case sensitive), have forgotten to include the file extension \texttt{.csv}, or that the data file you want to load is not stored in your project folder. If you get the error \texttt{could\ not\ find\ function} it means you have either not loaded the correct package (a common beginner error is to write the code, but not run it), or you have made a typo in the function name.
 
-To view the dataset, click \texttt{dat} in the environment pane or run \texttt{View(dat)} in the console. The environment pane also tells us that the object \texttt{dat} has 100 observations of 7 variables, and this is a useful quick check to ensure one has loaded the right data. Note that the 7 variables have an additional piece of information \texttt{chr} and \texttt{num}; this specifies the kind of data in the column. Similar to Excel and SPSS, R used this information (or variable type) to specify allowable manipulations of data. For instance character data such as the \texttt{id} cannot be averaged, while it is possible to do this with numerical data such as the \texttt{age}.
+To view the dataset, click \texttt{dat} in the environment pane or run \texttt{View(dat)} in the console. The environment pane also tells us that the object \texttt{dat} has 100 observations of 7 variables, and this is a useful quick check to ensure one has loaded the right data. Note that the 7 variables have an additional piece of information \texttt{chr} and \texttt{num}; this specifies the kind of data in the column. Similar to Excel and SPSS, R uses this information (or variable type) to specify allowable manipulations of data. For instance character data such as the \texttt{id} cannot be averaged, while it is possible to do this with numerical data such as the \texttt{age}.
 
 \hypertarget{handling-numeric-factors}{%
 \subsection{Handling numeric factors}\label{handling-numeric-factors}}
@@ -443,7 +458,7 @@ One of the challenges in learning R is that many of the ``helpful'' examples and
 \hypertarget{demographic-information}{%
 \subsection{Demographic information}\label{demographic-information}}
 
-You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (i.e.~data processing). The code below uses the \texttt{\%\textgreater{}\%} operator, otherwise known as the \emph{pipe,} and can be translated as "\emph{and then"}. For example, the below code can be read as:
+You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (i.e., data processing). The code below uses the \texttt{\%\textgreater{}\%} operator, otherwise known as the \emph{pipe,} and can be translated as "\emph{and then"}. For example, the below code can be read as:
 
 \begin{itemize}
 \item
@@ -472,7 +487,7 @@ bilingual & 45\\
 \hline
 \end{tabular}
 
-\texttt{group\_by()} does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever functions called next is performed separately on each level of the grouping variable. The above code therefore counts the number of observations in each group of the variable \texttt{language}. If you just need the total number of observations, you could remove the \texttt{group\_by()} line which would perform the operation on the whole dataset, rather than by groups:
+\texttt{group\_by()} does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever function is called next is performed separately on each level of the grouping variable. The above code therefore counts the number of observations in each group of the variable \texttt{language}. If you just need the total number of observations, you could remove the \texttt{group\_by()} line which would perform the operation on the whole dataset, rather than by groups:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -582,7 +597,7 @@ The base layer and the geoms you add as layers work in symbiosis so it is worthw
 \hypertarget{plotting-existing-aggregates-and-percent}{%
 \subsection{Plotting existing aggregates and percent}\label{plotting-existing-aggregates-and-percent}}
 
-If your dataset already has the counts that you want to plot, you can set \texttt{stat="identity"} inside of \texttt{geom\_bar()} to use that number instead of counting rows. For example, there is currently no function to plot percentages rather than counts within \texttt{ggplot}, you need to calculate these and store them in a new object that is then used as the dataset.
+If your dataset already has the counts that you want to plot, you can set \texttt{stat="identity"} inside of \texttt{geom\_bar()} to use that number instead of counting rows. For example, there is currently no function to plot percentages rather than counts within \texttt{ggplot2}, you need to calculate these and store them in a new object that is then used as the dataset.
 
 Notice that we are now omitting the names of the arguments \texttt{data} and \texttt{mapping} in the \texttt{ggplot()} function.
 
@@ -677,7 +692,7 @@ For our basic bar chart, you can control colours used to display the bars by set
 \hypertarget{editing-axis-names-and-labels}{%
 \subsubsection{Editing axis names and labels}\label{editing-axis-names-and-labels}}
 
-To edit axis names and labels you can connect \texttt{scale\_*} functions to your plot with \texttt{+} to add layers. These functions are part of \texttt{ggplot} and the one you use depends on which aesthetic you wish to edit (e.g., x-axis, y-axis, fill, colour) as well as the type of data it represents (discrete, continuous).
+To edit axis names and labels you can connect \texttt{scale\_*} functions to your plot with \texttt{+} to add layers. These functions are part of \texttt{ggplot2} and the one you use depends on which aesthetic you wish to edit (e.g., x-axis, y-axis, fill, colour) as well as the type of data it represents (discrete, continuous).
 
 For the bar chart of counts, the x-axis is mapped to a discrete (categorical) variable whilst the y-axis is continuous. For each of these there is a relevant scale function with various elements that can be customised. Each axis then has its own function added as a layer to the basic plot.
 
@@ -732,7 +747,7 @@ This will produce the error \texttt{Discrete\ value\ supplied\ to\ continuous\ s
 \hypertarget{adding-a-theme}{%
 \subsubsection{Adding a theme}\label{adding-a-theme}}
 
-\texttt{ggplot} has a number of built-in visual themes that you can apply as an extra layer. The below code updates the x-axis and y-axis labels to the histogram, but also applies \texttt{theme\_minimal()}. Each part of a theme can be independently customised, which may be necessary, for example, if you have journal guidelines on fonts for publication. There are further instructions for how to do this in the additional resources.
+\texttt{ggplot2} has a number of built-in visual themes that you can apply as an extra layer. The below code updates the x-axis and y-axis labels to the histogram, but also applies \texttt{theme\_minimal()}. Each part of a theme can be independently customised, which may be necessary, for example, if you have journal guidelines on fonts for publication. There are further instructions for how to do this in the online appendices.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -783,7 +798,7 @@ Before you move on try the following:
 \hypertarget{data-formats}{%
 \subsection{Data formats}\label{data-formats}}
 
-To visualise the experimental reaction time and accuracy data using \texttt{ggplot}, we first need to reshape the data from wide-format to long-format and it is this step that can cause friction with novice users of R. Traditionally, psychologists have been taught data skills using wide-format data. Wide-format data typically has one row of data for each participant with separate columns for each score or variable. Where there are repeated-measures variables, the dependent variable is split across different columns with one measurement for each condition and where there is between groups variables, a separate column is added to encode the group to which a participant or observation belongs.
+To visualise the experimental reaction time and accuracy data using \texttt{ggplot2}, we first need to reshape the data from wide-format to long-format and it is this step that can cause friction with novice users of R. Traditionally, psychologists have been taught data skills using wide-format data. Wide-format data typically has one row of data for each participant with separate columns for each score or variable. Where there are repeated-measures variables, the dependent variable is split across different columns with one measurement for each condition and where there is a between groups variable, a separate column is added to encode the group to which a participant or observation belongs.
 
 The simulated lexical decision data is currently in wide-format (see Table~\ref{tab:wide-data}) where each participant's aggregated\footnote{In this tutorial we have chosen to gloss over the data processing steps that must occur to get from the raw data to aggregated values. This type of processing requires a more extensive tutorial than we can provide in the current paper. More importantly, it is still possible to use R for data visualisation having done the preparatory steps using existing workflows in Excel and SPSS, so long as the file is saved/exported as a \texttt{.csv} file. We bypass these initial steps and focus on tangible outputs that may then encourage further mastery of reproducible methods. Collectively we tend to call the steps for reshaping data and for processing raw data or for getting data ready to use statistical functions ``wrangling.''} reaction time and accuracy for each level of the within-subject variable is split across multiple columns.
 
@@ -837,7 +852,7 @@ S003 & 23 & monolingual & nonword & 458.50 & 87\\
 \end{tabular}
 \end{table}
 
-The benefits and flexibility of this format will hopefully become apparent as we progress through the tutorial, however, a useful rule of thumb when working with data in R for visualisation is that \emph{anything that shares an axis should probably be in the same column}. For example, a simple bar chart of means for the reaction time DV would display the variable \texttt{condition} on the x-axis with bars representing both the \texttt{word} and \texttt{nonword} data, therefore, these data should be in one column and not split.
+The benefits and flexibility of this format will hopefully become apparent as we progress through the tutorial, however, a useful rule of thumb when working with data in R for visualisation is that \emph{anything that shares an axis should probably be in the same column}. For example, a simple boxplot showing reaction time by condition would display the variable \texttt{condition} on the x-axis with bars representing both the \texttt{word} and \texttt{nonword} data, and \texttt{rt} on the y-axis. Therefore, all the data relating to \texttt{condition} should be in one column, and all the data relating to \texttt{rt} should be in a separate single column, rather than being split like in wide-format data.
 
 \hypertarget{transforming-data-1}{%
 \subsection{Transforming data}\label{transforming-data-1}}
@@ -1182,7 +1197,7 @@ S006 & 357.1710 & 367.3355 & 96 & 78\\
 \hypertarget{accessible-colour-schemes}{%
 \subsubsection{Accessible colour schemes}\label{accessible-colour-schemes}}
 
-One of the drawbacks of using \texttt{ggplot} for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in grey scale. You can specify exact custom colours for your plots, but one easy option is to use a colour palette and the \texttt{viridis} scale functions call such a palette. These take the same arguments as their default \texttt{scale} sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. The \texttt{viridis} scale functions provide a number of different options for the colour - try setting \texttt{option} to any letter from A - E to see the different sets.
+One of the drawbacks of using \texttt{ggplot2} for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in grey scale. You can specify exact custom colours for your plots, but one easy option is to use a colour palette and the \texttt{viridis} scale functions call such a palette. These take the same arguments as their default \texttt{scale} sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. The \texttt{viridis} scale functions provide a number of different options for the colour - try setting \texttt{option} to any letter from A - E to see the different sets.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1203,6 +1218,47 @@ One of the drawbacks of using \texttt{ggplot} for visualisation is that the defa
 }
 
 \caption{Use the viridis colour scheme for accessibility.}\label{fig:viridis}
+\end{figure}
+
+\hypertarget{specifying-axis-breaks-with-seq}{%
+\subsection{\texorpdfstring{Specifying axis \texttt{breaks} with \texttt{seq()}}{Specifying axis breaks with seq()}}\label{specifying-axis-breaks-with-seq}}
+
+Previously, when we have edited the \texttt{breaks} on the axis labels, we have done so manually, typing out all the values we want to display on the axis. For example, the below code edits the y-axis so that \texttt{age} is displayed in increments of 5.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ rt, }\AttributeTok{y =}\NormalTok{ age)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{35}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{45}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{55}\NormalTok{,}\DecValTok{60}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/breaks1-1} 
+
+}
+
+\caption{ }\label{fig:breaks1}
+\end{figure}
+
+However, this is somewhat inefficient. Instead, we can use the function \texttt{seq()} to specify the first and last value and the increments \texttt{by} which the breaks should display between these two values.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ rt, }\AttributeTok{y =}\NormalTok{ age)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{,}\DecValTok{60}\NormalTok{, }\AttributeTok{by =} \DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/breaks2-1} 
+
+}
+
+\caption{ }\label{fig:breaks2}
 \end{figure}
 
 \hypertarget{activities-2}{%
@@ -1227,7 +1283,7 @@ Before you move on try the following:
 \hypertarget{representing-summary-statistics}{%
 \section{Representing Summary Statistics}\label{representing-summary-statistics}}
 
-The layering approach that is used in \texttt{ggplot} to make figures comes into its own when you want to include information about the distribution and spread of scores. In this section we introduce different ways of including summary statistics on your figures.
+The layering approach that is used in \texttt{ggplot2} to make figures comes into its own when you want to include information about the distribution and spread of scores. In this section we introduce different ways of including summary statistics on your figures.
 
 \hypertarget{boxplots}{%
 \subsection{Boxplots}\label{boxplots}}
@@ -1309,7 +1365,7 @@ Violin plots display the distribution of a dataset and can be created by calling
 \hypertarget{bar-chart-of-means}{%
 \subsection{Bar chart of means}\label{bar-chart-of-means}}
 
-Commonly, rather than visualising distributions of raw data researchers will wish to visualise means using a bar chart with error bars. As with SPSS and Excel, \texttt{ggplot} requires you to calculate the summary statistics and then plot the summary. There are at least two ways to do this, in the first you make a table of summary statistics as we did earlier when calculating the participant demographics and then plot that table. The second approach is to calculate the statistics within a layer of the plot. That is the approach we will use below.
+Commonly, rather than visualising distributions of raw data researchers will wish to visualise means using a bar chart with error bars. As with SPSS and Excel, \texttt{ggplot2} requires you to calculate the summary statistics and then plot the summary. There are at least two ways to do this, in the first you make a table of summary statistics as we did earlier when calculating the participant demographics and then plot that table. The second approach is to calculate the statistics within a layer of the plot. That is the approach we will use below.
 
 First we present code for making a bar chart. The code for bar charts is here because it is a common visualisation that is familiar to most researchers, however, we would urge you to use a visualisation that provides more transparency about the distribution of the raw data, such as the violin-boxplots we will present in the next section.
 
@@ -1730,7 +1786,7 @@ Just like with datasets, plots can be saved to objects. The below code saves the
 \end{Highlighting}
 \end{Shaded}
 
-Importantly, layers can then be added to these saved objects. For example, the below code adds a theme to the plot saved in \texttt{p1} and saves it as a new object \texttt{p3}. This is important because many of the examples of \texttt{ggplot} code you will find in online help forums use the \texttt{p\ +} format to build up plots but fail to explain what this means, which can be confusing to beginners.
+Importantly, layers can then be added to these saved objects. For example, the below code adds a theme to the plot saved in \texttt{p1} and saves it as a new object \texttt{p3}. This is important because many of the examples of \texttt{ggplot2} code you will find in online help forums use the \texttt{p\ +} format to build up plots but fail to explain what this means, which can be confusing to beginners.
 
 \begin{Shaded}
 \begin{Highlighting}[]

@@ -425,7 +425,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
 
 **Changing Order of Factors**
 
-Again, you have a lot of control beyond the default alphabetical order that **`ggplot2`** tends to plot in. One question you might have though is why **monolingual** and **bilingual** are not in alphabetical order? f they were then the **bilingual** condition would be plotted first. The answer is, thinking back to the start of the paper, we changed our conditions from **1** and **2** to the factor names of **monolingual** and **bilingual**, and **`ggplot`** maintains that factor order when plotting. So if we want to plot it in a different fashion we need to do a bit of factor reordering. This can be done much like earlier using the `factor()` function and stating the order of conditions we want (`levels = c("factor","factor")`). But be careful with spelling as it must match up to the names of the factors that already exist.
+Again, you have a lot of control beyond the default alphabetical order that **`ggplot2`** tends to plot in. One question you might have though is why **monolingual** and **bilingual** are not in alphabetical order? f they were then the **bilingual** condition would be plotted first. The answer is, thinking back to the start of the paper, we changed our conditions from **1** and **2** to the factor names of **monolingual** and **bilingual**, and **`ggplot()`** maintains that factor order when plotting. So if we want to plot it in a different fashion we need to do a bit of factor reordering. This can be done much like earlier using the `factor()` function and stating the order of conditions we want (`levels = c("factor","factor")`). But be careful with spelling as it must match up to the names of the factors that already exist.
 
 In this example, we will reorder the factors so that **bilingual** is presented first but leave the order of **word** and **non-word** as the alphabetical default. Note in the code though that we are not permanently storing the factor change as we don't want to keep this new order. We are just changing the order "on the fly" for this one example before putting it into the plot.
 
@@ -791,7 +791,7 @@ ggplot(count_dat, aes(x = "",
 <p class="caption">(\#fig:piechart-full)A pie chart of the demographics</p>
 </div>
 
-Note that this is effectively creating a stacked bar chart with no x variable (i.e. `x = ""`) and then wrapping the y-axis into a circle (i.e. `coord_polar("y", start = 0)`). That is what the first three lines of the `ggplot` code does:
+Note that this is effectively creating a stacked bar chart with no x variable (i.e. `x = ""`) and then wrapping the y-axis into a circle (i.e. `coord_polar("y", start = 0)`). That is what the first three lines of the `ggplot()` code does:
 
 <div class="figure" style="text-align: center">
 <img src="appendix-0_files/figure-html/pie-basic1-1.png" alt="The basis of a pie chart" width="100%" />

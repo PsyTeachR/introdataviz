@@ -5,26 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Advanced Plots | Data visualisation using R, for researchers who don’t use R</title>
-  <meta name="description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot2 package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Advanced Plots | Data visualisation using R, for researchers who don’t use R" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
+  <meta property="og:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot2 package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 6 Advanced Plots | Data visualisation using R, for researchers who don’t use R" />
   
-  <meta name="twitter:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
+  <meta name="twitter:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot2 package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
   
 
 <meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine" />
 
 
-<meta name="date" content="2021-06-22" />
+<meta name="date" content="2021-07-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="multi-part-plots.html"/>
 <link rel="next" href="conclusion.html"/>
-<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +51,6 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <meta property="og:title" content="IntroDataViz">
 <meta property="og:description" content="Data Visualisation Using R, For Researchers Who Don’t Use R.">
 <meta property="og:image" content="https://psyteachr.github.io/introdataviz/images/card.png">
@@ -127,29 +125,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
-
 <link rel="stylesheet" href="include/psyteachr.css" type="text/css" />
 <link rel="stylesheet" href="include/webex.css" type="text/css" />
 <link rel="stylesheet" href="include/style.css" type="text/css" />
@@ -173,13 +148,14 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#why-r-for-data-visualisation"><i class="fa fa-check"></i><b>1.1</b> Why R for data visualisation?</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#a-layered-grammar-of-graphics"><i class="fa fa-check"></i><b>1.2</b> A layered grammar of graphics</a></li>
-<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#simulated-dataset"><i class="fa fa-check"></i><b>1.3</b> Simulated dataset</a></li>
-<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#setting-up-r-and-rstudio"><i class="fa fa-check"></i><b>1.4</b> Setting up R and RStudio</a></li>
-<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#preparing-your-data"><i class="fa fa-check"></i><b>1.5</b> Preparing your data</a>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#tutorial-components"><i class="fa fa-check"></i><b>1.3</b> Tutorial components</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#simulated-dataset"><i class="fa fa-check"></i><b>1.4</b> Simulated dataset</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#setting-up-r-and-rstudio"><i class="fa fa-check"></i><b>1.5</b> Setting up R and RStudio</a></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#preparing-your-data"><i class="fa fa-check"></i><b>1.6</b> Preparing your data</a>
 <ul>
-<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#data-format"><i class="fa fa-check"></i><b>1.5.1</b> Data format</a></li>
-<li class="chapter" data-level="1.5.2" data-path="introduction.html"><a href="introduction.html#variable-names"><i class="fa fa-check"></i><b>1.5.2</b> Variable names</a></li>
-<li class="chapter" data-level="1.5.3" data-path="introduction.html"><a href="introduction.html#data-values"><i class="fa fa-check"></i><b>1.5.3</b> Data values</a></li>
+<li class="chapter" data-level="1.6.1" data-path="introduction.html"><a href="introduction.html#data-format"><i class="fa fa-check"></i><b>1.6.1</b> Data format</a></li>
+<li class="chapter" data-level="1.6.2" data-path="introduction.html"><a href="introduction.html#variable-names"><i class="fa fa-check"></i><b>1.6.2</b> Variable names</a></li>
+<li class="chapter" data-level="1.6.3" data-path="introduction.html"><a href="introduction.html#data-values"><i class="fa fa-check"></i><b>1.6.3</b> Data values</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting Started</a>
@@ -224,7 +200,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="3.7.1" data-path="transforming-data.html"><a href="transforming-data.html#accessible-colour-schemes"><i class="fa fa-check"></i><b>3.7.1</b> Accessible colour schemes</a></li>
 </ul></li>
-<li class="chapter" data-level="3.8" data-path="transforming-data.html"><a href="transforming-data.html#activities-2"><i class="fa fa-check"></i><b>3.8</b> Activities 2</a></li>
+<li class="chapter" data-level="3.8" data-path="transforming-data.html"><a href="transforming-data.html#specifying-axis-breaks-with-seq"><i class="fa fa-check"></i><b>3.8</b> Specifying axis <code>breaks</code> with <code>seq()</code></a></li>
+<li class="chapter" data-level="3.9" data-path="transforming-data.html"><a href="transforming-data.html#activities-2"><i class="fa fa-check"></i><b>3.9</b> Activities 2</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="representing-summary-statistics.html"><a href="representing-summary-statistics.html"><i class="fa fa-check"></i><b>4</b> Representing Summary Statistics</a>
 <ul>
@@ -308,23 +285,23 @@ div.csl-indent {
 <div id="advanced-plots" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Advanced Plots</h1>
 <p>This tutorial has but scratched the surface of the visualisation options available using R - in the additional online resources we provide some further advanced plots and customisation options for those readers who are feeling confident with the content covered in this tutorial, however, the below plots give an idea of what is possible, and represent the favourite plots of the authorship team.</p>
-<p>We will use some custom functions: <code>geom_split_violin()</code> and <code>geom_flat_violin()</code>, which you can access through the <code>introdataviz</code> package. These functions are modified from <span class="citation">(<a href="#ref-raincloudplots" role="doc-biblioref">Allen et al. 2021</a>)</span>.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="advanced-plots.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># how to install the introdataviz package to get split and half violin plots</span></span>
-<span id="cb74-2"><a href="advanced-plots.html#cb74-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;psyteachr/introdataviz&quot;</span>)</span></code></pre></div>
+<p>We will use some custom functions: <code>geom_split_violin()</code> and <code>geom_flat_violin()</code>, which you can access through the <code>introdataviz</code> package. These functions are modified from <span class="citation">(<a href="additional-advanced-plots-and-customisation-options.html#ref-raincloudplots" role="doc-biblioref">Allen et al. 2021</a>)</span>.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="advanced-plots.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># how to install the introdataviz package to get split and half violin plots</span></span>
+<span id="cb76-2"><a href="advanced-plots.html#cb76-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;psyteachr/introdataviz&quot;</span>)</span></code></pre></div>
 <div id="split-violin-plots" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> Split-violin plots</h2>
 <p>Split-violin plots remove the redundancy of mirrored violin plots and make it easier to compare the distributions between multiple conditions.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="advanced-plots.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
-<span id="cb75-2"><a href="advanced-plots.html#cb75-2" aria-hidden="true" tabindex="-1"></a>  introdataviz<span class="sc">::</span><span class="fu">geom_split_violin</span>(<span class="at">alpha =</span> .<span class="dv">4</span>, <span class="at">trim =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb75-3"><a href="advanced-plots.html#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">alpha =</span> .<span class="dv">6</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb75-4"><a href="advanced-plots.html#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;pointrange&quot;</span>, <span class="at">show.legend =</span> F, </span>
-<span id="cb75-5"><a href="advanced-plots.html#cb75-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">175</span>)) <span class="sc">+</span></span>
-<span id="cb75-6"><a href="advanced-plots.html#cb75-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Non-word&quot;</span>, <span class="st">&quot;Word&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb75-7"><a href="advanced-plots.html#cb75-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>,</span>
-<span id="cb75-8"><a href="advanced-plots.html#cb75-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">800</span>, <span class="dv">100</span>), </span>
-<span id="cb75-9"><a href="advanced-plots.html#cb75-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">800</span>)) <span class="sc">+</span></span>
-<span id="cb75-10"><a href="advanced-plots.html#cb75-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>, <span class="at">name =</span> <span class="st">&quot;Language group&quot;</span>) <span class="sc">+</span></span>
-<span id="cb75-11"><a href="advanced-plots.html#cb75-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="advanced-plots.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
+<span id="cb77-2"><a href="advanced-plots.html#cb77-2" aria-hidden="true" tabindex="-1"></a>  introdataviz<span class="sc">::</span><span class="fu">geom_split_violin</span>(<span class="at">alpha =</span> .<span class="dv">4</span>, <span class="at">trim =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb77-3"><a href="advanced-plots.html#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>, <span class="at">alpha =</span> .<span class="dv">6</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb77-4"><a href="advanced-plots.html#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;pointrange&quot;</span>, <span class="at">show.legend =</span> F, </span>
+<span id="cb77-5"><a href="advanced-plots.html#cb77-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">175</span>)) <span class="sc">+</span></span>
+<span id="cb77-6"><a href="advanced-plots.html#cb77-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Condition&quot;</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Non-word&quot;</span>, <span class="st">&quot;Word&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb77-7"><a href="advanced-plots.html#cb77-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>,</span>
+<span id="cb77-8"><a href="advanced-plots.html#cb77-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">800</span>, <span class="dv">100</span>), </span>
+<span id="cb77-9"><a href="advanced-plots.html#cb77-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">800</span>)) <span class="sc">+</span></span>
+<span id="cb77-10"><a href="advanced-plots.html#cb77-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>, <span class="at">name =</span> <span class="st">&quot;Language group&quot;</span>) <span class="sc">+</span></span>
+<span id="cb77-11"><a href="advanced-plots.html#cb77-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:splitviolin"></span>
 <img src="06-ch6_files/figure-html/splitviolin-1.png" alt="Split-violin plot" width="100%" />
 <p class="caption">
@@ -335,39 +312,39 @@ Figure 6.1: Split-violin plot
 <div id="raincloud-plots" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Raincloud plots</h2>
 <p>Raincloud plots combine a density plot, boxplot, raw data points, and any desired summary statistics for a complete visualisation of the data. They are so called because the density plot plus raw data is reminiscent of a rain cloud.</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="advanced-plots.html#cb76-1" aria-hidden="true" tabindex="-1"></a>rain_height <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
-<span id="cb76-2"><a href="advanced-plots.html#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-3"><a href="advanced-plots.html#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
-<span id="cb76-4"><a href="advanced-plots.html#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># clouds</span></span>
-<span id="cb76-5"><a href="advanced-plots.html#cb76-5" aria-hidden="true" tabindex="-1"></a>  introdataviz<span class="sc">::</span><span class="fu">geom_flat_violin</span>(<span class="at">trim=</span><span class="cn">FALSE</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>,</span>
-<span id="cb76-6"><a href="advanced-plots.html#cb76-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> rain_height<span class="fl">+.05</span>)) <span class="sc">+</span></span>
-<span id="cb76-7"><a href="advanced-plots.html#cb76-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># rain</span></span>
-<span id="cb76-8"><a href="advanced-plots.html#cb76-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> language), <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> .<span class="dv">5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb76-9"><a href="advanced-plots.html#cb76-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> rain_height, <span class="at">height =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb76-10"><a href="advanced-plots.html#cb76-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># boxplots</span></span>
-<span id="cb76-11"><a href="advanced-plots.html#cb76-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> rain_height, <span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb76-12"><a href="advanced-plots.html#cb76-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">outlier.shape =</span> <span class="cn">NA</span>,</span>
-<span id="cb76-13"><a href="advanced-plots.html#cb76-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> <span class="sc">-</span>rain_height<span class="sc">*</span><span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb76-14"><a href="advanced-plots.html#cb76-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mean and SE point in the cloud</span></span>
-<span id="cb76-15"><a href="advanced-plots.html#cb76-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_se, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">color =</span> language), <span class="at">show.legend =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb76-16"><a href="advanced-plots.html#cb76-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> rain_height <span class="sc">*</span> <span class="dv">3</span>)) <span class="sc">+</span></span>
-<span id="cb76-17"><a href="advanced-plots.html#cb76-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust layout</span></span>
-<span id="cb76-18"><a href="advanced-plots.html#cb76-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">&quot;&quot;</span>, <span class="at">expand =</span> <span class="fu">c</span>(rain_height<span class="sc">*</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.7</span>)) <span class="sc">+</span></span>
-<span id="cb76-19"><a href="advanced-plots.html#cb76-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>,</span>
-<span id="cb76-20"><a href="advanced-plots.html#cb76-20" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">800</span>, <span class="dv">100</span>), </span>
-<span id="cb76-21"><a href="advanced-plots.html#cb76-21" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">800</span>)) <span class="sc">+</span></span>
-<span id="cb76-22"><a href="advanced-plots.html#cb76-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb76-23"><a href="advanced-plots.html#cb76-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">factor</span>(condition, </span>
-<span id="cb76-24"><a href="advanced-plots.html#cb76-24" aria-hidden="true" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;word&quot;</span>, <span class="st">&quot;nonword&quot;</span>), </span>
-<span id="cb76-25"><a href="advanced-plots.html#cb76-25" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-Word&quot;</span>)), </span>
-<span id="cb76-26"><a href="advanced-plots.html#cb76-26" aria-hidden="true" tabindex="-1"></a>             <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb76-27"><a href="advanced-plots.html#cb76-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># custom colours and theme</span></span>
-<span id="cb76-28"><a href="advanced-plots.html#cb76-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>, <span class="at">name =</span> <span class="st">&quot;Language group&quot;</span>) <span class="sc">+</span></span>
-<span id="cb76-29"><a href="advanced-plots.html#cb76-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>(<span class="at">option  =</span><span class="st">&quot;E&quot;</span>) <span class="sc">+</span></span>
-<span id="cb76-30"><a href="advanced-plots.html#cb76-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb76-31"><a href="advanced-plots.html#cb76-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb76-32"><a href="advanced-plots.html#cb76-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.8</span>),</span>
-<span id="cb76-33"><a href="advanced-plots.html#cb76-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="advanced-plots.html#cb78-1" aria-hidden="true" tabindex="-1"></a>rain_height <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
+<span id="cb78-2"><a href="advanced-plots.html#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-3"><a href="advanced-plots.html#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_long, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> rt, <span class="at">fill =</span> language)) <span class="sc">+</span></span>
+<span id="cb78-4"><a href="advanced-plots.html#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># clouds</span></span>
+<span id="cb78-5"><a href="advanced-plots.html#cb78-5" aria-hidden="true" tabindex="-1"></a>  introdataviz<span class="sc">::</span><span class="fu">geom_flat_violin</span>(<span class="at">trim=</span><span class="cn">FALSE</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>,</span>
+<span id="cb78-6"><a href="advanced-plots.html#cb78-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> rain_height<span class="fl">+.05</span>)) <span class="sc">+</span></span>
+<span id="cb78-7"><a href="advanced-plots.html#cb78-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># rain</span></span>
+<span id="cb78-8"><a href="advanced-plots.html#cb78-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> language), <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> .<span class="dv">5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb78-9"><a href="advanced-plots.html#cb78-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> rain_height, <span class="at">height =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb78-10"><a href="advanced-plots.html#cb78-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># boxplots</span></span>
+<span id="cb78-11"><a href="advanced-plots.html#cb78-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> rain_height, <span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb78-12"><a href="advanced-plots.html#cb78-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">outlier.shape =</span> <span class="cn">NA</span>,</span>
+<span id="cb78-13"><a href="advanced-plots.html#cb78-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> <span class="sc">-</span>rain_height<span class="sc">*</span><span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb78-14"><a href="advanced-plots.html#cb78-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mean and SE point in the cloud</span></span>
+<span id="cb78-15"><a href="advanced-plots.html#cb78-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_se, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">color =</span> language), <span class="at">show.legend =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb78-16"><a href="advanced-plots.html#cb78-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> rain_height <span class="sc">*</span> <span class="dv">3</span>)) <span class="sc">+</span></span>
+<span id="cb78-17"><a href="advanced-plots.html#cb78-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust layout</span></span>
+<span id="cb78-18"><a href="advanced-plots.html#cb78-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">&quot;&quot;</span>, <span class="at">expand =</span> <span class="fu">c</span>(rain_height<span class="sc">*</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.7</span>)) <span class="sc">+</span></span>
+<span id="cb78-19"><a href="advanced-plots.html#cb78-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Reaction time (ms)&quot;</span>,</span>
+<span id="cb78-20"><a href="advanced-plots.html#cb78-20" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">800</span>, <span class="dv">100</span>), </span>
+<span id="cb78-21"><a href="advanced-plots.html#cb78-21" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">800</span>)) <span class="sc">+</span></span>
+<span id="cb78-22"><a href="advanced-plots.html#cb78-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb78-23"><a href="advanced-plots.html#cb78-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">factor</span>(condition, </span>
+<span id="cb78-24"><a href="advanced-plots.html#cb78-24" aria-hidden="true" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;word&quot;</span>, <span class="st">&quot;nonword&quot;</span>), </span>
+<span id="cb78-25"><a href="advanced-plots.html#cb78-25" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Word&quot;</span>, <span class="st">&quot;Non-Word&quot;</span>)), </span>
+<span id="cb78-26"><a href="advanced-plots.html#cb78-26" aria-hidden="true" tabindex="-1"></a>             <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb78-27"><a href="advanced-plots.html#cb78-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># custom colours and theme</span></span>
+<span id="cb78-28"><a href="advanced-plots.html#cb78-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;E&quot;</span>, <span class="at">name =</span> <span class="st">&quot;Language group&quot;</span>) <span class="sc">+</span></span>
+<span id="cb78-29"><a href="advanced-plots.html#cb78-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>(<span class="at">option  =</span><span class="st">&quot;E&quot;</span>) <span class="sc">+</span></span>
+<span id="cb78-30"><a href="advanced-plots.html#cb78-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb78-31"><a href="advanced-plots.html#cb78-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb78-32"><a href="advanced-plots.html#cb78-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.8</span>),</span>
+<span id="cb78-33"><a href="advanced-plots.html#cb78-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:raincloud"></span>
 <img src="06-ch6_files/figure-html/raincloud-1.png" alt="Raincloud plot" width="100%" />
 <p class="caption">
@@ -377,24 +354,24 @@ Figure 6.2: Raincloud plot
 </div>
 <div id="ridge-plots" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Ridge plots</h2>
-<p>Ridge plots are a series of density plots and show the distribution of numeric values for several groups. Figure <a href="advanced-plots.html#fig:ridgeplot">6.3</a> shows data from <span class="citation">(<a href="#ref-Nation2017" role="doc-biblioref">Nation 2017</a>)</span> and demonstrates how effective this type of visualisation can be to convey a lot of information very intuitively whilst being visually attractive.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="advanced-plots.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in data from Nation et al. 2017</span></span>
-<span id="cb77-2"><a href="advanced-plots.html#cb77-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv&quot;</span>)</span>
-<span id="cb77-3"><a href="advanced-plots.html#cb77-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-4"><a href="advanced-plots.html#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="co"># convert to long format and percents</span></span>
-<span id="cb77-5"><a href="advanced-plots.html#cb77-5" aria-hidden="true" tabindex="-1"></a>long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(data, <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
-<span id="cb77-6"><a href="advanced-plots.html#cb77-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="st">&quot;label&quot;</span>,</span>
-<span id="cb77-7"><a href="advanced-plots.html#cb77-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">&quot;prob&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb77-8"><a href="advanced-plots.html#cb77-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">factor</span>(label, <span class="fu">names</span>(data), <span class="fu">names</span>(data)),</span>
-<span id="cb77-9"><a href="advanced-plots.html#cb77-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">prob =</span> prob<span class="sc">/</span><span class="dv">100</span>)</span>
-<span id="cb77-10"><a href="advanced-plots.html#cb77-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-11"><a href="advanced-plots.html#cb77-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ridge plot</span></span>
-<span id="cb77-12"><a href="advanced-plots.html#cb77-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(long, <span class="fu">aes</span>(<span class="at">x =</span> prob, <span class="at">y =</span> label, <span class="at">fill =</span> label)) <span class="sc">+</span> </span>
-<span id="cb77-13"><a href="advanced-plots.html#cb77-13" aria-hidden="true" tabindex="-1"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">scale =</span> <span class="dv">2</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb77-14"><a href="advanced-plots.html#cb77-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Assigned Probability&quot;</span>, </span>
-<span id="cb77-15"><a href="advanced-plots.html#cb77-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb77-16"><a href="advanced-plots.html#cb77-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># control space at top and bottom of plot</span></span>
-<span id="cb77-17"><a href="advanced-plots.html#cb77-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">name =</span> <span class="st">&quot;&quot;</span>, <span class="at">expand =</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="dv">0</span>, .<span class="dv">08</span>, <span class="dv">0</span>))</span></code></pre></div>
+<p>Ridge plots are a series of density plots and show the distribution of numeric values for several groups. Figure <a href="advanced-plots.html#fig:ridgeplot">6.3</a> shows data from <span class="citation">(<a href="additional-advanced-plots-and-customisation-options.html#ref-Nation2017" role="doc-biblioref">Nation 2017</a>)</span> and demonstrates how effective this type of visualisation can be to convey a lot of information very intuitively whilst being visually attractive.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="advanced-plots.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in data from Nation et al. 2017</span></span>
+<span id="cb79-2"><a href="advanced-plots.html#cb79-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv&quot;</span>)</span>
+<span id="cb79-3"><a href="advanced-plots.html#cb79-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-4"><a href="advanced-plots.html#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="co"># convert to long format and percents</span></span>
+<span id="cb79-5"><a href="advanced-plots.html#cb79-5" aria-hidden="true" tabindex="-1"></a>long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(data, <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb79-6"><a href="advanced-plots.html#cb79-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="st">&quot;label&quot;</span>,</span>
+<span id="cb79-7"><a href="advanced-plots.html#cb79-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">&quot;prob&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb79-8"><a href="advanced-plots.html#cb79-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">factor</span>(label, <span class="fu">names</span>(data), <span class="fu">names</span>(data)),</span>
+<span id="cb79-9"><a href="advanced-plots.html#cb79-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">prob =</span> prob<span class="sc">/</span><span class="dv">100</span>)</span>
+<span id="cb79-10"><a href="advanced-plots.html#cb79-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-11"><a href="advanced-plots.html#cb79-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ridge plot</span></span>
+<span id="cb79-12"><a href="advanced-plots.html#cb79-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(long, <span class="fu">aes</span>(<span class="at">x =</span> prob, <span class="at">y =</span> label, <span class="at">fill =</span> label)) <span class="sc">+</span> </span>
+<span id="cb79-13"><a href="advanced-plots.html#cb79-13" aria-hidden="true" tabindex="-1"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>(<span class="at">scale =</span> <span class="dv">2</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb79-14"><a href="advanced-plots.html#cb79-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Assigned Probability&quot;</span>, </span>
+<span id="cb79-15"><a href="advanced-plots.html#cb79-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb79-16"><a href="advanced-plots.html#cb79-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># control space at top and bottom of plot</span></span>
+<span id="cb79-17"><a href="advanced-plots.html#cb79-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">name =</span> <span class="st">&quot;&quot;</span>, <span class="at">expand =</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="dv">0</span>, .<span class="dv">08</span>, <span class="dv">0</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:ridgeplot"></span>
 <img src="06-ch6_files/figure-html/ridgeplot-1.png" alt="A ridge plot." width="100%" />
 <p class="caption">
@@ -405,46 +382,37 @@ Figure 6.3: A ridge plot.
 <div id="alluvial-plots" class="section level2" number="6.4">
 <h2><span class="header-section-number">6.4</span> Alluvial plots</h2>
 <p>Alluvial plots visualise multi-level categorical data through flows that can easily be traced in the diagram.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="advanced-plots.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggalluvial)</span>
-<span id="cb78-2"><a href="advanced-plots.html#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-3"><a href="advanced-plots.html#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate data for 4 years of grades from 500 students</span></span>
-<span id="cb78-4"><a href="advanced-plots.html#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="co"># with a correlation of 0.75 from year to year</span></span>
-<span id="cb78-5"><a href="advanced-plots.html#cb78-5" aria-hidden="true" tabindex="-1"></a><span class="co"># and a slight increase each year</span></span>
-<span id="cb78-6"><a href="advanced-plots.html#cb78-6" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> faux<span class="sc">::</span><span class="fu">sim_design</span>(</span>
-<span id="cb78-7"><a href="advanced-plots.html#cb78-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">within =</span> <span class="fu">list</span>(<span class="at">year =</span> <span class="fu">c</span>(<span class="st">&quot;Y1&quot;</span>, <span class="st">&quot;Y2&quot;</span>, <span class="st">&quot;Y3&quot;</span>, <span class="st">&quot;Y4&quot;</span>)),</span>
-<span id="cb78-8"><a href="advanced-plots.html#cb78-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">500</span>,</span>
-<span id="cb78-9"><a href="advanced-plots.html#cb78-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">mu =</span> <span class="fu">c</span>(<span class="at">Y1 =</span> <span class="dv">0</span>, <span class="at">Y2 =</span> .<span class="dv">2</span>, <span class="at">Y3 =</span> .<span class="dv">4</span>, <span class="at">Y4 =</span> .<span class="dv">6</span>), <span class="at">r =</span> <span class="fl">0.75</span>, </span>
-<span id="cb78-10"><a href="advanced-plots.html#cb78-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dv =</span> <span class="st">&quot;grade&quot;</span>, <span class="at">long =</span> <span class="cn">TRUE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb78-11"><a href="advanced-plots.html#cb78-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># convert numeric grades to letters with a defined probability</span></span>
-<span id="cb78-12"><a href="advanced-plots.html#cb78-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">grade =</span> faux<span class="sc">::</span><span class="fu">norm2likert</span>(grade, <span class="at">prob =</span> <span class="fu">c</span>(<span class="st">&quot;3rd&quot;</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">&quot;2.2&quot;</span> <span class="ot">=</span> <span class="dv">10</span>, <span class="st">&quot;2.1&quot;</span> <span class="ot">=</span> <span class="dv">40</span>, <span class="st">&quot;1st&quot;</span> <span class="ot">=</span> <span class="dv">20</span>)),</span>
-<span id="cb78-13"><a href="advanced-plots.html#cb78-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">grade =</span> <span class="fu">factor</span>(grade, <span class="fu">c</span>(<span class="st">&quot;1st&quot;</span>, <span class="st">&quot;2.1&quot;</span>, <span class="st">&quot;2.2&quot;</span>, <span class="st">&quot;3rd&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb78-14"><a href="advanced-plots.html#cb78-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># reformat data and count each combination</span></span>
-<span id="cb78-15"><a href="advanced-plots.html#cb78-15" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> year, <span class="at">values_from =</span> grade) <span class="sc">%&gt;%</span></span>
-<span id="cb78-16"><a href="advanced-plots.html#cb78-16" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(Y1, Y2, Y3, Y4)</span>
-<span id="cb78-17"><a href="advanced-plots.html#cb78-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-18"><a href="advanced-plots.html#cb78-18" aria-hidden="true" tabindex="-1"></a><span class="co"># plot data with colours by Year1 grades</span></span>
-<span id="cb78-19"><a href="advanced-plots.html#cb78-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">y =</span> n, <span class="at">axis1 =</span> Y1, <span class="at">axis2 =</span> Y2, <span class="at">axis3 =</span> Y3, <span class="at">axis4 =</span> Y4)) <span class="sc">+</span></span>
-<span id="cb78-20"><a href="advanced-plots.html#cb78-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_alluvium</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Y4), <span class="at">width =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>) <span class="sc">+</span></span>
-<span id="cb78-21"><a href="advanced-plots.html#cb78-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_stratum</span>(<span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">width =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb78-22"><a href="advanced-plots.html#cb78-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">stat =</span> <span class="st">&quot;stratum&quot;</span>, <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(stratum))) <span class="sc">+</span></span>
-<span id="cb78-23"><a href="advanced-plots.html#cb78-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">name =</span> <span class="st">&quot;Final Classification&quot;</span>) <span class="sc">+</span></span>
-<span id="cb78-24"><a href="advanced-plots.html#cb78-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb78-25"><a href="advanced-plots.html#cb78-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="advanced-plots.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggalluvial)</span>
+<span id="cb80-2"><a href="advanced-plots.html#cb80-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-3"><a href="advanced-plots.html#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate data for 4 years of grades from 500 students</span></span>
+<span id="cb80-4"><a href="advanced-plots.html#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="co"># with a correlation of 0.75 from year to year</span></span>
+<span id="cb80-5"><a href="advanced-plots.html#cb80-5" aria-hidden="true" tabindex="-1"></a><span class="co"># and a slight increase each year</span></span>
+<span id="cb80-6"><a href="advanced-plots.html#cb80-6" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> faux<span class="sc">::</span><span class="fu">sim_design</span>(</span>
+<span id="cb80-7"><a href="advanced-plots.html#cb80-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">within =</span> <span class="fu">list</span>(<span class="at">year =</span> <span class="fu">c</span>(<span class="st">&quot;Y1&quot;</span>, <span class="st">&quot;Y2&quot;</span>, <span class="st">&quot;Y3&quot;</span>, <span class="st">&quot;Y4&quot;</span>)),</span>
+<span id="cb80-8"><a href="advanced-plots.html#cb80-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">500</span>,</span>
+<span id="cb80-9"><a href="advanced-plots.html#cb80-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">mu =</span> <span class="fu">c</span>(<span class="at">Y1 =</span> <span class="dv">0</span>, <span class="at">Y2 =</span> .<span class="dv">2</span>, <span class="at">Y3 =</span> .<span class="dv">4</span>, <span class="at">Y4 =</span> .<span class="dv">6</span>), <span class="at">r =</span> <span class="fl">0.75</span>, </span>
+<span id="cb80-10"><a href="advanced-plots.html#cb80-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dv =</span> <span class="st">&quot;grade&quot;</span>, <span class="at">long =</span> <span class="cn">TRUE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb80-11"><a href="advanced-plots.html#cb80-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># convert numeric grades to letters with a defined probability</span></span>
+<span id="cb80-12"><a href="advanced-plots.html#cb80-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">grade =</span> faux<span class="sc">::</span><span class="fu">norm2likert</span>(grade, <span class="at">prob =</span> <span class="fu">c</span>(<span class="st">&quot;3rd&quot;</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">&quot;2.2&quot;</span> <span class="ot">=</span> <span class="dv">10</span>, <span class="st">&quot;2.1&quot;</span> <span class="ot">=</span> <span class="dv">40</span>, <span class="st">&quot;1st&quot;</span> <span class="ot">=</span> <span class="dv">20</span>)),</span>
+<span id="cb80-13"><a href="advanced-plots.html#cb80-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">grade =</span> <span class="fu">factor</span>(grade, <span class="fu">c</span>(<span class="st">&quot;1st&quot;</span>, <span class="st">&quot;2.1&quot;</span>, <span class="st">&quot;2.2&quot;</span>, <span class="st">&quot;3rd&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb80-14"><a href="advanced-plots.html#cb80-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># reformat data and count each combination</span></span>
+<span id="cb80-15"><a href="advanced-plots.html#cb80-15" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> year, <span class="at">values_from =</span> grade) <span class="sc">%&gt;%</span></span>
+<span id="cb80-16"><a href="advanced-plots.html#cb80-16" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(Y1, Y2, Y3, Y4)</span>
+<span id="cb80-17"><a href="advanced-plots.html#cb80-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-18"><a href="advanced-plots.html#cb80-18" aria-hidden="true" tabindex="-1"></a><span class="co"># plot data with colours by Year1 grades</span></span>
+<span id="cb80-19"><a href="advanced-plots.html#cb80-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">y =</span> n, <span class="at">axis1 =</span> Y1, <span class="at">axis2 =</span> Y2, <span class="at">axis3 =</span> Y3, <span class="at">axis4 =</span> Y4)) <span class="sc">+</span></span>
+<span id="cb80-20"><a href="advanced-plots.html#cb80-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_alluvium</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Y4), <span class="at">width =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb80-21"><a href="advanced-plots.html#cb80-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_stratum</span>(<span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">width =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb80-22"><a href="advanced-plots.html#cb80-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">stat =</span> <span class="st">&quot;stratum&quot;</span>, <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(stratum))) <span class="sc">+</span></span>
+<span id="cb80-23"><a href="advanced-plots.html#cb80-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">name =</span> <span class="st">&quot;Final Classification&quot;</span>) <span class="sc">+</span></span>
+<span id="cb80-24"><a href="advanced-plots.html#cb80-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb80-25"><a href="advanced-plots.html#cb80-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:alluvial"></span>
 <img src="06-ch6_files/figure-html/alluvial-1.png" alt="An alluvial plot showing the progression of student grades through the years." width="100%" />
 <p class="caption">
 Figure 6.4: An alluvial plot showing the progression of student grades through the years.
 </p>
 </div>
-</div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-raincloudplots" class="csl-entry">
-Allen, Micah, Davide Poggiali, Kirstie Whitaker, Tom Rhys Marshall, Jordy van Langen, and Rogier A. Kievit. 2021. <span>“Raincloud Plots: A Multi-Platform Tool for Robust Data Visualization [Version 2; Peer Review: 2 Approved].”</span> <em>Wellcome Open Research</em> 4. <a href="https://doi.org/10.12688/wellcomeopenres.15191.2">https://doi.org/10.12688/wellcomeopenres.15191.2</a>.
-</div>
-<div id="ref-Nation2017" class="csl-entry">
-Nation, Z. 2017. <span>“Perceptions.”</span> <em>GitHub Repository</em>. <a href="https://github.com/zonination/perceptions  ">https://github.com/zonination/perceptions  </a>; GitHub.
 </div>
 </div>
 <div class="psyteachr_footer">
@@ -581,7 +549,6 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"whatsapp": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
 "google": false
 },
