@@ -1,34 +1,29 @@
 # render bookdown ----
-
-# change wd
-setwd(rstudioapi::getActiveProject())
-setwd("book")
-
-# render a chapter or the whole book
-#browseURL(bookdown::preview_chapter("06-ch6.Rmd"))
-
-# preview = TRUE to run faster, but misses some linking
-browseURL(bookdown::render_book("index.Rmd", preview = FALSE))
-
+browseURL(
+  xfun::in_dir("book", bookdown::render_book("index.Rmd"))
+)
 
 # copies book for local package copy ----
 R.utils::copyDirectory(
-  from = "../docs",
-  to = "../inst/book", 
+  from = "docs",
+  to = "inst/book", 
   overwrite = TRUE, 
   recursive = TRUE)
+
+
+
 
 
 # create PDF ----
 
 # copy files from book
-file.copy("book.bib", "../paper/", overwrite = TRUE)
-file.copy("ldt_data.csv", "../paper/", overwrite = TRUE)
+file.copy("book/book.bib", "paper/", overwrite = TRUE)
+file.copy("book/ldt_data.csv", "paper/", overwrite = TRUE)
 
 # copy and process chapters
-files <- sprintf("0%d-ch%d.Rmd", 1:6, 1:6)
+files <- sprintf("book/0%d-ch%d.Rmd", 1:6, 1:6)
 for (bookfile in files) {
-  paperfile <- paste0("../paper/", bookfile)
+  paperfile <- paste0("paper/", bookfile)
   file.copy(bookfile, paperfile, overwrite = TRUE)
   
   ch <- readLines(paperfile)
@@ -45,10 +40,10 @@ for (bookfile in files) {
 }
 
 # omit code from ch 6
-ch6 <- readLines("../paper/06-ch6.Rmd")
+ch6 <- readLines("paper/06-ch6.Rmd")
 ch6 <- gsub("r (splitviolin|raincloud|ridgeplot|alluvial),", "r \\1, echo = FALSE,", ch6)
-write(ch6, "../paper/06-ch6.Rmd")
+write(ch6, "paper/06-ch6.Rmd")
 
 # render PDF
-rmarkdown::render("../paper/introdataviz.Rmd")
+rmarkdown::render("paper/introdataviz.Rmd")
 

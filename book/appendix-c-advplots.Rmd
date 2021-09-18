@@ -1,0 +1,187 @@
+# Advanced Plots
+
+## Easter Egg - Overlaying Plots
+
+Hopefully from some of the materials we have shown you, you will have found ways of presenting data in an informative manner - for example, we have shown violin plots and how they can be effective, when combined with boxplots, at displaying distributions. However, if you are familiar with other software you may be used to seeing this sort of information displayed differently, as perhaps a histogram with a normal curve overlaid. Whist the violin plots are better to convey that information we thought it might help to see alternative approaches here. Really it is about overlaying some of the plots we have already shown, but with some slight adjustments. FOr example, lets look at the histogram and density plot of reaction times we saw earlier - shown here side by side for convenience.
+
+```{r}
+a <- ggplot(dat_long, aes(x = rt)) +
+  geom_histogram(binwidth = 10, fill = "white", color = "black") +
+  scale_x_continuous(name = "Reaction time (ms)") +
+  labs(subtitle = "+ geom_histogram()")
+
+b <- ggplot(dat_long, aes(x = rt)) +
+  geom_density()+
+  scale_x_continuous(name = "Reaction time (ms)") +
+  labs(subtitle = "+ geom_density()")
+
+a+b
+```
+
+Now that in itself is fairly informative but perhaps takes up a lot of room so one option using some of the features of the patchwork library would be to inset the density plot in the top right of the histogram. We already showed a little of patchwork earlier so we won't repeat it here but all we are doing is placing one of the figures (the density plot) within the `inset_element()` function and applying some appropriate values to position the inset - through a little trial and error - based on the bottom left corner of the plot area being `left = 0`, `bottom = 0`, and the top right corner being `right = 1`, `top = 1`:
+
+```{r overlay1, fig.cap="Insetting a plot within a plot using `inset_element()` from the patchwork library"}
+
+a <- ggplot(dat_long, aes(x = rt)) +
+  geom_histogram(binwidth = 10, fill = "white", color = "black") +
+  scale_x_continuous(name = "Reaction time (ms)")
+
+b <- ggplot(dat_long, aes(x = rt)) +
+  geom_density()+
+  scale_x_continuous(name = "Reaction time (ms)")
+
+a + inset_element(b, left = 0.6, bottom = 0.6, right = 1, top = 1)
+
+```
+
+But of course that only works if there is space for the inset and it doesn't start overlapping on the main figure. This next approach fully overlays the density plot on top of the histogram. There is one main change though and that is the addition of `aes(y=..density..)` within `geom_histogram()`. This tells the histogram to now be plotted in terms of density and not count, meaning that the density plot and the histogram and now based on the same y-axis:
+
+```{r overlay2, fig.cap="A histogram with density plot overlaid"}
+ggplot(dat_long, aes(x = rt)) +
+  geom_histogram(aes(y = ..density..),
+                 binwidth = 10, fill = "white", color = "black") +
+  geom_density()+
+  scale_x_continuous(name = "Reaction time (ms)")
+```
+
+The main thing to not in the above figure is that both the histogram and the density plot are based on the data you have collected. An alternative that you might want to look at it is plotting a normal distribution on top of the histogram based on the mean and standard deviation of the data. This is a bit more complicated but works as follows:
+
+```{r overlay3, fig.cap="A histogram with normal distribution based on the data overlaid"}
+ggplot(dat_long, aes(rt)) +
+  geom_histogram(aes(y = ..density..),
+                 binwidth = 10, fill = "white", color = "black") +
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = mean(dat_long$rt), 
+                sd = sd(dat_long$rt))
+  )
+```
+
+The first part of this approach is identical to what we say above but instead of using `geom_density()` we are using a statistics function called `stat_function()` similar to ones we saw earlier when plotting means and standard deviations. What `stat_function()` is doing is taking the Normal distribution density function, `fun = dnorm` (read as function equals density normal), and then the mean of the data (`mean = mean(dat_long$rt)`) and the standard deviation of the data `sd = sd(dat_long$rt)` and creates a distribution based on those values. The `args` refers to the arguments that the `dnorm` function takes, and they are passed to the function as a list (`list()`). But from there, you can then start to alter the `linetype`, `color`, and thickness (`lwd = 3` for example) as you please.
+
+```{r overlay4, fig.cap="Changing the line of the `stat_function()`"}
+
+ggplot(dat_long, aes(rt)) +
+  geom_histogram(aes(y = ..density..),
+                 binwidth = 10, fill = "white", color = "black") +
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = mean(dat_long$rt), 
+                sd = sd(dat_long$rt)),
+    color = "red",
+    lwd = 3,
+    linetype = 2
+  )
+```
+
+## Easter Egg - A Dumbbell Plot
+
+A nice way of representing a change across different conditions, within participants or across timepoints, is the dumbbell chart. These figures can do a lot of heavy lifting in conveying patterns within the data and are not as hard to create in ggplot as they might first appear. The premise is that you need the start point, in terms of x (`x =`) and y (`y =`), and the end point, again in terms of x (`xend =`) and y (`yend =`). You draw a line between those two points using `geom_segment()` and then add a data point at the both ends of the line using `geom_point()`. So for example, we will use the average accuracy scores for the word and non-word conditions, for monolingual and bilinguals, to demonstrate. We could do the same figure for all participants but as we have `r dim(dat)[1]` participants it can be a bit **wild**. We first need to create the averages using a little bit of data wrangling we have seen:
+
+```{r create-avg, echo = TRUE}
+dat_avg <- dat %>%
+  group_by(language) %>%
+  summarise(mean_acc_nonword = mean(acc_nonword),
+            mean_acc_word = mean(acc_word))
+```
+
+So our data looks as follows:
+
+```{r avg-table, echo = FALSE}
+dat_avg %>%
+  knitr::kable(align = "c")
+```
+
+With our average accuracies for non-word trials in **`r dat_avg %>% colnames() %>% tibble(nom = .) %>% slice(2)`** and our average accuracies for word trials in **`r dat_avg %>% colnames() %>% tibble(nom = .) %>% slice(3)`**. And now we can create our dumbbell plot as follows:
+
+```{r dumbbell1, echo = TRUE, fig.cap="A dumbbell plot of change in Average Accuracy from Non-word trials (red dots) to Word trials (blue dots) for monolingual and bilingual participants."}
+ggplot(dat_avg) +
+  geom_segment(aes(x = mean_acc_nonword, y = language,
+                   xend = mean_acc_word, yend = language)) +
+  geom_point(aes(x = mean_acc_nonword, y = language), color = "red") +
+  geom_point(aes(x = mean_acc_word, y = language), color = "blue") +
+  labs(x = "Change in Accuracy")
+```
+
+Which actually gives the least exciting figure ever as both groups showed the same change from the non-word trials (red dots) to the word trials (blue dots) but we can break the code down a bit just to highlight what we are doing, remembering the idea about layers. Layers one and two add the basic background and black line from the start point (x,y), the mean accuracy of non-word trials for the two conditions, to the end point (xend, yend), the mean accuracy of word trials for the two conditions:
+
+```{r dumbbell2, echo = FALSE, fig.cap="Building the bars of our dumbbells. The (x,y) and (xend, yend) have been added to show the values you need to consider and enter to create the dumbbell"}
+a <- ggplot(dat_avg) +
+  labs(subtitle = "ggplot()")
+
+b <- a +  geom_segment(aes(x = mean_acc_nonword, y = language,
+                          xend = mean_acc_word, yend = language)) +
+  labs(x = "Change in Accuracy",
+       subtitle = "+ geom_segment()") +
+  geom_text(aes(x = mean_acc_nonword, y = c(1.1,2.1)), label = "(x,y)") +
+  geom_text(aes(x = mean_acc_word-1, y = c(1.1,2.1)), label = "(xend,yend)")
+
+a + b
+```
+
+and the remaining lines add the dots at the end of the dumbells and changes the x axis label to something useful:
+
+```{r dumbbell3, echo = FALSE, fig.cap="Adding the weights to the dumbbells. Red dots are added in one layer to show Average Accuracy of Non-word trials, and blue dots are added in final layer to show Average Accuracy of Word trials."}
+a <- ggplot(dat_avg) +
+  labs(subtitle = "ggplot()") +  
+  geom_segment(aes(x = mean_acc_nonword, y = language,
+                          xend = mean_acc_word, yend = language)) +
+  labs(x = "Change in Accuracy",
+       subtitle = "+ geom_point(); start point") +
+  geom_point(aes(x = mean_acc_nonword, y = language), color = "red")
+
+b <- a +
+  geom_point(aes(x = mean_acc_word, y = language), color = "blue") +
+    labs(x = "Change in Accuracy",
+       subtitle = "+ geom_point(); end point")
+
+a + b
+```
+
+Of course, worth remembering, it is better to always think of the dumbbell as a start and end point, not left and right, as had accuracy gone down when moving from Non-word trials to Word trials then our bars would run the opposite direction. If you repeat the above process using reaction times instead of accuracy you will see what we mean.
+
+## Easter Egg - A Pie Chart
+
+Pie Charts are not the best form of visualisation as they generally require people to compare areas and/or angles which is a fairly unintuitive means of doing a comparison. The are so disliked in many fields that ggplot does not actually have a `geom_...()` function to create one. But, there is always somebody that wants to create a pie chart regardless and who are we to judge. So here would be the code to produce a pie chart of the demographic data we saw in the start of the paper:
+
+```{r piechart-full, fig.cap="A pie chart of the demographics", warning = FALSE, echo = TRUE}
+count_dat <- dat %>%
+  group_by(language) %>%
+  count() %>%
+  ungroup() %>%
+  mutate(percent = (n/sum(n)*100))
+
+ggplot(count_dat, aes(x = "", 
+                      y = percent, 
+                      fill = language)) +
+  geom_bar(width = 1, stat="identity") + 
+  coord_polar("y", start = 0) +
+  theme(
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_blank()
+  ) +
+  geom_text(aes(y = c(75, 25), 
+                label = paste(percent, "%")),
+            size = 6)
+```
+
+Note that this is effectively creating a stacked bar chart with no x variable (i.e. `x = ""`) and then wrapping the y-axis into a circle (i.e. `coord_polar("y", start = 0)`). That is what the first three lines of the `ggplot()` code does:
+
+```{r pie-basic1, fig.cap="The basis of a pie chart", warning = FALSE, echo = FALSE}
+a <- ggplot(count_dat, aes(x = "", 
+                      y = percent, 
+                      fill = language)) +
+  geom_bar(width = 1, stat="identity") +
+  labs(subtitle = "ggplot() + geom_bar()")
+
+b <- a + coord_polar("y", start = 0) +
+  labs(subtitle = "+ coord_polar()")
+
+a + b
+```
+
+The remainder of the code is used to remove the various panel and tick lines, and text, setting them all to `element_blank()` through the `theme()` functions we saw above, and to add new labelling text on top of the pie chart at specific y-values (i.e. `y = c(75,25)`). But remember, **friends don't let friends make pie charts!**
+

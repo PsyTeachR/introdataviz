@@ -1,3 +1,7 @@
+# introdataviz 0.0.0.9003
+
+Updated bookdown style
+
 # introdataviz 0.0.0.9002
 
 * wrote code for the ggridge plot

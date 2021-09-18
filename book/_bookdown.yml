@@ -1,12 +1,15 @@
-book_filename: "_main"
+book_filename: _main
 new_session: yes
-output_dir: "../docs"
-before_chapter_script: ["R/psyteachr_setup.R", "R/my_setup.R"]
-delete_merged_file: true
+output_dir: ../docs
+before_chapter_script:
+- R/psyteachr_setup.R
+- R/my_setup.R
+- R/webex.R
+delete_merged_file: yes
 clean: []
 language:
   ui:
-    chapter_name: "Chapter "
+    chapter_name: 'Chapter '
   label:
     fig: 'Figure '
     tab: 'Table '

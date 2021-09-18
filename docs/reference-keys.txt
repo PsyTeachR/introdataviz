@@ -75,7 +75,6 @@ fig:viobox6-legend4
 fig:viobox6-legend5
 fig:viobox6-legend6
 fig:unnamed-chunk-1
-fig:unnamed-chunk-2
 fig:overlay1
 fig:overlay2
 fig:overlay3
@@ -88,6 +87,7 @@ fig:pie-basic1
 introduction
 why-r-for-data-visualisation
 a-layered-grammar-of-graphics
+tutorial-components
 simulated-dataset
 setting-up-r-and-rstudio
 preparing-your-data
@@ -123,6 +123,7 @@ grouped-scatterplots
 transforming-data-2
 customisation-2
 accessible-colour-schemes
+specifying-axis-breaks-with-seq
 activities-2
 representing-summary-statistics
 boxplots
@@ -153,12 +154,13 @@ ridge-plots
 alluvial-plots
 conclusion
 additional-resources
-additional-advanced-plots-and-customisation-options
+additional-customisation-options
 adding-lines-to-plots
 zooming-in-and-out
 setting-the-axis-values
 controlling-the-legend
 setting-a-lab-theme-using-theme
+advanced-plots-1
 easter-egg---overlaying-plots
 easter-egg---a-dumbbell-plot
 easter-egg---a-pie-chart

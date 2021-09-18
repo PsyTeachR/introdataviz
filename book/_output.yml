@@ -1,41 +1,25 @@
-bookdown::gitbook: 
-  default: true
-  smart: false
+bookdown::bs4_book:
+  default: yes
+  md_extensions: -smart
   df_print: kable
+  repo:
+    base: https://github.com/psyteachr/introdataviz
+    branch: master
+    subdir: book
   includes:
     in_header: include/header.html
-    after_body: [include/footer.html, include/webex.js]
-  css: [include/psyteachr.css, include/webex.css, include/style.css]
-  csl: apa.csl
-  config:
-    toc:
-      collapse: section
-      scroll_highlight: yes
-      before: |
-        <li><a href="./">IntroDataViz</a></li>
-      after: |
-        <li><a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" 
-            target="blank"><img alt="Creative Commons License" 
-            style="border-width:0" 
-            src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></li>
-        <li><a href="https://psyteachr.github.io/books" target="blank">PsyTeachR Books</a></li>
-    download: []
-    fontsettings:
-      theme: white
-      family: sans
-      size: 2
-    sharing:
-      facebook: yes
-      twitter: yes
-      google: no
-      linkedin: no
-      weibo: no
-      instapaper: no
-      vk: no
-      all: ['facebook', 'google', 'twitter', 'linkedin', 'weibo', 'instapaper']
+    after_body:
+    - include/webex.js
+    - include/script.js
+  css:
+  - include/psyteachr.css
+  - include/webex.css
+  - include/style.css
+  theme:
+    primary: '#467AAC'
 bookdown::pdf_book:
   includes:
-    in_header: preamble.tex
+    in_header: include/preamble.tex
   latex_engine: xelatex
   citation_package: natbib
   keep_tex: yes

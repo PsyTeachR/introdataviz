@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>C Advanced Plots | Data visualisation using R, for researchers who don’t use R</title>
+<meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine">
+<meta name="description" content="C.1 Easter Egg - Overlaying Plots Hopefully from some of the materials we have shown you, you will have found ways of presenting data in an informative manner - for example, we have shown violin...">
+<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta property="og:title" content="C Advanced Plots | Data visualisation using R, for researchers who don’t use R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://psyteachr.github.io/introdataviz/advanced-plots-1.html">
+<meta property="og:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
+<meta property="og:description" content="C.1 Easter Egg - Overlaying Plots Hopefully from some of the materials we have shown you, you will have found ways of presenting data in an informative manner - for example, we have shown violin...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C Advanced Plots | Data visualisation using R, for researchers who don’t use R">
+<meta name="twitter:description" content="C.1 Easter Egg - Overlaying Plots Hopefully from some of the materials we have shown you, you will have found ways of presenting data in an informative manner - for example, we have shown violin...">
+<meta name="twitter:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10.6/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6NP3MF25W3');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data visualisation using R, for researchers who don’t use R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="getting-started.html"><span class="header-section-number">2</span> Getting Started</a></li>
+<li><a class="" href="transforming-data.html"><span class="header-section-number">3</span> Transforming Data</a></li>
+<li><a class="" href="representing-summary-statistics.html"><span class="header-section-number">4</span> Representing Summary Statistics</a></li>
+<li><a class="" href="multi-part-plots.html"><span class="header-section-number">5</span> Multi-part Plots</a></li>
+<li><a class="" href="advanced-plots.html"><span class="header-section-number">6</span> Advanced Plots</a></li>
+<li><a class="" href="conclusion.html"><span class="header-section-number">7</span> Conclusion</a></li>
+<li class="book-part">Appendices</li>
+<li><a class="" href="additional-resources.html"><span class="header-section-number">A</span> Additional resources</a></li>
+<li><a class="" href="additional-customisation-options.html"><span class="header-section-number">B</span> Additional customisation options</a></li>
+<li><a class="active" href="advanced-plots-1.html"><span class="header-section-number">C</span> Advanced Plots</a></li>
+<li><a class="" href="license.html">License</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/psyteachr/introdataviz">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="advanced-plots-1" class="section level1" number="10">
+<h1>
+<span class="header-section-number">C</span> Advanced Plots<a class="anchor" aria-label="anchor" href="#advanced-plots-1"><i class="fas fa-link"></i></a>
+</h1>
+<div id="easter-egg---overlaying-plots" class="section level2" number="10.1">
+<h2>
+<span class="header-section-number">C.1</span> Easter Egg - Overlaying Plots<a class="anchor" aria-label="anchor" href="#easter-egg---overlaying-plots"><i class="fas fa-link"></i></a>
+</h2>
+<p>Hopefully from some of the materials we have shown you, you will have found ways of presenting data in an informative manner - for example, we have shown violin plots and how they can be effective, when combined with boxplots, at displaying distributions. However, if you are familiar with other software you may be used to seeing this sort of information displayed differently, as perhaps a histogram with a normal curve overlaid. Whist the violin plots are better to convey that information we thought it might help to see alternative approaches here. Really it is about overlaying some of the plots we have already shown, but with some slight adjustments. FOr example, lets look at the histogram and density plot of reaction times we saw earlier - shown here side by side for convenience.</p>
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">10</span>, fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Reaction time (ms)"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>subtitle <span class="op">=</span> <span class="st">"+ geom_histogram()"</span><span class="op">)</span>
+
+<span class="va">b</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_density</span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Reaction time (ms)"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>subtitle <span class="op">=</span> <span class="st">"+ geom_density()"</span><span class="op">)</span>
+
+<span class="va">a</span><span class="op">+</span><span class="va">b</span></code></pre></div>
+<div class="inline-figure"><img src="appendix-c-advplots_files/figure-html/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Now that in itself is fairly informative but perhaps takes up a lot of room so one option using some of the features of the patchwork library would be to inset the density plot in the top right of the histogram. We already showed a little of patchwork earlier so we won't repeat it here but all we are doing is placing one of the figures (the density plot) within the <code><a href="https://patchwork.data-imaginist.com/reference/inset_element.html">inset_element()</a></code> function and applying some appropriate values to position the inset - through a little trial and error - based on the bottom left corner of the plot area being <code>left = 0</code>, <code>bottom = 0</code>, and the top right corner being <code>right = 1</code>, <code>top = 1</code>:</p>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">10</span>, fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Reaction time (ms)"</span><span class="op">)</span>
+
+<span class="va">b</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_density</span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Reaction time (ms)"</span><span class="op">)</span>
+
+<span class="va">a</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/inset_element.html">inset_element</a></span><span class="op">(</span><span class="va">b</span>, left <span class="op">=</span> <span class="fl">0.6</span>, bottom <span class="op">=</span> <span class="fl">0.6</span>, right <span class="op">=</span> <span class="fl">1</span>, top <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:overlay1"></span>
+<img src="appendix-c-advplots_files/figure-html/overlay1-1.png" alt="Insetting a plot within a plot using `inset_element()` from the patchwork library" width="100%"><p class="caption">
+Figure C.1: Insetting a plot within a plot using <code><a href="https://patchwork.data-imaginist.com/reference/inset_element.html">inset_element()</a></code> from the patchwork library
+</p>
+</div>
+<p>But of course that only works if there is space for the inset and it doesn't start overlapping on the main figure. This next approach fully overlays the density plot on top of the histogram. There is one main change though and that is the addition of <code>aes(y=..density..)</code> within <code>geom_histogram()</code>. This tells the histogram to now be plotted in terms of density and not count, meaning that the density plot and the histogram and now based on the same y-axis:</p>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">..density..</span><span class="op">)</span>,
+                 binwidth <span class="op">=</span> <span class="fl">10</span>, fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_density</span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Reaction time (ms)"</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:overlay2"></span>
+<img src="appendix-c-advplots_files/figure-html/overlay2-1.png" alt="A histogram with density plot overlaid" width="100%"><p class="caption">
+Figure C.2: A histogram with density plot overlaid
+</p>
+</div>
+<p>The main thing to not in the above figure is that both the histogram and the density plot are based on the data you have collected. An alternative that you might want to look at it is plotting a normal distribution on top of the histogram based on the mean and standard deviation of the data. This is a bit more complicated but works as follows:</p>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">..density..</span><span class="op">)</span>,
+                 binwidth <span class="op">=</span> <span class="fl">10</span>, fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">stat_function</span><span class="op">(</span>
+    fun <span class="op">=</span> <span class="va">dnorm</span>, 
+    args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dat_long</span><span class="op">$</span><span class="va">rt</span><span class="op">)</span>, 
+                sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">dat_long</span><span class="op">$</span><span class="va">rt</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:overlay3"></span>
+<img src="appendix-c-advplots_files/figure-html/overlay3-1.png" alt="A histogram with normal distribution based on the data overlaid" width="100%"><p class="caption">
+Figure C.3: A histogram with normal distribution based on the data overlaid
+</p>
+</div>
+<p>The first part of this approach is identical to what we say above but instead of using <code>geom_density()</code> we are using a statistics function called <code>stat_function()</code> similar to ones we saw earlier when plotting means and standard deviations. What <code>stat_function()</code> is doing is taking the Normal distribution density function, <code>fun = dnorm</code> (read as function equals density normal), and then the mean of the data (<code>mean = mean(dat_long$rt)</code>) and the standard deviation of the data <code>sd = sd(dat_long$rt)</code> and creates a distribution based on those values. The <code>args</code> refers to the arguments that the <code>dnorm</code> function takes, and they are passed to the function as a list (<code><a href="https://rdrr.io/r/base/list.html">list()</a></code>). But from there, you can then start to alter the <code>linetype</code>, <code>color</code>, and thickness (<code>lwd = 3</code> for example) as you please.</p>
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">..density..</span><span class="op">)</span>,
+                 binwidth <span class="op">=</span> <span class="fl">10</span>, fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">stat_function</span><span class="op">(</span>
+    fun <span class="op">=</span> <span class="va">dnorm</span>, 
+    args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dat_long</span><span class="op">$</span><span class="va">rt</span><span class="op">)</span>, 
+                sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">dat_long</span><span class="op">$</span><span class="va">rt</span><span class="op">)</span><span class="op">)</span>,
+    color <span class="op">=</span> <span class="st">"red"</span>,
+    lwd <span class="op">=</span> <span class="fl">3</span>,
+    linetype <span class="op">=</span> <span class="fl">2</span>
+  <span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:overlay4"></span>
+<img src="appendix-c-advplots_files/figure-html/overlay4-1.png" alt="Changing the line of the `stat_function()`" width="100%"><p class="caption">
+Figure C.4: Changing the line of the <code>stat_function()</code>
+</p>
+</div>
+</div>
+<div id="easter-egg---a-dumbbell-plot" class="section level2" number="10.2">
+<h2>
+<span class="header-section-number">C.2</span> Easter Egg - A Dumbbell Plot<a class="anchor" aria-label="anchor" href="#easter-egg---a-dumbbell-plot"><i class="fas fa-link"></i></a>
+</h2>
+<p>A nice way of representing a change across different conditions, within participants or across timepoints, is the dumbbell chart. These figures can do a lot of heavy lifting in conveying patterns within the data and are not as hard to create in ggplot as they might first appear. The premise is that you need the start point, in terms of x (<code>x =</code>) and y (<code>y =</code>), and the end point, again in terms of x (<code>xend =</code>) and y (<code>yend =</code>). You draw a line between those two points using <code>geom_segment()</code> and then add a data point at the both ends of the line using <code>geom_point()</code>. So for example, we will use the average accuracy scores for the word and non-word conditions, for monolingual and bilinguals, to demonstrate. We could do the same figure for all participants but as we have 100 participants it can be a bit <strong>wild</strong>. We first need to create the averages using a little bit of data wrangling we have seen:</p>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dat_avg</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op">%&gt;%</span>
+  <span class="fu">group_by</span><span class="op">(</span><span class="va">language</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">summarise</span><span class="op">(</span>mean_acc_nonword <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">acc_nonword</span><span class="op">)</span>,
+            mean_acc_word <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">acc_word</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>So our data looks as follows:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="center">language</th>
+<th align="center">mean_acc_nonword</th>
+<th align="center">mean_acc_word</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">monolingual</td>
+<td align="center">84.87273</td>
+<td align="center">94.87273</td>
+</tr>
+<tr class="even">
+<td align="center">bilingual</td>
+<td align="center">84.93333</td>
+<td align="center">95.17778</td>
+</tr>
+</tbody>
+</table></div>
+With our average accuracies for non-word trials in **
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">nom</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">mean_acc_nonword</td>
+</tr></tbody>
+</table></div>
+</div>
+** and our average accuracies for word trials in **
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">nom</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">mean_acc_word</td>
+</tr></tbody>
+</table></div>
+</div>
+<p>**. And now we can create our dumbbell plot as follows:</p>
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_avg</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_segment</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mean_acc_nonword</span>, y <span class="op">=</span> <span class="va">language</span>,
+                   xend <span class="op">=</span> <span class="va">mean_acc_word</span>, yend <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mean_acc_nonword</span>, y <span class="op">=</span> <span class="va">language</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mean_acc_word</span>, y <span class="op">=</span> <span class="va">language</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Change in Accuracy"</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:dumbbell1"></span>
+<img src="appendix-c-advplots_files/figure-html/dumbbell1-1.png" alt="A dumbbell plot of change in Average Accuracy from Non-word trials (red dots) to Word trials (blue dots) for monolingual and bilingual participants." width="100%"><p class="caption">
+Figure C.5: A dumbbell plot of change in Average Accuracy from Non-word trials (red dots) to Word trials (blue dots) for monolingual and bilingual participants.
+</p>
+</div>
+<p>Which actually gives the least exciting figure ever as both groups showed the same change from the non-word trials (red dots) to the word trials (blue dots) but we can break the code down a bit just to highlight what we are doing, remembering the idea about layers. Layers one and two add the basic background and black line from the start point (x,y), the mean accuracy of non-word trials for the two conditions, to the end point (xend, yend), the mean accuracy of word trials for the two conditions:</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:dumbbell2"></span>
+<img src="appendix-c-advplots_files/figure-html/dumbbell2-1.png" alt="Building the bars of our dumbbells. The (x,y) and (xend, yend) have been added to show the values you need to consider and enter to create the dumbbell" width="100%"><p class="caption">
+Figure C.6: Building the bars of our dumbbells. The (x,y) and (xend, yend) have been added to show the values you need to consider and enter to create the dumbbell
+</p>
+</div>
+<p>and the remaining lines add the dots at the end of the dumbells and changes the x axis label to something useful:</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:dumbbell3"></span>
+<img src="appendix-c-advplots_files/figure-html/dumbbell3-1.png" alt="Adding the weights to the dumbbells. Red dots are added in one layer to show Average Accuracy of Non-word trials, and blue dots are added in final layer to show Average Accuracy of Word trials." width="100%"><p class="caption">
+Figure C.7: Adding the weights to the dumbbells. Red dots are added in one layer to show Average Accuracy of Non-word trials, and blue dots are added in final layer to show Average Accuracy of Word trials.
+</p>
+</div>
+<p>Of course, worth remembering, it is better to always think of the dumbbell as a start and end point, not left and right, as had accuracy gone down when moving from Non-word trials to Word trials then our bars would run the opposite direction. If you repeat the above process using reaction times instead of accuracy you will see what we mean.</p>
+</div>
+<div id="easter-egg---a-pie-chart" class="section level2" number="10.3">
+<h2>
+<span class="header-section-number">C.3</span> Easter Egg - A Pie Chart<a class="anchor" aria-label="anchor" href="#easter-egg---a-pie-chart"><i class="fas fa-link"></i></a>
+</h2>
+<p>Pie Charts are not the best form of visualisation as they generally require people to compare areas and/or angles which is a fairly unintuitive means of doing a comparison. The are so disliked in many fields that ggplot does not actually have a <code>geom_...()</code> function to create one. But, there is always somebody that wants to create a pie chart regardless and who are we to judge. So here would be the code to produce a pie chart of the demographic data we saw in the start of the paper:</p>
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">count_dat</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op">%&gt;%</span>
+  <span class="fu">group_by</span><span class="op">(</span><span class="va">language</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">count</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">mutate</span><span class="op">(</span>percent <span class="op">=</span> <span class="op">(</span><span class="va">n</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">ggplot</span><span class="op">(</span><span class="va">count_dat</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="st">""</span>, 
+                      y <span class="op">=</span> <span class="va">percent</span>, 
+                      fill <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_bar</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span>, stat<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">coord_polar</span><span class="op">(</span><span class="st">"y"</span>, start <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme</span><span class="op">(</span>
+    axis.title <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
+    panel.grid <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
+    panel.border <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
+    axis.ticks <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
+    axis.text.x <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_text</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">75</span>, <span class="fl">25</span><span class="op">)</span>, 
+                label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">percent</span>, <span class="st">"%"</span><span class="op">)</span><span class="op">)</span>,
+            size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:piechart-full"></span>
+<img src="appendix-c-advplots_files/figure-html/piechart-full-1.png" alt="A pie chart of the demographics" width="100%"><p class="caption">
+Figure C.8: A pie chart of the demographics
+</p>
+</div>
+<p>Note that this is effectively creating a stacked bar chart with no x variable (i.e. <code>x = ""</code>) and then wrapping the y-axis into a circle (i.e. <code>coord_polar("y", start = 0)</code>). That is what the first three lines of the <code>ggplot()</code> code does:</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:pie-basic1"></span>
+<img src="appendix-c-advplots_files/figure-html/pie-basic1-1.png" alt="The basis of a pie chart" width="100%"><p class="caption">
+Figure C.9: The basis of a pie chart
+</p>
+</div>
+<p>The remainder of the code is used to remove the various panel and tick lines, and text, setting them all to <code>element_blank()</code> through the <code>theme()</code> functions we saw above, and to add new labelling text on top of the pie chart at specific y-values (i.e. <code>y = c(75,25)</code>). But remember, <strong>friends don't let friends make pie charts!</strong></p>
+
+</div>
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+    
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+  
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+  
+  var cl = this.classList
+  
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+  
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+  
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+  
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+$( document ).ready(function() {
+  var cite = ' ';
+  var psyteachr = ' <a href="https://psyteachr.github.io/"><img src="images/logos/psyteachr_logo.png" style="height: 31px; color: white;" alt="psyTeachR: Reproducible Research" /></a>';
+  var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
+
+  $("footer div.row div:eq(1) p").html(
+    psyteachr + license + cite
+  );
+
+  function move_sidebar() {
+    var w = window.innerWidth;
+    if (w < 992) {
+      $("#toc").appendTo($("#main-nav"));
+    } else {
+      $("#toc").appendTo($("div.sidebar-chapter"));
+    }
+  }
+  move_sidebar();
+  window.onresize = move_sidebar;
+});
+</script><div class="chapter-nav">
+<div class="prev"><a href="additional-customisation-options.html"><span class="header-section-number">B</span> Additional customisation options</a></div>
+<div class="next"><a href="license.html">License</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#advanced-plots-1"><span class="header-section-number">C</span> Advanced Plots</a></li>
+<li><a class="nav-link" href="#easter-egg---overlaying-plots"><span class="header-section-number">C.1</span> Easter Egg - Overlaying Plots</a></li>
+<li><a class="nav-link" href="#easter-egg---a-dumbbell-plot"><span class="header-section-number">C.2</span> Easter Egg - A Dumbbell Plot</a></li>
+<li><a class="nav-link" href="#easter-egg---a-pie-chart"><span class="header-section-number">C.3</span> Easter Egg - A Pie Chart</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/psyteachr/introdataviz/blob/master/book/appendix-c-advplots.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/psyteachr/introdataviz/edit/master/book/appendix-c-advplots.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-09-18.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

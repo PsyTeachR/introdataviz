@@ -1,315 +1,104 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Overview | Data visualisation using R, for researchers who don’t use R</title>
+<meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine">
+<meta name="description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot2 package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options.">
+<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta property="og:title" content="Overview | Data visualisation using R, for researchers who don’t use R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://psyteachr.github.io/introdataviz">
+<meta property="og:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
+<meta property="og:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot2 package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Overview | Data visualisation using R, for researchers who don’t use R">
+<meta name="twitter:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot2 package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options.">
+<meta name="twitter:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10.6/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Data visualisation using R, for researchers who don’t use R</title>
-  <meta name="description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot2 package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="Data visualisation using R, for researchers who don’t use R" />
-  <meta property="og:type" content="book" />
-  
-  
-  <meta property="og:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot2 package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data visualisation using R, for researchers who don’t use R" />
-  
-  <meta name="twitter:description" content="In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the “grammar of graphics” that underlies data visualisation using the ggplot2 package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these “basic” plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial is available at https://osf.io/bj83f/ whilst an interactive version of this tutorial is available at https://psyteachr.github.io/introdataviz/ and includes solutions to the activities and an appendix with additional resources and advanced plotting options." />
-  
-
-<meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine" />
-
-
-<meta name="date" content="2021-07-31" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-
-<link rel="next" href="introduction.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-
-<meta property="og:title" content="IntroDataViz">
-<meta property="og:description" content="Data Visualisation Using R, For Researchers Who Don’t Use R.">
-<meta property="og:image" content="https://psyteachr.github.io/introdataviz/images/card.png">
-<meta property="og:url" content="https://psyteachr.github.io/introdataviz/">
-<meta property="twitter:card" content="summary_large_image">
-
-<link rel="shortcut icon" href="https://psyteachr.github.io/introdataviz/images/logo.png">
-
-
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<link rel="stylesheet" href="include/psyteachr.css" type="text/css" />
-<link rel="stylesheet" href="include/webex.css" type="text/css" />
-<link rel="stylesheet" href="include/style.css" type="text/css" />
+      gtag('config', 'G-6NP3MF25W3');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="./">IntroDataViz</a></li>
-
-<li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#why-r-for-data-visualisation"><i class="fa fa-check"></i><b>1.1</b> Why R for data visualisation?</a></li>
-<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#a-layered-grammar-of-graphics"><i class="fa fa-check"></i><b>1.2</b> A layered grammar of graphics</a></li>
-<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#tutorial-components"><i class="fa fa-check"></i><b>1.3</b> Tutorial components</a></li>
-<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#simulated-dataset"><i class="fa fa-check"></i><b>1.4</b> Simulated dataset</a></li>
-<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#setting-up-r-and-rstudio"><i class="fa fa-check"></i><b>1.5</b> Setting up R and RStudio</a></li>
-<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#preparing-your-data"><i class="fa fa-check"></i><b>1.6</b> Preparing your data</a>
-<ul>
-<li class="chapter" data-level="1.6.1" data-path="introduction.html"><a href="introduction.html#data-format"><i class="fa fa-check"></i><b>1.6.1</b> Data format</a></li>
-<li class="chapter" data-level="1.6.2" data-path="introduction.html"><a href="introduction.html#variable-names"><i class="fa fa-check"></i><b>1.6.2</b> Variable names</a></li>
-<li class="chapter" data-level="1.6.3" data-path="introduction.html"><a href="introduction.html#data-values"><i class="fa fa-check"></i><b>1.6.3</b> Data values</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting Started</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="getting-started.html"><a href="getting-started.html#loading-packages"><i class="fa fa-check"></i><b>2.1</b> Loading packages</a></li>
-<li class="chapter" data-level="2.2" data-path="getting-started.html"><a href="getting-started.html#loading-data"><i class="fa fa-check"></i><b>2.2</b> Loading data</a></li>
-<li class="chapter" data-level="2.3" data-path="getting-started.html"><a href="getting-started.html#handling-numeric-factors"><i class="fa fa-check"></i><b>2.3</b> Handling numeric factors</a></li>
-<li class="chapter" data-level="2.4" data-path="getting-started.html"><a href="getting-started.html#argument-names"><i class="fa fa-check"></i><b>2.4</b> Argument names</a></li>
-<li class="chapter" data-level="2.5" data-path="getting-started.html"><a href="getting-started.html#demographic-information"><i class="fa fa-check"></i><b>2.5</b> Demographic information</a></li>
-<li class="chapter" data-level="2.6" data-path="getting-started.html"><a href="getting-started.html#bar-chart-of-counts"><i class="fa fa-check"></i><b>2.6</b> Bar chart of counts</a></li>
-<li class="chapter" data-level="2.7" data-path="getting-started.html"><a href="getting-started.html#plotting-existing-aggregates-and-percent"><i class="fa fa-check"></i><b>2.7</b> Plotting existing aggregates and percent</a></li>
-<li class="chapter" data-level="2.8" data-path="getting-started.html"><a href="getting-started.html#histogram"><i class="fa fa-check"></i><b>2.8</b> Histogram</a></li>
-<li class="chapter" data-level="2.9" data-path="getting-started.html"><a href="getting-started.html#customisation-1"><i class="fa fa-check"></i><b>2.9</b> Customisation 1</a>
-<ul>
-<li class="chapter" data-level="2.9.1" data-path="getting-started.html"><a href="getting-started.html#changing-colours"><i class="fa fa-check"></i><b>2.9.1</b> Changing colours</a></li>
-<li class="chapter" data-level="2.9.2" data-path="getting-started.html"><a href="getting-started.html#editing-axis-names-and-labels"><i class="fa fa-check"></i><b>2.9.2</b> Editing axis names and labels</a></li>
-<li class="chapter" data-level="2.9.3" data-path="getting-started.html"><a href="getting-started.html#discrete-vs.-continuous-errors"><i class="fa fa-check"></i><b>2.9.3</b> Discrete vs. continuous errors</a></li>
-<li class="chapter" data-level="2.9.4" data-path="getting-started.html"><a href="getting-started.html#adding-a-theme"><i class="fa fa-check"></i><b>2.9.4</b> Adding a theme</a></li>
-</ul></li>
-<li class="chapter" data-level="2.10" data-path="getting-started.html"><a href="getting-started.html#activities-1"><i class="fa fa-check"></i><b>2.10</b> Activities 1</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>3</b> Transforming Data</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="transforming-data.html"><a href="transforming-data.html#data-formats"><i class="fa fa-check"></i><b>3.1</b> Data formats</a></li>
-<li class="chapter" data-level="3.2" data-path="transforming-data.html"><a href="transforming-data.html#transforming-data-1"><i class="fa fa-check"></i><b>3.2</b> Transforming data</a>
-<ul>
-<li class="chapter" data-level="3.2.1" data-path="transforming-data.html"><a href="transforming-data.html#step-1-pivot_longer"><i class="fa fa-check"></i><b>3.2.1</b> Step 1: <code>pivot_longer()</code></a></li>
-<li class="chapter" data-level="3.2.2" data-path="transforming-data.html"><a href="transforming-data.html#step-2-pivot_longer-adjusted"><i class="fa fa-check"></i><b>3.2.2</b> Step 2: <code>pivot_longer()</code> adjusted</a></li>
-<li class="chapter" data-level="3.2.3" data-path="transforming-data.html"><a href="transforming-data.html#step-3-pivot_wider"><i class="fa fa-check"></i><b>3.2.3</b> Step 3: <code>pivot_wider()</code></a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="transforming-data.html"><a href="transforming-data.html#histogram-2"><i class="fa fa-check"></i><b>3.3</b> Histogram 2</a></li>
-<li class="chapter" data-level="3.4" data-path="transforming-data.html"><a href="transforming-data.html#density-plots"><i class="fa fa-check"></i><b>3.4</b> Density plots</a>
-<ul>
-<li class="chapter" data-level="3.4.1" data-path="transforming-data.html"><a href="transforming-data.html#grouped-density-plots"><i class="fa fa-check"></i><b>3.4.1</b> Grouped density plots</a></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="transforming-data.html"><a href="transforming-data.html#scatterplots"><i class="fa fa-check"></i><b>3.5</b> Scatterplots</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="transforming-data.html"><a href="transforming-data.html#grouped-scatterplots"><i class="fa fa-check"></i><b>3.5.1</b> Grouped scatterplots</a></li>
-</ul></li>
-<li class="chapter" data-level="3.6" data-path="transforming-data.html"><a href="transforming-data.html#transforming-data-2"><i class="fa fa-check"></i><b>3.6</b> Transforming data 2</a></li>
-<li class="chapter" data-level="3.7" data-path="transforming-data.html"><a href="transforming-data.html#customisation-2"><i class="fa fa-check"></i><b>3.7</b> Customisation 2</a>
-<ul>
-<li class="chapter" data-level="3.7.1" data-path="transforming-data.html"><a href="transforming-data.html#accessible-colour-schemes"><i class="fa fa-check"></i><b>3.7.1</b> Accessible colour schemes</a></li>
-</ul></li>
-<li class="chapter" data-level="3.8" data-path="transforming-data.html"><a href="transforming-data.html#specifying-axis-breaks-with-seq"><i class="fa fa-check"></i><b>3.8</b> Specifying axis <code>breaks</code> with <code>seq()</code></a></li>
-<li class="chapter" data-level="3.9" data-path="transforming-data.html"><a href="transforming-data.html#activities-2"><i class="fa fa-check"></i><b>3.9</b> Activities 2</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="representing-summary-statistics.html"><a href="representing-summary-statistics.html"><i class="fa fa-check"></i><b>4</b> Representing Summary Statistics</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="representing-summary-statistics.html"><a href="representing-summary-statistics.html#boxplots"><i class="fa fa-check"></i><b>4.1</b> Boxplots</a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="representing-summary-statistics.html"><a href="representing-summary-statistics.html#grouped-boxplots"><i class="fa fa-check"></i><b>4.1.1</b> Grouped boxplots</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="representing-summary-statistics.html"><a href="representing-summary-statistics.html#violin-plots"><i class="fa fa-check"></i><b>4.2</b> Violin plots</a></li>
-<li class="chapter" data-level="4.3" data-path="representing-summary-statistics.html"><a href="representing-summary-statistics.html#bar-chart-of-means"><i class="fa fa-check"></i><b>4.3</b> Bar chart of means</a></li>
-<li class="chapter" data-level="4.4" data-path="representing-summary-statistics.html"><a href="representing-summary-statistics.html#violin-boxplot"><i class="fa fa-check"></i><b>4.4</b> Violin-boxplot</a>
-<ul>
-<li class="chapter" data-level="4.4.1" data-path="representing-summary-statistics.html"><a href="representing-summary-statistics.html#grouped-violin-boxplots"><i class="fa fa-check"></i><b>4.4.1</b> Grouped violin-boxplots</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="representing-summary-statistics.html"><a href="representing-summary-statistics.html#customisation-part-3"><i class="fa fa-check"></i><b>4.5</b> Customisation part 3</a></li>
-<li class="chapter" data-level="4.6" data-path="representing-summary-statistics.html"><a href="representing-summary-statistics.html#activities-3"><i class="fa fa-check"></i><b>4.6</b> Activities 3</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="multi-part-plots.html"><a href="multi-part-plots.html"><i class="fa fa-check"></i><b>5</b> Multi-part Plots</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="multi-part-plots.html"><a href="multi-part-plots.html#interaction-plots"><i class="fa fa-check"></i><b>5.1</b> Interaction plots</a></li>
-<li class="chapter" data-level="5.2" data-path="multi-part-plots.html"><a href="multi-part-plots.html#combined-interaction-plots"><i class="fa fa-check"></i><b>5.2</b> Combined interaction plots</a></li>
-<li class="chapter" data-level="5.3" data-path="multi-part-plots.html"><a href="multi-part-plots.html#facets"><i class="fa fa-check"></i><b>5.3</b> Facets</a></li>
-<li class="chapter" data-level="5.4" data-path="multi-part-plots.html"><a href="multi-part-plots.html#storing-plots"><i class="fa fa-check"></i><b>5.4</b> Storing plots</a></li>
-<li class="chapter" data-level="5.5" data-path="multi-part-plots.html"><a href="multi-part-plots.html#saving-plots-as-images"><i class="fa fa-check"></i><b>5.5</b> Saving plots as images</a></li>
-<li class="chapter" data-level="5.6" data-path="multi-part-plots.html"><a href="multi-part-plots.html#multiple-plots"><i class="fa fa-check"></i><b>5.6</b> Multiple plots</a>
-<ul>
-<li class="chapter" data-level="5.6.1" data-path="multi-part-plots.html"><a href="multi-part-plots.html#combining-two-plots"><i class="fa fa-check"></i><b>5.6.1</b> Combining two plots</a></li>
-<li class="chapter" data-level="5.6.2" data-path="multi-part-plots.html"><a href="multi-part-plots.html#combining-three-or-more-plots"><i class="fa fa-check"></i><b>5.6.2</b> Combining three or more plots</a></li>
-</ul></li>
-<li class="chapter" data-level="5.7" data-path="multi-part-plots.html"><a href="multi-part-plots.html#customisation-part-4"><i class="fa fa-check"></i><b>5.7</b> Customisation part 4</a>
-<ul>
-<li class="chapter" data-level="5.7.1" data-path="multi-part-plots.html"><a href="multi-part-plots.html#axis-labels"><i class="fa fa-check"></i><b>5.7.1</b> Axis labels</a></li>
-<li class="chapter" data-level="5.7.2" data-path="multi-part-plots.html"><a href="multi-part-plots.html#redundant-aesthetics"><i class="fa fa-check"></i><b>5.7.2</b> Redundant aesthetics</a></li>
-</ul></li>
-<li class="chapter" data-level="5.8" data-path="multi-part-plots.html"><a href="multi-part-plots.html#activities-4"><i class="fa fa-check"></i><b>5.8</b> Activities 4</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="advanced-plots.html"><a href="advanced-plots.html"><i class="fa fa-check"></i><b>6</b> Advanced Plots</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="advanced-plots.html"><a href="advanced-plots.html#split-violin-plots"><i class="fa fa-check"></i><b>6.1</b> Split-violin plots</a></li>
-<li class="chapter" data-level="6.2" data-path="advanced-plots.html"><a href="advanced-plots.html#raincloud-plots"><i class="fa fa-check"></i><b>6.2</b> Raincloud plots</a></li>
-<li class="chapter" data-level="6.3" data-path="advanced-plots.html"><a href="advanced-plots.html#ridge-plots"><i class="fa fa-check"></i><b>6.3</b> Ridge plots</a></li>
-<li class="chapter" data-level="6.4" data-path="advanced-plots.html"><a href="advanced-plots.html#alluvial-plots"><i class="fa fa-check"></i><b>6.4</b> Alluvial plots</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
-<li class="chapter" data-level="" data-path="appendices.html"><a href="appendices.html"><i class="fa fa-check"></i>Appendices</a></li>
-<li class="chapter" data-level="8" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>8</b> Additional resources</a></li>
-<li class="chapter" data-level="9" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html"><i class="fa fa-check"></i><b>9</b> Additional advanced plots and customisation options</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#adding-lines-to-plots"><i class="fa fa-check"></i><b>9.1</b> Adding lines to plots</a></li>
-<li class="chapter" data-level="9.2" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#zooming-in-and-out"><i class="fa fa-check"></i><b>9.2</b> Zooming in and out</a></li>
-<li class="chapter" data-level="9.3" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-the-axis-values"><i class="fa fa-check"></i><b>9.3</b> Setting the axis values</a></li>
-<li class="chapter" data-level="9.4" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#controlling-the-legend"><i class="fa fa-check"></i><b>9.4</b> Controlling the Legend</a></li>
-<li class="chapter" data-level="9.5" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#setting-a-lab-theme-using-theme"><i class="fa fa-check"></i><b>9.5</b> Setting A Lab Theme using <code>theme()</code></a></li>
-<li class="chapter" data-level="9.6" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---overlaying-plots"><i class="fa fa-check"></i><b>9.6</b> Easter Egg - Overlaying Plots</a></li>
-<li class="chapter" data-level="9.7" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-dumbbell-plot"><i class="fa fa-check"></i><b>9.7</b> Easter Egg - A Dumbbell Plot</a></li>
-<li class="chapter" data-level="9.8" data-path="additional-advanced-plots-and-customisation-options.html"><a href="additional-advanced-plots-and-customisation-options.html#easter-egg---a-pie-chart"><i class="fa fa-check"></i><b>9.8</b> Easter Egg - A Pie Chart</a></li>
-</ul></li>
-<li class="divider"></li>
-<li><a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" 
-    target="blank"><img alt="Creative Commons License" 
-    style="border-width:0" 
-    src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></li>
-<li><a href="https://psyteachr.github.io/books" target="blank">PsyTeachR Books</a></li>
-
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data visualisation using R, for researchers who don’t use R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data visualisation using R, for researchers who don’t use R</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="active" href="index.html">Overview</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="getting-started.html"><span class="header-section-number">2</span> Getting Started</a></li>
+<li><a class="" href="transforming-data.html"><span class="header-section-number">3</span> Transforming Data</a></li>
+<li><a class="" href="representing-summary-statistics.html"><span class="header-section-number">4</span> Representing Summary Statistics</a></li>
+<li><a class="" href="multi-part-plots.html"><span class="header-section-number">5</span> Multi-part Plots</a></li>
+<li><a class="" href="advanced-plots.html"><span class="header-section-number">6</span> Advanced Plots</a></li>
+<li><a class="" href="conclusion.html"><span class="header-section-number">7</span> Conclusion</a></li>
+<li class="book-part">Appendices</li>
+<li><a class="" href="additional-resources.html"><span class="header-section-number">A</span> Additional resources</a></li>
+<li><a class="" href="additional-customisation-options.html"><span class="header-section-number">B</span> Additional customisation options</a></li>
+<li><a class="" href="advanced-plots-1.html"><span class="header-section-number">C</span> Advanced Plots</a></li>
+<li><a class="" href="license.html">License</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/psyteachr/introdataviz">View book source <i class="fab fa-github"></i></a></p>
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Data visualisation using R, for researchers who don’t use R</h1>
-<p class="author"><em>Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine</em></p>
-<p class="date"><em>2021-07-31</em></p>
+      </nav>
 </div>
-<div id="overview" class="section level1 unnumbered">
-<h1>Overview</h1>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="overview" class="section level1 unnumbered">
+<h1>Overview<a class="anchor" aria-label="anchor" href="#overview"><i class="fas fa-link"></i></a>
+</h1>
 <p>This manuscript and tutorial has been submitted for publication, however, has not yet undergone peer-review. Please note that this tutorial is likely to undergo changes before it is accepted for publication and we would encourage you to check for updates before citing.</p>
 <p>Please cite both the preprint and interactive online tutorial as:</p>
-<p>Nordmann, E., McAleer, P., Toivo, W., Paterson, H. &amp; DeBruine, L. (2021). Data visualisation using R, for researchers who don’t use R. Preprint. <a href="https://doi.org/10.31234/osf.io/4huvw" class="uri">https://doi.org/10.31234/osf.io/4huvw</a></p>
+<p>Nordmann, E., McAleer, P., Toivo, W., Paterson, H. &amp; DeBruine, L. (2021). Data visualisation using R, for researchers who don't use R. Preprint. <a href="https://doi.org/10.31234/osf.io/4huvw" class="uri">https://doi.org/10.31234/osf.io/4huvw</a></p>
 
-</div>
-<div class="psyteachr_footer">
-  
 </div>
 <script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
+  console.log("webex: update total_correct");
+
   if (t = document.getElementById("webex-total_correct")) {
-    t.innerHTML =
-      document.getElementsByClassName("webex-correct").length + " of " +
-      document.getElementsByClassName("webex-solveme").length + " correct";
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+    
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
   }
 }
 
 /* webex-solution button toggling function */
 b_func = function() {
+  console.log("webex: toggle hide");
+  
   var cl = this.parentElement.classList;
   if (cl.contains('open')) {
     cl.remove("open");
@@ -320,6 +109,8 @@ b_func = function() {
 
 /* function for checking solveme answers */
 solveme_func = function(e) {
+  console.log("webex: check solveme");
+
   var real_answers = JSON.parse(this.dataset.answer);
   var my_answer = this.value;
   var cl = this.classList;
@@ -329,22 +120,27 @@ solveme_func = function(e) {
   if (cl.contains("nospaces")) {
     my_answer = my_answer.replace(/ /g, "")
   }
-  
-  if (my_answer !== "" & real_answers.includes(my_answer)) {
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
     cl.add("webex-correct");
+    cl.remove("webex-incorrect");
   } else {
+    cl.add("webex-incorrect");
     cl.remove("webex-correct");
   }
 
   // match numeric answers within a specified tolerance
   if(this.dataset.tol > 0){
-    var tol = JSON.parse(this.dataset.tol);  
+    var tol = JSON.parse(this.dataset.tol);
     var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
     if (matches.reduce((a, b) => a + b, 0) > 0) {
       cl.add("webex-correct");
     } else {
       cl.remove("webex-correct");
-    }  
+    }
   }
 
   // added regex bit
@@ -352,13 +148,56 @@ solveme_func = function(e) {
     answer_regex = RegExp(real_answers.join("|"))
     if (answer_regex.test(my_answer)) {
       cl.add("webex-correct");
-    }  
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+  
+  var cl = this.classList
+  
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+  
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+  
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
   }
   
   update_total_correct();
 }
 
 window.onload = function() {
+  console.log("onload");
   /* set up solution buttons */
   var buttons = document.getElementsByTagName("button");
 
@@ -367,7 +206,7 @@ window.onload = function() {
       buttons[i].onclick = b_func;
     }
   }
-  
+
   /* set up webex-solveme inputs */
   var solveme = document.getElementsByClassName("webex-solveme");
 
@@ -375,10 +214,10 @@ window.onload = function() {
     /* make sure input boxes don't auto-anything */
     solveme[i].setAttribute("autocomplete","off");
     solveme[i].setAttribute("autocorrect", "off");
-    solveme[i].setAttribute("autocapitalize", "off"); 
+    solveme[i].setAttribute("autocapitalize", "off");
     solveme[i].setAttribute("spellcheck", "false");
     solveme[i].value = "";
-    
+
     /* adjust answer for ignorecase or nospaces */
     var cl = solveme[i].classList;
     var real_answer = solveme[i].dataset.answer;
@@ -389,74 +228,78 @@ window.onload = function() {
       real_answer = real_answer.replace(/ /g, "");
     }
     solveme[i].dataset.answer = real_answer;
-    
+
     /* attach checking function */
     solveme[i].onkeyup = solveme_func;
     solveme[i].onchange = solveme_func;
   }
   
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+  
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+  }
+
   update_total_correct();
 }
 
-</script>
-            </section>
+</script><script>
+$( document ).ready(function() {
+  var cite = ' ';
+  var psyteachr = ' <a href="https://psyteachr.github.io/"><img src="images/logos/psyteachr_logo.png" style="height: 31px; color: white;" alt="psyTeachR: Reproducible Research" /></a>';
+  var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
 
-          </div>
-        </div>
-      </div>
+  $("footer div.row div:eq(1) p").html(
+    psyteachr + license + cite
+  );
 
-<a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+  function move_sidebar() {
+    var w = window.innerWidth;
+    if (w < 992) {
+      $("#toc").appendTo($("#main-nav"));
+    } else {
+      $("#toc").appendTo($("div.sidebar-chapter"));
+    }
+  }
+  move_sidebar();
+  window.onresize = move_sidebar;
+});
+</script><div class="chapter-nav">
+<div class="empty"></div>
+<div class="next"><a href="introduction.html"><span class="header-section-number">1</span> Introduction</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#overview">Overview</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/psyteachr/introdataviz/blob/master/book/index.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/psyteachr/introdataviz/edit/master/book/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-09-18.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
-"google": false
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": {},
-"toc": {
-"collapse": "section",
-"scroll_highlight": true
-}
-});
-});
-</script>
 
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
 </body>
-
 </html>

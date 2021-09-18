@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this paper, please cite it as below."
+authors:
+- family-names: "Nordmann"
+  given-names: "Emily"
+  orcid: "https://orcid.org/0000-0002-0806-1081"
+- family-names: "McAleer"
+  given-names: "Phil"
+  orcid: "https://orcid.org/0000-0002-4523-2097"
+- family-names: "Toivo"
+  given-names: "Wilhelmiina"
+  orcid: "https://orcid.org/0000-0002-5688-9537"
+- family-names: "Paterson"
+  given-names: "Helena"
+  orcid: "https://orcid.org/0000-0001-7715-5973"
+- family-names: "Lisa"
+  given-names: "DeBruine"
+  orcid: "https://orcid.org/0000-0002-7523-5539"
+title: "Data visualisation using R, for researchers who don't use R"
+year: 2021
+doi: https://doi.org/10.31234/osf.io/4huvw
+version: 2.0.
+date-released: 2021-09-17
+url: "https://github.com/psyteachr/introdataviz/"
