@@ -84,6 +84,7 @@ fig:dumbbell2
 fig:dumbbell3
 fig:piechart-full
 fig:pie-basic1
+citing
 introduction
 why-r-for-data-visualisation
 a-layered-grammar-of-graphics

@@ -28,7 +28,7 @@ Authors@R:
            role = c("aut"),
            email = "debruine@gmail.com",
            comment = c(ORCID = "0000-0002-7523-5539")))
-Description: Data Visualisation Using R, For Researchers Who Don’t Use R.
+Description: In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R.
 License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
