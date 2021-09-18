@@ -10,79 +10,72 @@
   --purple: #61589C; /* hsl(248, 28%, 48%) */
 }
 
-.psyteachr_footer {
-  margin-top: 1em;
+@media screen and (max-width: 991px) {
+  #main-nav nav {
+    width: 49%;
+    display: inline-block;
+    vertical-align: text-top;
+  }
+
+  .book-toc {
+    column-count: 1;
+  }
+
+  #content {
+    flex:0 0 100%;
+    -webkit-flex:0 0 100%;
+    max-width:100%
+  }
 }
 
-
-pre {
-  border: 1px solid grey !important;
-  border-radius: 5px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+.chapter-nav .next, .chapter-nav .prev {
+  box-shadow: none;
+  border-color: var(--blue);
 }
 
-.book .book-body .page-wrapper .page-inner section.normal code {
-  border: 1px solid #DEDEDE;
-  border: 1px solid hsla(0, 0%, 0%, .1);
-  border-radius: 5px;
-  padding: 1px;
+/* references with hanging indent */
+.csl-entry {
+  padding-left: 2em ;
+  text-indent: -2em ;
 }
 
-.book.color-theme-2 .book-body .page-wrapper .page-inner section.normal code {
-  border-color: #333333;
-  border-color: hsla(0, 0%, 100%, .1);
-}
+.package { font-weight: 600; }
+.package::before { content: "{"; }
+.package::after { content: "}"; }
 
-.book .book-body .page-wrapper .page-inner section.normal pre > code {
-  border: none;
-  border-radius: 0;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+.small_right, .small_left {
+  display: inline-block;
+  width: 25%;
+  max-width: 200px;
 }
+.small_right { float: right; margin: 1em 0 1em 1em;}
+.small_left { float: left; margin: 1em 1em 1em 0;}
+.small_right img, .small_left img { max-width: 100%; }
 
-.book .book-body .page-wrapper .page-inner section.normal strong code {
-  color: black;
-  padding: 0;
-  background-color: inherit !important;
-  font-size: 105%;
-  border: none;
-}
-
-div.color-theme-1 .book-body .page-wrapper .page-inner section.normal strong code {
-  color: hsl(30, 70%, 16%) !important;
-}
-
-div.color-theme-2 .book-body .page-wrapper .page-inner section.normal strong code {
-  color: hsl(200, 29%, 85%) !important;
-}
-
-.logo {
-  height: 150px;
-  width: 150px;
-  float: right;
-}
-
-.join {
-  height: 150px;
-  width: 200px;
-  float: right;
-  clear: right;
+/* rainbow borders */
+body {
+  margin-top: 18px;
+  box-shadow: 0 -3px 0 0px var(--purple),
+              0 -6px 0 0px var(--blue),
+              0 -9px 0 0px var(--green),
+              0 -12px 0 0px var(--yellow),
+              0 -15px 0 0px var(--orange),
+              0 -18px 0 0px var(--pink);
 }
 
 /* set styles for alert boxes */
 
-.danger, .warning, .info , .alert, .try {
+.dangerous, .warning, .info , .alert, .try {
   padding: 1em 1em 0.25em 3.5em;
-  margin-bottom: 10px;
+  margin: 10px 0;
   background-color: hsla(0, 0%, 100%, .1);
   background-position: 0.5em 0.5em;
   background-size: 2.5em;
   background-repeat: no-repeat;
-  border-radius: 0.5em;
+  border-radius: 5px;
 }
 
-.danger {
+.dangerous {
   background-image: url("../images/alerts/danger.svg");
   background-color: hsla(315, 42%, 42%, .10);
   border: 1px solid var(--pink);
@@ -111,11 +104,11 @@ div.color-theme-2 .book-body .page-wrapper .page-inner section.normal strong cod
 /* verbatim code chunks with ```{r ...} at top */
 
 div.verbatim {
-  border: 1px solid grey;
-  padding: 0.25em 1em 0 1em;
-  border-radius: 5px;
-  margin-bottom: 1em;
-  font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
+  border: 1px solid rgb(238, 238, 238);
+  padding: 0.25em 0 0 0;
+  border-radius: 3.2px;
+  margin: 0 -0.5rem 1rem -0.5rem;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 div.verbatim code {
@@ -132,45 +125,29 @@ div.verbatim {
   background-color: rgb(247, 247, 247) !important;
 }
 
-.color-theme-1 div.verbatim {
-  background-color: rgb(253, 246, 227) !important;
-}
-
-.color-theme-2 div.verbatim {
-  background-color: rgb(45, 49, 67) !important;
-}
-
 div.verbatim * {
   background-color: transparent !important;
 }
 
-div.verbatim div.sourceCode { 
+div.verbatim div.sourceCode {
   margin: 0 !important;
   padding: 0 !important;
 }
-div.verbatim pre.sourceCode { 
-  margin: 0 !important; 
+div.verbatim pre.sourceCode {
+  margin: 0 !important;
   padding: 0 1em !important;
 }
 
 
 /* external link icons */
-
 a[target="_blank"]::after {
-  content: url("../images/icons/link_external.svg");
   margin: 0 3px 0 5px;
+  font-weight: 900;
+  font-family:"Font Awesome 5 Free";
+  content:"\f360"; /* f35d or  f360*/
 }
 
-.color-theme-1 a[target="_blank"]::after {
-  content: url("../images/icons/link_external1.svg");
-}
-
-
-.color-theme-2 a[target="_blank"]::after {
-  content: url("../images/icons/link_external2.svg");
-}
-
-a.glossary::after {
+a.glossary::after, code a::after {
   content: none !important;
   margin: 0 !important;
 }
@@ -179,9 +156,3 @@ a.glossary, a:visited.glossary {
   color: var(--purple) !important;
 }
 
-
-/* override table striping */
-
-.book .book-body .page-wrapper .page-inner section.normal table tr:nth-child(2n) {
-  background-color: inherit;
-}
