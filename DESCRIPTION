@@ -43,11 +43,13 @@ Imports:
     knitr,
     webexercises,
     glossary,
+    downlit,
     broom,
     plyr,
     scales,
     grid,
-    ggridges
+    ggridges,
+    ggalluvial
 Depends: 
     R (>= 2.10)
 Remotes:
