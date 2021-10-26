@@ -22,7 +22,7 @@ file.copy("book/ldt_data.csv", "paper/", overwrite = TRUE)
 # copy and process chapters
 files <- sprintf("book/0%d-ch%d.Rmd", 1:6, 1:6)
 for (bookfile in files) {
-  paperfile <- paste0("paper/", bookfile)
+  paperfile <- gsub("book/", "paper/", bookfile)
   file.copy(bookfile, paperfile, overwrite = TRUE)
   
   ch <- readLines(paperfile)
