@@ -49,8 +49,10 @@ Imports:
     scales,
     grid,
     ggridges,
-    ggalluvial
+    ggalluvial,
+    papaja
 Depends: 
     R (>= 2.10)
 Remotes:
     psyteachr/glossary
+    crsh/papaja

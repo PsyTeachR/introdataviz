@@ -7,7 +7,7 @@
 <title>Chapter 3 Transforming Data | Data visualisation using R, for researchers who don’t use R</title>
 <meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine">
 <meta name="description" content="3.1 Data formats To visualise the experimental reaction time and accuracy data using ggplot2, we first need to reshape the data from wide-format to long-format and it is this step that can cause...">
-<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 3 Transforming Data | Data visualisation using R, for researchers who don’t use R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://psyteachr.github.io/introdataviz/transforming-data.html">
@@ -17,9 +17,9 @@
 <meta name="twitter:title" content="Chapter 3 Transforming Data | Data visualisation using R, for researchers who don’t use R">
 <meta name="twitter:description" content="3.1 Data formats To visualise the experimental reaction time and accuracy data using ggplot2, we first need to reshape the data from wide-format to long-format and it is this step that can cause...">
 <meta name="twitter:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10.6/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -441,12 +441,13 @@ Figure 3.2: Density plot of reaction time.
 <p>Density plots are most useful for comparing the distributions of different groups of data. Because the dataset is now in long format, it makes it easier to map another variable to the plot because each variable is contained within a single column.</p>
 <ul>
 <li>In addition to mapping <code>rt</code> to the x-axis, we specify the <code>fill</code> aesthetic to fill the visualisation of each level of the <code>condition</code> variable with different colours.</li>
+<li>Because the density plots are overlapping, we set <code>alpha = 0.75</code> to make the geoms 75% transparent.</li>
 <li>As with the x and y-axis scale functions, we can edit the names and labels of our fill aesthetic by adding on another <code>scale_*</code> layer.</li>
 <li>Note that the <code>fill</code> here is set inside the <code>aes()</code> function, which tells ggplot to set the fill differently for each value in the <code>condition</code> column. You cannot specify which colour here (e.g., <code>fill="red"</code>), like you could when you set <code>fill</code> inside the <code>geom_*()</code> function before.</li>
 </ul>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_density</span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu">geom_density</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Reaction time (ms)"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_fill_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Condition"</span>,
                       labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Word"</span>, <span class="st">"Non-word"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -585,19 +586,18 @@ Figure 3.7: Scatterplot with data grouped by langauge group
 <h3>
 <span class="header-section-number">3.7.1</span> Accessible colour schemes<a class="anchor" aria-label="anchor" href="#accessible-colour-schemes"><i class="fas fa-link"></i></a>
 </h3>
-<p>One of the drawbacks of using <code>ggplot2</code> for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in grey scale. You can specify exact custom colours for your plots, but one easy option is to use a colour palette and the <code>viridis</code> scale functions call such a palette. These take the same arguments as their default <code>scale</code> sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. The <code>viridis</code> scale functions provide a number of different options for the colour - try setting <code>option</code> to any letter from A - E to see the different sets.</p>
+<p>One of the drawbacks of using <code>ggplot2</code> for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in grey scale. You can specify exact custom colours for your plots, but one easy option is to use a custom colour palette. These take the same arguments as their default <code>scale</code> sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. For categorical colours, the "Set2", "Dark2" and "Paired" palettes from the <code>brewer</code> scale functions are colourblind-safe. For continuous colours, such as when colour is representing the magnitude of a correlation in a tile plot, the <code>viridis</code> scale functions provide a number of different colourblind and greyscale-safe options.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, y <span class="op">=</span> <span class="va">age</span>, colour <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="co"># use "viridis_d" instead of "discrete" for better colours</span>
-  <span class="fu">scale_colour_viridis_d</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Condition"</span>,
-                        labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Word"</span>, <span class="st">"Non-word"</span><span class="op">)</span>,
-                        option <span class="op">=</span> <span class="st">"E"</span><span class="op">)</span></code></pre></div>
+  <span class="fu">scale_color_brewer</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span>,
+                     name <span class="op">=</span> <span class="st">"Condition"</span>,
+                     labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Word"</span>, <span class="st">"Non-word"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:viridis"></span>
-<img src="03-ch3_files/figure-html/viridis-1.png" alt="Use the viridis colour scheme for accessibility." width="100%"><p class="caption">
-Figure 3.8: Use the viridis colour scheme for accessibility.
+<span style="display:block;" id="fig:brewer"></span>
+<img src="03-ch3_files/figure-html/brewer-1.png" alt="Use the Dark2 brewer colour scheme for accessibility." width="100%"><p class="caption">
+Figure 3.8: Use the Dark2 brewer colour scheme for accessibility.
 </p>
 </div>
 </div>
@@ -688,7 +688,7 @@ Solution 4
   <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Age"</span><span class="op">)</span></code></pre></div>
 </div>
 <ol start="5" style="list-style-type: decimal">
-<li>Replace the default <code>scale_fill_*()</code> on the grouped density plot with the colour-blind friendly version.</li>
+<li>Replace the default <code>scale_fill_*()</code> on the grouped density plot with a colour-blind friendly version.</li>
 </ol>
 <div class="webex-solution">
 <button>
@@ -696,11 +696,11 @@ Solution
 </button>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_density</span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu">geom_density</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Reaction time (ms)"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_fill_viridis_d</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"E"</span>,
-                      name <span class="op">=</span> <span class="st">"Condition"</span>,
-                      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Word"</span>, <span class="st">"Non-word"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu">scale_fill_brewer</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set2"</span>, <span class="co"># or "Dark2" or "Paired"</span>
+                    name <span class="op">=</span> <span class="st">"Condition"</span>,
+                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Word"</span>, <span class="st">"Non-word"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 
 </div>
@@ -942,7 +942,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-09-18.</p>
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-10-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

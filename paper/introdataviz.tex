@@ -5,6 +5,10 @@
 \documentclass[
   english,
   doc,floatsintext]{apa6}
+\title{Data visualisation using R, for researchers who don't use R}
+\author{Emily Nordmann\textsuperscript{1}, Phil McAleer\textsuperscript{1}, Wilhelmiina Toivo\textsuperscript{1}, Helena Paterson\textsuperscript{1}, \& Lisa M. DeBruine\textsuperscript{2}}
+\date{}
+
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
 \usepackage{iftex}
@@ -110,6 +114,29 @@
   \let\oldsubparagraph\subparagraph
   \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 % Manuscript styling
 \usepackage{upgreek}
 \captionsetup{font=singlespacing,justification=justified}
@@ -173,30 +200,6 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
-  \fi
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
-
-\title{Data visualisation using R, for researchers who don't use R}
-\author{Emily Nordmann\textsuperscript{1}, Phil McAleer\textsuperscript{1}, Wilhelmiina Toivo\textsuperscript{1}, Helena Paterson\textsuperscript{1}, \& Lisa M. DeBruine\textsuperscript{2}}
-\date{}
 
 
 \note{Preprint}
@@ -354,7 +357,7 @@ Before you start visualising your data, you need to get it into an appropriate f
 \hypertarget{data-format}{%
 \subsubsection{Data format}\label{data-format}}
 
-The simulated lexical decision data is provided in a \texttt{csv} file rather than e.g., \texttt{xslx}. Functions exist in R to read many other types of data files, however, we recommend that you convert any \texttt{xlsx} spreadsheets to \texttt{csv} by using the \texttt{Save\ As} function in Microsoft Excel. The \texttt{csv} file format strips all formatting and only stores data in a single sheet and so is simpler for new users to import to R. You may wish to create a \texttt{csv} file that contains only the data you want to visualise, rather than a full, larger workbook. When working with your own data, remove summary rows or additional notes from any files you import. All files should only contains the rows and columns of data you want to plot.
+The simulated lexical decision data is provided in a \texttt{csv} (comma-separated variable) file. Functions exist in R to read many other types of data files; the \texttt{rio} package's \texttt{import()} function can read most types of files. However, \texttt{csv} files avoids problems like Excel's insistence on mangling anything that even vaguely resembles a date. You may wish to export your data as a \texttt{csv} file that contains only the data you want to visualise, rather than a full, larger workbook. When working with your own data, remove summary rows or additional notes from any files you import. The files you import from should only contain the rows and columns of data you want to plot. You should always check after importing data that the resulting table looks like you expect.
 
 \hypertarget{variable-names}{%
 \subsubsection{Variable names}\label{variable-names}}
@@ -458,7 +461,7 @@ One of the challenges in learning R is that many of the ``helpful'' examples and
 \hypertarget{demographic-information}{%
 \subsection{Demographic information}\label{demographic-information}}
 
-You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (i.e., data processing). The code below uses the \texttt{\%\textgreater{}\%} operator, otherwise known as the \emph{pipe,} and can be translated as "\emph{and then"}. For example, the below code can be read as:
+You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (i.e., data processing). The code below uses the \texttt{\%\textgreater{}\%} operator, otherwise known as the \emph{pipe,} and can be translated as ``\emph{and then''}. For example, the below code can be read as:
 
 \begin{itemize}
 \item
@@ -466,14 +469,17 @@ You can calculate and plot some basic descriptive information about the demograp
 \item
   Group it by the variable \texttt{language} \emph{and then;}
 \item
-  Count the number of observations in each group
+  Count the number of observations in each group \emph{and then;}
+\item
+  Remove the grouping
 \end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{dat }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(language) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{count}\NormalTok{()}
+  \FunctionTok{count}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -487,7 +493,7 @@ bilingual & 45\\
 \hline
 \end{tabular}
 
-\texttt{group\_by()} does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever function is called next is performed separately on each level of the grouping variable. The above code therefore counts the number of observations in each group of the variable \texttt{language}. If you just need the total number of observations, you could remove the \texttt{group\_by()} line which would perform the operation on the whole dataset, rather than by groups:
+\texttt{group\_by()} does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever functions called next are performed separately on each level of the grouping variable, until the grouping is removed with \texttt{ungroup()}. The above code therefore counts the number of observations in each group of the variable \texttt{language}. If you just need the total number of observations, you could remove the \texttt{group\_by()} and \texttt{ungroup()} lines, which would perform the operation on the whole dataset, rather than by groups:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -536,7 +542,7 @@ Note that the above code will not save the result of this operation, it will sim
 \end{Highlighting}
 \end{Shaded}
 
-Finally, the \texttt{group\_by()} function will work in the same way when calculating summary statistics - the output of the function that is called after \texttt{group\_by()} will be produced for each level of the grouping variable.
+Finally, the \texttt{group\_by()} function will work in the same way when calculating summary statistics -- the output of the function that is called after \texttt{group\_by()} will be produced for each level of the grouping variable.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -544,7 +550,8 @@ Finally, the \texttt{group\_by()} function will work in the same way when calcul
   \FunctionTok{group\_by}\NormalTok{(language) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{mean\_age =} \FunctionTok{mean}\NormalTok{(age),}
             \AttributeTok{sd\_age =} \FunctionTok{sd}\NormalTok{(age),}
-            \AttributeTok{n\_values =} \FunctionTok{n}\NormalTok{())}
+            \AttributeTok{n\_values =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -643,7 +650,7 @@ The code to plot a histogram of \texttt{age} is very similar to the code used fo
 \caption{Histogram of ages.}\label{fig:histogram1}
 \end{figure}
 
-The base statistic for \texttt{geom\_histogram()} is also count, and by default \texttt{geom\_histogram()} divides the x-axis into ``bins'' and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message \texttt{stat\_bin()\ using\ bins\ =\ 30.\ Pick\ better\ value\ with\ binwidth}. This means that the default number of bins \texttt{geom\_histogram()} divided the x-axis into is 30. For our data that looks appropriate, but for example, if you want one bar to equal 5 years, you can adjust \texttt{binwidth\ =\ 5}.
+The base statistic for \texttt{geom\_histogram()} is also count, and by default \texttt{geom\_histogram()} divides the x-axis into ``bins'' and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message \texttt{stat\_bin()\ using\ bins\ =\ 30.\ Pick\ better\ value\ with\ binwidth}. This means that, by default, \texttt{geom\_histogram()} divides the x-axis into 30 bins. You can change this by either setting the number of bins (e.g., \texttt{bins\ =\ 20}) or the width of each bin (e.g., \texttt{binwidth\ =\ 5}) as an argument.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1052,6 +1059,8 @@ Density plots are most useful for comparing the distributions of different group
 \item
   In addition to mapping \texttt{rt} to the x-axis, we specify the \texttt{fill} aesthetic to fill the visualisation of each level of the \texttt{condition} variable with different colours.
 \item
+  Because the density plots are overlapping, we set \texttt{alpha\ =\ 0.75} to make the geoms 75\% transparent.
+\item
   As with the x and y-axis scale functions, we can edit the names and labels of our fill aesthetic by adding on another \texttt{scale\_*} layer.
 \item
   Note that the \texttt{fill} here is set inside the \texttt{aes()} function, which tells ggplot to set the fill differently for each value in the \texttt{condition} column. You cannot specify which colour here (e.g., \texttt{fill="red"}), like you could when you set \texttt{fill} inside the \texttt{geom\_*()} function before.
@@ -1060,7 +1069,7 @@ Density plots are most useful for comparing the distributions of different group
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ rt, }\AttributeTok{fill =}\NormalTok{ condition)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_density}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.75}\NormalTok{)}\SpecialCharTok{+}
   \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"Reaction time (ms)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{scale\_fill\_discrete}\NormalTok{(}\AttributeTok{name =} \StringTok{"Condition"}\NormalTok{,}
                       \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Word"}\NormalTok{, }\StringTok{"Non{-}word"}\NormalTok{))}
@@ -1197,27 +1206,26 @@ S006 & 357.1710 & 367.3355 & 96 & 78\\
 \hypertarget{accessible-colour-schemes}{%
 \subsubsection{Accessible colour schemes}\label{accessible-colour-schemes}}
 
-One of the drawbacks of using \texttt{ggplot2} for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in grey scale. You can specify exact custom colours for your plots, but one easy option is to use a colour palette and the \texttt{viridis} scale functions call such a palette. These take the same arguments as their default \texttt{scale} sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. The \texttt{viridis} scale functions provide a number of different options for the colour - try setting \texttt{option} to any letter from A - E to see the different sets.
+One of the drawbacks of using \texttt{ggplot2} for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in grey scale. You can specify exact custom colours for your plots, but one easy option is to use a custom colour palette. These take the same arguments as their default \texttt{scale} sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. For categorical colours, the ``Set2,'' ``Dark2'' and ``Paired'' palettes from the \texttt{brewer} scale functions are colourblind-safe. For continuous colours, such as when colour is representing the magnitude of a correlation in a tile plot, the \texttt{viridis} scale functions provide a number of different colourblind and greyscale-safe options.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ rt, }\AttributeTok{y =}\NormalTok{ age, }\AttributeTok{colour =}\NormalTok{ condition)) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+}
-  \CommentTok{\# use "viridis\_d" instead of "discrete" for better colours}
-  \FunctionTok{scale\_colour\_viridis\_d}\NormalTok{(}\AttributeTok{name =} \StringTok{"Condition"}\NormalTok{,}
-                        \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Word"}\NormalTok{, }\StringTok{"Non{-}word"}\NormalTok{),}
-                        \AttributeTok{option =} \StringTok{"E"}\NormalTok{)}
+  \FunctionTok{scale\_color\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Dark2"}\NormalTok{,}
+                     \AttributeTok{name =} \StringTok{"Condition"}\NormalTok{,}
+                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Word"}\NormalTok{, }\StringTok{"Non{-}word"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/viridis-1} 
+{\centering \includegraphics[width=1\linewidth]{images/brewer-1} 
 
 }
 
-\caption{Use the viridis colour scheme for accessibility.}\label{fig:viridis}
+\caption{Use the Dark2 brewer colour scheme for accessibility.}\label{fig:brewer}
 \end{figure}
 
 \hypertarget{specifying-axis-breaks-with-seq}{%
@@ -1277,7 +1285,7 @@ Before you move on try the following:
 \item
   Remove \texttt{method\ =\ "lm"} from \texttt{geom\_smooth()} to produce a curved regression line.
 \item
-  Replace the default \texttt{scale\_fill\_*()} on the grouped density plot with the colour-blind friendly version.
+  Replace the default \texttt{scale\_fill\_*()} on the grouped density plot with a colour-blind friendly version.
 \end{enumerate}
 
 \hypertarget{representing-summary-statistics}{%
@@ -1315,9 +1323,9 @@ As with histograms and density plots, \texttt{fill} can be used to create groupe
 \begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y =}\NormalTok{ acc, }\AttributeTok{fill =}\NormalTok{ language)) }\SpecialCharTok{+}
   \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_viridis\_d}\NormalTok{(}\AttributeTok{option =} \StringTok{"E"}\NormalTok{,}
-                       \AttributeTok{name =} \StringTok{"Group"}\NormalTok{,}
-                       \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Bilingual"}\NormalTok{, }\StringTok{"Monolingual"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Dark2"}\NormalTok{,}
+                    \AttributeTok{name =} \StringTok{"Group"}\NormalTok{,}
+                    \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Bilingual"}\NormalTok{, }\StringTok{"Monolingual"}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{name =} \StringTok{"Condition"}\NormalTok{,}
                    \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Word"}\NormalTok{, }\StringTok{"Non{-}word"}\NormalTok{)) }\SpecialCharTok{+}
@@ -1343,9 +1351,9 @@ Violin plots display the distribution of a dataset and can be created by calling
 \begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y =}\NormalTok{ acc, }\AttributeTok{fill =}\NormalTok{ language)) }\SpecialCharTok{+}
   \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_viridis\_d}\NormalTok{(}\AttributeTok{option =} \StringTok{"D"}\NormalTok{,}
-                       \AttributeTok{name =} \StringTok{"Group"}\NormalTok{,}
-                       \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Bilingual"}\NormalTok{, }\StringTok{"Monolingual"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Dark2"}\NormalTok{,}
+                    \AttributeTok{name =} \StringTok{"Group"}\NormalTok{,}
+                    \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Bilingual"}\NormalTok{, }\StringTok{"Monolingual"}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{name =} \StringTok{"Condition"}\NormalTok{,}
                    \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Word"}\NormalTok{, }\StringTok{"Non{-}word"}\NormalTok{)) }\SpecialCharTok{+}
@@ -1406,7 +1414,9 @@ To add the error bars, another layer is added with a second call to \texttt{stat
 \begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y =}\NormalTok{ rt)) }\SpecialCharTok{+}
   \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"bar"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{)}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }
+               \AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }
+               \AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1435,9 +1445,12 @@ The power of the layered system for making figures is further highlighted by the
 \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y=}\NormalTok{ rt)) }\SpecialCharTok{+}
   \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
   \CommentTok{\# remove the median line with fatten = NULL}
-  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }
+               \AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{)}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }
+               \AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }
+               \AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1457,8 +1470,10 @@ It is important to note that the order of the layers matters and it is worth exp
 \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y=}\NormalTok{ rt)) }\SpecialCharTok{+}
   \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}  
   \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{)}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{,  }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }
+               \AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }
+               \AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1474,15 +1489,19 @@ It is important to note that the order of the layers matters and it is worth exp
 \hypertarget{grouped-violin-boxplots}{%
 \subsubsection{Grouped violin-boxplots}\label{grouped-violin-boxplots}}
 
-As with previous plots, another variable can be mapped to \texttt{fill} for the violin-boxplot. However, simply adding \texttt{fill} to the mapping causes the different components of the plot to become misaligned because they have different default positions:
+As with previous plots, another variable can be mapped to \texttt{fill} for the violin-boxplot. (Remember to add a colourblind-safe palette.) However, simply adding \texttt{fill} to the mapping causes the different components of the plot to become misaligned because they have different default positions:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y=}\NormalTok{ rt, }\AttributeTok{fill =}\NormalTok{ language)) }\SpecialCharTok{+}
   \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{)}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }
+               \AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{,  }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }
+               \AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }
+               \AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Dark2"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1495,17 +1514,26 @@ As with previous plots, another variable can be mapped to \texttt{fill} for the 
 \caption{Grouped violin-boxplots without repositioning.}\label{fig:viobox2}
 \end{figure}
 
-To rectify this we need to adjust the argument \texttt{position} for each of the misaligned layers. \texttt{position\_dodge()} instructs R to move (dodge) the position of the plot component by the specified value - finding what value you need can sometimes take trial and error.
+To rectify this we need to adjust the argument \texttt{position} for each of the misaligned layers. \texttt{position\_dodge()} instructs R to move (dodge) the position of the plot component by the specified value; finding what value looks best can sometimes take trial and error.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# set the offset position of the geoms}
+\NormalTok{pos }\OtherTok{\textless{}{-}} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.9}\NormalTok{)}
+
 \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y=}\NormalTok{ rt, }\AttributeTok{fill =}\NormalTok{ language)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(.}\DecValTok{9}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{, }
-               \AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(.}\DecValTok{9}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{,}
-               \AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(.}\DecValTok{9}\NormalTok{))}
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{position =}\NormalTok{ pos) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }
+               \AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{, }
+               \AttributeTok{position =}\NormalTok{ pos) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }
+               \AttributeTok{geom =} \StringTok{"point"}\NormalTok{, }
+               \AttributeTok{position =}\NormalTok{ pos) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }
+               \AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }
+               \AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{,}
+               \AttributeTok{position =}\NormalTok{ pos) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Dark2"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1521,65 +1549,27 @@ To rectify this we need to adjust the argument \texttt{position} for each of the
 \hypertarget{customisation-part-3}{%
 \subsection{Customisation part 3}\label{customisation-part-3}}
 
-Combining multiple type of plots can present an issue with the colours, particularly when the viridis scheme is used - in the below example it is hard to make out the black lines of the boxplot and the mean/error bars.
+Combining multiple type of plots can present an issue with the colours, particularly when the fill and line colours are similar. For example, it is hard to make out the boxplot against the violin plot above.
+
+There are a number of solutions to this problem. One solution is to adjust the transparency of each layer using \texttt{alpha}. The exact values needed can take trial and error:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y=}\NormalTok{ rt, }\AttributeTok{fill =}\NormalTok{ language)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(.}\DecValTok{9}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{, }
-               \AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(.}\DecValTok{9}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{,}
-               \AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(.}\DecValTok{9}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_viridis\_d}\NormalTok{(}\AttributeTok{option =} \StringTok{"E"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme\_minimal}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{images/viobox4-1} 
-
-}
-
-\caption{A color scheme that makes lines difficult to see.}\label{fig:viobox4}
-\end{figure}
-
-There are a number of solutions to this problem. First, we can change the colour of individual geoms by adding \texttt{colour\ =\ "colour"} to each relevant geom:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y=}\NormalTok{ rt, }\AttributeTok{fill =}\NormalTok{ condition)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{colour =} \StringTok{"grey"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{, }\AttributeTok{colour =} \StringTok{"grey"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{, }\AttributeTok{colour =} \StringTok{"grey"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_viridis\_d}\NormalTok{(}\AttributeTok{option =} \StringTok{"E"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme\_minimal}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{images/viobox5-1} 
-
-}
-
-\caption{Manually changing the line colors.}\label{fig:viobox5}
-\end{figure}
-
-We can also keep the original colours but adjust the transparency of each layer using \texttt{alpha}. Again, the exact values needed can take trial and error:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y=}\NormalTok{ rt, }\AttributeTok{fill =}\NormalTok{ condition)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{4}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_viridis\_d}\NormalTok{(}\AttributeTok{option =} \StringTok{"E"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme\_minimal}\NormalTok{()}
+\FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y=}\NormalTok{ rt, }\AttributeTok{fill =}\NormalTok{ language, }
+                     \AttributeTok{group =} \FunctionTok{paste}\NormalTok{(condition, language))) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.25}\NormalTok{, }\AttributeTok{position =}\NormalTok{ pos) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }
+               \AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{, }
+               \AttributeTok{alpha =} \FloatTok{0.75}\NormalTok{,}
+               \AttributeTok{position =}\NormalTok{ pos) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }
+               \AttributeTok{geom =} \StringTok{"point"}\NormalTok{, }
+               \AttributeTok{position =}\NormalTok{ pos) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }
+               \AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }
+               \AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{,}
+               \AttributeTok{position =}\NormalTok{ pos) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Dark2"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1590,6 +1580,36 @@ We can also keep the original colours but adjust the transparency of each layer 
 }
 
 \caption{Using transparency on the fill color.}\label{fig:viobox6}
+\end{figure}
+
+Alternatively, we can change the fill of individual geoms by adding \texttt{fill\ =\ "colour"} to each relevant geom. In the example below, we fill the boxplots with white. Since all of the boxplots are no longer being filled according to language, but you still want a four separate boxplots, you have to add an extra mapping to \texttt{geom\_boxplot()} to specify that you want the output grouped by the interaction of condition and language.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y=}\NormalTok{ rt, }\AttributeTok{fill =}\NormalTok{ language)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{position =}\NormalTok{ pos) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{, }
+               \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{group =} \FunctionTok{interaction}\NormalTok{(condition, language)),}
+               \AttributeTok{fill =} \StringTok{"white"}\NormalTok{,}
+               \AttributeTok{position =}\NormalTok{ pos) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }
+               \AttributeTok{geom =} \StringTok{"point"}\NormalTok{, }
+               \AttributeTok{position =}\NormalTok{ pos) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }
+               \AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }
+               \AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{,}
+               \AttributeTok{position =}\NormalTok{ pos) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Dark2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/viobox5-1} 
+
+}
+
+\caption{Manually changing the fill color.}\label{fig:viobox5}
 \end{figure}
 
 \hypertarget{activities-3}{%
@@ -1680,6 +1700,7 @@ This code is more complex than all prior code because it does not use a universa
   \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"line"}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }
                \AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Dark2"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_minimal}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -1702,6 +1723,7 @@ So far we have produced single plots that display all the desired variables in o
 \tightlist
 \item
   Rather than using \texttt{colour\ =\ condition} to produce different colours for each level of \texttt{condition}, this variable is instead passed to \texttt{facet\_wrap()}.
+\item
 \end{itemize}
 
 \begin{Shaded}
@@ -1709,7 +1731,7 @@ So far we have produced single plots that display all the desired variables in o
 \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ rt, }\AttributeTok{y =}\NormalTok{ age)) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{condition)}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\AttributeTok{facets =} \FunctionTok{vars}\NormalTok{(condition))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1722,7 +1744,7 @@ So far we have produced single plots that display all the desired variables in o
 \caption{Faceted scatterplot}\label{fig:scatterplot-facet}
 \end{figure}
 
-As another example, we can use \texttt{facet\_wrap()} as an alternative to the grouped violin-boxplot (see Figure~\ref{fig:viobox3}) in which the variable \texttt{language} is passed to \texttt{facet\_wrap()} rather than \texttt{fill}.
+As another example, we can use \texttt{facet\_wrap()} as an alternative to the grouped violin-boxplot (see Figure~\ref{fig:viobox3}) in which the variable \texttt{language} is passed to \texttt{facet\_wrap()} rather than \texttt{fill}. Using the tilde (\texttt{\textasciitilde{}}) to specify which factor is faceted is an alternative to using \texttt{facets\ =\ vars(factor)} like above.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1931,7 +1953,7 @@ You can also use \texttt{labs()} to remove axis labels, for example, try adjusti
 
 So far when we have produced plots with colours, the colours were the only way that different levels of a variable were indicated, but it is sometimes preferable to indicate levels with both colour and other means, such as facets or x-axis categories.
 
-The code below adds \texttt{fill\ =\ language} to the violin-boxplots that are also faceted by language. We adjust \texttt{alpha} and use the viridis colour palette to customise the colours.
+The code below adds \texttt{fill\ =\ language} to the violin-boxplots that are also faceted by language. We adjust \texttt{alpha} and use the brewer colour palette to customise the colours.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1945,7 +1967,7 @@ The code below adds \texttt{fill\ =\ language} to the violin-boxplots that are a
                      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Monolingual participants"}\NormalTok{, }
                                 \StringTok{"Bilingual participants"}\NormalTok{))) }\SpecialCharTok{+}
   \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_viridis\_d}\NormalTok{(}\AttributeTok{option =} \StringTok{"E"}\NormalTok{)}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Dark2"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1972,8 +1994,8 @@ Specifying a \texttt{fill} variable means that by default, R produces a legend f
                      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Monolingual participants"}\NormalTok{, }
                                 \StringTok{"Bilingual participants"}\NormalTok{))) }\SpecialCharTok{+}
   \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_viridis\_d}\NormalTok{(}\AttributeTok{option =} \StringTok{"E"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{guides}\NormalTok{(}\AttributeTok{fill =} \ConstantTok{FALSE}\NormalTok{)}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Dark2"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{fill =} \StringTok{"none"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2180,7 +2202,7 @@ Wickham, H. (2017). \emph{Tidyverse: Easily install and load the 'tidyverse'}. R
 Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., \ldots{} Yutani, H. (2019). Welcome to the {tidyverse}. \emph{Journal of Open Source Software}, \emph{4}(43), 1686. \url{https://doi.org/10.21105/joss.01686}
 
 \leavevmode\vadjust pre{\hypertarget{ref-wickham2014tidy}{}}%
-Wickham, H., \& others. (2014). Tidy data. \emph{Journal of Statistical Software}, \emph{59}(10), 1--23.
+Wickham, H.others. (2014). Tidy data. \emph{Journal of Statistical Software}, \emph{59}(10), 1--23.
 
 \leavevmode\vadjust pre{\hypertarget{ref-R-ggridges}{}}%
 Wilke, C. O. (2021). \emph{Ggridges: Ridgeline plots in 'ggplot2'}. Retrieved from \url{https://CRAN.R-project.org/package=ggridges}

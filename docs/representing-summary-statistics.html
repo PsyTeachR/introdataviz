@@ -7,7 +7,7 @@
 <title>Chapter 4 Representing Summary Statistics | Data visualisation using R, for researchers who don’t use R</title>
 <meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine">
 <meta name="description" content="The layering approach that is used in ggplot2 to make figures comes into its own when you want to include information about the distribution and spread of scores. In this section we introduce...">
-<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 4 Representing Summary Statistics | Data visualisation using R, for researchers who don’t use R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://psyteachr.github.io/introdataviz/representing-summary-statistics.html">
@@ -17,9 +17,9 @@
 <meta name="twitter:title" content="Chapter 4 Representing Summary Statistics | Data visualisation using R, for researchers who don’t use R">
 <meta name="twitter:description" content="The layering approach that is used in ggplot2 to make figures comes into its own when you want to include information about the distribution and spread of scores. In this section we introduce...">
 <meta name="twitter:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10.6/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -98,9 +98,9 @@ Figure 4.1: Basic boxplot.
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y <span class="op">=</span> <span class="va">acc</span>, fill <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_fill_viridis_d</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"E"</span>,
-                       name <span class="op">=</span> <span class="st">"Group"</span>,
-                       labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bilingual"</span>, <span class="st">"Monolingual"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_fill_brewer</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span>,
+                    name <span class="op">=</span> <span class="st">"Group"</span>,
+                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bilingual"</span>, <span class="st">"Monolingual"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_x_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Condition"</span>,
                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Word"</span>, <span class="st">"Non-word"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -121,9 +121,9 @@ Figure 4.2: Grouped boxplots
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y <span class="op">=</span> <span class="va">acc</span>, fill <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_fill_viridis_d</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"D"</span>,
-                       name <span class="op">=</span> <span class="st">"Group"</span>,
-                       labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bilingual"</span>, <span class="st">"Monolingual"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_fill_brewer</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span>,
+                    name <span class="op">=</span> <span class="st">"Group"</span>,
+                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bilingual"</span>, <span class="st">"Monolingual"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_x_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Condition"</span>,
                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Word"</span>, <span class="st">"Non-word"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -163,7 +163,9 @@ Figure 4.4: Bar plot of means.
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y <span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"bar"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, geom <span class="op">=</span> <span class="st">"errorbar"</span>, width <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span></code></pre></div>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, 
+               geom <span class="op">=</span> <span class="st">"errorbar"</span>, 
+               width <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:badbar2"></span>
 <img src="04-ch4_files/figure-html/badbar2-1.png" alt="Bar plot of means with error bars representing SE." width="100%"><p class="caption">
@@ -184,9 +186,12 @@ Figure 4.5: Bar plot of means with error bars representing SE.
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="co"># remove the median line with fatten = NULL</span>
-  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, 
+               fatten <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, geom <span class="op">=</span> <span class="st">"errorbar"</span>, width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></code></pre></div>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, 
+               geom <span class="op">=</span> <span class="st">"errorbar"</span>, 
+               width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:viobox1"></span>
 <img src="04-ch4_files/figure-html/viobox1-1.png" alt="Violin-boxplot with mean dot and standard error bars." width="100%"><p class="caption">
@@ -198,8 +203,10 @@ Figure 4.6: Violin-boxplot with mean dot and standard error bars.
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>  
   <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, geom <span class="op">=</span> <span class="st">"errorbar"</span>, width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></code></pre></div>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>,  geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, 
+               geom <span class="op">=</span> <span class="st">"errorbar"</span>, 
+               width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:viobox1b"></span>
 <img src="04-ch4_files/figure-html/viobox1b-1.png" alt="Plot with the geoms in the wrong order." width="100%"><p class="caption">
@@ -210,28 +217,41 @@ Figure 4.7: Plot with the geoms in the wrong order.
 <h3>
 <span class="header-section-number">4.4.1</span> Grouped violin-boxplots<a class="anchor" aria-label="anchor" href="#grouped-violin-boxplots"><i class="fas fa-link"></i></a>
 </h3>
-<p>As with previous plots, another variable can be mapped to <code>fill</code> for the violin-boxplot. However, simply adding <code>fill</code> to the mapping causes the different components of the plot to become misaligned because they have different default positions:</p>
+<p>As with previous plots, another variable can be mapped to <code>fill</code> for the violin-boxplot. (Remember to add a colourblind-safe palette.) However, simply adding <code>fill</code> to the mapping causes the different components of the plot to become misaligned because they have different default positions:</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, geom <span class="op">=</span> <span class="st">"errorbar"</span>, width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></code></pre></div>
+  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, 
+               fatten <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>,  geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, 
+               geom <span class="op">=</span> <span class="st">"errorbar"</span>, 
+               width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_fill_brewer</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:viobox2"></span>
 <img src="04-ch4_files/figure-html/viobox2-1.png" alt="Grouped violin-boxplots without repositioning." width="100%"><p class="caption">
 Figure 4.8: Grouped violin-boxplots without repositioning.
 </p>
 </div>
-<p>To rectify this we need to adjust the argument <code>position</code> for each of the misaligned layers. <code>position_dodge()</code> instructs R to move (dodge) the position of the plot component by the specified value - finding what value you need can sometimes take trial and error.</p>
+<p>To rectify this we need to adjust the argument <code>position</code> for each of the misaligned layers. <code>position_dodge()</code> instructs R to move (dodge) the position of the plot component by the specified value; finding what value looks best can sometimes take trial and error.</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span><span class="fl">.9</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"point"</span>, 
-               position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span><span class="fl">.9</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, geom <span class="op">=</span> <span class="st">"errorbar"</span>, width <span class="op">=</span> <span class="fl">.1</span>,
-               position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span><span class="fl">.9</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="co"># set the offset position of the geoms</span>
+<span class="va">pos</span> <span class="op">&lt;-</span> <span class="fu">position_dodge</span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>
+
+<span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_violin</span><span class="op">(</span>position <span class="op">=</span> <span class="va">pos</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, 
+               fatten <span class="op">=</span> <span class="cn">NULL</span>, 
+               position <span class="op">=</span> <span class="va">pos</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, 
+               geom <span class="op">=</span> <span class="st">"point"</span>, 
+               position <span class="op">=</span> <span class="va">pos</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, 
+               geom <span class="op">=</span> <span class="st">"errorbar"</span>, 
+               width <span class="op">=</span> <span class="fl">.1</span>,
+               position <span class="op">=</span> <span class="va">pos</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_fill_brewer</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:viobox3"></span>
 <img src="04-ch4_files/figure-html/viobox3-1.png" alt="Grouped violin-boxplots with repositioning." width="100%"><p class="caption">
@@ -244,51 +264,50 @@ Figure 4.9: Grouped violin-boxplots with repositioning.
 <h2>
 <span class="header-section-number">4.5</span> Customisation part 3<a class="anchor" aria-label="anchor" href="#customisation-part-3"><i class="fas fa-link"></i></a>
 </h2>
-<p>Combining multiple type of plots can present an issue with the colours, particularly when the viridis scheme is used - in the below example it is hard to make out the black lines of the boxplot and the mean/error bars.</p>
+<p>Combining multiple type of plots can present an issue with the colours, particularly when the fill and line colours are similar. For example, it is hard to make out the boxplot against the violin plot above.</p>
+<p>There are a number of solutions to this problem. One solution is to adjust the transparency of each layer using <code>alpha</code>. The exact values needed can take trial and error:</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span><span class="fl">.9</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"point"</span>, 
-               position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span><span class="fl">.9</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, geom <span class="op">=</span> <span class="st">"errorbar"</span>, width <span class="op">=</span> <span class="fl">.1</span>,
-               position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span><span class="fl">.9</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_fill_viridis_d</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"E"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:viobox4"></span>
-<img src="04-ch4_files/figure-html/viobox4-1.png" alt="A color scheme that makes lines difficult to see." width="100%"><p class="caption">
-Figure 4.10: A color scheme that makes lines difficult to see.
-</p>
-</div>
-<p>There are a number of solutions to this problem. First, we can change the colour of individual geoms by adding <code>colour = "colour"</code> to each relevant geom:</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, colour <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"point"</span>, colour <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, geom <span class="op">=</span> <span class="st">"errorbar"</span>, width <span class="op">=</span> <span class="fl">.1</span>, colour <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_fill_viridis_d</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"E"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:viobox5"></span>
-<img src="04-ch4_files/figure-html/viobox5-1.png" alt="Manually changing the line colors." width="100%"><p class="caption">
-Figure 4.11: Manually changing the line colors.
-</p>
-</div>
-<p>We can also keep the original colours but adjust the transparency of each layer using <code>alpha</code>. Again, the exact values needed can take trial and error:</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_violin</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, geom <span class="op">=</span> <span class="st">"errorbar"</span>, width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_fill_viridis_d</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"E"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">language</span>, 
+                     group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">condition</span>, <span class="va">language</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_violin</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.25</span>, position <span class="op">=</span> <span class="va">pos</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, 
+               fatten <span class="op">=</span> <span class="cn">NULL</span>, 
+               alpha <span class="op">=</span> <span class="fl">0.75</span>,
+               position <span class="op">=</span> <span class="va">pos</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, 
+               geom <span class="op">=</span> <span class="st">"point"</span>, 
+               position <span class="op">=</span> <span class="va">pos</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, 
+               geom <span class="op">=</span> <span class="st">"errorbar"</span>, 
+               width <span class="op">=</span> <span class="fl">.1</span>,
+               position <span class="op">=</span> <span class="va">pos</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_fill_brewer</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:viobox6"></span>
 <img src="04-ch4_files/figure-html/viobox6-1.png" alt="Using transparency on the fill color." width="100%"><p class="caption">
-Figure 4.12: Using transparency on the fill color.
+Figure 4.10: Using transparency on the fill color.
+</p>
+</div>
+<p>Alternatively, we can change the fill of individual geoms by adding <code>fill = "colour"</code> to each relevant geom. In the example below, we fill the boxplots with white. Since all of the boxplots are no longer being filled according to language, but you still want a four separate boxplots, you have to add an extra mapping to <code>geom_boxplot()</code> to specify that you want the output grouped by the interaction of condition and language.</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_violin</span><span class="op">(</span>position <span class="op">=</span> <span class="va">pos</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, 
+               mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/interaction.html">interaction</a></span><span class="op">(</span><span class="va">condition</span>, <span class="va">language</span><span class="op">)</span><span class="op">)</span>,
+               fill <span class="op">=</span> <span class="st">"white"</span>,
+               position <span class="op">=</span> <span class="va">pos</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, 
+               geom <span class="op">=</span> <span class="st">"point"</span>, 
+               position <span class="op">=</span> <span class="va">pos</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, 
+               geom <span class="op">=</span> <span class="st">"errorbar"</span>, 
+               width <span class="op">=</span> <span class="fl">.1</span>,
+               position <span class="op">=</span> <span class="va">pos</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_fill_brewer</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:viobox5"></span>
+<img src="04-ch4_files/figure-html/viobox5-1.png" alt="Manually changing the fill color." width="100%"><p class="caption">
+Figure 4.11: Manually changing the fill color.
 </p>
 </div>
 </div>
@@ -306,13 +325,15 @@ Figure 4.12: Using transparency on the fill color.
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="co"># remove the median line with fatten = NULL</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"median"</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, geom <span class="op">=</span> <span class="st">"errorbar"</span>, width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></code></pre></div>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, 
+               geom <span class="op">=</span> <span class="st">"errorbar"</span>, 
+               width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></code></pre></div>
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li>For the violin-boxplot, for <code>geom = "errorbar"</code>, try changing <code>fun.data</code> to <code>mean_cl_normal</code> (for 95% CI)</li>
@@ -321,13 +342,15 @@ Solution
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="co"># remove the median line with fatten = NULL</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_cl_normal"</span>, geom <span class="op">=</span> <span class="st">"errorbar"</span>, width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></code></pre></div>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_cl_normal"</span>, 
+               geom <span class="op">=</span> <span class="st">"errorbar"</span>, 
+               width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></code></pre></div>
 </div>
 <ol start="5" style="list-style-type: decimal">
 <li>Go back to the grouped density plots and try changing the transparency with <code>alpha</code>.</li>
@@ -336,7 +359,7 @@ Solution
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_density</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Reaction time (ms)"</span><span class="op">)</span> <span class="op">+</span>
@@ -571,7 +594,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-09-18.</p>
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-10-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -334,7 +334,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
   geom_boxplot(width = .2, fatten = NULL, alpha = .5) +
   stat_summary(fun = "mean", geom = "point") +
   stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
-  scale_fill_viridis_d(option = "E") +
+  scale_fill_brewer(palette = "Dark2") +
   theme_minimal()
 ```
 
@@ -352,7 +352,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
   geom_boxplot(width = .2, fatten = NULL, alpha = .5) +
   stat_summary(fun = "mean", geom = "point") +
   stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
-  scale_fill_viridis_d(option = "E") +
+  scale_fill_brewer(palette = "Dark2") +
   scale_x_discrete(limits = c("nonword","word")) + 
   theme_minimal()
 ```
@@ -373,7 +373,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
                position = position_dodge(.9)) +
   stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1,
                position = position_dodge(.9)) +
-  scale_fill_viridis_d(option = "E") +
+  scale_fill_brewer(palette = "Dark2") +
   scale_x_discrete(limits = c("nonword","word")) + 
   theme_minimal()
 ```
@@ -401,7 +401,7 @@ dat_long %>%
                position = position_dodge(.9)) +
   stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1,
                position = position_dodge(.9)) +
-  scale_fill_viridis_d(option = "E") +
+  scale_fill_brewer(palette = "Dark2") +
   theme_minimal()
 ```
 
@@ -430,7 +430,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
   geom_boxplot(width = .2, fatten = NULL, alpha = .5) +
   stat_summary(fun = "mean", geom = "point") +
   stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
-  scale_fill_viridis_d(option = "E") +
+  scale_fill_brewer(palette = "Dark2") +
   guides(fill = "none") +
   theme_minimal()
 ```
@@ -449,7 +449,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition, color = condition))
   geom_boxplot(width = .2, fatten = NULL, alpha = .5) +
   stat_summary(fun = "mean", geom = "point") +
   stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
-  scale_fill_viridis_d(option = "E") +
+  scale_fill_brewer(palette = "Dark2") +
   guides(fill = "none", color = "none") +
   theme_minimal()
 ```
@@ -468,7 +468,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition, color = condition))
   geom_boxplot(width = .2, fatten = NULL, alpha = .5) +
   stat_summary(fun = "mean", geom = "point") +
   stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
-  scale_fill_viridis_d(option = "E") +
+  scale_fill_brewer(palette = "Dark2") +
   theme_minimal()
 ```
 
@@ -490,7 +490,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition, color = condition))
   geom_boxplot(width = .2, fatten = NULL, alpha = .5) +
   stat_summary(fun = "mean", geom = "point") +
   stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
-  scale_fill_viridis_d(option = "E") +
+  scale_fill_brewer(palette = "Dark2") +
   theme_minimal() +
   theme(legend.position = "none")
 ```

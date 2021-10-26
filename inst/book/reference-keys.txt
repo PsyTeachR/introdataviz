@@ -18,7 +18,7 @@ fig:point-plot
 fig:smooth-plot
 fig:scatter-grouped
 fig:unnamed-chunk-5
-fig:viridis
+fig:brewer
 fig:boxplot1
 fig:boxplot3
 fig:violin1
@@ -28,9 +28,8 @@ fig:viobox1
 fig:viobox1b
 fig:viobox2
 fig:viobox3
-fig:viobox4
-fig:viobox5
 fig:viobox6
+fig:viobox5
 fig:ixn
 fig:ixn-by-subj
 fig:scatterplot-facet

@@ -162,12 +162,13 @@ ggplot(dat_long, aes(x = rt)) +
 Density plots are most useful for comparing the distributions of different groups of data. Because the dataset is now in long format, it makes it easier to map another variable to the plot because each variable is contained within a single column. 
 
 * In addition to mapping `rt` to the x-axis, we specify the `fill` aesthetic to fill the visualisation of each level of the `condition` variable with different colours. 
+* Because the density plots are overlapping, we set `alpha = 0.75` to make the geoms 75% transparent.
 * As with the x and y-axis scale functions, we can edit the names and labels of our fill aesthetic by adding on another `scale_*` layer.
 * Note that the `fill` here is set inside the `aes()` function, which tells ggplot to set the fill differently for each value in the `condition` column. You cannot specify which colour here (e.g., `fill="red"`), like you could when you set `fill` inside the `geom_*()` function before.
 
 ```{r density-grouped, fig.cap="Density plot of reaction times grouped by condition."}
 ggplot(dat_long, aes(x = rt, fill = condition)) +
-  geom_density()+
+  geom_density(alpha = 0.75)+
   scale_x_continuous(name = "Reaction time (ms)") +
   scale_fill_discrete(name = "Condition",
                       labels = c("Word", "Non-word"))
@@ -232,16 +233,15 @@ dat_wide %>%
 
 ### Accessible colour schemes
 
-One of the drawbacks of using `ggplot2` for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in grey scale. You can specify exact custom colours for your plots, but one easy option is to use a colour palette and the `viridis` scale functions call such a palette. These take the same arguments as their default `scale` sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. The `viridis` scale functions provide a number of different options for the colour - try setting `option` to any letter from A - E to see the different sets.
+One of the drawbacks of using `ggplot2` for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in grey scale. You can specify exact custom colours for your plots, but one easy option is to use a custom colour palette. These take the same arguments as their default `scale` sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. For categorical colours, the "Set2", "Dark2" and "Paired" palettes from the `brewer` scale functions are colourblind-safe. For continuous colours, such as when colour is representing the magnitude of a correlation in a tile plot, the `viridis` scale functions provide a number of different colourblind and greyscale-safe options.
 
-```{r viridis, warning = FALSE,fig.cap="Use the viridis colour scheme for accessibility.", message = FALSE}
+```{r brewer, warning = FALSE,fig.cap="Use the Dark2 brewer colour scheme for accessibility.", message = FALSE}
 ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  # use "viridis_d" instead of "discrete" for better colours
-  scale_colour_viridis_d(name = "Condition",
-                        labels = c("Word", "Non-word"),
-                        option = "E")
+  scale_color_brewer(palette = "Dark2",
+                     name = "Condition",
+                     labels = c("Word", "Non-word"))
 ```
 
 ## Specifying axis `breaks` with `seq()`
@@ -278,5 +278,5 @@ Before you move on try the following:
 4. Remove `method = "lm"` from `geom_smooth()` to produce a curved regression line.
 
 
-5. Replace the default `scale_fill_*()` on the grouped density plot with the colour-blind friendly version.
+5. Replace the default `scale_fill_*()` on the grouped density plot with a colour-blind friendly version.
 

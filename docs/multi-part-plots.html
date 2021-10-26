@@ -7,7 +7,7 @@
 <title>Chapter 5 Multi-part Plots | Data visualisation using R, for researchers who don’t use R</title>
 <meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine">
 <meta name="description" content="5.1 Interaction plots Interaction plots are commonly used to help display or interpret a factorial design. Just as with the bar chart of means, interaction plots represent data summaries and so...">
-<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 5 Multi-part Plots | Data visualisation using R, for researchers who don’t use R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://psyteachr.github.io/introdataviz/multi-part-plots.html">
@@ -17,9 +17,9 @@
 <meta name="twitter:title" content="Chapter 5 Multi-part Plots | Data visualisation using R, for researchers who don’t use R">
 <meta name="twitter:description" content="5.1 Interaction plots Interaction plots are commonly used to help display or interpret a factorial design. Just as with the bar chart of means, interaction plots represent data summaries and so...">
 <meta name="twitter:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10.6/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -85,7 +85,7 @@
 <li><p><code>size</code> lets you change the size of lines and points. You usually don't want different groups to be different sizes, so this option is set inside the relevant <code>geom_*()</code> function, not inside the <code>aes()</code> function.</p></li>
 <li><p><code>scale_color_manual()</code> works much like <code>scale_color_discrete()</code> except that it lets you specify the colour values manually, instead of then being automatically applied based on the palette you choose/default to. You can specify RGB colour values or a list of predefined colour names - all available options can be found by running <code><a href="https://rdrr.io/r/grDevices/colors.html">colours()</a></code> in the console. Other manual scales are also available, for example, <code>scale_fill_manual</code>.</p></li>
 </ul>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y <span class="op">=</span> <span class="va">rt</span>, 
                      shape <span class="op">=</span> <span class="va">language</span>,
                      group <span class="op">=</span> <span class="va">language</span>,
@@ -115,7 +115,7 @@ Figure 5.1: Interaction plot.
 <li>Similarly, <code>geom_line()</code> overrides the default grouping variable so that a line is drawn to connect the individual data points for each <em>participant</em> (<code>group = id</code>) rather than each language group, and also sets the colours. The default line type is also overridden and set for all lines to be solid.</li>
 <li>Finally, the calls to <code>stat_summary()</code> remain largely as they were, with the exception of setting <code>colour = "black"</code> and <code>size = 2</code> so that the overall means and error bars can be more easily distinguished from the individual data points. Because they do not specify an individual mapping, they use the defaults (e.g., the lines are connected by language group). For the error bars the lines are again made solid.</li>
 </ul>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y <span class="op">=</span> <span class="va">rt</span>, 
                      group <span class="op">=</span> <span class="va">language</span>, shape <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="va">language</span><span class="op">)</span>,alpha <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
@@ -124,6 +124,7 @@ Figure 5.1: Interaction plot.
   <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"line"</span>, colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, geom <span class="op">=</span> <span class="st">"errorbar"</span>, 
                width <span class="op">=</span> <span class="fl">.2</span>, colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_color_brewer</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:ixn-by-subj"></span>
@@ -140,7 +141,7 @@ Figure 5.2: Interaction plot with by-participant data
 <ul>
 <li>Rather than using <code>colour = condition</code> to produce different colours for each level of <code>condition</code>, this variable is instead passed to <code>facet_wrap()</code>.</li>
 </ul>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, y <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>
@@ -152,7 +153,7 @@ Figure 5.3: Faceted scatterplot
 </p>
 </div>
 <p>As another example, we can use <code>facet_wrap()</code> as an alternative to the grouped violin-boxplot (see Figure <a href="representing-summary-statistics.html#fig:viobox3">4.9</a>) in which the variable <code>language</code> is passed to <code>facet_wrap()</code> rather than <code>fill</code>.</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span>
@@ -167,7 +168,7 @@ Figure 5.4: Facted violin-boxplot
 </p>
 </div>
 <p>Finally, note that editing the labels for faceted variables involves converting the <code>language</code> column into a factor. This allows you to set the order of the <code>levels</code> and the <code>labels</code> to display.</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span>
@@ -190,14 +191,14 @@ Figure 5.5: Faceted violin-boxplot with updated labels
 <span class="header-section-number">5.4</span> Storing plots<a class="anchor" aria-label="anchor" href="#storing-plots"><i class="fas fa-link"></i></a>
 </h2>
 <p>Just like with datasets, plots can be saved to objects. The below code saves the histograms we produced for reaction time and accuracy to objects named <code>p1</code> and <code>p2</code>. These plots can then be viewed by calling the object name in the console.</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">10</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span>
 
 <span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">acc</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> </code></pre></div>
 <p>Importantly, layers can then be added to these saved objects. For example, the below code adds a theme to the plot saved in <code>p1</code> and saves it as a new object <code>p3</code>. This is important because many of the examples of <code>ggplot2</code> code you will find in online help forums use the <code>p +</code> format to build up plots but fail to explain what this means, which can be confusing to beginners.</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op">+</span> <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="saving-plots-as-images" class="section level2" number="5.5">
@@ -205,7 +206,7 @@ Figure 5.5: Faceted violin-boxplot with updated labels
 <span class="header-section-number">5.5</span> Saving plots as images<a class="anchor" aria-label="anchor" href="#saving-plots-as-images"><i class="fas fa-link"></i></a>
 </h2>
 <p>In addition to saving plots to objects for further use in R, the function <code>ggsave()</code> can be used to save plots as images on your hard drive. The only required argument for <code>ggsave</code> is the file name of the image file you will create, complete with file extension (this can be "eps", "ps", "tex", "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf"). By default, <code>ggsave()</code> will save the last plot displayed, however, you can also specify a specific plot object if you have one saved.</p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggsave</span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"my_plot.png"</span><span class="op">)</span> <span class="co"># save last displayed plot</span>
 <span class="fu">ggsave</span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"my_plot.png"</span>, plot <span class="op">=</span> <span class="va">p3</span><span class="op">)</span> <span class="co"># save plot p3</span></code></pre></div>
 <p>The width, height and resolution of the image can all be manually adjusted and the help documentation for is useful here (type <code>?ggsave</code> in the console to access the help).</p>
@@ -220,7 +221,7 @@ Figure 5.5: Faceted violin-boxplot with updated labels
 <span class="header-section-number">5.6.1</span> Combining two plots<a class="anchor" aria-label="anchor" href="#combining-two-plots"><i class="fas fa-link"></i></a>
 </h3>
 <p>Two plots can be combined side-by-side or stacked on top of each other. These combined plots could also be saved to an object and then passed to <code>ggsave</code>.</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="co"># side-by-side</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:patchwork-side"></span>
@@ -228,7 +229,7 @@ Figure 5.5: Faceted violin-boxplot with updated labels
 Figure 5.6: Side-by-side plots with patchwork
 </p>
 </div>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p1</span> <span class="op">/</span> <span class="va">p2</span> <span class="co"># stacked</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:patchwork-stack"></span>
@@ -242,7 +243,7 @@ Figure 5.7: Stacked plots with patchwork
 <span class="header-section-number">5.6.2</span> Combining three or more plots<a class="anchor" aria-label="anchor" href="#combining-three-or-more-plots"><i class="fas fa-link"></i></a>
 </h3>
 <p>Three or more plots can be combined in a number of ways and the <code>patchwork</code> syntax is relatively easy to grasp with a few examples and a bit of trial and error. First, we save the complex interaction plot and faceted violin-boxplot to objects named <code>p5</code> and <code>p6</code>.</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y <span class="op">=</span> <span class="va">rt</span>, 
                            group <span class="op">=</span> <span class="va">language</span>, 
                            shape <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -274,7 +275,7 @@ Figure 5.7: Stacked plots with patchwork
                                 <span class="st">"Bilingual participants"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>The exact layout of your plots will depend upon a number of factors. Try running the below examples and adjust the use of the operators to see how they change the layout. Each line of code will draw a different figure.</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p1</span> <span class="op">/</span><span class="va">p5</span> <span class="op">/</span> <span class="va">p6</span> 
 <span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p6</span><span class="op">)</span> <span class="op">/</span> <span class="va">p5</span> 
 <span class="va">p6</span> <span class="op">|</span> <span class="va">p1</span> <span class="op">/</span> <span class="va">p5</span> </code></pre></div>
@@ -289,7 +290,7 @@ Figure 5.7: Stacked plots with patchwork
 <span class="header-section-number">5.7.1</span> Axis labels<a class="anchor" aria-label="anchor" href="#axis-labels"><i class="fas fa-link"></i></a>
 </h3>
 <p>Previously when we edited the main axis labels we used the <code>scale_</code> functions to do so. These functions are useful to know because they allow you to customise each aspect of the scale, for example, the breaks and limits. However, if you only need to change the main axis <code>name</code>, there is a quicker way to do so using <code>labs()</code>. The below code adds a layer to the plot that changes the axis labels for the histogram saved in <code>p1</code> and adds a title and subtitle. The title and subtitle do not conform to APA standards (more on APA formatting in the additional resources), however, for presentations and social media they can be useful.</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p5</span> <span class="op">+</span> <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Type of word"</span>,
           y <span class="op">=</span> <span class="st">"Reaction time (ms)"</span>,
           title <span class="op">=</span> <span class="st">"Language group by word type interaction plot"</span>,
@@ -307,7 +308,26 @@ Figure 5.8: Plot with edited labels and title
 <span class="header-section-number">5.7.2</span> Redundant aesthetics<a class="anchor" aria-label="anchor" href="#redundant-aesthetics"><i class="fas fa-link"></i></a>
 </h3>
 <p>So far when we have produced plots with colours, the colours were the only way that different levels of a variable were indicated, but it is sometimes preferable to indicate levels with both colour and other means, such as facets or x-axis categories.</p>
-<p>The code below adds <code>fill = language</code> to the violin-boxplots that are also faceted by language. We adjust <code>alpha</code> and use the viridis colour palette to customise the colours.</p>
+<p>The code below adds <code>fill = language</code> to the violin-boxplots that are also faceted by language. We adjust <code>alpha</code> and use the brewer colour palette to customise the colours.</p>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_violin</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">.6</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, geom <span class="op">=</span> <span class="st">"errorbar"</span>, width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">language</span>, 
+                     levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"monolingual"</span>, <span class="st">"bilingual"</span><span class="op">)</span>,
+                     labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Monolingual participants"</span>, 
+                                <span class="st">"Bilingual participants"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_fill_brewer</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-6"></span>
+<img src="05-ch5_files/figure-html/unnamed-chunk-6-1.png" alt="Violin-boxplot with redundant legend" width="100%"><p class="caption">
+Figure 5.9: Violin-boxplot with redundant legend
+</p>
+</div>
+<p>Specifying a <code>fill</code> variable means that by default, R produces a legend for that variable. However, the use of colour is redundant with the facet labels, so you can remove this legend with the <code>guides</code> function.</p>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span> <span class="op">+</span>
@@ -319,27 +339,8 @@ Figure 5.8: Plot with edited labels and title
                      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Monolingual participants"</span>, 
                                 <span class="st">"Bilingual participants"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_fill_viridis_d</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"E"</span><span class="op">)</span></code></pre></div>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-6"></span>
-<img src="05-ch5_files/figure-html/unnamed-chunk-6-1.png" alt="Violin-boxplot with redundant legend" width="100%"><p class="caption">
-Figure 5.9: Violin-boxplot with redundant legend
-</p>
-</div>
-<p>Specifying a <code>fill</code> variable means that by default, R produces a legend for that variable. However, the use of colour is redundant with the facet labels, so you can remove this legend with the <code>guides</code> function.</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_violin</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">.6</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, geom <span class="op">=</span> <span class="st">"errorbar"</span>, width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">language</span>, 
-                     levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"monolingual"</span>, <span class="st">"bilingual"</span><span class="op">)</span>,
-                     labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Monolingual participants"</span>, 
-                                <span class="st">"Bilingual participants"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_fill_viridis_d</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"E"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">guides</span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+  <span class="fu">scale_fill_brewer</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">guides</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:legend-suppress"></span>
 <img src="05-ch5_files/figure-html/legend-suppress-1.png" alt="Plot with suppressed redundant legend" width="100%"><p class="caption">
@@ -360,7 +361,7 @@ Figure 5.10: Plot with suppressed redundant legend
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y <span class="op">=</span> <span class="va">rt</span>, group <span class="op">=</span> <span class="va">language</span>, shape <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="va">language</span><span class="op">)</span>,alpha <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>group <span class="op">=</span> <span class="va">id</span>, colour <span class="op">=</span> <span class="va">language</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span>
@@ -371,7 +372,7 @@ Solution
   <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">language</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">guides</span><span class="op">(</span>shape <span class="op">=</span> <span class="cn">FALSE</span>, colour <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </code></pre></div>
 <div class="inline-figure"><img src="05-ch5_files/figure-html/activity-facet-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># this wasn't easy so if you got it, well done!</span></code></pre></div>
 </div>
 <ol start="2" style="list-style-type: decimal">
@@ -612,7 +613,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-09-18.</p>
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-10-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
