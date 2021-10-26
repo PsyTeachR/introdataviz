@@ -41,7 +41,7 @@ Imports:
     patchwork,
     readr,
     knitr,
-    webex,
+    webexercises,
     glossary,
     broom,
     plyr,
