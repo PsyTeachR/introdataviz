@@ -198,7 +198,7 @@ ggplot(dat, aes(x = age)) +
   geom_histogram()
 ```
 
-The base statistic for `geom_histogram()` is also count, and by default `geom_histogram()` divides the x-axis into "bins" and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message `stat_bin() using bins = 30. Pick better value with binwidth`. This means that the default number of bins `geom_histogram()` divided the x-axis into is 30. For our data that looks appropriate, but for example, if you want one bar to equal 5 years, you can adjust `binwidth = 5`.
+The base statistic for `geom_histogram()` is also count, and by default `geom_histogram()` divides the x-axis into "bins" and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message `stat_bin() using bins = 30. Pick better value with binwidth`. This means that, by default, `geom_histogram()` divides the x-axis into 30 bins. You can change this by either setting the number of bins (e.g., `bins = 20`) or the width of each bin (e.g., `binwidth = 5`) as an argument.
 
 ```{r histogram2, fig.cap = "Histogram of ages where each bin covers five years."}
 ggplot(dat, aes(x = age)) +
