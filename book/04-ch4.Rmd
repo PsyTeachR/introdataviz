@@ -18,9 +18,9 @@ As with histograms and density plots, `fill` can be used to create grouped boxpl
 ```{r boxplot3, fig.cap="Grouped boxplots"}
 ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
   geom_boxplot() +
-  scale_fill_viridis_d(option = "E",
-                       name = "Group",
-                       labels = c("Bilingual", "Monolingual")) +
+  scale_fill_brewer(palette = "Dark2",
+                    name = "Group",
+                    labels = c("Bilingual", "Monolingual")) +
   theme_classic() +
   scale_x_discrete(name = "Condition",
                    labels = c("Word", "Non-word")) +
@@ -34,9 +34,9 @@ Violin plots display the distribution of a dataset and can be created by calling
 ```{r violin1, fig.cap="Violin plot."}
 ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
   geom_violin() +
-  scale_fill_viridis_d(option = "D",
-                       name = "Group",
-                       labels = c("Bilingual", "Monolingual")) +
+  scale_fill_brewer(palette = "Dark2",
+                    name = "Group",
+                    labels = c("Bilingual", "Monolingual")) +
   theme_classic() +
   scale_x_discrete(name = "Condition",
                    labels = c("Word", "Non-word")) +
@@ -122,43 +122,39 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
 
 ## Customisation part 3
 
-Combining multiple type of plots can present an issue with the colours, particularly when the viridis scheme is used - in the below example it is hard to make out the black lines of the boxplot and the mean/error bars.
+Combining multiple type of plots can present an issue with the colours, particularly when the fill and line colours are similar. For example, it is hard to make out the boxplot against the violin plot above.
 
-```{r viobox4, fig.cap="A color scheme that makes lines difficult to see.", warning = FALSE}
-ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
-  geom_violin() +
-  geom_boxplot(width = .2, fatten = NULL, position = position_dodge(.9)) +
+There are a number of solutions to this problem. One solution is to adjust the transparency of each layer using `alpha`. The exact values needed can take trial and error:
+
+```{r viobox6, fig.cap="Using transparency on the fill color.", warning = FALSE}
+ggplot(dat_long, aes(x = condition, y= rt, fill = language, 
+                     group = paste(condition, language))) +
+  geom_violin(alpha = 0.25) +
+  geom_boxplot(width = .2, fatten = NULL, 
+               alpha = 0.75,
+               position = position_dodge(.9)) +
   stat_summary(fun = "mean", geom = "point", 
                position = position_dodge(.9)) +
   stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1,
-               position = position_dodge(.9)) +
-  scale_fill_viridis_d(option = "E") +
-  theme_minimal()
+               position = position_dodge(.9))
 ```
 
-There are a number of solutions to this problem. First, we can change the colour of individual geoms by adding `colour = "colour"` to each relevant geom:
+Alternatively, we can change the fill of individual geoms by adding `fill = "colour"` to each relevant geom. In the example below, we fill the boxplots with white. Since all of the boxplots are no longer being filled according to language, but you still want a four separate boxplots, you have to add an extra mapping to `geom_boxplot()` to specify that you want the output grouped by the interaction of condition and language.
 
-```{r viobox5, fig.cap="Manually changing the line colors.",  warning = FALSE}
-ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
+```{r viobox5, fig.cap="Manually changing the fill color.",  warning = FALSE}
+ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
   geom_violin() +
-  geom_boxplot(width = .2, fatten = NULL, colour = "grey") +
-  stat_summary(fun = "mean", geom = "point", colour = "grey") +
-  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1, colour = "grey") +
-  scale_fill_viridis_d(option = "E") +
-  theme_minimal()
+  geom_boxplot(width = .2, fatten = NULL, 
+               mapping = aes(group = interaction(condition, language)),
+               fill = "white",
+               position = position_dodge(.9)) +
+  stat_summary(fun = "mean", geom = "point", 
+               position = position_dodge(.9)) +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1,
+               position = position_dodge(.9))
 ```
 
-We can also keep the original colours but adjust the transparency of each layer using `alpha`. Again, the exact values needed can take trial and error:
 
-```{r viobox6, fig.cap="Using transparency on the fill color.", warning = FALSE}
-ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
-  geom_violin(alpha = .4) +
-  geom_boxplot(width = .2, fatten = NULL, alpha = .5) +
-  stat_summary(fun = "mean", geom = "point") +
-  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1) +
-  scale_fill_viridis_d(option = "E") +
-  theme_minimal()
-```
 
 ## Activities 3
 
@@ -169,6 +165,7 @@ Before you go on, do the following:
 2. Take a moment to recognise the complexity of the code you are now able to read.
 
 3. For the violin-boxplot, for `geom = "point"`, try changing `fun` to `median`
+
 
 `r hide("Solution")`
 

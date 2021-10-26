@@ -302,10 +302,9 @@ ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
 ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  # use "viridis_d" instead of "discrete" for better colours
-  scale_colour_viridis_d(name = "Condition",
-                        labels = c("Word", "Non-word"),
-                        option = "E")
+  scale_colour_brewer(name = "Condition",
+                      labels = c("Word", "Non-word"),
+                      palette = "Dark2")
 ```
 
 ### Activities 2
@@ -355,9 +354,9 @@ ggplot(dat_long, aes(x = condition, y = acc)) +
 ```{r}
 ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
   geom_boxplot() +
-  scale_fill_viridis_d(option = "E",
-                       name = "Group",
-                       labels = c("Bilingual", "Monolingual")) +
+  scale_fill_brewer(palette = "Dark2",
+                    name = "Group",
+                    labels = c("Bilingual", "Monolingual")) +
   theme_classic() +
   scale_x_discrete(name = "Condition",
                    labels = c("Word", "Non-word")) +
@@ -369,9 +368,9 @@ ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
 ```{r}
 ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
   geom_violin() +
-  scale_fill_viridis_d(option = "D",
-                       name = "Group",
-                       labels = c("Bilingual", "Monolingual")) +
+  scale_fill_brewer(palette = "Dark2",
+                    name = "Group",
+                    labels = c("Bilingual", "Monolingual")) +
   theme_classic() +
   scale_x_discrete(name = "Condition",
                    labels = c("Word", "Non-word")) +
@@ -448,7 +447,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
                position = position_dodge(.9)) +
   stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1,
                position = position_dodge(.9)) +
-  scale_fill_viridis_d(option = "E") +
+  scale_fill_brewer(palette = "Dark2") +
   theme_minimal()
 ```
 
@@ -460,7 +459,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
   geom_boxplot(width = .2, fatten = NULL, colour = "grey") +
   stat_summary(fun = "mean", geom = "point", colour = "grey") +
   stat_summary(fun.data = "mean_se", geom = "errorbar", width = .1, colour = "grey") +
-  scale_fill_viridis_d(option = "E") +
+  scale_fill_brewer(palette = "Dark2") +
   theme_minimal()
 ```
 
@@ -656,7 +655,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
                language = (c(monolingual = "Monolingual participants", 
                              bilingual = "Bilingual participants")))) +
   theme_minimal() +
-  scale_fill_viridis_d(option = "E")
+  scale_fill_brewer(palette = "Dark2")
 ```
 
 Without redundant legend
@@ -670,7 +669,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
   facet_wrap(~language, 
              labeller = labeller(language = (c(monolingual = "Monolingual participants", bilingual = "Bilingual participants")))) +
   theme_minimal() +
-  scale_fill_viridis_d(option = "E") +
+  scale_fill_brewer(palette = "Dark2") +
   guides(fill = FALSE)
 ```
 

@@ -194,7 +194,7 @@ You can also use `labs()` to remove axis labels, for example, try adjusting the 
 
 So far when we have produced plots with colours, the colours were the only way that different levels of a variable were indicated, but it is sometimes preferable to indicate levels with both colour and other means, such as facets or x-axis categories.
 
-The code below adds `fill = language` to the violin-boxplots that are also faceted by language. We adjust `alpha` and use the viridis colour palette to customise the colours.
+The code below adds `fill = language` to the violin-boxplots that are also faceted by language. We adjust `alpha` and use the brewer colour palette to customise the colours.
 
 ```{r warning=FALSE, fig.cap="Violin-boxplot with redundant legend"}
 ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
@@ -207,7 +207,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
                      labels = c("Monolingual participants", 
                                 "Bilingual participants"))) +
   theme_minimal() +
-  scale_fill_viridis_d(option = "E")
+  scale_fill_brewer(palette = "Dark2")
 ```
 
 Specifying a `fill` variable means that by default, R produces a legend for that variable. However, the use of colour is redundant with the facet labels, so you can remove this legend with the `guides` function.
@@ -223,8 +223,8 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
                      labels = c("Monolingual participants", 
                                 "Bilingual participants"))) +
   theme_minimal() +
-  scale_fill_viridis_d(option = "E") +
-  guides(fill = FALSE)
+  scale_fill_brewer(palette = "Dark2") +
+  guides(fill = "none")
 ```
 
 ## Activities 4
