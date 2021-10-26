@@ -75,7 +75,7 @@ Ridge plots are a series of density plots and show the distribution of numeric v
 
 ```{r ridgeplot, fig.cap="A ridge plot.", fig.width = 5, fig.height = 6}
 # read in data from Nation et al. 2017
-data <- read_csv("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv")
+data <- read_csv("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", col_types = "d")
 
 # convert to long format and percents
 long <- pivot_longer(data, cols = everything(),
@@ -90,7 +90,8 @@ ggplot(long, aes(x = prob, y = label, fill = label)) +
   scale_x_continuous(name = "Assigned Probability", 
                      limits = c(0, 1), labels = scales::percent) +
   # control space at top and bottom of plot
-  scale_y_discrete(name = "", expand = c(0.02, 0, .08, 0))
+  scale_y_discrete(name = "", expand = c(0.02, 0, .08, 0)) + 
+  scale_fill_viridis_d(option = "D") # colourblind-safe colours
 ```
 
 ## Alluvial plots

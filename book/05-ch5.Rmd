@@ -42,6 +42,7 @@ ggplot(dat_long, aes(x = condition, y = rt,
   stat_summary(fun = "mean", geom = "line", colour = "black") +
   stat_summary(fun.data = "mean_se", geom = "errorbar", 
                width = .2, colour = "black") +
+  scale_color_brewer(palette = "Dark2") +
   theme_minimal()
 ```
 
