@@ -51,15 +51,16 @@ ggplot(dat_long, aes(x = condition, y = rt,
 So far we have produced single plots that display all the desired variables in one, however, there are situations in which it may be useful to create separate plots for each level of a variable. The below code is an adaptation of the code used to produce the grouped scatterplot (see Figure\ \@ref(fig:viobox2)) in which it may be easier to see how the relationship changes when the data are not overlaid.
 
 -   Rather than using `colour = condition` to produce different colours for each level of `condition`, this variable is instead passed to `facet_wrap()`.
+-   
 
 ```{r scatterplot-facet, fig.cap="Faceted scatterplot"}
 ggplot(dat_long, aes(x = rt, y = age)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  facet_wrap(~condition)
+  facet_wrap(facets = vars(condition))
 ```
 
-As another example, we can use `facet_wrap()` as an alternative to the grouped violin-boxplot (see Figure\ \@ref(fig:viobox3)) in which the variable `language` is passed to `facet_wrap()` rather than `fill`.
+As another example, we can use `facet_wrap()` as an alternative to the grouped violin-boxplot (see Figure\ \@ref(fig:viobox3)) in which the variable `language` is passed to `facet_wrap()` rather than `fill`. Using the tilde (`~`) to specify which factor is faceted is an alternative to using `facets = vars(factor)` like above.
 
 ```{r violin-boxplot-facet, fig.cap="Facted violin-boxplot"}
 ggplot(dat_long, aes(x = condition, y= rt)) +
