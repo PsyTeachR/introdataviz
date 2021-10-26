@@ -2,7 +2,7 @@
 
 ## Easter Egg - Overlaying Plots
 
-Hopefully from some of the materials we have shown you, you will have found ways of presenting data in an informative manner - for example, we have shown violin plots and how they can be effective, when combined with boxplots, at displaying distributions. However, if you are familiar with other software you may be used to seeing this sort of information displayed differently, as perhaps a histogram with a normal curve overlaid. Whist the violin plots are better to convey that information we thought it might help to see alternative approaches here. Really it is about overlaying some of the plots we have already shown, but with some slight adjustments. FOr example, lets look at the histogram and density plot of reaction times we saw earlier - shown here side by side for convenience.
+Hopefully from some of the materials we have shown you, you will have found ways of presenting data in an informative manner - for example, we have shown violin plots and how they can be effective, when combined with boxplots, at displaying distributions. However, if you are familiar with other software you may be used to seeing this sort of information displayed differently, as perhaps a histogram with a normal curve overlaid. Whist the violin plots are better to convey that information we thought it might help to see alternative approaches here. Really it is about overlaying some of the plots we have already shown, but with some slight adjustments. For example, lets look at the histogram and density plot of reaction times we saw earlier - shown here side by side for convenience.
 
 ```{r}
 a <- ggplot(dat_long, aes(x = rt)) +
@@ -82,7 +82,8 @@ A nice way of representing a change across different conditions, within particip
 dat_avg <- dat %>%
   group_by(language) %>%
   summarise(mean_acc_nonword = mean(acc_nonword),
-            mean_acc_word = mean(acc_word))
+            mean_acc_word = mean(acc_word)) %>%
+  ungroup()
 ```
 
 So our data looks as follows:
@@ -142,7 +143,7 @@ Of course, worth remembering, it is better to always think of the dumbbell as a 
 
 ## Easter Egg - A Pie Chart
 
-Pie Charts are not the best form of visualisation as they generally require people to compare areas and/or angles which is a fairly unintuitive means of doing a comparison. The are so disliked in many fields that ggplot does not actually have a `geom_...()` function to create one. But, there is always somebody that wants to create a pie chart regardless and who are we to judge. So here would be the code to produce a pie chart of the demographic data we saw in the start of the paper:
+Pie Charts are not the best form of visualisation as they generally require people to compare areas and/or angles which is a fairly unintuitive means of doing a comparison. They are so disliked in many fields that ggplot does not actually have a `geom_...()` function to create one. But, there is always somebody that wants to create a pie chart regardless and who are we to judge. So here would be the code to produce a pie chart of the demographic data we saw in the start of the paper:
 
 ```{r piechart-full, fig.cap="A pie chart of the demographics", warning = FALSE, echo = TRUE}
 count_dat <- dat %>%

@@ -70,23 +70,27 @@ You can calculate and plot some basic descriptive information about the demograp
 
 -   Group it by the variable `language` *and then;*
 
--   Count the number of observations in each group
+-   Count the number of observations in each group *and then;*
+
+-   Remove the grouping
 
 ```{r demo_stats, eval =FALSE}
 dat %>%
   group_by(language) %>%
-  count()
+  count() %>%
+  ungroup()
 ```
 
 ```{r demo_statsb, echo=FALSE}
 dat %>%
   group_by(language) %>%
   count() %>%
+  ungroup() %>%
   knitr::kable(align = "c")
 ```
 
 
-`group_by()` does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever function is called next is performed separately on each level of the grouping variable. The above code therefore counts the number of observations in each group of the variable `language`. If you just need the total number of observations, you could remove the `group_by()` line which would perform the operation on the whole dataset, rather than by groups:
+`group_by()` does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever functions called next are performed separately on each level of the grouping variable, until the grouping is removed with `ungroup()`. The above code therefore counts the number of observations in each group of the variable `language`. If you just need the total number of observations, you could remove the `group_by()` and `ungroup()` lines, which would perform the operation on the whole dataset, rather than by groups:
 
 ```{r demo_stats2, eval=FALSE}
 dat %>%
@@ -127,14 +131,15 @@ age_stats <- dat %>%
             n_values = n())
 ```
 
-Finally, the `group_by()` function will work in the same way when calculating summary statistics - the output of the function that is called after `group_by()` will be produced for each level of the grouping variable.
+Finally, the `group_by()` function will work in the same way when calculating summary statistics -- the output of the function that is called after `group_by()` will be produced for each level of the grouping variable.
 
 ```{r demo3, eval=FALSE}
 dat %>%
   group_by(language) %>%
   summarise(mean_age = mean(age),
             sd_age = sd(age),
-            n_values = n())
+            n_values = n()) %>%
+  ungroup()
 ```
 
 ```{r demo3b, echo=FALSE}

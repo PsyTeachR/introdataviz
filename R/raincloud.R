@@ -42,7 +42,8 @@ geom_flat_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
         dplyr::mutate(ymin = min(y),
                ymax = max(y),
                xmin = x,
-               xmax = x + width / 2)
+               xmax = x + width / 2) %>%
+        dplyr::ungroup()
       
     },
     draw_group = function(data, panel_scales, coord) {

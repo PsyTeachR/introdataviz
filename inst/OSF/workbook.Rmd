@@ -61,7 +61,8 @@ dat <- dat %>%
 ```{r}
 dat %>%
   group_by(language) %>%
-  count()
+  count() %>%
+  ungroup()
 ```
 
 ```{r}
@@ -88,7 +89,7 @@ dat %>%
   group_by(language) %>%
   summarise(mean_age = mean(age),
             sd_age = sd(age),
-            n_values = n())
+            n_values = n()) %>%
 ```
 
 ### Bar chart of counts
