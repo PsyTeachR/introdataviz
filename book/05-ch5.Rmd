@@ -116,7 +116,7 @@ ggsave(filename = "my_plot.png") # save last displayed plot
 ggsave(filename = "my_plot.png", plot = p3) # save plot p3
 ```
 
-The width, height and resolution of the image can all be manually adjusted and the help documentation for is useful here (type `?ggsave` in the console to access the help).
+The width, height and resolution of the image can all be manually adjusted. Fonts will scale with these sizes, an may look different to the preview images you see in the Viewer tab. The help documentation for is useful here (type `?ggsave` in the console to access the help).
 
 ## Multiple plots
 
