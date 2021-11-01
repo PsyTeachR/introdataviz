@@ -6,7 +6,7 @@ Interaction plots are commonly used to help display or interpret a factorial des
 
 -   `shape` acts much like `fill` in previous plots, except that rather than producing different colour fills for each level of the IV, the data points are given different shapes.
 
--   `size` lets you change the size of lines and points. You usually don't want different groups to be different sizes, so this option is set inside the relevant `geom_*()` function, not inside the `aes()` function.
+-   `size` lets you change the size of lines and points. If you want different groups to be different sizes, set this inside the `aes()` function; if you want to change the size for all groups, set it inside the relevant `geom_*()` function'.
 
 - `scale_color_manual()` works much like `scale_color_discrete()` except that it lets you specify the colour values manually, instead of then being automatically applied based on the palette you choose/default to. You can specify RGB colour values or a list of predefined colour names - all available options can be found by running `colours()` in the console. Other manual scales are also available, for example, `scale_fill_manual`.
 
