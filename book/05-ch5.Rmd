@@ -8,7 +8,7 @@ Interaction plots are commonly used to help display or interpret a factorial des
 
 -   `size` lets you change the size of lines and points. If you want different groups to be different sizes, set this inside the `aes()` function; if you want to change the size for all groups, set it inside the relevant `geom_*()` function'.
 
-- `scale_color_manual()` works much like `scale_color_discrete()` except that it lets you specify the colour values manually, instead of then being automatically applied based on the palette you choose/default to. You can specify RGB colour values or a list of predefined colour names - all available options can be found by running `colours()` in the console. Other manual scales are also available, for example, `scale_fill_manual`.
+-   `scale_color_manual()` works much like `scale_color_discrete()` except that it lets you specify the colour values manually, instead of then being automatically applied based on the palette you choose/default to. You can specify RGB colour values or a list of predefined colour names - all available options can be found by running `colours()` in the console. Other manual scales are also available, for example, `scale_fill_manual`.
 
 ```{r ixn, fig.cap="Interaction plot."}
 ggplot(dat_long, aes(x = condition, y = rt, 
@@ -22,6 +22,8 @@ ggplot(dat_long, aes(x = condition, y = rt,
   theme_classic()
 ```
 
+You can use redundant aesthetics, such as indicating the language groups using both colour and shape, in order to increase accessibility for colourblind readers or when images are printed in greyscale.
+
 ## Combined interaction plots
 
 A more complex interaction plot can be produced that takes advantage of the layers to visualise not only the overall interaction, but the change across conditions for each participant.
@@ -33,7 +35,7 @@ This code is more complex than all prior code because it does not use a universa
 -   Similarly, `geom_line()` overrides the default grouping variable so that a line is drawn to connect the individual data points for each *participant* (`group = id`) rather than each language group, and also sets the colours.  The default line type is also overridden and set for all lines to be solid.
 -   Finally, the calls to `stat_summary()` remain largely as they were, with the exception of setting `colour = "black"` and `size = 2` so that the overall means and error bars can be more easily distinguished from the individual data points. Because they do not specify an individual mapping, they use the defaults (e.g., the lines are connected by language group). For the error bars the lines are again made solid.
 
-```{r ixn-by-subj, fig.cap="Interaction plot with by-participant data"}
+```{r ixn-by-subj, fig.cap="Interaction plot with by-participant data."}
 ggplot(dat_long, aes(x = condition, y = rt, 
                      group = language, shape = language)) +
   geom_point(aes(colour = language),alpha = .2) +
@@ -48,7 +50,7 @@ ggplot(dat_long, aes(x = condition, y = rt,
 
 ## Facets
 
-So far we have produced single plots that display all the desired variables in one, however, there are situations in which it may be useful to create separate plots for each level of a variable. The below code is an adaptation of the code used to produce the grouped scatterplot (see Figure\ \@ref(fig:viobox2)) in which it may be easier to see how the relationship changes when the data are not overlaid.
+So far we have produced single plots that display all the desired variables in one, however, there are situations in which it may be useful to create separate plots for each level of a variable. This can also help with accessibility when used instead of or in addition to group colours. The below code is an adaptation of the code used to produce the grouped scatterplot (see Figure\ \@ref(fig:viobox2)) in which it may be easier to see how the relationship changes when the data are not overlaid.
 
 -   Rather than using `colour = condition` to produce different colours for each level of `condition`, this variable is instead passed to `facet_wrap()`.
 -   
