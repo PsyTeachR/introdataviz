@@ -178,7 +178,7 @@ ggplot(dat_long, aes(x = rt, fill = condition)) +
 
 Scatterplots are created by calling `geom_point()` and require both an `x` and `y` variable to be specified in the mapping.
 
-```{r point-plot, fig.cap="Point plot of reaction time versus age.", message = FALSE}
+```{r point-plot, fig.cap="Scatterplot of reaction time versus age.", message = FALSE}
 ggplot(dat_long, aes(x = rt, y = age)) +
   geom_point()
 ```
@@ -195,7 +195,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 
 Similar to the density plot, the scatterplot can also be easily adjusted to display grouped data. For `geom_point()`, the grouping variable is mapped to `colour` rather than `fill` and the relevant `scale_` function is added.
 
-```{r scatter-grouped, warning = FALSE,fig.cap="Grouped scatter plot of reaction time versus age by condition.", message = FALSE}
+```{r scatter-grouped, warning = FALSE,fig.cap="Grouped scatterplot of reaction time versus age by condition.", message = FALSE}
 ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -207,7 +207,7 @@ ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
 
 Following the rule that *anything that shares an axis should probably be in the same column* means that we will frequently need our data in long-form when using `ggplot2`, however, there are some cases when wide-form is necessary. For example, we may wish to visualise the relationship between reaction time in the word and non-word conditions. The easiest way to achieve this in our case would simply be to use the original wide-form data as the input:
 
-```{r message = FALSE, fig.cap="Scatterplot with data grouped by langauge group"}
+```{r message = FALSE, fig.cap="Scatterplot with data grouped by language group"}
 ggplot(dat, aes(x = rt_word, y = rt_nonword, colour = language)) +
   geom_point() +
   geom_smooth(method = "lm")
