@@ -2,7 +2,7 @@
 
 ## Loading packages
 
-To load the packages that have the functions we need, use the `library()` function. Whilst you only need to install packages once, you need to load any packages you want to use with `library()` every time you start R or start a new session. When you load the `tidyverse`, you actually load several separate packages that are all part of the same collection and have been designed to work well together. R will produce a message that tells you the names of all the packages that have been loaded.
+To load the packages that have the functions we need, use the `library()` function. Whilst you only need to install packages once, you need to load any packages you want to use with `library()` every time you start R or start a new session. When you load the `tidyverse`, you actually load several separate packages that are all part of the same collection and have been designed to work together. R will produce a message that tells you the names of the packages that have been loaded.
 
 ``` r
 library(tidyverse)
@@ -36,8 +36,7 @@ Because the factor `language` is coded as 1 and 2, R has categorised this column
 * `factor()` translates the language column into a factor with the labels "monolingual" and "bilingual". You can also use `factor()` to set the display order of a column that contains words. Otherwise, they will display in alphabetical order. In this case we are replacing the numeric data (1 and 2) in the `language` column with the equivalent English labels `monolingual` for 1 and `bilingual` for 2. At the same time we will change the column type to be a factor, which is how R defines categorical data.
 
 ```{r}
-dat <- dat %>%
-  mutate(language = factor(
+dat <- mutate(dat, language = factor(
     x = language, # column to translate
     levels = c(1, 2), # values of the original data in preferred order
     labels = c("monolingual", "bilingual") # labels for display
@@ -53,8 +52,7 @@ A good way to avoid this is never to overwrite data, but to always store the out
 Each function has a list of arguments it can take, and a default order for those arguments. You can get more information on each function by entering `?function_name` into the console, although be aware that learning to read the help documentation in R is a skill in itself. When you are writing R code, as long as you stick to the default order, you do not have to explicitly call the argument names, for example, the above code could also be written as:
 
 ```{r arg-names, eval = FALSE}
-dat <- dat %>%
-  mutate(language = factor(language, 
+dat <- mutate(dat, language = factor(language, 
                            c(1, 2), 
                            c("monolingual", "bilingual")))
 ```
@@ -90,7 +88,9 @@ dat %>%
 ```
 
 
-`group_by()` does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever functions called next are performed separately on each level of the grouping variable, until the grouping is removed with `ungroup()`. The above code therefore counts the number of observations in each group of the variable `language`. If you just need the total number of observations, you could remove the `group_by()` and `ungroup()` lines, which would perform the operation on the whole dataset, rather than by groups:
+`group_by()` does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever functions called next are performed separately on each level of the grouping variable. This grouping remains in the object that is created so it is important to remove it with `ungroup()` to avoid future operations on the object unknowingly being performed by groups. 
+
+The above code therefore counts the number of observations in each group of the variable `language`. If you just need the total number of observations, you could remove the `group_by()` and `ungroup()` lines, which would perform the operation on the whole dataset, rather than by groups:
 
 ```{r demo_stats2, eval=FALSE}
 dat %>%
@@ -120,7 +120,6 @@ dat %>%
 ```
 
 This code produces summary data in the form of a column named `mean_age` that contains the result of calculating the mean of the variable `age`. It then creates `sd_age` which does the same but for standard deviation. Finally, it uses the function `n()` to add the number of values used to calculate the statistic in a column named `n_values` - this is a useful sanity check whenever you make summary statistics.
-
 
 Note that the above code will not save the result of this operation, it will simply output the result in the console. If you wish to save it for future use, you can store it in an object by using the `<-` notation and print it later by typing the object name.
 
@@ -170,7 +169,7 @@ The first line of code sets up the base of the plot.
 
 The second line of code adds a `geom`, and is connected to the base code with `+`. In this case, we ask for `geom_bar()`. Each `geom` has an associated default statistic. For `geom_bar()`, the default statistic is to count the data passed to it. This means that you do not have to specify a `y` variable when making a bar plot of counts; when given an `x` variable `geom_bar()` will automatically calculate counts of the groups in that variable. In this example, it counts the number of data points that are in each category of the `language` variable.
 
-The base layer and the geoms you add as layers work in symbiosis so it is worthwhile checking the mapping rules as these are related to the default statistic for the plot's geom.
+The base and geoms layers work in symbiosis so it is worthwhile checking the mapping rules as these are related to the default statistic for the plot's geom.
 
 ## Plotting existing aggregates and percent
 
@@ -191,7 +190,7 @@ ggplot(dat_percent, aes(x = language, y = percent)) +
 
 ## Histogram
 
-The code to plot a histogram of `age` is very similar to the code used for the bar chart. We start by setting up the plot space, the dataset we want to use, and mapping the variables to the relevant axis. In this case, we want to plot a histogram with `age` on the x-axis:
+The code to plot a histogram of `age` is very similar to the bar chart code. We start by setting up the plot space, the dataset to use, and mapping the variables to the relevant axis. In this case, we want to plot a histogram with `age` on the x-axis:
 
 ```{r histogram1, fig.cap = "Histogram of ages."}
 ggplot(dat, aes(x = age)) +
@@ -211,7 +210,7 @@ So far we have made basic plots with the default visual appearance. Before we mo
 
 ### Changing colours
 
-For our basic bar chart, you can control colours used to display the bars by setting `fill` (internal colour)  and `colour` (outline colour) inside the geom function. This methods changes **all** the bars; we will show you later how to set fill or colour separately for different groups.
+For our basic bar chart, you can control colours used to display the bars by setting `fill` (internal colour)  and `colour` (outline colour) inside the geom function. This method changes **all** bars; we will show you later how to set fill or colour separately for different groups.
 
 ```{r histogram-fill-color, fig.cap="Histogram with custom colors for bar fill and line colors."}
 ggplot(dat, aes(age)) +
@@ -245,7 +244,7 @@ ggplot(dat, aes(language)) +
 
 ### Discrete vs. continuous errors
 
-Another very common error is to map the wrong type of `scale_` function to a variable. Try running the below code:
+Another common error is to map the wrong type of `scale_` function to a variable. Try running the below code:
 
 ```{r eval = FALSE}
 # produces an error
@@ -268,7 +267,7 @@ ggplot(dat, aes(age)) +
   theme_minimal()
 ```
 
-You can set the theme globally so that all subsequent plots use a theme.
+You can set the theme globally so that all subsequent plots use a theme. `theme_set()` is not part of a `ggplot()` object, you should run this code on its own. It may be useful to add this code to the top of your script so that all plots produced subsequently use the same theme.
 
 ```{r eval = FALSE}
 theme_set(theme_minimal())

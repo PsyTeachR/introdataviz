@@ -17,6 +17,11 @@ The psyTeachR team at the University of Glasgow School of Psychology and Institu
 * [Installing R - PsyTeachR](https://psyteachr.github.io/data-skills-v1/installing-r.html)
 * [Running R on your own computer (walkthrough videos) - Danielle Navarro](https://www.youtube.com/playlist?list=PLRPB0ZzEYegOZivdelOuEn-R-XUN-DOjd)
 
+**Intro to R and RStudio**
+
+* RStudio Essentials: [Programming - Part 1 (Writing code in RStudio)](https://www.rstudio.com/resources/webinars/programming-part-1-writing-code-in-rstudio/)
+* RStudio Essentials: [Programming - Part 2 (Debugging code in RStudio)](https://www.rstudio.com/resources/webinars/programming-part-2-debugging-code-in-rstudio/) 
+
 **R Markdown**
 
 * [Introduction to R Markdown](https://rmarkdown.rstudio.com/lesson-1.html)

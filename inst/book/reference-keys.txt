@@ -111,7 +111,7 @@ adding-a-theme
 activities-1
 transforming-data
 data-formats
-transforming-data-1
+wide-form-and-long-form-data
 step-1-pivot_longer
 step-2-pivot_longer-adjusted
 step-3-pivot_wider
@@ -120,7 +120,7 @@ density-plots
 grouped-density-plots
 scatterplots
 grouped-scatterplots
-transforming-data-2
+long-form-to-wide-form-data
 customisation-2
 accessible-colour-schemes
 specifying-axis-breaks-with-seq
