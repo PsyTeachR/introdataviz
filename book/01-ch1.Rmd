@@ -4,7 +4,7 @@ Use of the programming language R [@R-base] for data processing and statistical 
 
 Yet, the benefits of using R are obscured for many researchers by the perception that coding skills are difficult to learn [@robins2003learning]. Coupled with this, only a minority of psychology programmes currently teach coding skills [@rminr] with the majority of both undergraduate and postgraduate courses using proprietary point-and-click software such as SAS, SPSS or Microsoft Excel. While the sophisticated use of proprietary software often necessitates the use of computational thinking skills akin to coding (for instance SPSS scripts or formulas in Excel), we have found that many researchers do not perceive that they already have introductory coding skills. In the following tutorial we intend to change that perception by showing how experienced researchers can redevelop their existing computational skills to utilise the powerful data visualisation tools offered by R.
 
-In this tutorial, we aim to provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the "grammar of graphics" that underlies data visualisation using the `ggplot2` package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these "basic" plots can be easily extended to less commonly available options such as violin-boxplots.
+In this tutorial we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the "grammar of graphics" that underlies data visualisation using the `ggplot2` package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these "basic" plots can be easily extended to less commonly available options such as violin-boxplots.
 
 ## Why R for data visualisation?
 
@@ -61,7 +61,7 @@ This tutorial contains three components.
 
 ## Simulated dataset
 
-For the purpose of this tutorial, we will use simulated data for a 2 x 2 mixed-design lexical decision task in which participants have to decide whether a presented word is a real word, or a non-word, with 100 participants. There are 100 rows (1 for each participant) and 7 variables:
+For the purpose of this tutorial, we will use simulated data for a 2 x 2 mixed-design lexical decision task in which participants must decide whether a presented word is a real word, or a non-word, with 100 participants. There are 100 rows (1 for each participant) and 7 variables:
 
 -   Participant information:
 
@@ -99,13 +99,15 @@ The R Markdown workbook available in the [online materials](https://osf.io/bj83f
 
 The reason that the above install packages code is not included in the workbook is that every time you run the install command code it will install the latest version of the package. Leaving this code in your script can lead you to unintentionally install a package update you didn't want. For this reason, avoid including install code in any script or Markdown document. 
 
+For more information on how to use R with RStudio, please see the additional resources in the online appendices.
+
 ## Preparing your data
 
-Before you start visualising your data, you need to get it into an appropriate format. These preparatory steps can all be dealt with reproducibly using R and the additional resources section points to extra tutorials for doing so. However, performing these types of tasks in R can require more sophisticated coding skills and the solutions and tools are dependent on the idiosyncrasies of each dataset. For this reason, in this tutorial we encourage the reader to complete data preparation steps using the method they are most comfortable with and to focus on the aim of data visualisation.
+Before you start visualising your data, it must be in an appropriate format. These preparatory steps can all be dealt with reproducibly using R and the additional resources section points to extra tutorials for doing so. However, performing these types of tasks in R can require more sophisticated coding skills and the solutions and tools are dependent on the idiosyncrasies of each dataset. For this reason, in this tutorial we encourage the reader to complete data preparation steps using the method they are most comfortable with and to focus on the aim of data visualisation.
 
 ### Data format
 
-The simulated lexical decision data is provided in a `csv` (comma-separated variable) file. Functions exist in R to read many other types of data files; the `rio` package's `import()` function can read most types of files. However, `csv` files avoids problems like Excel's insistence on mangling anything that even vaguely resembles a date. You may wish to export your data as a `csv` file that contains only the data you want to visualise, rather than a full, larger workbook. When working with your own data, remove summary rows or additional notes from any files you import. The files you import from should only contain the rows and columns of data you want to plot. You should always check after importing data that the resulting table looks like you expect.
+The simulated lexical decision data is provided in a `csv` (comma-separated variable) file. Functions exist in R to read many other types of data files; the `rio` package's `import()` function can read most types of files. However, `csv` files avoids problems like Excel's insistence on mangling anything that even vaguely resembles a date. You may wish to export your data as a `csv` file that contains only the data you want to visualise, rather than a full, larger workbook. It is possible to clean almost any file reproducibly in R, however, as noted above, this can require higher level coding skills so for getting started with visualisation we suggest removing summary rows or additional notes from any files you import with the file only containing the rows and columns of data you want to plot. You should always check after importing data that the resulting table looks like you expect.
 
 ### Variable names
 
@@ -117,7 +119,7 @@ When working with your own data, you can rename columns in Excel, but the resour
 
 ### Data values
 
-A great benefit to using R is that categorical data can be entered as text. In the tutorial dataset, language group is entered as 1 or 2, so that we can show you  how to recode numeric values into factors with labels. However, we recommend recording meaningful labels rather than numbers from the beginning of data collection to avoid misinterpreting data due to coding errors. Note that values must match *exactly* in order to be considered in the same category and R is case sensitive, so "mono", "Mono", and "monolingual" would be classified as members of three separate categories.
+A benefit of R is that categorical data can be entered as text. In the tutorial dataset, language group is entered as 1 or 2, so that we can show you  how to recode numeric values into factors with labels. However, we recommend recording meaningful labels rather than numbers from the beginning of data collection to avoid misinterpreting data due to coding errors. Note that values must match *exactly* in order to be considered in the same category and R is case sensitive, so "mono", "Mono", and "monolingual" would be classified as members of three separate categories.
 
 Finally, cells that represent missing data should be left empty rather than containing values like `NA`, `missing` or `999`[^ch1-3]. A complementary rule of thumb is that each column should only contain one type of data, such as words or numbers, not both.
 

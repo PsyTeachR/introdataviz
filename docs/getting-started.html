@@ -79,7 +79,7 @@
 <h2>
 <span class="header-section-number">2.1</span> Loading packages<a class="anchor" aria-label="anchor" href="#loading-packages"><i class="fas fa-link"></i></a>
 </h2>
-<p>To load the packages that have the functions we need, use the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function. Whilst you only need to install packages once, you need to load any packages you want to use with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> every time you start R or start a new session. When you load the <code>tidyverse</code>, you actually load several separate packages that are all part of the same collection and have been designed to work well together. R will produce a message that tells you the names of all the packages that have been loaded.</p>
+<p>To load the packages that have the functions we need, use the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function. Whilst you only need to install packages once, you need to load any packages you want to use with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> every time you start R or start a new session. When you load the <code>tidyverse</code>, you actually load several separate packages that are all part of the same collection and have been designed to work together. R will produce a message that tells you the names of the packages that have been loaded.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></code></pre></div>
@@ -110,8 +110,7 @@
 <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> translates the language column into a factor with the labels "monolingual" and "bilingual". You can also use <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> to set the display order of a column that contains words. Otherwise, they will display in alphabetical order. In this case we are replacing the numeric data (1 and 2) in the <code>language</code> column with the equivalent English labels <code>monolingual</code> for 1 and <code>bilingual</code> for 2. At the same time we will change the column type to be a factor, which is how R defines categorical data.</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">dat</span>, language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>
     x <span class="op">=</span> <span class="va">language</span>, <span class="co"># column to translate</span>
     levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="co"># values of the original data in preferred order</span>
     labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"monolingual"</span>, <span class="st">"bilingual"</span><span class="op">)</span> <span class="co"># labels for display</span>
@@ -125,8 +124,7 @@
 </h2>
 <p>Each function has a list of arguments it can take, and a default order for those arguments. You can get more information on each function by entering <code>?function_name</code> into the console, although be aware that learning to read the help documentation in R is a skill in itself. When you are writing R code, as long as you stick to the default order, you do not have to explicitly call the argument names, for example, the above code could also be written as:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">language</span>, 
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">dat</span>, language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">language</span>, 
                            <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, 
                            <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"monolingual"</span>, <span class="st">"bilingual"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>One of the challenges in learning R is that many of the "helpful" examples and solutions you will find online do not include argument names and so for novice learners are completely opaque. In this tutorial, we will include the argument names the first time a function is used, however, we will remove some argument names from subsequent examples to facilitate knowledge transfer to the help available online.</p>
@@ -163,7 +161,8 @@
 </tr>
 </tbody>
 </table></div>
-<p><code>group_by()</code> does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever functions called next are performed separately on each level of the grouping variable, until the grouping is removed with <code>ungroup()</code>. The above code therefore counts the number of observations in each group of the variable <code>language</code>. If you just need the total number of observations, you could remove the <code>group_by()</code> and <code>ungroup()</code> lines, which would perform the operation on the whole dataset, rather than by groups:</p>
+<p><code>group_by()</code> does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever functions called next are performed separately on each level of the grouping variable. This grouping remains in the object that is created so it is important to remove it with <code>ungroup()</code> to avoid future operations on the object unknowingly being performed by groups.</p>
+<p>The above code therefore counts the number of observations in each group of the variable <code>language</code>. If you just need the total number of observations, you could remove the <code>group_by()</code> and <code>ungroup()</code> lines, which would perform the operation on the whole dataset, rather than by groups:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">%&gt;%</span>
   <span class="fu">count</span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -252,7 +251,7 @@ Figure 2.1: Bar chart of counts.
 <li><p><code>x</code> specifies which variable to put on the x-axis</p></li>
 </ul>
 <p>The second line of code adds a <code>geom</code>, and is connected to the base code with <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code>. In this case, we ask for <code>geom_bar()</code>. Each <code>geom</code> has an associated default statistic. For <code>geom_bar()</code>, the default statistic is to count the data passed to it. This means that you do not have to specify a <code>y</code> variable when making a bar plot of counts; when given an <code>x</code> variable <code>geom_bar()</code> will automatically calculate counts of the groups in that variable. In this example, it counts the number of data points that are in each category of the <code>language</code> variable.</p>
-<p>The base layer and the geoms you add as layers work in symbiosis so it is worthwhile checking the mapping rules as these are related to the default statistic for the plot's geom.</p>
+<p>The base and geoms layers work in symbiosis so it is worthwhile checking the mapping rules as these are related to the default statistic for the plot's geom.</p>
 </div>
 <div id="plotting-existing-aggregates-and-percent" class="section level2" number="2.7">
 <h2>
@@ -279,7 +278,7 @@ Figure 2.2: Bar chart of pre-calculated counts.
 <h2>
 <span class="header-section-number">2.8</span> Histogram<a class="anchor" aria-label="anchor" href="#histogram"><i class="fas fa-link"></i></a>
 </h2>
-<p>The code to plot a histogram of <code>age</code> is very similar to the code used for the bar chart. We start by setting up the plot space, the dataset we want to use, and mapping the variables to the relevant axis. In this case, we want to plot a histogram with <code>age</code> on the x-axis:</p>
+<p>The code to plot a histogram of <code>age</code> is very similar to the bar chart code. We start by setting up the plot space, the dataset to use, and mapping the variables to the relevant axis. In this case, we want to plot a histogram with <code>age</code> on the x-axis:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -309,7 +308,7 @@ Figure 2.4: Histogram of ages where each bin covers five years.
 <h3>
 <span class="header-section-number">2.9.1</span> Changing colours<a class="anchor" aria-label="anchor" href="#changing-colours"><i class="fas fa-link"></i></a>
 </h3>
-<p>For our basic bar chart, you can control colours used to display the bars by setting <code>fill</code> (internal colour) and <code>colour</code> (outline colour) inside the geom function. This methods changes <strong>all</strong> the bars; we will show you later how to set fill or colour separately for different groups.</p>
+<p>For our basic bar chart, you can control colours used to display the bars by setting <code>fill</code> (internal colour) and <code>colour</code> (outline colour) inside the geom function. This method changes <strong>all</strong> bars; we will show you later how to set fill or colour separately for different groups.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, 
@@ -352,7 +351,7 @@ Figure 2.6: Bar chart with custom axis labels.
 <h3>
 <span class="header-section-number">2.9.3</span> Discrete vs. continuous errors<a class="anchor" aria-label="anchor" href="#discrete-vs.-continuous-errors"><i class="fas fa-link"></i></a>
 </h3>
-<p>Another very common error is to map the wrong type of <code>scale_</code> function to a variable. Try running the below code:</p>
+<p>Another common error is to map the wrong type of <code>scale_</code> function to a variable. Try running the below code:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># produces an error</span>
 <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -377,7 +376,7 @@ Figure 2.6: Bar chart with custom axis labels.
 Figure 2.7: Histogram with a custom theme.
 </p>
 </div>
-<p>You can set the theme globally so that all subsequent plots use a theme.</p>
+<p>You can set the theme globally so that all subsequent plots use a theme. <code>theme_set()</code> is not part of a <code>ggplot()</code> object, you should run this code on its own. It may be useful to add this code to the top of your script so that all plots produced subsequently use the same theme.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>If you wished to return to the default theme, change the above to specify <code>theme_grey()</code>.</p>
@@ -668,7 +667,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-10-26.</p>
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-12-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
