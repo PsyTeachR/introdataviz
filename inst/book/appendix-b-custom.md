@@ -16,7 +16,7 @@ ggplot(dat_long, aes(x = acc)) +
 and displayed the spread of the accuracy scores as such:
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/histogram-acc-vline1-1.png" alt="Histogram of accuracy scores." width="100%" />
+<img src="appendix-b-custom_files/figure-html/histogram-acc-vline1-1.png" alt="Histogram of accuracy scores." width="80%" />
 <p class="caption">(\#fig:histogram-acc-vline1)Histogram of accuracy scores.</p>
 </div>
 
@@ -31,7 +31,7 @@ ggplot(dat_long, aes(x = acc)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/histogram-acc-vline2-1.png" alt="Histogram of accuracy scores with black solid vertical line indicating 80% accuracy." width="100%" />
+<img src="appendix-b-custom_files/figure-html/histogram-acc-vline2-1.png" alt="Histogram of accuracy scores with black solid vertical line indicating 80% accuracy." width="80%" />
 <p class="caption">(\#fig:histogram-acc-vline2)Histogram of accuracy scores with black solid vertical line indicating 80% accuracy.</p>
 </div>
 
@@ -46,7 +46,7 @@ ggplot(dat_long, aes(x = acc)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/histogram-acc-vline3-1.png" alt="Histogram of accuracy scores with red dashed vertical line indicating 80% accuracy." width="100%" />
+<img src="appendix-b-custom_files/figure-html/histogram-acc-vline3-1.png" alt="Histogram of accuracy scores with red dashed vertical line indicating 80% accuracy." width="80%" />
 <p class="caption">(\#fig:histogram-acc-vline3)Histogram of accuracy scores with red dashed vertical line indicating 80% accuracy.</p>
 </div>
 
@@ -61,7 +61,7 @@ ggplot(dat_long, aes(x = condition, y = acc)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/boxplot1-add-1.png" alt="Basic boxplot." width="100%" />
+<img src="appendix-b-custom_files/figure-html/boxplot1-add-1.png" alt="Basic boxplot." width="80%" />
 <p class="caption">(\#fig:boxplot1-add)Basic boxplot.</p>
 </div>
 
@@ -75,7 +75,7 @@ ggplot(dat_long, aes(x = condition, y = acc)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/boxplot1-hline1-1.png" alt="Basic boxplot with black solid horizontal line indicating 80% accuracy." width="100%" />
+<img src="appendix-b-custom_files/figure-html/boxplot1-hline1-1.png" alt="Basic boxplot with black solid horizontal line indicating 80% accuracy." width="80%" />
 <p class="caption">(\#fig:boxplot1-hline1)Basic boxplot with black solid horizontal line indicating 80% accuracy.</p>
 </div>
 
@@ -89,7 +89,7 @@ ggplot(dat_long, aes(x = condition, y = acc)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/boxplot1-hline2-1.png" alt="Basic boxplot with blue dotted horizontal line indicating 80% accuracy." width="100%" />
+<img src="appendix-b-custom_files/figure-html/boxplot1-hline2-1.png" alt="Basic boxplot with blue dotted horizontal line indicating 80% accuracy." width="80%" />
 <p class="caption">(\#fig:boxplot1-hline2)Basic boxplot with blue dotted horizontal line indicating 80% accuracy.</p>
 </div>
 
@@ -119,7 +119,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/smooth-plot-add-1.png" alt="Line of best fit for reaction time versus age." width="100%" />
+<img src="appendix-b-custom_files/figure-html/smooth-plot-add-1.png" alt="Line of best fit for reaction time versus age." width="80%" />
 <p class="caption">(\#fig:smooth-plot-add)Line of best fit for reaction time versus age.</p>
 </div>
 
@@ -138,7 +138,7 @@ ggplot(dat_long_scale, aes(x = rt_zscore, y = age_zscore)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/smooth-plot-abline1-1.png" alt="Line of best fit (blue line) for reaction time versus age with true diagonal shown (black line)." width="100%" />
+<img src="appendix-b-custom_files/figure-html/smooth-plot-abline1-1.png" alt="Line of best fit (blue line) for reaction time versus age with true diagonal shown (black line)." width="80%" />
 <p class="caption">(\#fig:smooth-plot-abline1)Line of best fit (blue line) for reaction time versus age with true diagonal shown (black line).</p>
 </div>
 
@@ -155,7 +155,7 @@ ggplot(dat_long_scale, aes(x = rt_zscore, y = age_zscore)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/smooth-plot-abline2-1.png" alt="Line of best fit (blue solid line) for reaction time versus age with true diagonal shown (black line dashed)." width="100%" />
+<img src="appendix-b-custom_files/figure-html/smooth-plot-abline2-1.png" alt="Line of best fit (blue solid line) for reaction time versus age with true diagonal shown (black line dashed)." width="80%" />
 <p class="caption">(\#fig:smooth-plot-abline2)Line of best fit (blue solid line) for reaction time versus age with true diagonal shown (black line dashed).</p>
 </div>
 
@@ -174,7 +174,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/smooth-plot-abline3-1.png" alt="Line of best fit (blue solid line) for reaction time versus age with missing true diagonal." width="100%" />
+<img src="appendix-b-custom_files/figure-html/smooth-plot-abline3-1.png" alt="Line of best fit (blue solid line) for reaction time versus age with missing true diagonal." width="80%" />
 <p class="caption">(\#fig:smooth-plot-abline3)Line of best fit (blue solid line) for reaction time versus age with missing true diagonal.</p>
 </div>
 
@@ -190,7 +190,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/smooth-plot-abline4-1.png" alt="Zoomed out to show Line of best fit (blue solid line) for reaction time versus age with true diagonal (black line)." width="100%" />
+<img src="appendix-b-custom_files/figure-html/smooth-plot-abline4-1.png" alt="Zoomed out to show Line of best fit (blue solid line) for reaction time versus age with true diagonal (black line)." width="80%" />
 <p class="caption">(\#fig:smooth-plot-abline4)Zoomed out to show Line of best fit (blue solid line) for reaction time versus age with true diagonal (black line).</p>
 </div>
 
@@ -209,7 +209,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/smooth-plot-coord1-1.png" alt="Zoomed out on scatterplot with no expansion around set limits" width="100%" />
+<img src="appendix-b-custom_files/figure-html/smooth-plot-coord1-1.png" alt="Zoomed out on scatterplot with no expansion around set limits" width="80%" />
 <p class="caption">(\#fig:smooth-plot-coord1)Zoomed out on scatterplot with no expansion around set limits</p>
 </div>
 
@@ -224,7 +224,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/smooth-plot-coord2-1.png" alt="Zoomed out on scatterplot with small expansion around set limits" width="100%" />
+<img src="appendix-b-custom_files/figure-html/smooth-plot-coord2-1.png" alt="Zoomed out on scatterplot with small expansion around set limits" width="80%" />
 <p class="caption">(\#fig:smooth-plot-coord2)Zoomed out on scatterplot with small expansion around set limits</p>
 </div>
 
@@ -239,7 +239,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/smooth-plot-coord3-1.png" alt="Zoomed in on scatterplot with small expansion around set limits" width="100%" />
+<img src="appendix-b-custom_files/figure-html/smooth-plot-coord3-1.png" alt="Zoomed in on scatterplot with small expansion around set limits" width="80%" />
 <p class="caption">(\#fig:smooth-plot-coord3)Zoomed in on scatterplot with small expansion around set limits</p>
 </div>
 
@@ -261,7 +261,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/smooth-plot-scales1-1.png" alt="Changing the values on the axes" width="100%" />
+<img src="appendix-b-custom_files/figure-html/smooth-plot-scales1-1.png" alt="Changing the values on the axes" width="80%" />
 <p class="caption">(\#fig:smooth-plot-scales1)Changing the values on the axes</p>
 </div>
 
@@ -277,7 +277,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/smooth-plot-scales2-1.png" alt="Changing the values on the axes using the seq() function" width="100%" />
+<img src="appendix-b-custom_files/figure-html/smooth-plot-scales2-1.png" alt="Changing the values on the axes using the seq() function" width="80%" />
 <p class="caption">(\#fig:smooth-plot-scales2)Changing the values on the axes using the seq() function</p>
 </div>
 
@@ -294,7 +294,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/smooth-plot-scales3-1.png" alt="Combining scale functions and zoom functions" width="100%" />
+<img src="appendix-b-custom_files/figure-html/smooth-plot-scales3-1.png" alt="Combining scale functions and zoom functions" width="80%" />
 <p class="caption">(\#fig:smooth-plot-scales3)Combining scale functions and zoom functions</p>
 </div>
 
@@ -317,7 +317,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/smooth-plot-scales4-1.png" alt="Combining scale functions and zoom functions" width="100%" />
+<img src="appendix-b-custom_files/figure-html/smooth-plot-scales4-1.png" alt="Combining scale functions and zoom functions" width="80%" />
 <p class="caption">(\#fig:smooth-plot-scales4)Combining scale functions and zoom functions</p>
 </div>
 
@@ -339,7 +339,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/viobox6-add-1.png" alt="Using transparency on the fill color." width="100%" />
+<img src="appendix-b-custom_files/figure-html/viobox6-add-1.png" alt="Using transparency on the fill color." width="80%" />
 <p class="caption">(\#fig:viobox6-add)Using transparency on the fill color.</p>
 </div>
 
@@ -358,11 +358,11 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/viobox6-scale1-1.png" alt="Switching orders of categorical variables" width="100%" />
+<img src="appendix-b-custom_files/figure-html/viobox6-scale1-1.png" alt="Switching orders of categorical variables" width="80%" />
 <p class="caption">(\#fig:viobox6-scale1)Switching orders of categorical variables</p>
 </div>
 
-And that works just the same if you have more conditions, which you will see if you compare Figure\ \@ref(fig:viobox4) to the below figure where we have flipped the order of non-word and word from the original default alphabetical order
+And that works just the same if you have more conditions, which you will see if you compare Figure\ \@ref(fig:viobox6-scale1) to the below figure where we have flipped the order of non-word and word from the original default alphabetical order
 
 
 ```r
@@ -379,7 +379,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/viobox4-scale1-1.png" alt="Same as earlier figure but with order of conditions on x-axis altered." width="100%" />
+<img src="appendix-b-custom_files/figure-html/viobox4-scale1-1.png" alt="Same as earlier figure but with order of conditions on x-axis altered." width="80%" />
 <p class="caption">(\#fig:viobox4-scale1)Same as earlier figure but with order of conditions on x-axis altered.</p>
 </div>
 
@@ -406,14 +406,14 @@ dat_long %>%
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/viobox4-scale2-1.png" alt="Same as earlier figure but with order of conditions on x-axis altered." width="100%" />
+<img src="appendix-b-custom_files/figure-html/viobox4-scale2-1.png" alt="Same as earlier figure but with order of conditions on x-axis altered." width="80%" />
 <p class="caption">(\#fig:viobox4-scale2)Same as earlier figure but with order of conditions on x-axis altered.</p>
 </div>
 
 And if we compare this new figure to the original, side-by-side, we see the difference:
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/viobox4-scale3-1.png" alt="Switching factor orders" width="100%" />
+<img src="appendix-b-custom_files/figure-html/viobox4-scale3-1.png" alt="Switching factor orders" width="80%" />
 <p class="caption">(\#fig:viobox4-scale3)Switching factor orders</p>
 </div>
 
@@ -436,7 +436,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/viobox6-legend1-1.png" alt="Figure Legend removed using `guides()`" width="100%" />
+<img src="appendix-b-custom_files/figure-html/viobox6-legend1-1.png" alt="Figure Legend removed using `guides()`" width="80%" />
 <p class="caption">(\#fig:viobox6-legend1)Figure Legend removed using `guides()`</p>
 </div>
 
@@ -455,7 +455,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition, color = condition))
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/viobox6-legend2-1.png" alt="Removing more than one legend with `guides()`" width="100%" />
+<img src="appendix-b-custom_files/figure-html/viobox6-legend2-1.png" alt="Removing more than one legend with `guides()`" width="80%" />
 <p class="caption">(\#fig:viobox6-legend2)Removing more than one legend with `guides()`</p>
 </div>
 
@@ -473,7 +473,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition, color = condition))
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/viobox6-legend3-1.png" alt="Figure with more than one Legend" width="100%" />
+<img src="appendix-b-custom_files/figure-html/viobox6-legend3-1.png" alt="Figure with more than one Legend" width="80%" />
 <p class="caption">(\#fig:viobox6-legend3)Figure with more than one Legend</p>
 </div>
 
@@ -496,7 +496,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition, color = condition))
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/viobox6-legend4-1.png" alt="Removing the legend with `theme()`" width="100%" />
+<img src="appendix-b-custom_files/figure-html/viobox6-legend4-1.png" alt="Removing the legend with `theme()`" width="80%" />
 <p class="caption">(\#fig:viobox6-legend4)Removing the legend with `theme()`</p>
 </div>
 
@@ -505,14 +505,14 @@ What you can see is that within the `theme()` function we set an argument for `l
 An extension here of course is not just removing the legend, but moving the legend to a different position. This can be done by setting `legend.position = ...` to either `"top"`, `"bottom"`, `"left"` or `"right"` as shown:
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/viobox6-legend5-1.png" alt="Legend position options using theme()" width="100%" />
+<img src="appendix-b-custom_files/figure-html/viobox6-legend5-1.png" alt="Legend position options using theme()" width="80%" />
 <p class="caption">(\#fig:viobox6-legend5)Legend position options using theme()</p>
 </div>
 
 Or even as a coordinate within your figure expressed as a propotion of your figure - i.e. c(x = 0, y = 0) would be the bottom left of your figure and c(x = 1, y = 1) would be the top right, as shown here:
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/viobox6-legend6-1.png" alt="Legend position options using theme()" width="100%" />
+<img src="appendix-b-custom_files/figure-html/viobox6-legend6-1.png" alt="Legend position options using theme()" width="80%" />
 <p class="caption">(\#fig:viobox6-legend6)Legend position options using theme()</p>
 </div>
 
@@ -547,7 +547,7 @@ ggplot(diamonds, aes(carat, price, color = cut)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/unnamed-chunk-1-1.png" alt="buidling something like this idea" width="100%" />
+<img src="appendix-b-custom_files/figure-html/unnamed-chunk-1-1.png" alt="buidling something like this idea" width="80%" />
 <p class="caption">(\#fig:unnamed-chunk-1)buidling something like this idea</p>
 </div>
 

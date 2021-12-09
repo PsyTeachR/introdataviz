@@ -1,6 +1,6 @@
 # Advanced Plots
 
-This tutorial has but scratched the surface of the visualisation options available using R - in the additional online resources we provide some further advanced plots and customisation options for those readers who are feeling confident with the content covered in this tutorial, however, the below plots give an idea of what is possible, and represent the favourite plots of the authorship team.
+This tutorial has but scratched the surface of the visualisation options available using R. In the additional online resources we provide some further advanced plots and customisation options for those readers who are feeling confident with the content covered in this tutorial. However, the below plots give an idea of what is possible, and represent the favourite plots of the authorship team.
 
 We will use some custom functions: `geom_split_violin()` and `geom_flat_violin()`, which you can access through the `introdataviz` package. These functions are modified from [@raincloudplots].
 
@@ -9,7 +9,6 @@ We will use some custom functions: `geom_split_violin()` and `geom_flat_violin()
 devtools::install_github("psyteachr/introdataviz")
 ```
 
-
 ## Split-violin plots
 
 Split-violin plots remove the redundancy of mirrored violin plots and make it easier to compare the distributions between multiple conditions. 
@@ -17,7 +16,7 @@ Split-violin plots remove the redundancy of mirrored violin plots and make it ea
 ```{r splitviolin, fig.cap = "Split-violin plot"}
 ggplot(dat_long, aes(x = condition, y = rt, fill = language)) +
   introdataviz::geom_split_violin(alpha = .4, trim = FALSE) +
-  geom_boxplot(width = .2, alpha = .6, show.legend = FALSE) +
+  geom_boxplot(width = .2, alpha = .6, fatten = NULL, show.legend = FALSE) +
   stat_summary(fun.data = "mean_se", geom = "pointrange", show.legend = F, 
                position = position_dodge(.175)) +
   scale_x_discrete(name = "Condition", labels = c("Non-word", "Word")) +
@@ -32,7 +31,7 @@ ggplot(dat_long, aes(x = condition, y = rt, fill = language)) +
 
 Raincloud plots combine a density plot, boxplot, raw data points, and any desired summary statistics for a complete visualisation of the data. They are so called because the density plot plus raw data is reminiscent of a rain cloud. 
 
-```{r raincloud, fig.cap="Raincloud plot"}
+```{r raincloud, fig.cap="Raincloud plot. The point and line in the centre of each cloud represents its mean and 95% CI. The rain respresents individual data points."}
 rain_height <- .1
 
 ggplot(dat_long, aes(x = "", y = rt, fill = language)) +
@@ -47,7 +46,7 @@ ggplot(dat_long, aes(x = "", y = rt, fill = language)) +
                outlier.shape = NA,
                position = position_nudge(x = -rain_height*2)) +
   # mean and SE point in the cloud
-  stat_summary(fun.data = mean_se, mapping = aes(color = language), show.legend = FALSE,
+  stat_summary(fun.data = mean_cl_normal, mapping = aes(color = language), show.legend = FALSE,
                position = position_nudge(x = rain_height * 3)) +
   # adjust layout
   scale_x_discrete(name = "", expand = c(rain_height*3, 0, 0, 0.7)) +
@@ -70,7 +69,7 @@ ggplot(dat_long, aes(x = "", y = rt, fill = language)) +
 
 ## Ridge plots
 
-Ridge plots are a series of density plots and show the distribution of numeric values for several groups. Figure\ \@ref(fig:ridgeplot) shows data from [@Nation2017] and demonstrates how effective this type of visualisation can be to convey a lot of information very intuitively whilst being visually attractive.
+Ridge plots are a series of density plots that show the distribution of values for several groups. Figure\ \@ref(fig:ridgeplot) shows data from [@Nation2017] and demonstrates how effective this type of visualisation can be to convey a lot of information very intuitively whilst being visually attractive.
 
 
 ```{r ridgeplot, fig.cap="A ridge plot.", fig.width = 5, fig.height = 6}
@@ -121,10 +120,44 @@ ggplot(dat, aes(y = n, axis1 = Y1, axis2 = Y2, axis3 = Y3, axis4 = Y4)) +
   geom_alluvium(aes(fill = Y4), width = 1/6) +
   geom_stratum(fill = "grey", width = 1/3, color = "black") +
   geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
-  scale_fill_brewer(palette = "Dark2", name = "Final Classification") +
+  scale_fill_viridis_d(name = "Final Classification") +
   theme_minimal() +
   theme(legend.position = "top")
 ```
+
+## Maps
+
+Working with maps can be tricky. The `sf` package provides functions that work with ggplot2, such as `geom_sf()`. The `rnaturalearth` package provides high-quality mapping coordinates.
+
+```{r map, fig.cap = "Map coloured by country."}
+library(sf)          # for mapping geoms
+library(rnaturalearth) # for map data
+
+# get and bind country data
+uk_sf <- ne_states(country = "united kingdom", returnclass = "sf")
+ireland_sf <- ne_states(country = "ireland", returnclass = "sf")
+islands <- bind_rows(uk_sf, ireland_sf) %>%
+  filter(!is.na(geonunit))
+
+# set colours
+country_colours <- c("Scotland" = "#0962BA",
+                     "Wales" = "#00AC48",
+                     "England" = "#FF0000",
+                     "Northern Ireland" = "#FFCD2C",
+                     "Ireland" = "#F77613")
+
+ggplot() + 
+  geom_sf(data = islands,
+          mapping = aes(fill = geonunit),
+          colour = NA,
+          alpha = 0.75) +
+  coord_sf(crs = sf::st_crs(4326),
+           xlim = c(-10.7, 2.1), 
+           ylim = c(49.7, 61)) +
+  scale_fill_manual(name = "Country", 
+                    values = country_colours)
+```
+
 
 # Conclusion
 

@@ -19,7 +19,7 @@ dat <- read_csv(file = "ldt_data.csv")
 
 This code has created an object `dat` into which you have read the data from the file `ldt_data.csv`. This object will appear in the environment pane in the top right. Note that the name of the data file must be in quotation marks and the file extension (`.csv`) must also be included. If you receive the error `…does not exist in current working directory` it is highly likely that you have made a typo in the file name (remember R is case sensitive), have forgotten to include the file extension `.csv`, or that the data file you want to load is not stored in your project folder. If you get the error `could not find function` it means you have either not loaded the correct package (a common beginner error is to write the code, but not run it), or you have made a typo in the function name.
 
-To view the dataset, click `dat` in the environment pane or run `View(dat)` in the console. The environment pane also tells us that the object `dat` has 100 observations of 7 variables, and this is a useful quick check to ensure one has loaded the right data. Note that the 7 variables have an additional piece of information `chr` and `num`; this specifies the kind of data in the column. Similar to Excel and SPSS, R uses this information (or variable type) to specify allowable manipulations of data. For instance character data such as the `id` cannot be averaged, while it is possible to do this with numerical data such as the `age`.
+You should always check after importing data that the resulting table looks like you expect. To view the dataset, click `dat` in the environment pane or run `View(dat)` in the console. The environment pane also tells us that the object `dat` has 100 observations of 7 variables, and this is a useful quick check to ensure one has loaded the right data. Note that the 7 variables have an additional piece of information `chr` and `num`; this specifies the kind of data in the column. Similar to Excel and SPSS, R uses this information (or variable type) to specify allowable manipulations of data. For instance character data such as the `id` cannot be averaged, while it is possible to do this with numerical data such as the `age`.
 
 ## Handling numeric factors
 
@@ -27,7 +27,7 @@ Another useful check is to use the functions `summary()` and `str()` (structure)
 
 ```{r check, eval = FALSE}
 summary(dat)
-str(dat)        
+str(dat)
 ```
 
 Because the factor `language` is coded as 1 and 2, R has categorised this column as containing numeric information and unless we correct it, this will cause problems for visualisation and analysis. The code below shows how to recode numeric codes into labels. 
@@ -37,10 +37,10 @@ Because the factor `language` is coded as 1 and 2, R has categorised this column
 
 ```{r}
 dat <- mutate(dat, language = factor(
-    x = language, # column to translate
-    levels = c(1, 2), # values of the original data in preferred order
-    labels = c("monolingual", "bilingual") # labels for display
-  ))
+  x = language, # column to translate
+  levels = c(1, 2), # values of the original data in preferred order
+  labels = c("monolingual", "bilingual") # labels for display
+))
 ```
 
 Make sure that you always check the output of any code that you run. If after running this code `language` is full of `NA` values, it means that you have run the code twice. The first time would have worked and transformed the values from `1` to `monolingual` and `2` to `bilingual`. If you run the code again on the same dataset, it will look for the values `1` and `2`, and because there are no longer any that match, it will return NA. If this happens, you will need to reload the dataset from the csv file.
@@ -52,15 +52,17 @@ A good way to avoid this is never to overwrite data, but to always store the out
 Each function has a list of arguments it can take, and a default order for those arguments. You can get more information on each function by entering `?function_name` into the console, although be aware that learning to read the help documentation in R is a skill in itself. When you are writing R code, as long as you stick to the default order, you do not have to explicitly call the argument names, for example, the above code could also be written as:
 
 ```{r arg-names, eval = FALSE}
-dat <- mutate(dat, language = factor(language, 
-                           c(1, 2), 
-                           c("monolingual", "bilingual")))
+dat <- mutate(dat, language = factor(
+  language,
+  c(1, 2),
+  c("monolingual", "bilingual")
+))
 ```
 
 One of the challenges in learning R is that many of the "helpful" examples and solutions you will find online do not include argument names and so for novice learners are completely opaque. In this tutorial, we will include the argument names the first time a function is used, however, we will remove some argument names from subsequent examples to facilitate knowledge transfer to the help available online.
 
 
-## Demographic information
+## Summarising data
 
 You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (i.e., data processing). The code below uses the `%>%` operator, otherwise known as the *pipe,* and can be translated as "*and then"*. For example, the below code can be read as:
 
@@ -159,11 +161,18 @@ ggplot(data = dat, mapping = aes(x = language)) +
   geom_bar()
 ```
 
+```{r}
+ggplot(data = dat, mapping = aes(x = language)) + 
+  geom_bar(aes(y = (..count..)/sum(..count..))) + 
+  scale_y_continuous(name = "Percent", labels=scales::percent) 
+```
+
+
 The first line of code sets up the base of the plot.
 
 -   `data` specifies which data source to use for the plot
 
--   `mapping` specifies which variables to map to which aesthetics (`aes`) of the plot. Aesthetic mappings describe how variables in the data are mapped to visual properties (aesthetics) of geoms.
+-   `mapping` specifies which variables to map to which aesthetics (`aes`) of the plot. Mappings describe how variables in the data are mapped to visual properties (aesthetics) of geoms.
 
 -   `x` specifies which variable to put on the x-axis
 
@@ -171,18 +180,21 @@ The second line of code adds a `geom`, and is connected to the base code with `+
 
 The base and geoms layers work in symbiosis so it is worthwhile checking the mapping rules as these are related to the default statistic for the plot's geom.
 
-## Plotting existing aggregates and percent
+## Aggregates and percentages
 
-If your dataset already has the counts that you want to plot, you can set `stat="identity"` inside of `geom_bar()` to use that number instead of counting rows. For example, there is currently no function to plot percentages rather than counts within `ggplot2`, you need to calculate these and store them in a new object that is then used as the dataset. 
+If your dataset already has the counts that you want to plot, you can set `stat="identity"` inside of `geom_bar()` to use that number instead of counting rows. For example, to plot percentages rather than counts within `ggplot2`, you can calculate these and store them in a new object that is then used as the dataset. You can do this in the software you are most comfortable in, save the new data, and import it as a new table, or you can use code to manipulate the data.
 
-Notice that we are now omitting the names of the arguments `data` and `mapping` in the `ggplot()` function.
-
-```{r bar-precalc, fig.cap = "Bar chart of pre-calculated counts."}
+```{r dat-percent}
 dat_percent <- dat %>%    # start with the data in dat
   count(language) %>%     # count rows per language (makes a new column called n)
   mutate(percent = (n/sum(n)*100)) # make a new column 'percent' equal to 
                                    # n divided by the sum of n times 100
+```
 
+
+Notice that we are now omitting the names of the arguments `data` and `mapping` in the `ggplot()` function.
+
+```{r bar-precalc, fig.cap = "Bar chart of pre-calculated counts."}
 ggplot(dat_percent, aes(x = language, y = percent)) +
   geom_bar(stat="identity") 
 ```
@@ -197,16 +209,17 @@ ggplot(dat, aes(x = age)) +
   geom_histogram()
 ```
 
-The base statistic for `geom_histogram()` is also count, and by default `geom_histogram()` divides the x-axis into "bins" and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message `stat_bin() using bins = 30. Pick better value with binwidth`. This means that, by default, `geom_histogram()` divides the x-axis into 30 bins. You can change this by either setting the number of bins (e.g., `bins = 20`) or the width of each bin (e.g., `binwidth = 5`) as an argument.
+The base statistic for `geom_histogram()` is also count, and by default `geom_histogram()` divides the x-axis into 30 "bins" and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message "stat_bin() using bins = 30. Pick better value with binwidth". You can change this by either setting the number of bins (e.g., `bins = 20`) or the width of each bin (e.g., `binwidth = 5`) as an argument.
 
 ```{r histogram2, fig.cap = "Histogram of ages where each bin covers five years."}
 ggplot(dat, aes(x = age)) +
   geom_histogram(binwidth = 5)
 ```
 
+
 ## Customisation 1
 
-So far we have made basic plots with the default visual appearance. Before we move on to the experimental data we will introduce some simple visual customisation options. There are many ways in which you can control or customise the visual appearance of figures in R. However, once you understand the logic of one, it becomes easier to understand others that you may see in other examples. Visual appearance of elements can be customised within a geom itself, within the aesthetic mapping, or by connecting additional layers with `+`. In this section we look at the simplest and most commonly-used customisations: changing colours, adding axis labels, and adding themes.
+So far we have made basic plots with the default visual appearance. Before we move on to the experimental data, we will introduce some simple visual customisation options. There are many ways in which you can control or customise the visual appearance of figures in R. However, once you understand the logic of one, it becomes easier to understand others that you may see in other examples. The visual appearance of elements can be customised within a geom itself, within the aesthetic mapping, or by connecting additional layers with `+`. In this section we look at the simplest and most commonly-used customisations: changing colours, adding axis labels, and adding themes.
 
 ### Changing colours
 
@@ -240,18 +253,16 @@ ggplot(dat, aes(language)) +
 
 -   `c()` is a function that you will see in many different contexts and is used to combine multiple values. In this case, the labels we want to apply are combined within `c()` by enclosing each word within their own parenthesis, and are in the order displayed on the plot. A very common error is to forget to enclose multiple values in `c()`.
 
--   `breaks` controls the tick marks on the axis. Again because there are multiple values, they are enclosed within `c()` although because they are numeric and not text, they do not need quotation marks. 
+-   `breaks` controls the tick marks on the axis. Again, because there are multiple values, they are enclosed within `c()`. Because they are numeric and not text, they do not need quotation marks. 
 
-### Discrete vs. continuous errors
-
-Another common error is to map the wrong type of `scale_` function to a variable. Try running the below code:
+A common error is to map the wrong type of `scale_` function to a variable. Try running the below code:
 
 ```{r eval = FALSE}
 # produces an error
 ggplot(dat, aes(language)) +
   geom_bar() +
   scale_x_continuous(name = "Language group", 
-                   labels = c("Monolingual", "Bilingual")) 
+                     labels = c("Monolingual", "Bilingual")) 
 ```
 
 This will produce the error `Discrete value supplied to continuous scale` because we have used a `continuous` scale function, despite the fact that x-axis variable is discrete. If you get this error (or the reverse), check the type of data on each axis and the function you have used. 

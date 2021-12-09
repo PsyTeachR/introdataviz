@@ -19,7 +19,7 @@ b <- ggplot(dat_long, aes(x = rt)) +
 a+b
 ```
 
-<img src="appendix-c-advplots_files/figure-html/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="appendix-c-advplots_files/figure-html/unnamed-chunk-1-1.png" width="80%" style="display: block; margin: auto;" />
 
 Now that in itself is fairly informative but perhaps takes up a lot of room so one option using some of the features of the patchwork library would be to inset the density plot in the top right of the histogram. We already showed a little of patchwork earlier so we won't repeat it here but all we are doing is placing one of the figures (the density plot) within the `inset_element()` function and applying some appropriate values to position the inset - through a little trial and error - based on the bottom left corner of the plot area being `left = 0`, `bottom = 0`, and the top right corner being `right = 1`, `top = 1`:
 
@@ -37,7 +37,7 @@ a + inset_element(b, left = 0.6, bottom = 0.6, right = 1, top = 1)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-c-advplots_files/figure-html/overlay1-1.png" alt="Insetting a plot within a plot using `inset_element()` from the patchwork library" width="100%" />
+<img src="appendix-c-advplots_files/figure-html/overlay1-1.png" alt="Insetting a plot within a plot using `inset_element()` from the patchwork library" width="80%" />
 <p class="caption">(\#fig:overlay1)Insetting a plot within a plot using `inset_element()` from the patchwork library</p>
 </div>
 
@@ -53,7 +53,7 @@ ggplot(dat_long, aes(x = rt)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-c-advplots_files/figure-html/overlay2-1.png" alt="A histogram with density plot overlaid" width="100%" />
+<img src="appendix-c-advplots_files/figure-html/overlay2-1.png" alt="A histogram with density plot overlaid" width="80%" />
 <p class="caption">(\#fig:overlay2)A histogram with density plot overlaid</p>
 </div>
 
@@ -72,7 +72,7 @@ ggplot(dat_long, aes(rt)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-c-advplots_files/figure-html/overlay3-1.png" alt="A histogram with normal distribution based on the data overlaid" width="100%" />
+<img src="appendix-c-advplots_files/figure-html/overlay3-1.png" alt="A histogram with normal distribution based on the data overlaid" width="80%" />
 <p class="caption">(\#fig:overlay3)A histogram with normal distribution based on the data overlaid</p>
 </div>
 
@@ -94,7 +94,7 @@ ggplot(dat_long, aes(rt)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-c-advplots_files/figure-html/overlay4-1.png" alt="Changing the line of the `stat_function()`" width="100%" />
+<img src="appendix-c-advplots_files/figure-html/overlay4-1.png" alt="Changing the line of the `stat_function()`" width="80%" />
 <p class="caption">(\#fig:overlay4)Changing the line of the `stat_function()`</p>
 </div>
 
@@ -144,21 +144,21 @@ ggplot(dat_avg) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-c-advplots_files/figure-html/dumbbell1-1.png" alt="A dumbbell plot of change in Average Accuracy from Non-word trials (red dots) to Word trials (blue dots) for monolingual and bilingual participants." width="100%" />
+<img src="appendix-c-advplots_files/figure-html/dumbbell1-1.png" alt="A dumbbell plot of change in Average Accuracy from Non-word trials (red dots) to Word trials (blue dots) for monolingual and bilingual participants." width="80%" />
 <p class="caption">(\#fig:dumbbell1)A dumbbell plot of change in Average Accuracy from Non-word trials (red dots) to Word trials (blue dots) for monolingual and bilingual participants.</p>
 </div>
 
 Which actually gives the least exciting figure ever as both groups showed the same change from the non-word trials (red dots) to the word trials (blue dots) but we can break the code down a bit just to highlight what we are doing, remembering the idea about layers. Layers one and two add the basic background and black line from the start point (x,y), the mean accuracy of non-word trials for the two conditions, to the end point (xend, yend), the mean accuracy of word trials for the two conditions:
 
 <div class="figure" style="text-align: center">
-<img src="appendix-c-advplots_files/figure-html/dumbbell2-1.png" alt="Building the bars of our dumbbells. The (x,y) and (xend, yend) have been added to show the values you need to consider and enter to create the dumbbell" width="100%" />
+<img src="appendix-c-advplots_files/figure-html/dumbbell2-1.png" alt="Building the bars of our dumbbells. The (x,y) and (xend, yend) have been added to show the values you need to consider and enter to create the dumbbell" width="80%" />
 <p class="caption">(\#fig:dumbbell2)Building the bars of our dumbbells. The (x,y) and (xend, yend) have been added to show the values you need to consider and enter to create the dumbbell</p>
 </div>
 
 and the remaining lines add the dots at the end of the dumbells and changes the x axis label to something useful:
 
 <div class="figure" style="text-align: center">
-<img src="appendix-c-advplots_files/figure-html/dumbbell3-1.png" alt="Adding the weights to the dumbbells. Red dots are added in one layer to show Average Accuracy of Non-word trials, and blue dots are added in final layer to show Average Accuracy of Word trials." width="100%" />
+<img src="appendix-c-advplots_files/figure-html/dumbbell3-1.png" alt="Adding the weights to the dumbbells. Red dots are added in one layer to show Average Accuracy of Non-word trials, and blue dots are added in final layer to show Average Accuracy of Word trials." width="80%" />
 <p class="caption">(\#fig:dumbbell3)Adding the weights to the dumbbells. Red dots are added in one layer to show Average Accuracy of Non-word trials, and blue dots are added in final layer to show Average Accuracy of Word trials.</p>
 </div>
 
@@ -194,16 +194,51 @@ ggplot(count_dat, aes(x = "",
 ```
 
 <div class="figure" style="text-align: center">
-<img src="appendix-c-advplots_files/figure-html/piechart-full-1.png" alt="A pie chart of the demographics" width="100%" />
+<img src="appendix-c-advplots_files/figure-html/piechart-full-1.png" alt="A pie chart of the demographics" width="80%" />
 <p class="caption">(\#fig:piechart-full)A pie chart of the demographics</p>
 </div>
 
 Note that this is effectively creating a stacked bar chart with no x variable (i.e. `x = ""`) and then wrapping the y-axis into a circle (i.e. `coord_polar("y", start = 0)`). That is what the first three lines of the `ggplot()` code does:
 
 <div class="figure" style="text-align: center">
-<img src="appendix-c-advplots_files/figure-html/pie-basic1-1.png" alt="The basis of a pie chart" width="100%" />
+<img src="appendix-c-advplots_files/figure-html/pie-basic1-1.png" alt="The basis of a pie chart" width="80%" />
 <p class="caption">(\#fig:pie-basic1)The basis of a pie chart</p>
 </div>
 
 The remainder of the code is used to remove the various panel and tick lines, and text, setting them all to `element_blank()` through the `theme()` functions we saw above, and to add new labelling text on top of the pie chart at specific y-values (i.e. `y = c(75,25)`). But remember, **friends don't let friends make pie charts!**
+
+## Easter Egg - A Lollipop Plot
+
+Lollipop plots are a sweet alternative to pie charts for representing relative counts. They're  a combination of `geom_linerange()` and `geom_point()`. Use `coord_flip()` to make them horizontal.
+
+
+```r
+pets <- c("cats", "dogs", "ferrets", "fish", "hamsters", "snakes")
+prob <- c(50, 50, 20, 30, 20, 15)
+tibble(pet = sample(pets, 500, TRUE, prob) %>% factor(rev(pets))) %>%
+  count(pet) %>%
+  ggplot(aes(x = pet)) +
+  geom_linerange(mapping = aes(ymin = 0, ymax = n),
+                 size = 2) +
+  geom_point(mapping = aes(y = n, colour = pet), 
+             shape = 21, 
+             size = 8, 
+             stroke = 4,
+             fill = "white", 
+             show.legend = FALSE) +
+  geom_text(aes(label = pet), 
+            y = 1, hjust = 0, size = 6, 
+            position = position_nudge(x = 0.3)) +
+  scale_x_discrete(labels = NULL) +
+  theme(axis.ticks.y = element_blank()) +
+  scale_colour_viridis_d() +
+  labs(x = "", y = "") +
+  coord_flip(ylim = c(0, 200)) +
+  theme_light()
+```
+
+<div class="figure" style="text-align: center">
+<img src="appendix-c-advplots_files/figure-html/unnamed-chunk-2-1.png" alt="A lollipop plot showing the number of different types of pets." width="80%" />
+<p class="caption">(\#fig:unnamed-chunk-2)A lollipop plot showing the number of different types of pets.</p>
+</div>
 

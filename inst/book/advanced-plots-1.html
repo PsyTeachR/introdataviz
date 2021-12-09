@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -92,8 +92,8 @@
   <span class="fu">labs</span><span class="op">(</span>subtitle <span class="op">=</span> <span class="st">"+ geom_density()"</span><span class="op">)</span>
 
 <span class="va">a</span><span class="op">+</span><span class="va">b</span></code></pre></div>
-<div class="inline-figure"><img src="appendix-c-advplots_files/figure-html/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;"></div>
-<p>Now that in itself is fairly informative but perhaps takes up a lot of room so one option using some of the features of the patchwork library would be to inset the density plot in the top right of the histogram. We already showed a little of patchwork earlier so we won't repeat it here but all we are doing is placing one of the figures (the density plot) within the <code><a href="https://patchwork.data-imaginist.com/reference/inset_element.html">inset_element()</a></code> function and applying some appropriate values to position the inset - through a little trial and error - based on the bottom left corner of the plot area being <code>left = 0</code>, <code>bottom = 0</code>, and the top right corner being <code>right = 1</code>, <code>top = 1</code>:</p>
+<div class="inline-figure"><img src="appendix-c-advplots_files/figure-html/unnamed-chunk-1-1.png" width="80%" style="display: block; margin: auto;"></div>
+<p>Now that in itself is fairly informative but perhaps takes up a lot of room so one option using some of the features of the patchwork library would be to inset the density plot in the top right of the histogram. We already showed a little of patchwork earlier so we won't repeat it here but all we are doing is placing one of the figures (the density plot) within the <code><a href="https://rdrr.io/pkg/patchwork/man/inset_element.html">inset_element()</a></code> function and applying some appropriate values to position the inset - through a little trial and error - based on the bottom left corner of the plot area being <code>left = 0</code>, <code>bottom = 0</code>, and the top right corner being <code>right = 1</code>, <code>top = 1</code>:</p>
 <div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">10</span>, fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
@@ -103,11 +103,11 @@
   <span class="fu">geom_density</span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Reaction time (ms)"</span><span class="op">)</span>
 
-<span class="va">a</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/inset_element.html">inset_element</a></span><span class="op">(</span><span class="va">b</span>, left <span class="op">=</span> <span class="fl">0.6</span>, bottom <span class="op">=</span> <span class="fl">0.6</span>, right <span class="op">=</span> <span class="fl">1</span>, top <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<span class="va">a</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/patchwork/man/inset_element.html">inset_element</a></span><span class="op">(</span><span class="va">b</span>, left <span class="op">=</span> <span class="fl">0.6</span>, bottom <span class="op">=</span> <span class="fl">0.6</span>, right <span class="op">=</span> <span class="fl">1</span>, top <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:overlay1"></span>
-<img src="appendix-c-advplots_files/figure-html/overlay1-1.png" alt="Insetting a plot within a plot using `inset_element()` from the patchwork library" width="100%"><p class="caption">
-Figure C.1: Insetting a plot within a plot using <code><a href="https://patchwork.data-imaginist.com/reference/inset_element.html">inset_element()</a></code> from the patchwork library
+<img src="appendix-c-advplots_files/figure-html/overlay1-1.png" alt="Insetting a plot within a plot using `inset_element()` from the patchwork library" width="80%"><p class="caption">
+Figure C.1: Insetting a plot within a plot using <code><a href="https://rdrr.io/pkg/patchwork/man/inset_element.html">inset_element()</a></code> from the patchwork library
 </p>
 </div>
 <p>But of course that only works if there is space for the inset and it doesn't start overlapping on the main figure. This next approach fully overlays the density plot on top of the histogram. There is one main change though and that is the addition of <code>aes(y=..density..)</code> within <code>geom_histogram()</code>. This tells the histogram to now be plotted in terms of density and not count, meaning that the density plot and the histogram and now based on the same y-axis:</p>
@@ -119,7 +119,7 @@ Figure C.1: Insetting a plot within a plot using <code><a href="https://patchwor
   <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Reaction time (ms)"</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:overlay2"></span>
-<img src="appendix-c-advplots_files/figure-html/overlay2-1.png" alt="A histogram with density plot overlaid" width="100%"><p class="caption">
+<img src="appendix-c-advplots_files/figure-html/overlay2-1.png" alt="A histogram with density plot overlaid" width="80%"><p class="caption">
 Figure C.2: A histogram with density plot overlaid
 </p>
 </div>
@@ -135,7 +135,7 @@ Figure C.2: A histogram with density plot overlaid
   <span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:overlay3"></span>
-<img src="appendix-c-advplots_files/figure-html/overlay3-1.png" alt="A histogram with normal distribution based on the data overlaid" width="100%"><p class="caption">
+<img src="appendix-c-advplots_files/figure-html/overlay3-1.png" alt="A histogram with normal distribution based on the data overlaid" width="80%"><p class="caption">
 Figure C.3: A histogram with normal distribution based on the data overlaid
 </p>
 </div>
@@ -154,7 +154,7 @@ Figure C.3: A histogram with normal distribution based on the data overlaid
   <span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:overlay4"></span>
-<img src="appendix-c-advplots_files/figure-html/overlay4-1.png" alt="Changing the line of the `stat_function()`" width="100%"><p class="caption">
+<img src="appendix-c-advplots_files/figure-html/overlay4-1.png" alt="Changing the line of the `stat_function()`" width="80%"><p class="caption">
 Figure C.4: Changing the line of the <code>stat_function()</code>
 </p>
 </div>
@@ -222,21 +222,21 @@ With our average accuracies for non-word trials in **
   <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Change in Accuracy"</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:dumbbell1"></span>
-<img src="appendix-c-advplots_files/figure-html/dumbbell1-1.png" alt="A dumbbell plot of change in Average Accuracy from Non-word trials (red dots) to Word trials (blue dots) for monolingual and bilingual participants." width="100%"><p class="caption">
+<img src="appendix-c-advplots_files/figure-html/dumbbell1-1.png" alt="A dumbbell plot of change in Average Accuracy from Non-word trials (red dots) to Word trials (blue dots) for monolingual and bilingual participants." width="80%"><p class="caption">
 Figure C.5: A dumbbell plot of change in Average Accuracy from Non-word trials (red dots) to Word trials (blue dots) for monolingual and bilingual participants.
 </p>
 </div>
 <p>Which actually gives the least exciting figure ever as both groups showed the same change from the non-word trials (red dots) to the word trials (blue dots) but we can break the code down a bit just to highlight what we are doing, remembering the idea about layers. Layers one and two add the basic background and black line from the start point (x,y), the mean accuracy of non-word trials for the two conditions, to the end point (xend, yend), the mean accuracy of word trials for the two conditions:</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:dumbbell2"></span>
-<img src="appendix-c-advplots_files/figure-html/dumbbell2-1.png" alt="Building the bars of our dumbbells. The (x,y) and (xend, yend) have been added to show the values you need to consider and enter to create the dumbbell" width="100%"><p class="caption">
+<img src="appendix-c-advplots_files/figure-html/dumbbell2-1.png" alt="Building the bars of our dumbbells. The (x,y) and (xend, yend) have been added to show the values you need to consider and enter to create the dumbbell" width="80%"><p class="caption">
 Figure C.6: Building the bars of our dumbbells. The (x,y) and (xend, yend) have been added to show the values you need to consider and enter to create the dumbbell
 </p>
 </div>
 <p>and the remaining lines add the dots at the end of the dumbells and changes the x axis label to something useful:</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:dumbbell3"></span>
-<img src="appendix-c-advplots_files/figure-html/dumbbell3-1.png" alt="Adding the weights to the dumbbells. Red dots are added in one layer to show Average Accuracy of Non-word trials, and blue dots are added in final layer to show Average Accuracy of Word trials." width="100%"><p class="caption">
+<img src="appendix-c-advplots_files/figure-html/dumbbell3-1.png" alt="Adding the weights to the dumbbells. Red dots are added in one layer to show Average Accuracy of Non-word trials, and blue dots are added in final layer to show Average Accuracy of Word trials." width="80%"><p class="caption">
 Figure C.7: Adding the weights to the dumbbells. Red dots are added in one layer to show Average Accuracy of Non-word trials, and blue dots are added in final layer to show Average Accuracy of Word trials.
 </p>
 </div>
@@ -271,18 +271,53 @@ Figure C.7: Adding the weights to the dumbbells. Red dots are added in one layer
             size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:piechart-full"></span>
-<img src="appendix-c-advplots_files/figure-html/piechart-full-1.png" alt="A pie chart of the demographics" width="100%"><p class="caption">
+<img src="appendix-c-advplots_files/figure-html/piechart-full-1.png" alt="A pie chart of the demographics" width="80%"><p class="caption">
 Figure C.8: A pie chart of the demographics
 </p>
 </div>
 <p>Note that this is effectively creating a stacked bar chart with no x variable (i.e. <code>x = ""</code>) and then wrapping the y-axis into a circle (i.e. <code>coord_polar("y", start = 0)</code>). That is what the first three lines of the <code>ggplot()</code> code does:</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:pie-basic1"></span>
-<img src="appendix-c-advplots_files/figure-html/pie-basic1-1.png" alt="The basis of a pie chart" width="100%"><p class="caption">
+<img src="appendix-c-advplots_files/figure-html/pie-basic1-1.png" alt="The basis of a pie chart" width="80%"><p class="caption">
 Figure C.9: The basis of a pie chart
 </p>
 </div>
 <p>The remainder of the code is used to remove the various panel and tick lines, and text, setting them all to <code>element_blank()</code> through the <code>theme()</code> functions we saw above, and to add new labelling text on top of the pie chart at specific y-values (i.e. <code>y = c(75,25)</code>). But remember, <strong>friends don't let friends make pie charts!</strong></p>
+</div>
+<div id="easter-egg---a-lollipop-plot" class="section level2" number="10.4">
+<h2>
+<span class="header-section-number">C.4</span> Easter Egg - A Lollipop Plot<a class="anchor" aria-label="anchor" href="#easter-egg---a-lollipop-plot"><i class="fas fa-link"></i></a>
+</h2>
+<p>Lollipop plots are a sweet alternative to pie charts for representing relative counts. They're a combination of <code>geom_linerange()</code> and <code>geom_point()</code>. Use <code>coord_flip()</code> to make them horizontal.</p>
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cats"</span>, <span class="st">"dogs"</span>, <span class="st">"ferrets"</span>, <span class="st">"fish"</span>, <span class="st">"hamsters"</span>, <span class="st">"snakes"</span><span class="op">)</span>
+<span class="va">prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">50</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">20</span>, <span class="fl">15</span><span class="op">)</span>
+<span class="fu">tibble</span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">pets</span>, <span class="fl">500</span>, <span class="cn">TRUE</span>, <span class="va">prob</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">pets</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">count</span><span class="op">(</span><span class="va">pet</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">pet</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_linerange</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>ymin <span class="op">=</span> <span class="fl">0</span>, ymax <span class="op">=</span> <span class="va">n</span><span class="op">)</span>,
+                 size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">n</span>, colour <span class="op">=</span> <span class="va">pet</span><span class="op">)</span>, 
+             shape <span class="op">=</span> <span class="fl">21</span>, 
+             size <span class="op">=</span> <span class="fl">8</span>, 
+             stroke <span class="op">=</span> <span class="fl">4</span>,
+             fill <span class="op">=</span> <span class="st">"white"</span>, 
+             show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_text</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">pet</span><span class="op">)</span>, 
+            y <span class="op">=</span> <span class="fl">1</span>, hjust <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fl">6</span>, 
+            position <span class="op">=</span> <span class="fu">position_nudge</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_x_discrete</span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme</span><span class="op">(</span>axis.ticks.y <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_colour_viridis_d</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">""</span>, y <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">coord_flip</span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme_light</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="appendix-c-advplots_files/figure-html/unnamed-chunk-2-1.png" alt="A lollipop plot showing the number of different types of pets." width="80%"><p class="caption">
+Figure 6.5: A lollipop plot showing the number of different types of pets.
+</p>
+</div>
 
 </div>
 </div>
@@ -487,6 +522,7 @@ $( document ).ready(function() {
 <li><a class="nav-link" href="#easter-egg---overlaying-plots"><span class="header-section-number">C.1</span> Easter Egg - Overlaying Plots</a></li>
 <li><a class="nav-link" href="#easter-egg---a-dumbbell-plot"><span class="header-section-number">C.2</span> Easter Egg - A Dumbbell Plot</a></li>
 <li><a class="nav-link" href="#easter-egg---a-pie-chart"><span class="header-section-number">C.3</span> Easter Egg - A Pie Chart</a></li>
+<li><a class="nav-link" href="#easter-egg---a-lollipop-plot"><span class="header-section-number">C.4</span> Easter Egg - A Lollipop Plot</a></li>
 </ul>
 
       <div class="book-extra">
@@ -504,7 +540,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-12-05.</p>
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-12-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -110,29 +110,6 @@
   \let\oldsubparagraph\subparagraph
   \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newlength{\cslentryspacingunit} % times entry-spacing
-\setlength{\cslentryspacingunit}{\parskip}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1
-  \let\oldpar\par
-  \def\par{\hangindent=\cslhangindent\oldpar}
-  \fi
-  % set entry spacing
-  \setlength{\parskip}{#2\cslentryspacingunit}
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 % Manuscript styling
 \usepackage{upgreek}
 \captionsetup{font=singlespacing,justification=justified}
@@ -196,6 +173,26 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \title{Data visualisation using R, for researchers who don't use R}
 \author{Emily Nordmann\textsuperscript{1}, Phil McAleer\textsuperscript{1}, Wilhelmiina Toivo\textsuperscript{1}, Helena Paterson\textsuperscript{1}, \& Lisa M. DeBruine\textsuperscript{2}}
@@ -246,7 +243,7 @@ In addition to the benefits of reproducibility, using R for data visualisation g
 \hypertarget{a-layered-grammar-of-graphics}{%
 \subsection{A layered grammar of graphics}\label{a-layered-grammar-of-graphics}}
 
-There are multiple approaches to data visualisation in R; in this paper we use the popular package\footnote{The power of R is that it is extendable and open source - put simply, if a function doesn't exist or is difficult to use, anyone can create a new \textbf{package} that contains data and code to allow you to perform new tasks. You may find it helpful to think of packages as additional apps that you need to download separately to extend the functionality beyond what comes with ``Base R''.} \texttt{ggplot2} (Wickham, 2016a) which is part of the larger \texttt{tidyverse}\footnote{Because there are so many different ways to achieve the same thing in R, when Googling for help with R, it is useful to append the name of the package or approach you are using, e.g., ``how to make a histogram ggplot2''.} (Wickham, 2017) collection of packages that provide functions for data wrangling, descriptives, and visualisation. A grammar of graphics (Wilkinson, Anand, \& Grossman, 2005) is a standardised way to describe the components of a graphic. \texttt{ggplot2} uses a layered grammar of graphics (Wickham, 2010), in which plots are built up in a series of layers. It may be helpful to think about any picture as having multiple elements that sit semi-transparently over each other. A good analogy is old Disney movies where artists would create a background and then add moveable elements on top of the background via transparencies.
+There are multiple approaches to data visualisation in R; in this paper we use the popular package\footnote{The power of R is that it is extendable and open source - put simply, if a function doesn't exist or is difficult to use, anyone can create a new \textbf{package} that contains data and code to allow you to perform new tasks. You may find it helpful to think of packages as additional apps that you need to download separately to extend the functionality beyond what comes with ``Base R.''} \texttt{ggplot2} (Wickham, 2016a) which is part of the larger \texttt{tidyverse}\footnote{Because there are so many different ways to achieve the same thing in R, when Googling for help with R, it is useful to append the name of the package or approach you are using, e.g., ``how to make a histogram ggplot2.''} (Wickham, 2017) collection of packages that provide functions for data wrangling, descriptives, and visualisation. A grammar of graphics (Wilkinson, Anand, \& Grossman, 2005) is a standardised way to describe the components of a graphic. \texttt{ggplot2} uses a layered grammar of graphics (Wickham, 2010), in which plots are built up in a series of layers. It may be helpful to think about any picture as having multiple elements that sit semi-transparently over each other. A good analogy is old Disney movies where artists would create a background and then add moveable elements on top of the background via transparencies.
 
 Figure~\ref{fig:layers} displays the evolution of a simple scatterplot using this layered approach. First, the plot space is built (layer 1); the variables are specified (layer 2); the type of visualisation (known as a \texttt{geom}) that is desired for these variables is specified (layer 3) - in this case \texttt{geom\_point()} is called to visualise individual data points; a second geom is added to include a line of best fit (layer 4), the axis labels are edited for readability (layer 5), and finally, a theme is applied to change the overall appearance of the plot (layer 6).
 
@@ -289,7 +286,7 @@ This tutorial contains three components.
 \hypertarget{simulated-dataset}{%
 \subsection{Simulated dataset}\label{simulated-dataset}}
 
-For the purpose of this tutorial, we will use simulated data for a 2 x 2 mixed-design lexical decision task in which participants must decide whether a presented word is a real word, or a non-word, with 100 participants. There are 100 rows (1 for each participant) and 7 variables:
+For the purpose of this tutorial, we will use simulated data for a 2 x 2 mixed-design lexical decision task in which 100 participants must decide whether a presented word is a real word or a non-word. There are 100 rows (1 for each participant) and 7 variables:
 
 \begin{itemize}
 \item
@@ -311,7 +308,7 @@ For the purpose of this tutorial, we will use simulated data for a 2 x 2 mixed-d
     \texttt{language}: Language group (1 = monolingual, 2 = bilingual)
   \end{itemize}
 \item
-  4 columns for the 2 dependent variables (DVs) for RT and accuracy, crossed by the within-subject IV of condition:
+  4 columns for the 2 dependent variables (DVs) of RT and accuracy, crossed by the within-subject IV of condition:
 
   \begin{itemize}
   \tightlist
@@ -333,9 +330,9 @@ For newcomers to R, we would suggest working through this tutorial with the simu
 
 We strongly encourage the use of RStudio (RStudio Team, 2021) to write code in R. R is the programming language whilst RStudio is an \emph{integrated development environment} that makes working with R easier. More information on installing both R and RStudio can be found in the additional resources.
 
-Projects are a useful way of keeping all your code, data, and output in one place. To create a new project, open RStudio and click \texttt{File\ -\ New\ Project\ -\ New\ Directory\ -\ New\ Project}. You will be prompted to give the project a name, and select a location for where to store the project on your computer. Once you have done this, click \texttt{Create\ Project}. Download the simulated dataset and code tutorial Rmd file from \href{https://osf.io/bj83f/files/}{the online materials} and then (\texttt{ldt\_data.csv}, \texttt{workbook.Rmd}) to this folder. The files pane on the bottom right of RStudio should now display this folder and the files it contains - this is known as your \emph{working directory} and it is where R will look for any data you wish to import and where it will save any output you create.
+Projects are a useful way of keeping all your code, data, and output in one place. To create a new project, open RStudio and click \texttt{File\ -\ New\ Project\ -\ New\ Directory\ -\ New\ Project}. You will be prompted to give the project a name, and select a location for where to store the project on your computer. Once you have done this, click \texttt{Create\ Project}. Download the simulated dataset and code tutorial Rmd file from \href{https://osf.io/bj83f/files/}{the online materials} (\texttt{ldt\_data.csv}, \texttt{workbook.Rmd}) and then move them to this folder. The files pane on the bottom right of RStudio should now display this folder and the files it contains - this is known as your \emph{working directory} and it is where R will look for any data you wish to import and where it will save any output you create.
 
-This tutorial will require you to use the packages contained with the \texttt{tidyverse} collection. Additionally, we will also require use of \texttt{patchwork}. To install these packages, copy and paste the below code into the console (the left hand pane) and press enter to execute the code.
+This tutorial will require you to use the packages in the \texttt{tidyverse} collection. Additionally, we will also require use of \texttt{patchwork}. To install these packages, copy and paste the below code into the console (the left hand pane) and press enter to execute the code.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -347,7 +344,7 @@ This tutorial will require you to use the packages contained with the \texttt{ti
 
 The R Markdown workbook available in the \href{https://osf.io/bj83f/files/}{online materials} contains all the code in this tutorial and there is more information and links to additional resources for how to use R Markdown for reproducible reports in the additional resources.
 
-The reason that the above install packages code is not included in the workbook is that every time you run the install command code it will install the latest version of the package. Leaving this code in your script can lead you to unintentionally install a package update you didn't want. For this reason, avoid including install code in any script or Markdown document.
+The reason that the above code is not included in the workbook is that every time you run the install command code it will install the latest version of the package. Leaving this code in your script can lead you to unintentionally install a package update you didn't want. For this reason, avoid including install code in any script or Markdown document.
 
 For more information on how to use R with RStudio, please see the additional resources in the online appendices.
 
@@ -359,23 +356,23 @@ Before you start visualising your data, it must be in an appropriate format. The
 \hypertarget{data-format}{%
 \subsubsection{Data format}\label{data-format}}
 
-The simulated lexical decision data is provided in a \texttt{csv} (comma-separated variable) file. Functions exist in R to read many other types of data files; the \texttt{rio} package's \texttt{import()} function can read most types of files. However, \texttt{csv} files avoids problems like Excel's insistence on mangling anything that even vaguely resembles a date. You may wish to export your data as a \texttt{csv} file that contains only the data you want to visualise, rather than a full, larger workbook. It is possible to clean almost any file reproducibly in R, however, as noted above, this can require higher level coding skills so for getting started with visualisation we suggest removing summary rows or additional notes from any files you import with the file only containing the rows and columns of data you want to plot. You should always check after importing data that the resulting table looks like you expect.
+The simulated lexical decision data is provided in a \texttt{csv} (comma-separated variable) file. Functions exist in R to read many other types of data files; the \texttt{rio} package's \texttt{import()} function can read most types of files. However, \texttt{csv} files avoids problems like Excel's insistence on mangling anything that even vaguely resembles a date. You may wish to export your data as a \texttt{csv} file that contains only the data you want to visualise, rather than a full, larger workbook. It is possible to clean almost any file reproducibly in R, however, as noted above, this can require higher level coding skills. For getting started with visualisation, we suggest removing summary rows or additional notes from any files you import so the file only contains the rows and columns of data you want to plot.
 
 \hypertarget{variable-names}{%
 \subsubsection{Variable names}\label{variable-names}}
 
 Ensuring that your variable names are consistent can make it much easier to work in R. We recommend using short but informative variable names, for example \texttt{rt\_word} is preferred over \texttt{dv1\_iv1} or \texttt{reaction\_time\_word\_condition} because these are either hard to read or hard to type.
 
-It is also helpful to have a consistent naming scheme, particularly for variable names that require more than one word. Two popular options are \texttt{CamelCase} where each new word begins with a capital letter, or \texttt{snake\_case} where all letters are lower case and words are separated by an underscore. For the purposes of naming variables, avoid using any spaces in variable names (e.g., \texttt{rt\ word}) and consider the additional meaning of a separator beyond making the variable names easier to read. For example, \texttt{rt\_word}, \texttt{rt\_nonword}, \texttt{acc\_word}, and \texttt{acc\_nonword} all have the DV to the left of the separator and the level of the IV to the right. \texttt{rt\_word\_condition} on the other hand has two separators but only one of them is meaningful and it is useful to be able to split variable names consistently. In this paper, we will use \texttt{snake\_case} and lower case letters for all variable names so that we don't have to remember where to put the capital letters.
+It is also helpful to have a consistent naming scheme, particularly for variable names that require more than one word. Two popular options are \texttt{CamelCase} where each new word begins with a capital letter, or \texttt{snake\_case} where all letters are lower case and words are separated by an underscore. For the purposes of naming variables, avoid using any spaces in variable names (e.g., \texttt{rt\ word}) and consider the additional meaning of a separator beyond making the variable names easier to read. For example, \texttt{rt\_word}, \texttt{rt\_nonword}, \texttt{acc\_word}, and \texttt{acc\_nonword} all have the DV to the left of the separator and the level of the IV to the right. \texttt{rt\_word\_condition} on the other hand has two separators but only one of them is meaningful, making it more difficult to split variable names consistently. In this paper, we will use \texttt{snake\_case} and lower case letters for all variable names so that we don't have to remember where to put the capital letters.
 
 When working with your own data, you can rename columns in Excel, but the resources listed in the online appendices point to how to rename columns reproducibly with code.
 
 \hypertarget{data-values}{%
 \subsubsection{Data values}\label{data-values}}
 
-A benefit of R is that categorical data can be entered as text. In the tutorial dataset, language group is entered as 1 or 2, so that we can show you how to recode numeric values into factors with labels. However, we recommend recording meaningful labels rather than numbers from the beginning of data collection to avoid misinterpreting data due to coding errors. Note that values must match \emph{exactly} in order to be considered in the same category and R is case sensitive, so ``mono'', ``Mono'', and ``monolingual'' would be classified as members of three separate categories.
+A benefit of R is that categorical data can be entered as text. In the tutorial dataset, language group is entered as 1 or 2, so that we can show you how to recode numeric values into factors with labels. However, we recommend recording meaningful labels rather than numbers from the beginning of data collection to avoid misinterpreting data due to coding errors. Note that values must match \emph{exactly} in order to be considered in the same category and R is case sensitive, so ``mono,'' ``Mono,'' and ``monolingual'' would be classified as members of three separate categories.
 
-Finally, cells that represent missing data should be left empty rather than containing values like \texttt{NA}, \texttt{missing} or \texttt{999}\footnote{If your data use a missing value like \texttt{NA} or \texttt{999}, you can indicate this in the \texttt{na} argument of \texttt{read\_csv()} when you read in your data. For example, \texttt{read\_csv("data.csv",\ na\ =\ c("",\ "NA",\ 999))} allows you to use blank cells \texttt{""}, the letters \texttt{"NA"}, and the number \texttt{999} as missing values.}. A complementary rule of thumb is that each column should only contain one type of data, such as words or numbers, not both.
+Finally, importing data is more straightforward if cells that represent missing data are left empty rather than containing values like \texttt{NA}, \texttt{missing} or \texttt{999}\footnote{If your data use a missing value like \texttt{NA} or \texttt{999}, you can indicate this in the \texttt{na} argument of \texttt{read\_csv()} when you read in your data. For example, \texttt{read\_csv("data.csv",\ na\ =\ c("",\ "NA",\ 999))} allows you to use blank cells \texttt{""}, the letters \texttt{"NA"}, and the number \texttt{999} as missing values.}. A complementary rule of thumb is that each column should only contain one type of data, such as words or numbers, not both.
 
 \hypertarget{getting-started}{%
 \section{Getting Started}\label{getting-started}}
@@ -405,7 +402,7 @@ To load the \href{https://osf.io/bj83f/files/}{simulated data} we use the functi
 
 This code has created an object \texttt{dat} into which you have read the data from the file \texttt{ldt\_data.csv}. This object will appear in the environment pane in the top right. Note that the name of the data file must be in quotation marks and the file extension (\texttt{.csv}) must also be included. If you receive the error \texttt{\ldots{}does\ not\ exist\ in\ current\ working\ directory} it is highly likely that you have made a typo in the file name (remember R is case sensitive), have forgotten to include the file extension \texttt{.csv}, or that the data file you want to load is not stored in your project folder. If you get the error \texttt{could\ not\ find\ function} it means you have either not loaded the correct package (a common beginner error is to write the code, but not run it), or you have made a typo in the function name.
 
-To view the dataset, click \texttt{dat} in the environment pane or run \texttt{View(dat)} in the console. The environment pane also tells us that the object \texttt{dat} has 100 observations of 7 variables, and this is a useful quick check to ensure one has loaded the right data. Note that the 7 variables have an additional piece of information \texttt{chr} and \texttt{num}; this specifies the kind of data in the column. Similar to Excel and SPSS, R uses this information (or variable type) to specify allowable manipulations of data. For instance character data such as the \texttt{id} cannot be averaged, while it is possible to do this with numerical data such as the \texttt{age}.
+You should always check after importing data that the resulting table looks like you expect. To view the dataset, click \texttt{dat} in the environment pane or run \texttt{View(dat)} in the console. The environment pane also tells us that the object \texttt{dat} has 100 observations of 7 variables, and this is a useful quick check to ensure one has loaded the right data. Note that the 7 variables have an additional piece of information \texttt{chr} and \texttt{num}; this specifies the kind of data in the column. Similar to Excel and SPSS, R uses this information (or variable type) to specify allowable manipulations of data. For instance character data such as the \texttt{id} cannot be averaged, while it is possible to do this with numerical data such as the \texttt{age}.
 
 \hypertarget{handling-numeric-factors}{%
 \subsection{Handling numeric factors}\label{handling-numeric-factors}}
@@ -415,7 +412,7 @@ Another useful check is to use the functions \texttt{summary()} and \texttt{str(
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{summary}\NormalTok{(dat)}
-\FunctionTok{str}\NormalTok{(dat)        }
+\FunctionTok{str}\NormalTok{(dat)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -426,16 +423,16 @@ Because the factor \texttt{language} is coded as 1 and 2, R has categorised this
 \item
   \texttt{mutate()} makes new columns in a data table, or overwrites a column;
 \item
-  \texttt{factor()} translates the language column into a factor with the labels ``monolingual'' and ``bilingual''. You can also use \texttt{factor()} to set the display order of a column that contains words. Otherwise, they will display in alphabetical order. In this case we are replacing the numeric data (1 and 2) in the \texttt{language} column with the equivalent English labels \texttt{monolingual} for 1 and \texttt{bilingual} for 2. At the same time we will change the column type to be a factor, which is how R defines categorical data.
+  \texttt{factor()} translates the language column into a factor with the labels ``monolingual'' and ``bilingual.'' You can also use \texttt{factor()} to set the display order of a column that contains words. Otherwise, they will display in alphabetical order. In this case we are replacing the numeric data (1 and 2) in the \texttt{language} column with the equivalent English labels \texttt{monolingual} for 1 and \texttt{bilingual} for 2. At the same time we will change the column type to be a factor, which is how R defines categorical data.
 \end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{dat }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(dat, }\AttributeTok{language =} \FunctionTok{factor}\NormalTok{(}
-    \AttributeTok{x =}\NormalTok{ language, }\CommentTok{\# column to translate}
-    \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\CommentTok{\# values of the original data in preferred order}
-    \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"monolingual"}\NormalTok{, }\StringTok{"bilingual"}\NormalTok{) }\CommentTok{\# labels for display}
-\NormalTok{  ))}
+  \AttributeTok{x =}\NormalTok{ language, }\CommentTok{\# column to translate}
+  \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\CommentTok{\# values of the original data in preferred order}
+  \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"monolingual"}\NormalTok{, }\StringTok{"bilingual"}\NormalTok{) }\CommentTok{\# labels for display}
+\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -450,18 +447,20 @@ Each function has a list of arguments it can take, and a default order for those
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{dat }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(dat, }\AttributeTok{language =} \FunctionTok{factor}\NormalTok{(language, }
-                           \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }
-                           \FunctionTok{c}\NormalTok{(}\StringTok{"monolingual"}\NormalTok{, }\StringTok{"bilingual"}\NormalTok{)))}
+\NormalTok{dat }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(dat, }\AttributeTok{language =} \FunctionTok{factor}\NormalTok{(}
+\NormalTok{  language,}
+  \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{),}
+  \FunctionTok{c}\NormalTok{(}\StringTok{"monolingual"}\NormalTok{, }\StringTok{"bilingual"}\NormalTok{)}
+\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
 One of the challenges in learning R is that many of the ``helpful'' examples and solutions you will find online do not include argument names and so for novice learners are completely opaque. In this tutorial, we will include the argument names the first time a function is used, however, we will remove some argument names from subsequent examples to facilitate knowledge transfer to the help available online.
 
-\hypertarget{demographic-information}{%
-\subsection{Demographic information}\label{demographic-information}}
+\hypertarget{summarising-data}{%
+\subsection{Summarising data}\label{summarising-data}}
 
-You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (i.e., data processing). The code below uses the \texttt{\%\textgreater{}\%} operator, otherwise known as the \emph{pipe,} and can be translated as ``\emph{and then''}. For example, the below code can be read as:
+You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (i.e., data processing). The code below uses the \texttt{\%\textgreater{}\%} operator, otherwise known as the \emph{pipe,} and can be translated as "\emph{and then"}. For example, the below code can be read as:
 
 \begin{itemize}
 \item
@@ -588,13 +587,30 @@ For our first plot, we will make a simple bar chart of counts that shows the num
 \caption{Bar chart of counts.}\label{fig:bar1}
 \end{figure}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ dat, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ language)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ (..count..)}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(..count..))) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"Percent"}\NormalTok{, }\AttributeTok{labels=}\NormalTok{scales}\SpecialCharTok{::}\NormalTok{percent) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/unnamed-chunk-8-1} 
+
+}
+
+\caption{ }\label{fig:unnamed-chunk-8}
+\end{figure}
+
 The first line of code sets up the base of the plot.
 
 \begin{itemize}
 \item
   \texttt{data} specifies which data source to use for the plot
 \item
-  \texttt{mapping} specifies which variables to map to which aesthetics (\texttt{aes}) of the plot. Aesthetic mappings describe how variables in the data are mapped to visual properties (aesthetics) of geoms.
+  \texttt{mapping} specifies which variables to map to which aesthetics (\texttt{aes}) of the plot. Mappings describe how variables in the data are mapped to visual properties (aesthetics) of geoms.
 \item
   \texttt{x} specifies which variable to put on the x-axis
 \end{itemize}
@@ -603,12 +619,10 @@ The second line of code adds a \texttt{geom}, and is connected to the base code 
 
 The base and geoms layers work in symbiosis so it is worthwhile checking the mapping rules as these are related to the default statistic for the plot's geom.
 
-\hypertarget{plotting-existing-aggregates-and-percent}{%
-\subsection{Plotting existing aggregates and percent}\label{plotting-existing-aggregates-and-percent}}
+\hypertarget{aggregates-and-percentages}{%
+\subsection{Aggregates and percentages}\label{aggregates-and-percentages}}
 
-If your dataset already has the counts that you want to plot, you can set \texttt{stat="identity"} inside of \texttt{geom\_bar()} to use that number instead of counting rows. For example, there is currently no function to plot percentages rather than counts within \texttt{ggplot2}, you need to calculate these and store them in a new object that is then used as the dataset.
-
-Notice that we are now omitting the names of the arguments \texttt{data} and \texttt{mapping} in the \texttt{ggplot()} function.
+If your dataset already has the counts that you want to plot, you can set \texttt{stat="identity"} inside of \texttt{geom\_bar()} to use that number instead of counting rows. For example, to plot percentages rather than counts within \texttt{ggplot2}, you can calculate these and store them in a new object that is then used as the dataset. You can do this in the software you are most comfortable in, save the new data, and import it as a new table, or you can use code to manipulate the data.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -616,7 +630,13 @@ Notice that we are now omitting the names of the arguments \texttt{data} and \te
   \FunctionTok{count}\NormalTok{(language) }\SpecialCharTok{\%\textgreater{}\%}     \CommentTok{\# count rows per language (makes a new column called n)}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{percent =}\NormalTok{ (n}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n)}\SpecialCharTok{*}\DecValTok{100}\NormalTok{)) }\CommentTok{\# make a new column \textquotesingle{}percent\textquotesingle{} equal to }
                                    \CommentTok{\# n divided by the sum of n times 100}
+\end{Highlighting}
+\end{Shaded}
 
+Notice that we are now omitting the names of the arguments \texttt{data} and \texttt{mapping} in the \texttt{ggplot()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(dat\_percent, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ language, }\AttributeTok{y =}\NormalTok{ percent)) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }
 \end{Highlighting}
@@ -652,7 +672,7 @@ The code to plot a histogram of \texttt{age} is very similar to the bar chart co
 \caption{Histogram of ages.}\label{fig:histogram1}
 \end{figure}
 
-The base statistic for \texttt{geom\_histogram()} is also count, and by default \texttt{geom\_histogram()} divides the x-axis into ``bins'' and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message \texttt{stat\_bin()\ using\ bins\ =\ 30.\ Pick\ better\ value\ with\ binwidth}. This means that, by default, \texttt{geom\_histogram()} divides the x-axis into 30 bins. You can change this by either setting the number of bins (e.g., \texttt{bins\ =\ 20}) or the width of each bin (e.g., \texttt{binwidth\ =\ 5}) as an argument.
+The base statistic for \texttt{geom\_histogram()} is also count, and by default \texttt{geom\_histogram()} divides the x-axis into 30 ``bins'' and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message ``stat\_bin() using bins = 30. Pick better value with binwidth.'' You can change this by either setting the number of bins (e.g., \texttt{bins\ =\ 20}) or the width of each bin (e.g., \texttt{binwidth\ =\ 5}) as an argument.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -673,7 +693,7 @@ The base statistic for \texttt{geom\_histogram()} is also count, and by default 
 \hypertarget{customisation-1}{%
 \subsection{Customisation 1}\label{customisation-1}}
 
-So far we have made basic plots with the default visual appearance. Before we move on to the experimental data we will introduce some simple visual customisation options. There are many ways in which you can control or customise the visual appearance of figures in R. However, once you understand the logic of one, it becomes easier to understand others that you may see in other examples. Visual appearance of elements can be customised within a geom itself, within the aesthetic mapping, or by connecting additional layers with \texttt{+}. In this section we look at the simplest and most commonly-used customisations: changing colours, adding axis labels, and adding themes.
+So far we have made basic plots with the default visual appearance. Before we move on to the experimental data, we will introduce some simple visual customisation options. There are many ways in which you can control or customise the visual appearance of figures in R. However, once you understand the logic of one, it becomes easier to understand others that you may see in other examples. The visual appearance of elements can be customised within a geom itself, within the aesthetic mapping, or by connecting additional layers with \texttt{+}. In this section we look at the simplest and most commonly-used customisations: changing colours, adding axis labels, and adding themes.
 
 \hypertarget{changing-colours}{%
 \subsubsection{Changing colours}\label{changing-colours}}
@@ -733,13 +753,10 @@ For the bar chart of counts, the x-axis is mapped to a discrete (categorical) va
 \item
   \texttt{c()} is a function that you will see in many different contexts and is used to combine multiple values. In this case, the labels we want to apply are combined within \texttt{c()} by enclosing each word within their own parenthesis, and are in the order displayed on the plot. A very common error is to forget to enclose multiple values in \texttt{c()}.
 \item
-  \texttt{breaks} controls the tick marks on the axis. Again because there are multiple values, they are enclosed within \texttt{c()} although because they are numeric and not text, they do not need quotation marks.
+  \texttt{breaks} controls the tick marks on the axis. Again, because there are multiple values, they are enclosed within \texttt{c()}. Because they are numeric and not text, they do not need quotation marks.
 \end{itemize}
 
-\hypertarget{discrete-vs.-continuous-errors}{%
-\subsubsection{Discrete vs.~continuous errors}\label{discrete-vs.-continuous-errors}}
-
-Another common error is to map the wrong type of \texttt{scale\_} function to a variable. Try running the below code:
+A common error is to map the wrong type of \texttt{scale\_} function to a variable. Try running the below code:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -747,7 +764,7 @@ Another common error is to map the wrong type of \texttt{scale\_} function to a 
 \FunctionTok{ggplot}\NormalTok{(dat, }\FunctionTok{aes}\NormalTok{(language)) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"Language group"}\NormalTok{, }
-                   \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Monolingual"}\NormalTok{, }\StringTok{"Bilingual"}\NormalTok{)) }
+                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Monolingual"}\NormalTok{, }\StringTok{"Bilingual"}\NormalTok{)) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -807,9 +824,9 @@ Before you move on try the following:
 \hypertarget{data-formats}{%
 \subsection{Data formats}\label{data-formats}}
 
-To visualise the experimental reaction time and accuracy data using \texttt{ggplot2}, we first need to reshape the data from wide-format to long-format and it is this step that can cause friction with novice users of R. Traditionally, psychologists have been taught data skills using wide-format data. Wide-format data typically has one row of data for each participant with separate columns for each score or variable. For repeated-measures variables, the dependent variable is split across different columns with one measurement for each condition and for between groups variable, a separate column is added to encode the group to which a participant or observation belongs.
+To visualise the experimental reaction time and accuracy data using \texttt{ggplot2}, we first need to reshape the data from wide format to long format. This step can cause friction with novice users of R. Traditionally, psychologists have been taught data skills using wide-format data. Wide-format data typically has one row of data for each participant, with separate columns for each score or variable. For repeated-measures variables, the dependent variable is split across different columns. For between-groups variables, a separate column is added to encode the group to which a participant or observation belongs.
 
-The simulated lexical decision data is currently in wide-format (see Table~\ref{tab:wide-data}) where each participant's aggregated \footnote{In this tutorial we have chosen to gloss over the data processing steps that must occur to get from the raw data to aggregated values. This type of processing requires a more extensive tutorial than we can provide in the current paper. More importantly, it is still possible to use R for data visualisation having done the preparatory steps using existing workflows in Excel and SPSS. We bypass these initial steps and focus on tangible outputs that may then encourage further mastery of reproducible methods. Collectively we tend to call the steps for reshaping data and for processing raw data or for getting data ready to use statistical functions ``wrangling''.} reaction time and accuracy for each level of the within-subject variable is split across multiple columns.
+The simulated lexical decision data is currently in wide format (see Table~\ref{tab:wide-data}), where each participant's aggregated\footnote{In this tutorial we have chosen to gloss over the data processing steps that must occur to get from the raw data to aggregated values. This type of processing requires a more extensive tutorial than we can provide in the current paper. More importantly, it is still possible to use R for data visualisation having done the preparatory steps using existing workflows in Excel and SPSS. We bypass these initial steps and focus on tangible outputs that may then encourage further mastery of reproducible methods. Collectively we tend to call the steps for reshaping data and for processing raw data or for getting data ready to use statistical functions ``wrangling.''} reaction time and accuracy for each level of the within-subject variable is split across multiple columns for the repeated factor of conditon (words versus non-words).
 
 \begin{table}
 
@@ -834,8 +851,9 @@ S006 & 29 & monolingual & 357.17 & 367.34 & 96 & 78\\
 \end{tabular}
 \end{table}
 
-Wide-format is popular because it is intuitive to read and easy to enter data into as all the data for one participant is contained within a single row. However, for the purposes of analysis, and particularly for analysis using R, this format is unsuitable. Whilst it is intuitive to read by a human, the same is not true for a computer. Wide-format data concatenates multiple pieces of information in a single column, for example in Table~\ref{tab:wide-data}, \texttt{rt\_word} contains information related to both a DV and one level of an IV. In comparison, long-format data separates the DV from the IVs so that each column represents only one variable. The less intuitive part is that long data has multiple rows for each participant and a column that encodes the level of the IV (\texttt{word} or \texttt{nonword}). In essence, the long-format encodes repeated-measures variable in the same way as a between-group variable in SPSS. Wickham (2014) provides a comprehensive overview of the benefits of a similar format known as tidy data, which is a standard way of mapping a dataset to its structure. For the purposes of this tutorial there are two important rules: each column should be a \emph{variable} and each row should be an \emph{observation}.
-Moving from using wide-form to long-form datasets can require a conceptual shift on the part of the researcher and one that usually only comes with practice and repeated exposure\footnote{That is to say, if you are new to R, know that many before you have struggled with this conceptual shift - it does get better, it just takes time and your preferred choice of cursing.}. It may be helpful to make a note that ``row = participant'' (wide format) and ``row = observation'' (long format) until you get used to moving between the formats. For our example dataset, adhering to these rules for reshaping the data would produce Table~\ref{tab:long}. Rather than different observations of the same dependent variable being split across columns, there is now a single column for the DV reaction time, and a single column for the DV accuracy. Each participant now has multiple rows of data, one for each observation (i.e., for each participant there will be as many rows as there are levels of the within-subject IV). Although there is some repetition of age and language group, each row is unique when looking at the combination of measures.
+Wide format is popular because it is intuitive to read and easy to enter data into as all the data for one participant is contained within a single row. However, for the purposes of analysis, and particularly for analysis using R, this format is unsuitable. Whilst it is intuitive to read by a human, the same is not true for a computer. Wide-format data concatenates multiple pieces of information in a single column, for example in Table~\ref{tab:wide-data}, \texttt{rt\_word} contains information related to both a DV and one level of an IV. In comparison, long-format data separates the DV from the IVs so that each column represents only one variable. The less intuitive part is that long-format data has multiple rows for each participant (one row for each observation) and a column that encodes the level of the IV (\texttt{word} or \texttt{nonword}). Wickham (2014) provides a comprehensive overview of the benefits of a similar format known as tidy data, which is a standard way of mapping a dataset to its structure. For the purposes of this tutorial there are two important rules: each column should be a \emph{variable} and each row should be an \emph{observation}.
+
+Moving from using wide-format to long-format datasets can require a conceptual shift on the part of the researcher and one that usually only comes with practice and repeated exposure\footnote{That is to say, if you are new to R, know that many before you have struggled with this conceptual shift - it does get better, it just takes time and your preferred choice of cursing.}. It may be helpful to make a note that ``row = participant'' (wide format) and ``row = observation'' (long format) until you get used to moving between the formats. For our example dataset, adhering to these rules for reshaping the data would produce Table~\ref{tab:long}. Rather than different observations of the same dependent variable being split across columns, there is now a single column for the DV reaction time, and a single column for the DV accuracy. Each participant now has multiple rows of data, one for each observation (i.e., for each participant there will be as many rows as there are levels of the within-subject IV). Although there is some repetition of age and language group, each row is unique when looking at the combination of measures.
 
 \begin{table}
 
@@ -862,10 +880,10 @@ S003 & 23 & monolingual & nonword & 458.50 & 87\\
 
 The benefits and flexibility of this format will hopefully become apparent as we progress through the tutorial, however, a useful rule of thumb when working with data in R for visualisation is that \emph{anything that shares an axis should probably be in the same column}. For example, a simple boxplot showing reaction time by condition would display the variable \texttt{condition} on the x-axis with bars representing both the \texttt{word} and \texttt{nonword} data, and \texttt{rt} on the y-axis. Therefore, all the data relating to \texttt{condition} should be in one column, and all the data relating to \texttt{rt} should be in a separate single column, rather than being split like in wide-format data.
 
-\hypertarget{wide-form-and-long-form-data}{%
-\subsection{Wide-form and long-form data}\label{wide-form-and-long-form-data}}
+\hypertarget{wide-to-long-format}{%
+\subsection{Wide to long format}\label{wide-to-long-format}}
 
-We have chosen a 2 x 2 design with two DVs as we anticipate that this is a design many researchers will be familiar with and may also have existing datasets with a similar structure. However, it is worth normalising that trial-and-error is part of the process of learning how to apply these functions to new datasets and structures. Data visualisation can be a useful way to scaffold learning these data transformations because they can provide a concrete visual check as to whether you have done what you intended to do with your data.
+We have chosen a 2 x 2 design with two DVs, as we anticipate that this is a design many researchers will be familiar with and may also have existing datasets with a similar structure. However, it is worth normalising that trial-and-error is part of the process of learning how to apply these functions to new datasets and structures. Data visualisation can be a useful way to scaffold learning these data transformations because they can provide a concrete visual check as to whether you have done what you intended to do with your data.
 
 \hypertarget{step-1-pivot_longer}{%
 \subsubsection{\texorpdfstring{Step 1: \texttt{pivot\_longer()}}{Step 1: pivot\_longer()}}\label{step-1-pivot_longer}}
@@ -887,12 +905,14 @@ This first code ignores that the dataset has two DVs, a problem we will fix in s
 \item
   As with the other tidyverse functions, the first argument specifies the dataset to use as the base, in this case \texttt{dat}. This argument name is often dropped in examples.
 \item
-  \texttt{cols} specifies all the columns you want to transform. The easiest way to visualise this is to think about which columns would be the same in the new long-form dataset and which will change. If you refer back to Table~\ref{tab:wide-data}, you can see that \texttt{id}, \texttt{age}, and \texttt{language} all remain, while the columns that contain the measurements of the DVs change. The colon notation \texttt{first\_column:last\_column} is used to select all variables from the first column specified to the second. In our code, \texttt{cols} specifies that the columns we want to transform are \texttt{rt\_word} to \texttt{acc\_nonword}.
+  \texttt{cols} specifies all the columns you want to transform. The easiest way to visualise this is to think about which columns would be the same in the new long-form dataset and which will change. If you refer back to Table~\ref{tab:wide-data}, you can see that \texttt{id}, \texttt{age}, and \texttt{language} all remain, while the columns that contain the measurements of the DVs change. The colon notation \texttt{first\_column:last\_column} is used to select all variables from the first column specified to the last In our code, \texttt{cols} specifies that the columns we want to transform are \texttt{rt\_word} to \texttt{acc\_nonword}.
 \item
-  \texttt{names\_to} specifies the name of the new column that will be created.
+  \texttt{names\_to} specifies the name of the new column that will be created. This column will contain the names of the selected existing columns.
 \item
-  Finally, \texttt{values\_to} names the new column that will contain the measurements, in this case we'll call it \texttt{dv}. At this point you may find it helpful to go back and compare \texttt{dat} and \texttt{long} again to see how each argument matches up with the output of the table.
+  Finally, \texttt{values\_to} names the new column that will contain the values in the selected columns. In this case we'll call it \texttt{dv}.
 \end{itemize}
+
+At this point you may find it helpful to go back and compare \texttt{dat} and \texttt{long} again to see how each argument matches up with the output of the table.
 
 \begin{table}
 
@@ -920,14 +940,7 @@ S002 & 33 & monolingual & rt\_nonword & 435.04\\
 \hypertarget{step-2-pivot_longer-adjusted}{%
 \subsubsection{\texorpdfstring{Step 2: \texttt{pivot\_longer()} adjusted}{Step 2: pivot\_longer() adjusted}}\label{step-2-pivot_longer-adjusted}}
 
-The problem with the above long-form data-set is that because we have ignored that there are two DVs, \texttt{dv\_condition} still continues to conflate two variables - it has information about the type of DV and the condition of the IV. To account for this, we include a new argument \texttt{names\_sep} and adjust \texttt{name\_to} to specify the creation of two new columns. Note that we are pivoting the same wide-format dataset \texttt{dat} as we did in step 1.
-
-\begin{itemize}
-\item
-  \texttt{names\_sep} specifies how to split up the variable name in cases where it has multiple components. This is when taking care to name your variables consistently and meaningfully pays off. Because the word to the left of the separator (\texttt{\_}) is always the DV type and the word to the right is always the condition of the within-subject IV, it is easy to automatically split the columns.
-\item
-  Note that when specifying more than one column name, they must be combined using \texttt{c()} and be enclosed in their own quotation marks.
-\end{itemize}
+The problem with the above long-format data-set is that \texttt{dv\_condition} combines two variables - it has information about the type of DV and the condition of the IV. To account for this, we include a new argument \texttt{names\_sep} and adjust \texttt{name\_to} to specify the creation of two new columns. Note that we are pivoting the same wide-format dataset \texttt{dat} as we did in step 1.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -938,6 +951,13 @@ The problem with the above long-form data-set is that because we have ignored th
                      \AttributeTok{values\_to =} \StringTok{"dv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{itemize}
+\item
+  \texttt{names\_sep} specifies how to split up the variable name in cases where it has multiple components. This is when taking care to name your variables consistently and meaningfully pays off. Because the word to the left of the separator (\texttt{\_}) is always the DV type and the word to the right is always the condition of the within-subject IV, it is easy to automatically split the columns.
+\item
+  Note that when specifying more than one column name, they must be combined using \texttt{c()} and be enclosed in their own quotation marks.
+\end{itemize}
 
 \begin{table}
 
@@ -965,9 +985,9 @@ S002 & 33 & monolingual & rt & nonword & 435.04\\
 \hypertarget{step-3-pivot_wider}{%
 \subsubsection{\texorpdfstring{Step 3: \texttt{pivot\_wider()}}{Step 3: pivot\_wider()}}\label{step-3-pivot_wider}}
 
-Although we have now split the columns so that there are separate variables for the DV type and level of condition, because we have two DVs, there is an additional bit of wrangling required to get the data in the right format for plotting.
+Although we have now split the columns so that there are separate variables for the DV type and level of condition, because the two DVs are different types of data, there is an additional bit of wrangling required to get the data in the right format for plotting.
 
-In the current long-form dataset, the column \texttt{dv} contains both reaction time and accuracy measures and keeping in mind the rule of thumb that \emph{anything that shares an axis should probably be in the same column,} this creates a problem because we cannot plot two different units of measurement on the same axis. To fix this we need to use the function \texttt{pivot\_wider()}. Again, we would encourage you at this point to compare \texttt{long2} and \texttt{dat\_long} with the below code to try and map the connections before reading on.
+In the current long-format dataset, the column \texttt{dv} contains both reaction time and accuracy measures. Keeping in mind the rule of thumb that \emph{anything that shares an axis should probably be in the same column,} this creates a problem because we cannot plot two different units of measurement on the same axis. To fix this we need to use the function \texttt{pivot\_wider()}. Again, we would encourage you at this point to compare \texttt{long2} and \texttt{dat\_long} with the below code to try and map the connections before reading on.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -981,22 +1001,22 @@ In the current long-form dataset, the column \texttt{dv} contains both reaction 
 \item
   The first argument is again the dataset you wish to work from, in this case \texttt{long2}. We have removed the argument name \texttt{data} in this example.
 \item
-  \texttt{names\_from} acts somewhat like the reverse of \texttt{names\_to} from \texttt{pivot\_longer()}. It will take the values from the variable specified and use these as variable names, i.e., in this case, the values of \texttt{rt} and \texttt{acc} that are currently in the \texttt{dv\_type} column, and turn these into the column names.
+  \texttt{names\_from} is the reverse of \texttt{names\_to} from \texttt{pivot\_longer()}. It will take the values from the variable specified and use these as the new column names. In this case, the values of \texttt{rt} and \texttt{acc} that are currently in the \texttt{dv\_type} column will become the new column names.
 \item
-  Finally, \texttt{values\_from} specifies the values to fill the new columns with. In this case, the new columns \texttt{rt} and \texttt{acc} will be filled with the values that were in \texttt{dv}. Again, it can be helpful to compare each dataset with the code to see how it aligns.
+  \texttt{values\_from} is the reverse of \texttt{values\_to} from \texttt{pivot\_longer()}. It specifies the column that contains the values to fill the new columns with. In this case, the new columns \texttt{rt} and \texttt{acc} will be filled with the values that were in \texttt{dv}.
 \end{itemize}
 
-This final long-form data should look like Table~\ref{tab:long}.
+Again, it can be helpful to compare each dataset with the code to see how it aligns. This final long-form data should look like Table~\ref{tab:long}.
 
-If you are working with a dataset with only one DV, note that only step 1 of this process would be necessary. Also, be careful not to calculate demographic descriptive statistics from this long-form dataset. Because the process of transformation has introduced some repetition for these variables, the wide-form dataset where 1 row = 1 participant should be used for demographic information. Finally, the three step process noted above is broken down for teaching purposes, in reality, one would likely do this in a single pipeline of code, for example:
+If you are working with a dataset with only one DV, note that only step 1 of this process would be necessary. Also, be careful not to calculate demographic descriptive statistics from this long-form dataset. Because the process of transformation has introduced some repetition for these variables, the wide-format dataset where one row equals one participant should be used for demographic information. Finally, the three step process noted above is broken down for teaching purposes, in reality, one would likely do this in a single pipeline of code, for example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{dat\_long }\OtherTok{\textless{}{-}} \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{data =}\NormalTok{ dat, }
-                     \AttributeTok{cols =}\NormalTok{ rt\_word}\SpecialCharTok{:}\NormalTok{acc\_nonword, }
-                     \AttributeTok{names\_sep =} \StringTok{"\_"}\NormalTok{, }
-                     \AttributeTok{names\_to =} \FunctionTok{c}\NormalTok{(}\StringTok{"dv\_type"}\NormalTok{, }\StringTok{"condition"}\NormalTok{),}
-                     \AttributeTok{values\_to =} \StringTok{"dv"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+                         \AttributeTok{cols =}\NormalTok{ rt\_word}\SpecialCharTok{:}\NormalTok{acc\_nonword, }
+                         \AttributeTok{names\_sep =} \StringTok{"\_"}\NormalTok{, }
+                         \AttributeTok{names\_to =} \FunctionTok{c}\NormalTok{(}\StringTok{"dv\_type"}\NormalTok{, }\StringTok{"condition"}\NormalTok{),}
+                         \AttributeTok{values\_to =} \StringTok{"dv"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{names\_from =} \StringTok{"dv\_type"}\NormalTok{, }
               \AttributeTok{values\_from =} \StringTok{"dv"}\NormalTok{)}
 \end{Highlighting}
@@ -1053,16 +1073,16 @@ The layer system makes it easy to create new types of plots by adapting existing
 \hypertarget{grouped-density-plots}{%
 \subsubsection{Grouped density plots}\label{grouped-density-plots}}
 
-Density plots are most useful for comparing the distributions of different groups of data. Because the dataset is now in long format, it makes it easier to map another variable to the plot because each variable is contained within a single column.
+Density plots are most useful for comparing the distributions of different groups of data. Because the dataset is now in long format, with each variable contained within a single column, we can map \texttt{condition} to the plot.
 
 \begin{itemize}
 \tightlist
 \item
-  In addition to mapping \texttt{rt} to the x-axis, we specify the \texttt{fill} aesthetic to fill the visualisation of each level of the \texttt{condition} variable with different colours.
+  In addition to mapping \texttt{rt} to the x-axis, we specify the \texttt{fill} aesthetic to fill the visualisation so that each level of the \texttt{condition} variable is represented by a different colour.
 \item
   Because the density plots are overlapping, we set \texttt{alpha\ =\ 0.75} to make the geoms 75\% transparent.
 \item
-  As with the x and y-axis scale functions, we can edit the names and labels of our fill aesthetic by adding on another \texttt{scale\_*} layer.
+  As with the x and y-axis scale functions, we can edit the names and labels of our fill aesthetic by adding on another \texttt{scale\_*} layer (\texttt{scale\_fill\_discrete()}).
 \item
   Note that the \texttt{fill} here is set inside the \texttt{aes()} function, which tells ggplot to set the fill differently for each value in the \texttt{condition} column. You cannot specify which colour here (e.g., \texttt{fill="red"}), like you could when you set \texttt{fill} inside the \texttt{geom\_*()} function before.
 \end{itemize}
@@ -1107,7 +1127,7 @@ Scatterplots are created by calling \texttt{geom\_point()} and require both an \
 \caption{Scatterplot of reaction time versus age.}\label{fig:point-plot}
 \end{figure}
 
-A line of best fit can be added with an additional layer that calls the function \texttt{geom\_smooth()}. The default is to draw a LOESS or curved regression line, however, a linear line of best fit can be specified using \texttt{method\ =\ "lm"}. By default, \texttt{geom\_smooth()} will also draw a confidence envelope around the regression line, this can be removed by adding \texttt{se\ =\ FALSE} to \texttt{geom\_smooth()}. A common error is to try and use \texttt{geom\_line()} to draw the line of best fit, which whilst a sensible guess, will not work (try it).
+A line of best fit can be added with an additional layer that calls the function \texttt{geom\_smooth()}. The default is to draw a LOESS or curved regression line. However, a linear line of best fit can be specified using \texttt{method\ =\ "lm"}. By default, \texttt{geom\_smooth()} will also draw a confidence envelope around the regression line; this can be removed by adding \texttt{se\ =\ FALSE} to \texttt{geom\_smooth()}. A common error is to try and use \texttt{geom\_line()} to draw the line of best fit, which whilst a sensible guess, will not work (try it).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1129,7 +1149,7 @@ A line of best fit can be added with an additional layer that calls the function
 \hypertarget{grouped-scatterplots}{%
 \subsubsection{Grouped scatterplots}\label{grouped-scatterplots}}
 
-Similar to the density plot, the scatterplot can also be easily adjusted to display grouped data. For \texttt{geom\_point()}, the grouping variable is mapped to \texttt{colour} rather than \texttt{fill} and the relevant \texttt{scale\_} function is added.
+Similar to the density plot, the scatterplot can also be easily adjusted to display grouped data. For \texttt{geom\_point()}, the grouping variable is mapped to \texttt{colour} rather than \texttt{fill} and the relevant \texttt{scale\_*} function is added.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1150,10 +1170,10 @@ Similar to the density plot, the scatterplot can also be easily adjusted to disp
 \caption{Grouped scatterplot of reaction time versus age by condition.}\label{fig:scatter-grouped}
 \end{figure}
 
-\hypertarget{long-form-to-wide-form-data}{%
-\subsection{Long-form to wide-form data}\label{long-form-to-wide-form-data}}
+\hypertarget{long-to-wide-format}{%
+\subsection{Long to wide format}\label{long-to-wide-format}}
 
-Following the rule that \emph{anything that shares an axis should probably be in the same column} means that we will frequently need our data in long-form when using \texttt{ggplot2}, however, there are some cases when wide-form is necessary. For example, we may wish to visualise the relationship between reaction time in the word and non-word conditions. The easiest way to achieve this in our case would simply be to use the original wide-form data as the input:
+Following the rule that \emph{anything that shares an axis should probably be in the same column} means that we will frequently need our data in long-form when using \texttt{ggplot2}, However, there are some cases when wide format is necessary. For example, we may wish to visualise the relationship between reaction time in the word and non-word conditions. This requires that the corresponding word and non-word values for each participant be in the same row. The easiest way to achieve this in our case would simply be to use the original wide-format data as the input:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1165,14 +1185,14 @@ Following the rule that \emph{anything that shares an axis should probably be in
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/unnamed-chunk-14-1} 
+{\centering \includegraphics[width=1\linewidth]{images/unnamed-chunk-15-1} 
 
 }
 
-\caption{Scatterplot with data grouped by language group}\label{fig:unnamed-chunk-14}
+\caption{Scatterplot with data grouped by language group}\label{fig:unnamed-chunk-15}
 \end{figure}
 
-However, there may also be cases when you do not have an original wide-form version and you can use the \texttt{pivot\_wider()} function to transform from long to wide.
+However, there may also be cases when you do not have an original wide-format version and you can use the \texttt{pivot\_wider()} function to transform from long to wide.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1207,7 +1227,7 @@ S006 & 357.1710 & 367.3355 & 96 & 78\\
 \hypertarget{accessible-colour-schemes}{%
 \subsubsection{Accessible colour schemes}\label{accessible-colour-schemes}}
 
-One of the drawbacks of using \texttt{ggplot2} for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in grey scale. You can specify exact custom colours for your plots, but one easy option is to use a custom colour palette. These take the same arguments as their default \texttt{scale} sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. For categorical colours, the ``Set2'', ``Dark2'' and ``Paired'' palettes from the \texttt{brewer} scale functions are colourblind-safe. For continuous colours, such as when colour is representing the magnitude of a correlation in a tile plot, the \texttt{viridis} scale functions provide a number of different colourblind and greyscale-safe options.
+One of the drawbacks of using \texttt{ggplot2} for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in greyscale. You can specify exact custom colours for your plots, but one easy option is to use a custom colour palette. These take the same arguments as their default \texttt{scale} sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. For categorical colours, the ``Set2,'' ``Dark2'' and ``Paired'' palettes from the \texttt{brewer} scale functions are colourblind-safe (but are hard to distinhuish in greyscale). For continuous colours, such as when colour is representing the magnitude of a correlation in a tile plot, the \texttt{viridis} scale functions provide a number of different colourblind and greyscale-safe options.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1230,7 +1250,7 @@ One of the drawbacks of using \texttt{ggplot2} for visualisation is that the def
 \end{figure}
 
 \hypertarget{specifying-axis-breaks-with-seq}{%
-\subsection{\texorpdfstring{Specifying axis \texttt{breaks} with \texttt{seq()}}{Specifying axis breaks with seq()}}\label{specifying-axis-breaks-with-seq}}
+\subsubsection{\texorpdfstring{Specifying axis \texttt{breaks} with \texttt{seq()}}{Specifying axis breaks with seq()}}\label{specifying-axis-breaks-with-seq}}
 
 Previously, when we have edited the \texttt{breaks} on the axis labels, we have done so manually, typing out all the values we want to display on the axis. For example, the below code edits the y-axis so that \texttt{age} is displayed in increments of 5.
 
@@ -1242,15 +1262,6 @@ Previously, when we have edited the \texttt{breaks} on the axis labels, we have 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{images/breaks1-1} 
-
-}
-
-\caption{ }\label{fig:breaks1}
-\end{figure}
-
 However, this is somewhat inefficient. Instead, we can use the function \texttt{seq()} (short for sequence) to specify the first and last value and the increments \texttt{by} which the breaks should display between these two values.
 
 \begin{Shaded}
@@ -1260,15 +1271,6 @@ However, this is somewhat inefficient. Instead, we can use the function \texttt{
   \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{,}\DecValTok{60}\NormalTok{, }\AttributeTok{by =} \DecValTok{5}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{images/breaks2-1} 
-
-}
-
-\caption{ }\label{fig:breaks2}
-\end{figure}
 
 \hypertarget{activities-2}{%
 \subsection{Activities 2}\label{activities-2}}
@@ -1280,24 +1282,24 @@ Before you move on try the following:
 \item
   Use \texttt{fill} to created grouped histograms that display the distributions for \texttt{rt} for each \texttt{language} group separately and also edit the fill axis labels. Try adding \texttt{position\ =\ "dodge"} to \texttt{geom\_histogram()} to see what happens.
 \item
-  Use \texttt{scale\_*\_*()} functions to edit the name of the x and y-axis on the scatterplot
+  Use \texttt{scale\_*} functions to edit the name of the x and y-axis on the scatterplot
 \item
   Use \texttt{se\ =\ FALSE} to remove the confidence envelope from the scatterplots
 \item
-  Remove \texttt{method\ =\ "lm"} from \texttt{geom\_smooth()} to produce a curved regression line.
+  Remove \texttt{method\ =\ "lm"} from \texttt{geom\_smooth()} to produce a curved fit line.
 \item
-  Replace the default \texttt{scale\_fill\_*()} on the grouped density plot with a colour-blind friendly version.
+  Replace the default fill on the grouped density plot with a colour-blind friendly version.
 \end{enumerate}
 
 \hypertarget{representing-summary-statistics}{%
 \section{Representing Summary Statistics}\label{representing-summary-statistics}}
 
-The layering approach that is used in \texttt{ggplot2} to make figures comes into its own when you want to include information about the distribution and spread of scores. In this section we introduce different ways of including summary statistics on your figures.
+The layering approach that is used in \texttt{ggplot2} to make figures comes into its own when you want to include information about the distribution and spread of scores. In this section we introduce different ways of including summary statistics in your figures.
 
 \hypertarget{boxplots}{%
 \subsection{Boxplots}\label{boxplots}}
 
-As with \texttt{geom\_point()}, the boxplot geom also require an x and y-variable to be specified. In this case, \texttt{x} must be a discrete, or categorical variable, whilst \texttt{y} must be continuous.
+As with \texttt{geom\_point()}, boxplots also require an x- and y-variable to be specified. In this case, \texttt{x} must be a discrete, or categorical variable\footnote{If the data in the x-axis column is numeric (e.g., 1 and 2 for the condition), you will see one boxplot and the message ``Continuous x aesthetic -- did you forget aes(group=\ldots)?'' You can fix this by converting the column to a factor like this: \texttt{x\ =\ factor(condition)}.}, whilst \texttt{y} must be continuous.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1346,7 +1348,7 @@ As with histograms and density plots, \texttt{fill} can be used to create groupe
 \hypertarget{violin-plots}{%
 \subsection{Violin plots}\label{violin-plots}}
 
-Violin plots display the distribution of a dataset and can be created by calling \texttt{geom\_violin()}. They are so-called because the shape they make sometimes looks something like a violin. They are essentially a mirrored density plot on its side. Note that the below code is identical to the code used to draw the boxplots above, except for the call to \texttt{geom\_violin()} rather than \texttt{geom\_boxplot().}
+Violin plots display the distribution of a dataset and can be created by calling \texttt{geom\_violin()}. They are so-called because the shape they make sometimes looks something like a violin. They are essentially sideways, mirrored density plots. Note that the below code is identical to the code used to draw the boxplots above, except for the call to \texttt{geom\_violin()} rather than \texttt{geom\_boxplot().}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1374,11 +1376,11 @@ Violin plots display the distribution of a dataset and can be created by calling
 \hypertarget{bar-chart-of-means}{%
 \subsection{Bar chart of means}\label{bar-chart-of-means}}
 
-Commonly, rather than visualising distributions of raw data researchers will wish to visualise means using a bar chart with error bars. As with SPSS and Excel, \texttt{ggplot2} requires you to calculate the summary statistics and then plot the summary. There are at least two ways to do this, in the first you make a table of summary statistics as we did earlier when calculating the participant demographics and then plot that table. The second approach is to calculate the statistics within a layer of the plot. That is the approach we will use below.
+Commonly, rather than visualising distributions of raw data, researchers will wish to visualise means using a bar chart with error bars. As with SPSS and Excel, \texttt{ggplot2} requires you to calculate the summary statistics and then plot the summary. There are at least two ways to do this, in the first you make a table of summary statistics as we did earlier when calculating the participant demographics and then plot that table. The second approach is to calculate the statistics within a layer of the plot. That is the approach we will use below.
 
-First we present code for making a bar chart. The code for bar charts is here because it is a common visualisation that is familiar to most researchers, however, we would urge you to use a visualisation that provides more transparency about the distribution of the raw data, such as the violin-boxplots we will present in the next section.
+First we present code for making a bar chart. The code for bar charts is here because it is a common visualisation that is familiar to most researchers. However, we would urge you to use a visualisation that provides more transparency about the distribution of the raw data, such as the violin-boxplots we will present in the next section.
 
-To summarise the data into means we use a new function \texttt{stat\_summary}. Rather than calling a \texttt{geom\_*} function, we call \texttt{stat\_summary()} and specify how we want to summarise the data and how we want to present that summary in our figure.
+To summarise the data into means, we use a new function \texttt{stat\_summary()}. Rather than calling a \texttt{geom\_*} function, we call \texttt{stat\_summary()} and specify how we want to summarise the data and how we want to present that summary in our figure.
 
 \begin{itemize}
 \item
@@ -1438,7 +1440,7 @@ The power of the layered system for making figures is further highlighted by the
 \begin{itemize}
 \tightlist
 \item
-  \texttt{fatten\ =\ NULL} in the boxplot geom removes the median line, which can make it easier to see the mean and error bars. Including this argument will result in the warning message \texttt{Removed\ 1\ rows\ containing\ missing\ values\ (geom\_segment)} and is not a cause for concern. Removing this argument will reinstate the median line.
+  \texttt{fatten\ =\ NULL} in the boxplot geom removes the median line, which can make it easier to see the mean and error bars. Including this argument will result in the message \texttt{Removed\ 1\ rows\ containing\ missing\ values\ (geom\_segment)} and is not a cause for concern. Removing this argument will reinstate the median line.
 \end{itemize}
 
 \begin{Shaded}
@@ -1646,7 +1648,7 @@ Interaction plots are commonly used to help display or interpret a factorial des
 \item
   \texttt{size} lets you change the size of lines and points. If you want different groups to be different sizes (for example, the sample size of each study when showing the results of a meta-analysis or population of a city on a map), set this inside the \texttt{aes()} function; if you want to change the size for all groups, set it inside the relevant \texttt{geom\_*()} function'.
 \item
-  \texttt{scale\_color\_manual()} works much like \texttt{scale\_color\_discrete()} except that it lets you specify the colour values manually, instead of then being automatically applied based on the palette you choose/default to. You can specify RGB colour values or a list of predefined colour names - all available options can be found by running \texttt{colours()} in the console. Other manual scales are also available, for example, \texttt{scale\_fill\_manual}.
+  \texttt{scale\_color\_manual()} works much like \texttt{scale\_color\_discrete()} except that it lets you specify the colour values manually, instead of them being automatically applied based on the palette. You can specify RGB colour values or a list of predefined colour names -- all available options can be found by running \texttt{colours()} in the console. Other manual scales are also available, for example, \texttt{scale\_fill\_manual()}.
 \end{itemize}
 
 \begin{Shaded}
@@ -1679,18 +1681,18 @@ You can use redundant aesthetics, such as indicating the language groups using b
 
 A more complex interaction plot can be produced that takes advantage of the layers to visualise not only the overall interaction, but the change across conditions for each participant.
 
-This code is more complex than all prior code because it does not use a universal mapping of the plot aesthetics. In our code so far, the aesthetic mapping (\texttt{aes}) of the plot has been specified in the first line of code as all layers have used the same mapping, however, is is also possible for each layer to use a different mapping - we encourage you to build up the plot by running each line of code sequentially to see how it all combines.
+This code is more complex than all prior code because it does not use a universal mapping of the plot aesthetics. In our code so far, the aesthetic mapping (\texttt{aes}) of the plot has been specified in the first line of code because all layers used the same mapping. However, is is also possible for each layer to use a different mapping -- we encourage you to build up the plot by running each line of code sequentially to see how it all combines.
 
 \begin{itemize}
 \tightlist
 \item
-  The first call to \texttt{ggplot()} sets up the default mappings of the plot that will be used unless otherwise specified - the \texttt{x}, \texttt{y} and \texttt{group} variable. Note the addition of \texttt{shape}that will vary the shape of the geom according to the language variable.
+  The first call to \texttt{ggplot()} sets up the default mappings of the plot that will be used unless otherwise specified - the \texttt{x}, \texttt{y} and \texttt{group} variable. Note the addition of \texttt{shape}, which will vary the shape of the geom according to the language variable.
 \item
   \texttt{geom\_point()} overrides the default mapping by setting its own \texttt{colour} to draw the data points from each language group in a different colour. \texttt{alpha} is set to a low value to aid readability.
 \item
   Similarly, \texttt{geom\_line()} overrides the default grouping variable so that a line is drawn to connect the individual data points for each \emph{participant} (\texttt{group\ =\ id}) rather than each language group, and also sets the colours.\\
 \item
-  Finally, the calls to \texttt{stat\_summary()} remain largely as they were, with the exception of setting \texttt{colour\ =\ "black"} and \texttt{size\ =\ 2} so that the overall means and error bars can be more easily distinguished from the individual data points. Because they do not specify an individual mapping, they use the defaults (e.g., the lines are connected by language group). For the error bars the lines are again made solid.
+  Finally, the calls to \texttt{stat\_summary()} remain largely as they were, with the exception of setting \texttt{colour\ =\ "black"} and \texttt{size\ =\ 2} so that the overall means and error bars can be more easily distinguished from the individual data points. Because they do not specify an individual mapping, they use the defaults (e.g., the lines are connected by language group). For the error bars, the lines are again made solid.
 \end{itemize}
 
 \begin{Shaded}
@@ -1726,13 +1728,14 @@ This code is more complex than all prior code because it does not use a universa
 \hypertarget{facets}{%
 \subsection{Facets}\label{facets}}
 
-So far we have produced single plots that display all the desired variables in one, however, there are situations in which it may be useful to create separate plots for each level of a variable. This can also help with accessibility when used instead of or in addition to group colours. The below code is an adaptation of the code used to produce the grouped scatterplot (see Figure~\ref{fig:viobox2}) in which it may be easier to see how the relationship changes when the data are not overlaid.
+So far we have produced single plots that display all the desired variables. However, there are situations in which it may be useful to create separate plots for each level of a variable. This can also help with accessibility when used instead of or in addition to group colours. The below code is an adaptation of the code used to produce the grouped scatterplot (see Figure~\ref{fig:viobox2}) in which it may be easier to see how the relationship changes when the data are not overlaid.
 
 \begin{itemize}
 \tightlist
 \item
   Rather than using \texttt{colour\ =\ condition} to produce different colours for each level of \texttt{condition}, this variable is instead passed to \texttt{facet\_wrap()}.
 \item
+  Set the number of rows with \texttt{nrow} or the number of columns with \texttt{ncol}. If you don't specify this, \texttt{facet\_wrap()} will make a best guess.
 \end{itemize}
 
 \begin{Shaded}
@@ -1740,7 +1743,7 @@ So far we have produced single plots that display all the desired variables in o
 \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ rt, }\AttributeTok{y =}\NormalTok{ age)) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\AttributeTok{facets =} \FunctionTok{vars}\NormalTok{(condition))}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\AttributeTok{facets =} \FunctionTok{vars}\NormalTok{(condition), }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1776,7 +1779,7 @@ As another example, we can use \texttt{facet\_wrap()} as an alternative to the g
 \caption{Facted violin-boxplot}\label{fig:violin-boxplot-facet}
 \end{figure}
 
-Finally, note that editing the labels for faceted variables involves converting the \texttt{language} column into a factor. This allows you to set the order of the \texttt{levels} and the \texttt{labels} to display.
+Finally, note that one way to edit the labels for faceted variables involves converting the \texttt{language} column into a factor. This allows you to set the order of the \texttt{levels} and the \texttt{labels} to display.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1828,7 +1831,7 @@ Importantly, layers can then be added to these saved objects. For example, the b
 \hypertarget{saving-plots-as-images}{%
 \subsection{Saving plots as images}\label{saving-plots-as-images}}
 
-In addition to saving plots to objects for further use in R, the function \texttt{ggsave()} can be used to save plots as images on your hard drive. The only required argument for \texttt{ggsave} is the file name of the image file you will create, complete with file extension (this can be ``eps'', ``ps'', ``tex'', ``pdf'', ``jpeg'', ``tiff'', ``png'', ``bmp'', ``svg'' or ``wmf''). By default, \texttt{ggsave()} will save the last plot displayed, however, you can also specify a specific plot object if you have one saved.
+In addition to saving plots to objects for further use in R, the function \texttt{ggsave()} can be used to save plots as images on your hard drive. The only required argument for \texttt{ggsave} is the file name of the image file you will create, complete with file extension (this can be ``eps,'' ``ps,'' ``tex,'' ``pdf,'' ``jpeg,'' ``tiff,'' ``png,'' ``bmp,'' ``svg'' or ``wmf''). By default, \texttt{ggsave()} will save the last plot displayed. However, you can also specify a specific plot object if you have one saved.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1837,12 +1840,12 @@ In addition to saving plots to objects for further use in R, the function \textt
 \end{Highlighting}
 \end{Shaded}
 
-The width, height and resolution of the image can all be manually adjusted. Fonts will scale with these sizes, and may look different to the preview images you see in the Viewer tab. The help documentation for is useful here (type \texttt{?ggsave} in the console to access the help).
+The width, height and resolution of the image can all be manually adjusted. Fonts will scale with these sizes, and may look different to the preview images you see in the Viewer tab. The help documentation is useful here (type \texttt{?ggsave} in the console to access the help).
 
 \hypertarget{multiple-plots}{%
 \subsection{Multiple plots}\label{multiple-plots}}
 
-As well as creating separate plots for each level of a variable using \texttt{facet\_wrap()}, you may also wish to display multiple different plots together and the \texttt{patchwork} package provides an intuitive way to do this. \texttt{patchwork} does not require the use of any functions once it is loaded with \texttt{library(patchwork)}, you simply need to save the plots you wish to combine to objects as above and use the operators \texttt{+}, \texttt{/} \texttt{()} and \texttt{\textbar{}} to specify the look of the final figure.
+As well as creating separate plots for each level of a variable using \texttt{facet\_wrap()}, you may also wish to display multiple different plots together. The \texttt{patchwork} package provides an intuitive way to do this. Once it is loaded with \texttt{library(patchwork)}, you simply need to save the plots you wish to combine to objects as above and use the operators \texttt{+}, \texttt{/} \texttt{()} and \texttt{\textbar{}} to specify the layout of the final figure.
 
 \hypertarget{combining-two-plots}{%
 \subsubsection{Combining two plots}\label{combining-two-plots}}
@@ -1882,50 +1885,13 @@ Two plots can be combined side-by-side or stacked on top of each other. These co
 \hypertarget{combining-three-or-more-plots}{%
 \subsubsection{Combining three or more plots}\label{combining-three-or-more-plots}}
 
-Three or more plots can be combined in a number of ways and the \texttt{patchwork} syntax is relatively easy to grasp with a few examples and a bit of trial and error. First, we save the complex interaction plot and faceted violin-boxplot to objects named \texttt{p5} and \texttt{p6}.
+Three or more plots can be combined in a number of ways. The \texttt{patchwork} syntax is relatively easy to grasp with a few examples and a bit of trial and error. The exact layout of your plots will depend upon a number of factors. Create three plots names \texttt{p1}, \texttt{p2} and \texttt{p3} and try running the examples below. Adjust the use of the operators to see how they change the layout. Each line of code will draw a different figure.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p5 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y =}\NormalTok{ rt, }
-                           \AttributeTok{group =}\NormalTok{ language, }
-                           \AttributeTok{shape =}\NormalTok{ language)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ language),}
-             \AttributeTok{alpha =}\NormalTok{ .}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{group =}\NormalTok{ id, }\AttributeTok{colour =}\NormalTok{ language), }
-            \AttributeTok{alpha =}\NormalTok{ .}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }
-               \AttributeTok{geom =} \StringTok{"point"}\NormalTok{, }
-               \AttributeTok{size =} \DecValTok{2}\NormalTok{, }
-               \AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }
-               \AttributeTok{geom =} \StringTok{"line"}\NormalTok{, }
-               \AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }
-               \AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }
-               \AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }
-               \AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme\_minimal}\NormalTok{()}
-
-\NormalTok{p6 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y=}\NormalTok{ rt)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\FunctionTok{factor}\NormalTok{(language, }
-                     \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"monolingual"}\NormalTok{, }\StringTok{"bilingual"}\NormalTok{),}
-                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Monolingual participants"}\NormalTok{, }
-                                \StringTok{"Bilingual participants"}\NormalTok{))) }\SpecialCharTok{+}
-  \FunctionTok{theme\_minimal}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-The exact layout of your plots will depend upon a number of factors. Try running the below examples and adjust the use of the operators to see how they change the layout. Each line of code will draw a different figure.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{p1 }\SpecialCharTok{/}\NormalTok{p5 }\SpecialCharTok{/}\NormalTok{ p6 }
-\NormalTok{(p1 }\SpecialCharTok{+}\NormalTok{ p6) }\SpecialCharTok{/}\NormalTok{ p5 }
-\NormalTok{p6 }\SpecialCharTok{|}\NormalTok{ p1 }\SpecialCharTok{/}\NormalTok{ p5 }
+\NormalTok{p1 }\SpecialCharTok{/}\NormalTok{ p2 }\SpecialCharTok{/}\NormalTok{ p3}
+\NormalTok{(p1 }\SpecialCharTok{+}\NormalTok{ p2) }\SpecialCharTok{/}\NormalTok{ p3}
+\NormalTok{p2 }\SpecialCharTok{|}\NormalTok{ p2 }\SpecialCharTok{/}\NormalTok{ p3}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1935,14 +1901,14 @@ The exact layout of your plots will depend upon a number of factors. Try running
 \hypertarget{axis-labels}{%
 \subsubsection{Axis labels}\label{axis-labels}}
 
-Previously when we edited the main axis labels we used the \texttt{scale\_} functions to do so. These functions are useful to know because they allow you to customise each aspect of the scale, for example, the breaks and limits. However, if you only need to change the main axis \texttt{name}, there is a quicker way to do so using \texttt{labs()}. The below code adds a layer to the plot that changes the axis labels for the histogram saved in \texttt{p1} and adds a title and subtitle. The title and subtitle do not conform to APA standards (more on APA formatting in the additional resources), however, for presentations and social media they can be useful.
+Previously when we edited the main axis labels we used the \texttt{scale\_*} functions. These functions are useful to know because they allow you to customise many aspects of the scale, such as the breaks and limits. However, if you only need to change the main axis \texttt{name}, there is a quicker way to do so using \texttt{labs()}. The below code adds a layer to the plot that changes the axis labels for the histogram saved in \texttt{p1} and adds a title and subtitle. The title and subtitle do not conform to APA standards (more on APA formatting in the additional resources), however, for presentations and social media they can be useful.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p5 }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Type of word"}\NormalTok{,}
-          \AttributeTok{y =} \StringTok{"Reaction time (ms)"}\NormalTok{,}
-          \AttributeTok{title =} \StringTok{"Language group by word type interaction plot"}\NormalTok{,}
-          \AttributeTok{subtitle =} \StringTok{"Reaction time data"}\NormalTok{)}
+\NormalTok{p1 }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Mean reaction time (ms)"}\NormalTok{,}
+          \AttributeTok{y =} \StringTok{"Number of participants"}\NormalTok{,}
+          \AttributeTok{title =} \StringTok{"Distribution of reaction times"}\NormalTok{,}
+          \AttributeTok{subtitle =} \StringTok{"for 100 participants"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1962,34 +1928,7 @@ You can also use \texttt{labs()} to remove axis labels, for example, try adjusti
 
 So far when we have produced plots with colours, the colours were the only way that different levels of a variable were indicated, but it is sometimes preferable to indicate levels with both colour and other means, such as facets or x-axis categories.
 
-The code below adds \texttt{fill\ =\ language} to the violin-boxplots that are also faceted by language. We adjust \texttt{alpha} and use the brewer colour palette to customise the colours.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(dat\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ condition, }\AttributeTok{y=}\NormalTok{ rt, }\AttributeTok{fill =}\NormalTok{ language)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{4}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{fatten =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{6}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =} \StringTok{"mean"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun.data =} \StringTok{"mean\_se"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"errorbar"}\NormalTok{, }\AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\FunctionTok{factor}\NormalTok{(language, }
-                     \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"monolingual"}\NormalTok{, }\StringTok{"bilingual"}\NormalTok{),}
-                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Monolingual participants"}\NormalTok{, }
-                                \StringTok{"Bilingual participants"}\NormalTok{))) }\SpecialCharTok{+}
-  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Dark2"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{images/unnamed-chunk-22-1} 
-
-}
-
-\caption{Violin-boxplot with redundant legend}\label{fig:unnamed-chunk-22}
-\end{figure}
-
-Specifying a \texttt{fill} variable means that by default, R produces a legend for that variable. However, the use of colour is redundant with the facet labels, so you can remove this legend with the \texttt{guides} function.
+The code below adds \texttt{fill\ =\ language} to violin-boxplots that are also faceted by language. We adjust \texttt{alpha} and use the brewer colour palette to customise the colours. Specifying a \texttt{fill} variable means that by default, R produces a legend for that variable. However, the use of colour is redundant with the facet labels, so you can remove this legend with the \texttt{guides} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2010,11 +1949,11 @@ Specifying a \texttt{fill} variable means that by default, R produces a legend f
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/legend-suppress-1} 
+{\centering \includegraphics[width=1\linewidth]{images/unnamed-chunk-22-1} 
 
 }
 
-\caption{Plot with suppressed redundant legend}\label{fig:legend-suppress}
+\caption{Violin-boxplot with redundant facets and fill.}\label{fig:unnamed-chunk-22}
 \end{figure}
 
 \hypertarget{activities-4}{%
@@ -2033,7 +1972,7 @@ Before you go on, do the following:
 \hypertarget{advanced-plots}{%
 \section{Advanced Plots}\label{advanced-plots}}
 
-This tutorial has but scratched the surface of the visualisation options available using R - in the additional online resources we provide some further advanced plots and customisation options for those readers who are feeling confident with the content covered in this tutorial, however, the below plots give an idea of what is possible, and represent the favourite plots of the authorship team.
+This tutorial has but scratched the surface of the visualisation options available using R. In the additional online resources we provide some further advanced plots and customisation options for those readers who are feeling confident with the content covered in this tutorial. However, the below plots give an idea of what is possible, and represent the favourite plots of the authorship team.
 
 We will use some custom functions: \texttt{geom\_split\_violin()} and \texttt{geom\_flat\_violin()}, which you can access through the \texttt{introdataviz} package. These functions are modified from (Allen et al., 2021).
 
@@ -2063,19 +2002,19 @@ Split-violin plots remove the redundancy of mirrored violin plots and make it ea
 
 Raincloud plots combine a density plot, boxplot, raw data points, and any desired summary statistics for a complete visualisation of the data. They are so called because the density plot plus raw data is reminiscent of a rain cloud.
 
-\begin{figure}
+\textbackslash begin\{figure\}
 
-{\centering \includegraphics[width=1\linewidth]{images/raincloud-1} 
+\{\centering \includegraphics[width=1\linewidth]{images/raincloud-1}
 
-}
+\}
 
-\caption{Raincloud plot}\label{fig:raincloud}
-\end{figure}
+\textbackslash caption\{Raincloud plot. The point and line in the centre of each cloud represents its mean and 95\% CI. The rain respresents individual data points.\}\label{fig:raincloud}
+\textbackslash end\{figure\}
 
 \hypertarget{ridge-plots}{%
 \subsection{Ridge plots}\label{ridge-plots}}
 
-Ridge plots are a series of density plots and show the distribution of numeric values for several groups. Figure~\ref{fig:ridgeplot} shows data from (Nation, 2017) and demonstrates how effective this type of visualisation can be to convey a lot of information very intuitively whilst being visually attractive.
+Ridge plots are a series of density plots that show the distribution of values for several groups. Figure~\ref{fig:ridgeplot} shows data from (Nation, 2017) and demonstrates how effective this type of visualisation can be to convey a lot of information very intuitively whilst being visually attractive.
 
 \begin{figure}
 
@@ -2098,6 +2037,20 @@ Alluvial plots visualise multi-level categorical data through flows that can eas
 }
 
 \caption{An alluvial plot showing the progression of student grades through the years.}\label{fig:alluvial}
+\end{figure}
+
+\hypertarget{maps}{%
+\subsection{Maps}\label{maps}}
+
+Working with maps can be tricky. The \texttt{sf} package provides functions that work with ggplot2, such as \texttt{geom\_sf()}. The \texttt{rnaturalearth} package provides high-quality mapping coordinates.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/map-1} 
+
+}
+
+\caption{Map coloured by country.}\label{fig:map}
 \end{figure}
 
 \hypertarget{conclusion}{%
@@ -2135,12 +2088,12 @@ The author(s) declared that there were no conflicts of interest with respect to 
 \hypertarget{funding}{%
 \subsubsection{Funding}\label{funding}}
 
-LMD is supported by European Research Council grant \#647910.
+LMD was supported by European Research Council grant \#647910.
 
 \hypertarget{research-software}{%
 \subsubsection{Research Software}\label{research-software}}
 
-This tutorial uses the following open-source research software: R Core Team (2021); Wickham et al. (2019); DeBruine (2021); Aust and Barth (2020), Wickham (2016b), Pedersen (2020), Brunson (2020), Wilke (2021).
+This tutorial uses the following open-source research software: R Core Team (2021), Wickham et al. (2019), DeBruine (2021), Aust and Barth (2020), Wickham (2016b), Pedersen (2020), Brunson (2020), Wilke (2021), Pebesma (2018), South (2017).
 
 \newpage
 
@@ -2180,6 +2133,9 @@ Nation, Z. (2017). Perceptions. \emph{GitHub repository}. \url{https://github.co
 \leavevmode\vadjust pre{\hypertarget{ref-newman2012bar}{}}%
 Newman, G. E., \& Scholl, B. J. (2012). Bar graphs depicting averages are perceptually misinterpreted: The within-the-bar bias. \emph{Psychonomic Bulletin \& Review}, \emph{19}(4), 601--607.
 
+\leavevmode\vadjust pre{\hypertarget{ref-R-sf}{}}%
+Pebesma, E. (2018). {Simple Features for R: Standardized Support for Spatial Vector Data}. \emph{{The R Journal}}, \emph{10}(1), 439--446. \url{https://doi.org/10.32614/RJ-2018-009}
+
 \leavevmode\vadjust pre{\hypertarget{ref-R-patchwork}{}}%
 Pedersen, T. L. (2020). \emph{Patchwork: The composer of plots}. Retrieved from \url{https://CRAN.R-project.org/package=patchwork}
 
@@ -2191,6 +2147,9 @@ Robins, A., Rountree, J., \& Rountree, N. (2003). Learning and teaching programm
 
 \leavevmode\vadjust pre{\hypertarget{ref-RStudio}{}}%
 RStudio Team. (2021). \emph{RStudio: Integrated development environment for r}. Boston, MA: RStudio, PBC. Retrieved from \url{http://www.rstudio.com/}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-rnaturalearth}{}}%
+South, A. (2017). \emph{Rnaturalearth: World map data from natural earth}. Retrieved from \url{https://CRAN.R-project.org/package=rnaturalearth}
 
 \leavevmode\vadjust pre{\hypertarget{ref-BBC-R}{}}%
 Visual, B., \& Journalism, D. (2019). How the BBC visual and data journalism team works with graphics in r. \emph{Medium}. Retrieved from \url{https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535}
@@ -2211,7 +2170,7 @@ Wickham, H. (2017). \emph{Tidyverse: Easily install and load the 'tidyverse'}. R
 Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., \ldots{} Yutani, H. (2019). Welcome to the {tidyverse}. \emph{Journal of Open Source Software}, \emph{4}(43), 1686. \url{https://doi.org/10.21105/joss.01686}
 
 \leavevmode\vadjust pre{\hypertarget{ref-wickham2014tidy}{}}%
-Wickham, H.others. (2014). Tidy data. \emph{Journal of Statistical Software}, \emph{59}(10), 1--23.
+Wickham, H., \& others. (2014). Tidy data. \emph{Journal of Statistical Software}, \emph{59}(10), 1--23.
 
 \leavevmode\vadjust pre{\hypertarget{ref-R-ggridges}{}}%
 Wilke, C. O. (2021). \emph{Ggridges: Ridgeline plots in 'ggplot2'}. Retrieved from \url{https://CRAN.R-project.org/package=ggridges}

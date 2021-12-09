@@ -10,7 +10,7 @@ suppressPackageStartupMessages({
 knitr::opts_chunk$set(
   echo       = TRUE,
   results    = "hold",
-  out.width  = '100%',
+  out.width  = '80%',
   fig.width  = 8,
   fig.height = 5,
   fig.align  = 'center'

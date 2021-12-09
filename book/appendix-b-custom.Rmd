@@ -240,7 +240,7 @@ ggplot(dat_long, aes(x = condition, y= rt, fill = condition)) +
   theme_minimal()
 ```
 
-And that works just the same if you have more conditions, which you will see if you compare Figure\ \@ref(fig:viobox4) to the below figure where we have flipped the order of non-word and word from the original default alphabetical order
+And that works just the same if you have more conditions, which you will see if you compare Figure\ \@ref(fig:viobox6-scale1) to the below figure where we have flipped the order of non-word and word from the original default alphabetical order
 
 ```{r viobox4-scale1, fig.cap="Same as earlier figure but with order of conditions on x-axis altered.", warning = FALSE}
 ggplot(dat_long, aes(x = condition, y= rt, fill = language)) +

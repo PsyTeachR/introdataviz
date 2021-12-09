@@ -186,3 +186,32 @@ a + b
 
 The remainder of the code is used to remove the various panel and tick lines, and text, setting them all to `element_blank()` through the `theme()` functions we saw above, and to add new labelling text on top of the pie chart at specific y-values (i.e. `y = c(75,25)`). But remember, **friends don't let friends make pie charts!**
 
+## Easter Egg - A Lollipop Plot
+
+Lollipop plots are a sweet alternative to pie charts for representing relative counts. They're  a combination of `geom_linerange()` and `geom_point()`. Use `coord_flip()` to make them horizontal.
+
+```{r, fig.cap="A lollipop plot showing the number of different types of pets."}
+pets <- c("cats", "dogs", "ferrets", "fish", "hamsters", "snakes")
+prob <- c(50, 50, 20, 30, 20, 15)
+tibble(pet = sample(pets, 500, TRUE, prob) %>% factor(rev(pets))) %>%
+  count(pet) %>%
+  ggplot(aes(x = pet)) +
+  geom_linerange(mapping = aes(ymin = 0, ymax = n),
+                 size = 2) +
+  geom_point(mapping = aes(y = n, colour = pet), 
+             shape = 21, 
+             size = 8, 
+             stroke = 4,
+             fill = "white", 
+             show.legend = FALSE) +
+  geom_text(aes(label = pet), 
+            y = 1, hjust = 0, size = 6, 
+            position = position_nudge(x = 0.3)) +
+  scale_x_discrete(labels = NULL) +
+  theme(axis.ticks.y = element_blank()) +
+  scale_colour_viridis_d() +
+  labs(x = "", y = "") +
+  coord_flip(ylim = c(0, 200)) +
+  theme_light()
+```
+

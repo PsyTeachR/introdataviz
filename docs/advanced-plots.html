@@ -6,20 +6,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 6 Advanced Plots | Data visualisation using R, for researchers who don’t use R</title>
 <meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine">
-<meta name="description" content="This tutorial has but scratched the surface of the visualisation options available using R - in the additional online resources we provide some further advanced plots and customisation options for...">
+<meta name="description" content="This tutorial has but scratched the surface of the visualisation options available using R. In the additional online resources we provide some further advanced plots and customisation options for...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 6 Advanced Plots | Data visualisation using R, for researchers who don’t use R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://psyteachr.github.io/introdataviz/advanced-plots.html">
 <meta property="og:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
-<meta property="og:description" content="This tutorial has but scratched the surface of the visualisation options available using R - in the additional online resources we provide some further advanced plots and customisation options for...">
+<meta property="og:description" content="This tutorial has but scratched the surface of the visualisation options available using R. In the additional online resources we provide some further advanced plots and customisation options for...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 6 Advanced Plots | Data visualisation using R, for researchers who don’t use R">
-<meta name="twitter:description" content="This tutorial has but scratched the surface of the visualisation options available using R - in the additional online resources we provide some further advanced plots and customisation options for...">
+<meta name="twitter:description" content="This tutorial has but scratched the surface of the visualisation options available using R. In the additional online resources we provide some further advanced plots and customisation options for...">
 <meta name="twitter:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -75,11 +75,11 @@
 <h1>
 <span class="header-section-number">6</span> Advanced Plots<a class="anchor" aria-label="anchor" href="#advanced-plots"><i class="fas fa-link"></i></a>
 </h1>
-<p>This tutorial has but scratched the surface of the visualisation options available using R - in the additional online resources we provide some further advanced plots and customisation options for those readers who are feeling confident with the content covered in this tutorial, however, the below plots give an idea of what is possible, and represent the favourite plots of the authorship team.</p>
+<p>This tutorial has but scratched the surface of the visualisation options available using R. In the additional online resources we provide some further advanced plots and customisation options for those readers who are feeling confident with the content covered in this tutorial. However, the below plots give an idea of what is possible, and represent the favourite plots of the authorship team.</p>
 <p>We will use some custom functions: <code>geom_split_violin()</code> and <code>geom_flat_violin()</code>, which you can access through the <code>introdataviz</code> package. These functions are modified from <span class="citation">(<a href="references.html#ref-raincloudplots" role="doc-biblioref">Allen et al., 2021</a>)</span>.</p>
 <div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># how to install the introdataviz package to get split and half violin plots</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"psyteachr/introdataviz"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"psyteachr/introdataviz"</span><span class="op">)</span></code></pre></div>
 <div id="split-violin-plots" class="section level2" number="6.1">
 <h2>
 <span class="header-section-number">6.1</span> Split-violin plots<a class="anchor" aria-label="anchor" href="#split-violin-plots"><i class="fas fa-link"></i></a>
@@ -88,7 +88,7 @@
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y <span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">introdataviz</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/introdataviz/man/geom_split_violin.html">geom_split_violin</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.4</span>, trim <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, alpha <span class="op">=</span> <span class="fl">.6</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, alpha <span class="op">=</span> <span class="fl">.6</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="st">"mean_se"</span>, geom <span class="op">=</span> <span class="st">"pointrange"</span>, show.legend <span class="op">=</span> <span class="cn">F</span>, 
                position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span><span class="fl">.175</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_x_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Condition"</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Non-word"</span>, <span class="st">"Word"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -99,7 +99,7 @@
   <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:splitviolin"></span>
-<img src="06-ch6_files/figure-html/splitviolin-1.png" alt="Split-violin plot" width="100%"><p class="caption">
+<img src="06-ch6_files/figure-html/splitviolin-1.png" alt="Split-violin plot" width="80%"><p class="caption">
 Figure 6.1: Split-violin plot
 </p>
 </div>
@@ -124,7 +124,7 @@ Figure 6.1: Split-violin plot
                outlier.shape <span class="op">=</span> <span class="cn">NA</span>,
                position <span class="op">=</span> <span class="fu">position_nudge</span><span class="op">(</span>x <span class="op">=</span> <span class="op">-</span><span class="va">rain_height</span><span class="op">*</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="co"># mean and SE point in the cloud</span>
-  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="va">mean_se</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">language</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span>,
+  <span class="fu">stat_summary</span><span class="op">(</span>fun.data <span class="op">=</span> <span class="va">mean_cl_normal</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">language</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span>,
                position <span class="op">=</span> <span class="fu">position_nudge</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rain_height</span> <span class="op">*</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="co"># adjust layout</span>
   <span class="fu">scale_x_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span>, expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">rain_height</span><span class="op">*</span><span class="fl">3</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.7</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -145,8 +145,8 @@ Figure 6.1: Split-violin plot
         legend.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:raincloud"></span>
-<img src="06-ch6_files/figure-html/raincloud-1.png" alt="Raincloud plot" width="100%"><p class="caption">
-Figure 6.2: Raincloud plot
+<img src="06-ch6_files/figure-html/raincloud-1.png" alt="Raincloud plot. The point and line in the centre of each cloud represents its mean and 95% CI. The rain respresents individual data points." width="80%"><p class="caption">
+Figure 6.2: Raincloud plot. The point and line in the centre of each cloud represents its mean and 95% CI. The rain respresents individual data points.
 </p>
 </div>
 </div>
@@ -154,7 +154,7 @@ Figure 6.2: Raincloud plot
 <h2>
 <span class="header-section-number">6.3</span> Ridge plots<a class="anchor" aria-label="anchor" href="#ridge-plots"><i class="fas fa-link"></i></a>
 </h2>
-<p>Ridge plots are a series of density plots and show the distribution of numeric values for several groups. Figure <a href="advanced-plots.html#fig:ridgeplot">6.3</a> shows data from <span class="citation">(<a href="references.html#ref-Nation2017" role="doc-biblioref">Nation, 2017</a>)</span> and demonstrates how effective this type of visualisation can be to convey a lot of information very intuitively whilst being visually attractive.</p>
+<p>Ridge plots are a series of density plots that show the distribution of values for several groups. Figure <a href="advanced-plots.html#fig:ridgeplot">6.3</a> shows data from <span class="citation">(<a href="references.html#ref-Nation2017" role="doc-biblioref">Nation, 2017</a>)</span> and demonstrates how effective this type of visualisation can be to convey a lot of information very intuitively whilst being visually attractive.</p>
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># read in data from Nation et al. 2017</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv"</span>, col_types <span class="op">=</span> <span class="st">"d"</span><span class="op">)</span>
@@ -168,15 +168,15 @@ Figure 6.2: Raincloud plot
 
 <span class="co"># ridge plot</span>
 <span class="fu">ggplot</span><span class="op">(</span><span class="va">long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">prob</span>, y <span class="op">=</span> <span class="va">label</span>, fill <span class="op">=</span> <span class="va">label</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">ggridges</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/ggridges/reference/geom_density_ridges.html">geom_density_ridges</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="fl">2</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggridges</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggridges/man/geom_density_ridges.html">geom_density_ridges</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="fl">2</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Assigned Probability"</span>, 
-                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/label_percent.html">percent</a></span><span class="op">)</span> <span class="op">+</span>
+                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/scales/man/label_percent.html">percent</a></span><span class="op">)</span> <span class="op">+</span>
   <span class="co"># control space at top and bottom of plot</span>
   <span class="fu">scale_y_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span>, expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.02</span>, <span class="fl">0</span>, <span class="fl">.08</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">scale_fill_viridis_d</span><span class="op">(</span>option <span class="op">=</span> <span class="st">"D"</span><span class="op">)</span> <span class="co"># colourblind-safe colours</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:ridgeplot"></span>
-<img src="06-ch6_files/figure-html/ridgeplot-1.png" alt="A ridge plot." width="100%"><p class="caption">
+<img src="06-ch6_files/figure-html/ridgeplot-1.png" alt="A ridge plot." width="80%"><p class="caption">
 Figure 6.3: A ridge plot.
 </p>
 </div>
@@ -201,21 +201,33 @@ Figure 6.3: A ridge plot.
   <span class="fu">mutate</span><span class="op">(</span>grade <span class="op">=</span> <span class="fu">faux</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/faux/man/norm2likert.html">norm2likert</a></span><span class="op">(</span><span class="va">grade</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"3rd"</span> <span class="op">=</span> <span class="fl">5</span>, <span class="st">"2.2"</span> <span class="op">=</span> <span class="fl">10</span>, <span class="st">"2.1"</span> <span class="op">=</span> <span class="fl">40</span>, <span class="st">"1st"</span> <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span>,
          grade <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">grade</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1st"</span>, <span class="st">"2.1"</span>, <span class="st">"2.2"</span>, <span class="st">"3rd"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># reformat data and count each combination</span>
-  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">year</span>, values_from <span class="op">=</span> <span class="va">grade</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">Y1</span>, <span class="va">Y2</span>, <span class="va">Y3</span>, <span class="va">Y4</span><span class="op">)</span>
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tidyr/man/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">year</span>, values_from <span class="op">=</span> <span class="va">grade</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/count.html">count</a></span><span class="op">(</span><span class="va">Y1</span>, <span class="va">Y2</span>, <span class="va">Y3</span>, <span class="va">Y4</span><span class="op">)</span>
 
 <span class="co"># plot data with colours by Year1 grades</span>
 <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">n</span>, axis1 <span class="op">=</span> <span class="va">Y1</span>, axis2 <span class="op">=</span> <span class="va">Y2</span>, axis3 <span class="op">=</span> <span class="va">Y3</span>, axis4 <span class="op">=</span> <span class="va">Y4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="http://corybrunson.github.io/ggalluvial/reference/geom_alluvium.html">geom_alluvium</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Y4</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">6</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="http://corybrunson.github.io/ggalluvial/reference/geom_stratum.html">geom_stratum</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"grey"</span>, width <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_label</span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"stratum"</span>, <span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">stratum</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_fill_brewer</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span>, name <span class="op">=</span> <span class="st">"Final Classification"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_fill_viridis_d</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Final Classification"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:alluvial"></span>
-<img src="06-ch6_files/figure-html/alluvial-1.png" alt="An alluvial plot showing the progression of student grades through the years." width="100%"><p class="caption">
+<img src="06-ch6_files/figure-html/alluvial-1.png" alt="An alluvial plot showing the progression of student grades through the years." width="80%"><p class="caption">
 Figure 6.4: An alluvial plot showing the progression of student grades through the years.
+</p>
+</div>
+</div>
+<div id="maps" class="section level2" number="6.5">
+<h2>
+<span class="header-section-number">6.5</span> Maps<a class="anchor" aria-label="anchor" href="#maps"><i class="fas fa-link"></i></a>
+</h2>
+<p>Working with maps can be tricky. The <code>sf</code> package provides functions that work with ggplot2, such as <code>geom_sf()</code>. The <code>rnaturalearth</code> package provides high-quality mapping coordinates.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="06-ch6_files/figure-html/unnamed-chunk-2-1.png" alt="Map coloured by country." width="80%"><p class="caption">
+Figure 6.5: Map coloured by country.
 </p>
 </div>
 </div>
@@ -422,6 +434,7 @@ $( document ).ready(function() {
 <li><a class="nav-link" href="#raincloud-plots"><span class="header-section-number">6.2</span> Raincloud plots</a></li>
 <li><a class="nav-link" href="#ridge-plots"><span class="header-section-number">6.3</span> Ridge plots</a></li>
 <li><a class="nav-link" href="#alluvial-plots"><span class="header-section-number">6.4</span> Alluvial plots</a></li>
+<li><a class="nav-link" href="#maps"><span class="header-section-number">6.5</span> Maps</a></li>
 </ul>
 
       <div class="book-extra">
@@ -439,7 +452,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-12-05.</p>
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-12-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

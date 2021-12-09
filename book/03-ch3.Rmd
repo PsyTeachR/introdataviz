@@ -2,9 +2,9 @@
 
 ## Data formats
 
-To visualise the experimental reaction time and accuracy data using `ggplot2`, we first need to reshape the data from wide-format to long-format and it is this step that can cause friction with novice users of R. Traditionally, psychologists have been taught data skills using wide-format data. Wide-format data typically has one row of data for each participant with separate columns for each score or variable. For repeated-measures variables, the dependent variable is split across different columns with one measurement for each condition and for between groups variable, a separate column is added to encode the group to which a participant or observation belongs. 
+To visualise the experimental reaction time and accuracy data using `ggplot2`, we first need to reshape the data from wide format to long format. This step can cause friction with novice users of R. Traditionally, psychologists have been taught data skills using wide-format data. Wide-format data typically has one row of data for each participant, with separate columns for each score or variable. For repeated-measures variables, the dependent variable is split across different columns. For between-groups variables, a separate column is added to encode the group to which a participant or observation belongs. 
 
-The simulated lexical decision data is currently in wide-format (see Table\ \@ref(tab:wide-data)) where each participant's aggregated [^3] reaction time and accuracy for each level of the within-subject variable is split across multiple columns.
+The simulated lexical decision data is currently in wide format (see Table\ \@ref(tab:wide-data)), where each participant's aggregated [^3] reaction time and accuracy for each level of the within-subject variable is split across multiple columns for the repeated factor of conditon (words versus non-words).
 
 [^3]: In this tutorial we have chosen to gloss over the data processing steps that must occur to get from the raw data to aggregated values. This type of processing requires a more extensive tutorial than we can provide in the current paper. More importantly, it is still possible to use R for data visualisation having done the preparatory steps using existing workflows in Excel and SPSS. We bypass these initial steps and focus on tangible outputs that may then encourage further mastery of reproducible methods. Collectively we tend to call the steps for reshaping data and for processing raw data or for getting data ready to use statistical functions "wrangling".
 
@@ -12,8 +12,9 @@ The simulated lexical decision data is currently in wide-format (see Table\ \@re
 head(dat) %>% knitr::kable(digits = 2, caption="Data in wide format.")
 ```
 
-Wide-format is popular because it is intuitive to read and easy to enter data into as all the data for one participant is contained within a single row. However, for the purposes of analysis, and particularly for analysis using R, this format is unsuitable. Whilst it is intuitive to read by a human, the same is not true for a computer. Wide-format data concatenates multiple pieces of information in a single column, for example in Table\ \@ref(tab:wide-data), `rt_word` contains information related to both a DV and one level of an IV. In comparison, long-format data separates the DV from the IVs so that each column represents only one variable. The less intuitive part is that long data has multiple rows for each participant and a column that encodes the level of the IV (`word` or `nonword`). In essence, the long-format encodes repeated-measures variable in the same way as a between-group variable in SPSS. Wickham [-@wickham2014tidy] provides a comprehensive overview of the benefits of a similar format known as tidy data, which is a standard way of mapping a dataset to its structure. For the purposes of this tutorial there are two important rules: each column should be a *variable* and each row should be an *observation*. 
-Moving from using wide-form to long-form datasets can require a conceptual shift on the part of the researcher and one that usually only comes with practice and repeated exposure[^4]. It may be helpful to make a note that “row = participant” (wide format) and “row = observation” (long format) until you get used to moving between the formats. For our example dataset, adhering to these rules for reshaping the data would produce Table\ \@ref(tab:long). Rather than different observations of the same dependent variable being split across columns, there is now a single column for the DV reaction time, and a single column for the DV accuracy. Each participant now has multiple rows of data, one for each observation (i.e., for each participant there will be as many rows as there are levels of the within-subject IV). Although there is some repetition of age and language group, each row is unique when looking at the combination of measures.
+Wide format is popular because it is intuitive to read and easy to enter data into as all the data for one participant is contained within a single row. However, for the purposes of analysis, and particularly for analysis using R, this format is unsuitable. Whilst it is intuitive to read by a human, the same is not true for a computer. Wide-format data concatenates multiple pieces of information in a single column, for example in Table\ \@ref(tab:wide-data), `rt_word` contains information related to both a DV and one level of an IV. In comparison, long-format data separates the DV from the IVs so that each column represents only one variable. The less intuitive part is that long-format data has multiple rows for each participant (one row for each observation) and a column that encodes the level of the IV (`word` or `nonword`). Wickham [-@wickham2014tidy] provides a comprehensive overview of the benefits of a similar format known as tidy data, which is a standard way of mapping a dataset to its structure. For the purposes of this tutorial there are two important rules: each column should be a *variable* and each row should be an *observation*. 
+
+Moving from using wide-format to long-format datasets can require a conceptual shift on the part of the researcher and one that usually only comes with practice and repeated exposure[^4]. It may be helpful to make a note that “row = participant” (wide format) and “row = observation” (long format) until you get used to moving between the formats. For our example dataset, adhering to these rules for reshaping the data would produce Table\ \@ref(tab:long). Rather than different observations of the same dependent variable being split across columns, there is now a single column for the DV reaction time, and a single column for the DV accuracy. Each participant now has multiple rows of data, one for each observation (i.e., for each participant there will be as many rows as there are levels of the within-subject IV). Although there is some repetition of age and language group, each row is unique when looking at the combination of measures.
 
 [^4]: That is to say, if you are new to R, know that many before you have struggled with this conceptual shift - it does get better, it just takes time and your preferred choice of cursing.
 
@@ -33,9 +34,9 @@ head(long2) %>% knitr::kable(digits = 2, caption = "Data in the correct format f
 
 The benefits and flexibility of this format will hopefully become apparent as we progress through the tutorial, however, a useful rule of thumb when working with data in R for visualisation is that *anything that shares an axis should probably be in the same column*. For example, a simple boxplot showing reaction time by condition would display the variable `condition` on the x-axis with bars representing both the `word` and `nonword` data, and `rt` on the y-axis. Therefore, all the data relating to `condition` should be in one column, and all the data relating to `rt` should be in a separate single column, rather than being split like in wide-format data.
 
-## Wide-form and long-form data
+## Wide to long format
 
-We have chosen a 2 x 2 design with two DVs as we anticipate that this is a design many researchers will be familiar with and may also have existing datasets with a similar structure. However, it is worth normalising that trial-and-error is part of the process of learning how to apply these functions to new datasets and structures. Data visualisation can be a useful way to scaffold learning these data transformations because they can provide a concrete visual check as to whether you have done what you intended to do with your data.
+We have chosen a 2 x 2 design with two DVs, as we anticipate that this is a design many researchers will be familiar with and may also have existing datasets with a similar structure. However, it is worth normalising that trial-and-error is part of the process of learning how to apply these functions to new datasets and structures. Data visualisation can be a useful way to scaffold learning these data transformations because they can provide a concrete visual check as to whether you have done what you intended to do with your data.
 
 ### Step 1: `pivot_longer()`
 
@@ -53,11 +54,13 @@ long <- pivot_longer(data = dat,
 
 -   As with the other tidyverse functions, the first argument specifies the dataset to use as the base, in this case `dat`. This argument name is often dropped in examples.
 
--   `cols` specifies all the columns you want to transform. The easiest way to visualise this is to think about which columns would be the same in the new long-form dataset and which will change. If you refer back to Table\ \@ref(tab:wide-data), you can see that `id`, `age`, and `language` all remain, while the columns that contain the measurements of the DVs change. The colon notation `first_column:last_column` is used to select all variables from the first column specified to the second.  In our code, `cols` specifies that the columns we want to transform are `rt_word` to `acc_nonword`.
+-   `cols` specifies all the columns you want to transform. The easiest way to visualise this is to think about which columns would be the same in the new long-form dataset and which will change. If you refer back to Table\ \@ref(tab:wide-data), you can see that `id`, `age`, and `language` all remain, while the columns that contain the measurements of the DVs change. The colon notation `first_column:last_column` is used to select all variables from the first column specified to the last  In our code, `cols` specifies that the columns we want to transform are `rt_word` to `acc_nonword`.
 
--   `names_to` specifies the name of the new column that will be created. 
+-   `names_to` specifies the name of the new column that will be created. This column will contain the names of the selected existing columns.
 
--   Finally, `values_to` names the new column that will contain the measurements, in this case we'll call it `dv`. At this point you may find it helpful to go back and compare `dat` and `long` again to see how each argument matches up with the output of the table.
+-   Finally, `values_to` names the new column that will contain the values in the selected columns. In this case we'll call it `dv`. 
+
+At this point you may find it helpful to go back and compare `dat` and `long` again to see how each argument matches up with the output of the table.
 
 ```{r long1-example, echo = FALSE}
 head(long) %>% knitr::kable(digits = 2, caption = "Data in long format with mixed DVs.")
@@ -65,11 +68,7 @@ head(long) %>% knitr::kable(digits = 2, caption = "Data in long format with mixe
 
 ### Step 2: `pivot_longer()` adjusted
 
-The problem with the above long-form data-set is that because we have ignored that there are two DVs, `dv_condition` still continues to conflate two variables - it has information about the type of DV and the condition of the IV. To account for this, we include a new argument `names_sep` and adjust `name_to` to specify the creation of two new columns. Note that we are pivoting the same wide-format dataset `dat` as we did in step 1.
-
--   `names_sep` specifies how to split up the variable name in cases where it has multiple components. This is when taking care to name your variables consistently and meaningfully pays off. Because the word to the left of the separator (`_`) is always the DV type and the word to the right is always the condition of the within-subject IV, it is easy to automatically split the columns.
-
-- Note that when specifying more than one column name, they must be combined using `c()` and be enclosed in their own quotation marks. 
+The problem with the above long-format data-set is that `dv_condition` combines two variables - it has information about the type of DV and the condition of the IV. To account for this, we include a new argument `names_sep` and adjust `name_to` to specify the creation of two new columns. Note that we are pivoting the same wide-format dataset `dat` as we did in step 1.
 
 ```{r}
 long2 <- pivot_longer(data = dat, 
@@ -79,6 +78,9 @@ long2 <- pivot_longer(data = dat,
                      values_to = "dv")
 ```
 
+-   `names_sep` specifies how to split up the variable name in cases where it has multiple components. This is when taking care to name your variables consistently and meaningfully pays off. Because the word to the left of the separator (`_`) is always the DV type and the word to the right is always the condition of the within-subject IV, it is easy to automatically split the columns.
+
+- Note that when specifying more than one column name, they must be combined using `c()` and be enclosed in their own quotation marks. 
 
 ```{r long-example, echo = FALSE}
 head(long2) %>% knitr::kable(digits = 2, caption = "Data in long format with dv type and condition in separate columns.")
@@ -86,9 +88,9 @@ head(long2) %>% knitr::kable(digits = 2, caption = "Data in long format with dv 
 
 ### Step 3: `pivot_wider()`
 
-Although we have now split the columns so that there are separate variables for the DV type and level of condition, because we have two DVs, there is an additional bit of wrangling required to get the data in the right format for plotting. 
+Although we have now split the columns so that there are separate variables for the DV type and level of condition, because the two DVs are different types of data, there is an additional bit of wrangling required to get the data in the right format for plotting. 
 
-In the current long-form dataset, the column `dv` contains both reaction time and accuracy measures and keeping in mind the rule of thumb that *anything that shares an axis should probably be in the same column,* this creates a problem because we cannot plot two different units of measurement on the same axis. To fix this we need to use the function `pivot_wider()`. Again, we would encourage you at this point to compare `long2` and `dat_long` with the below code to try and map the connections before reading on.
+In the current long-format dataset, the column `dv` contains both reaction time and accuracy measures. Keeping in mind the rule of thumb that *anything that shares an axis should probably be in the same column,* this creates a problem because we cannot plot two different units of measurement on the same axis. To fix this we need to use the function `pivot_wider()`. Again, we would encourage you at this point to compare `long2` and `dat_long` with the below code to try and map the connections before reading on.
 
 ```{r}
 dat_long <- pivot_wider(long2, 
@@ -99,20 +101,20 @@ dat_long <- pivot_wider(long2,
 
 -   The first argument is again the dataset you wish to work from, in this case `long2`. We have removed the argument name `data` in this example.
 
--   `names_from` acts somewhat like the reverse of `names_to` from `pivot_longer()`. It will take the values from the variable specified and use these as variable names, i.e., in this case, the values of `rt` and `acc` that are currently in the `dv_type` column, and turn these into the column names.
+-   `names_from` is the reverse of `names_to` from `pivot_longer()`. It will take the values from the variable specified and use these as the new column names. In this case, the values of `rt` and `acc` that are currently in the `dv_type` column will become the new column names.
 
--   Finally, `values_from` specifies the values to fill the new columns with. In this case, the new columns `rt` and `acc` will be filled with the values that were in `dv`. Again, it can be helpful to compare each dataset with the code to see how it aligns.
+-   `values_from` is the reverse of `values_to` from `pivot_longer()`. It specifies the column that contains the values to fill the new columns with. In this case, the new columns `rt` and `acc` will be filled with the values that were in `dv`. 
 
-This final long-form data should look like Table\ \@ref(tab:long).
+Again, it can be helpful to compare each dataset with the code to see how it aligns. This final long-form data should look like Table\ \@ref(tab:long).
 
-If you are working with a dataset with only one DV, note that only step 1 of this process would be necessary. Also, be careful not to calculate demographic descriptive statistics from this long-form dataset. Because the process of transformation has introduced some repetition for these variables, the wide-form dataset where 1 row = 1 participant should be used for demographic information. Finally, the three step process noted above is broken down for teaching purposes, in reality, one would likely do this in a single pipeline of code, for example:
+If you are working with a dataset with only one DV, note that only step 1 of this process would be necessary. Also, be careful not to calculate demographic descriptive statistics from this long-form dataset. Because the process of transformation has introduced some repetition for these variables, the wide-format dataset where one row equals one participant should be used for demographic information. Finally, the three step process noted above is broken down for teaching purposes, in reality, one would likely do this in a single pipeline of code, for example:
 
 ```{r eval = FALSE}
 dat_long <- pivot_longer(data = dat, 
-                     cols = rt_word:acc_nonword, 
-                     names_sep = "_", 
-                     names_to = c("dv_type", "condition"),
-                     values_to = "dv") %>%
+                         cols = rt_word:acc_nonword, 
+                         names_sep = "_", 
+                         names_to = c("dv_type", "condition"),
+                         values_to = "dv") %>%
   pivot_wider(names_from = "dv_type", 
               values_from = "dv")
 ```
@@ -158,11 +160,11 @@ ggplot(dat_long, aes(x = rt)) +
 
 ### Grouped density plots
 
-Density plots are most useful for comparing the distributions of different groups of data. Because the dataset is now in long format, it makes it easier to map another variable to the plot because each variable is contained within a single column. 
+Density plots are most useful for comparing the distributions of different groups of data. Because the dataset is now in long format, with each variable contained within a single column, we can map `condition` to the plot. 
 
-* In addition to mapping `rt` to the x-axis, we specify the `fill` aesthetic to fill the visualisation of each level of the `condition` variable with different colours. 
+* In addition to mapping `rt` to the x-axis, we specify the `fill` aesthetic to fill the visualisation so that each level of the `condition` variable is represented by a different colour. 
 * Because the density plots are overlapping, we set `alpha = 0.75` to make the geoms 75% transparent.
-* As with the x and y-axis scale functions, we can edit the names and labels of our fill aesthetic by adding on another `scale_*` layer.
+* As with the x and y-axis scale functions, we can edit the names and labels of our fill aesthetic by adding on another `scale_*` layer (`scale_fill_discrete()`).
 * Note that the `fill` here is set inside the `aes()` function, which tells ggplot to set the fill differently for each value in the `condition` column. You cannot specify which colour here (e.g., `fill="red"`), like you could when you set `fill` inside the `geom_*()` function before.
 
 ```{r density-grouped, fig.cap="Density plot of reaction times grouped by condition."}
@@ -182,7 +184,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
   geom_point()
 ```
 
-A line of best fit can be added with an additional layer that calls the function `geom_smooth()`. The default is to draw a LOESS or curved regression line, however, a linear line of best fit can be specified using `method = "lm"`. By default, `geom_smooth()` will also draw a confidence envelope around the regression line, this can be removed by adding `se = FALSE` to `geom_smooth()`. A common error is to try and use `geom_line()` to draw the line of best fit, which whilst a sensible guess, will not work (try it).
+A line of best fit can be added with an additional layer that calls the function `geom_smooth()`. The default is to draw a LOESS or curved regression line. However, a linear line of best fit can be specified using `method = "lm"`. By default, `geom_smooth()` will also draw a confidence envelope around the regression line; this can be removed by adding `se = FALSE` to `geom_smooth()`. A common error is to try and use `geom_line()` to draw the line of best fit, which whilst a sensible guess, will not work (try it).
 
 ```{r smooth-plot, warning = FALSE, fig.cap="Line of best fit for reaction time versus age.", message = FALSE}
 ggplot(dat_long, aes(x = rt, y = age)) +
@@ -192,7 +194,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 
 ### Grouped scatterplots
 
-Similar to the density plot, the scatterplot can also be easily adjusted to display grouped data. For `geom_point()`, the grouping variable is mapped to `colour` rather than `fill` and the relevant `scale_` function is added.
+Similar to the density plot, the scatterplot can also be easily adjusted to display grouped data. For `geom_point()`, the grouping variable is mapped to `colour` rather than `fill` and the relevant `scale_*` function is added.
 
 ```{r scatter-grouped, warning = FALSE,fig.cap="Grouped scatterplot of reaction time versus age by condition.", message = FALSE}
 ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
@@ -202,9 +204,9 @@ ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
                       labels = c("Word", "Non-word"))
 ```
 
-## Long-form to wide-form data
+## Long to wide format
 
-Following the rule that *anything that shares an axis should probably be in the same column* means that we will frequently need our data in long-form when using `ggplot2`, however, there are some cases when wide-form is necessary. For example, we may wish to visualise the relationship between reaction time in the word and non-word conditions. The easiest way to achieve this in our case would simply be to use the original wide-form data as the input:
+Following the rule that *anything that shares an axis should probably be in the same column* means that we will frequently need our data in long-form when using `ggplot2`, However, there are some cases when wide format is necessary. For example, we may wish to visualise the relationship between reaction time in the word and non-word conditions. This requires that the corresponding word and non-word values for each participant be in the same row. The easiest way to achieve this in our case would simply be to use the original wide-format data as the input:
 
 ```{r message = FALSE, fig.cap="Scatterplot with data grouped by language group"}
 ggplot(dat, aes(x = rt_word, y = rt_nonword, colour = language)) +
@@ -212,7 +214,7 @@ ggplot(dat, aes(x = rt_word, y = rt_nonword, colour = language)) +
   geom_smooth(method = "lm")
 ```
 
-However, there may also be cases when you do not have an original wide-form version and you can use the `pivot_wider()` function to transform from long to wide.
+However, there may also be cases when you do not have an original wide-format version and you can use the `pivot_wider()` function to transform from long to wide.
 
 ```{r}
 dat_wide <- dat_long %>%
@@ -232,7 +234,7 @@ dat_wide %>%
 
 ### Accessible colour schemes
 
-One of the drawbacks of using `ggplot2` for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in grey scale. You can specify exact custom colours for your plots, but one easy option is to use a custom colour palette. These take the same arguments as their default `scale` sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. For categorical colours, the "Set2", "Dark2" and "Paired" palettes from the `brewer` scale functions are colourblind-safe. For continuous colours, such as when colour is representing the magnitude of a correlation in a tile plot, the `viridis` scale functions provide a number of different colourblind and greyscale-safe options.
+One of the drawbacks of using `ggplot2` for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in greyscale. You can specify exact custom colours for your plots, but one easy option is to use a custom colour palette. These take the same arguments as their default `scale` sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. For categorical colours, the "Set2", "Dark2" and "Paired" palettes from the `brewer` scale functions are colourblind-safe (but are hard to distinhuish in greyscale). For continuous colours, such as when colour is representing the magnitude of a correlation in a tile plot, the `viridis` scale functions provide a number of different colourblind and greyscale-safe options.
 
 ```{r brewer, warning = FALSE,fig.cap="Use the Dark2 brewer colour scheme for accessibility.", message = FALSE}
 ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
@@ -243,11 +245,11 @@ ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
                      labels = c("Word", "Non-word"))
 ```
 
-## Specifying axis `breaks` with `seq()`
+### Specifying axis `breaks` with `seq()`
 
 Previously, when we have edited the `breaks` on the axis labels, we have done so manually, typing out all the values we want to display on the axis. For example, the below code edits the y-axis so that `age` is displayed in increments of 5. 
 
-```{r breaks1}
+```{r breaks1, eval = FALSE}
 ggplot(dat_long, aes(x = rt, y = age)) +
   geom_point() +
   scale_y_continuous(breaks = c(20,25,30,35,40,45,50,55,60))
@@ -255,7 +257,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 
 However, this is somewhat inefficient. Instead, we can use the function `seq()` (short for sequence) to specify the first and last value and the increments `by` which the breaks should display between these two values.
 
-```{r breaks2}
+```{r breaks2, eval = FALSE}
 ggplot(dat_long, aes(x = rt, y = age)) +
   geom_point() +
   scale_y_continuous(breaks = seq(20,60, by = 5))
@@ -285,7 +287,7 @@ ggplot(dat_long, aes(x = rt, fill = language)) +
 
 `r unhide()`
 
-2. Use `scale_*_*()` functions to edit the name of the x and y-axis on the scatterplot
+2. Use `scale_*` functions to edit the name of the x and y-axis on the scatterplot
 
 `r hide("Solution 2")`
 ```{r, eval = FALSE}
@@ -311,7 +313,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 
 `r unhide()`
 
-4. Remove `method = "lm"` from `geom_smooth()` to produce a curved regression line.
+4. Remove `method = "lm"` from `geom_smooth()` to produce a curved fit line.
 
 `r hide("Solution 4")`
 ```{r, eval = FALSE}
@@ -324,7 +326,7 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 
 `r unhide()`
 
-5. Replace the default `scale_fill_*()` on the grouped density plot with a colour-blind friendly version.
+5. Replace the default fill on the grouped density plot with a colour-blind friendly version.
 
 `r hide("Solution")`
 ```{r, eval = FALSE}

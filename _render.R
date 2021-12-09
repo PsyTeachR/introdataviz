@@ -1,6 +1,6 @@
 # render bookdown ----
 xfun::in_dir("book", bookdown::render_book("index.Rmd"))
-browseURL("book/index.html")
+browseURL("docs/index.html")
 
 # copies book for local package copy ----
 R.utils::copyDirectory(
@@ -40,7 +40,7 @@ for (bookfile in files) {
 
 # omit code from ch 6
 ch6 <- readLines("paper/06-ch6.Rmd")
-ch6 <- gsub("r (splitviolin|raincloud|ridgeplot|alluvial),", "r \\1, echo = FALSE,", ch6)
+ch6 <- gsub("r (splitviolin|raincloud|ridgeplot|alluvial|map),", "r \\1, echo = FALSE,", ch6)
 write(ch6, "paper/06-ch6.Rmd")
 
 # render PDF

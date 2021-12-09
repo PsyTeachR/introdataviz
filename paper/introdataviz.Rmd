@@ -74,6 +74,8 @@ library(knitr)
 library(faux)
 library(ggalluvial)
 library(ggridges)
+library(sf)
+library(rnaturalearth)
 
 theme_set(theme_grey())
 
@@ -83,7 +85,7 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed,
                       fig.width  = 8,
                       fig.height = 5,
                       fig.align  = "center",
-                      out.width  = "100%",
+                      out.width  = "80%",
                       warning    = FALSE,
                       message    = FALSE
                       )
@@ -154,11 +156,11 @@ The author(s) declared that there were no conflicts of interest with respect to 
 
 ### Funding
 
-LMD is supported by European Research Council grant #647910.
+LMD was supported by European Research Council grant #647910.
 
 ### Research Software
 
-This tutorial uses the following open-source research software: @R-base; @R-tidyverse; @R-faux; @R-papaja, @R-ggplot2, @R-patchwork, @R-ggalluvial-article, @R-ggridges.
+This tutorial uses the following open-source research software: @R-base, @R-tidyverse, @R-faux, @R-papaja, @R-ggplot2, @R-patchwork, @R-ggalluvial-article, @R-ggridges, @R-sf, @R-rnaturalearth.
 
 \newpage
 

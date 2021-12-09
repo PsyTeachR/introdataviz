@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -92,7 +92,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"ldt_data.csv"</span><span class="op">)</span></code></pre></div>
 <p>This code has created an object <code>dat</code> into which you have read the data from the file <code>ldt_data.csv</code>. This object will appear in the environment pane in the top right. Note that the name of the data file must be in quotation marks and the file extension (<code>.csv</code>) must also be included. If you receive the error <code>…does not exist in current working directory</code> it is highly likely that you have made a typo in the file name (remember R is case sensitive), have forgotten to include the file extension <code>.csv</code>, or that the data file you want to load is not stored in your project folder. If you get the error <code>could not find function</code> it means you have either not loaded the correct package (a common beginner error is to write the code, but not run it), or you have made a typo in the function name.</p>
-<p>To view the dataset, click <code>dat</code> in the environment pane or run <code><a href="https://rdrr.io/r/utils/View.html">View(dat)</a></code> in the console. The environment pane also tells us that the object <code>dat</code> has 100 observations of 7 variables, and this is a useful quick check to ensure one has loaded the right data. Note that the 7 variables have an additional piece of information <code>chr</code> and <code>num</code>; this specifies the kind of data in the column. Similar to Excel and SPSS, R uses this information (or variable type) to specify allowable manipulations of data. For instance character data such as the <code>id</code> cannot be averaged, while it is possible to do this with numerical data such as the <code>age</code>.</p>
+<p>You should always check after importing data that the resulting table looks like you expect. To view the dataset, click <code>dat</code> in the environment pane or run <code><a href="https://rdrr.io/r/utils/View.html">View(dat)</a></code> in the console. The environment pane also tells us that the object <code>dat</code> has 100 observations of 7 variables, and this is a useful quick check to ensure one has loaded the right data. Note that the 7 variables have an additional piece of information <code>chr</code> and <code>num</code>; this specifies the kind of data in the column. Similar to Excel and SPSS, R uses this information (or variable type) to specify allowable manipulations of data. For instance character data such as the <code>id</code> cannot be averaged, while it is possible to do this with numerical data such as the <code>age</code>.</p>
 </div>
 <div id="handling-numeric-factors" class="section level2" number="2.3">
 <h2>
@@ -101,7 +101,7 @@
 <p>Another useful check is to use the functions <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> and <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> (structure) to check what kind of data R thinks is in each column. Run the below code and look at the output of each, comparing it with what you know about the simulated dataset:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>        </code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
 <p>Because the factor <code>language</code> is coded as 1 and 2, R has categorised this column as containing numeric information and unless we correct it, this will cause problems for visualisation and analysis. The code below shows how to recode numeric codes into labels.</p>
 <ul>
 <li>
@@ -111,10 +111,10 @@
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">dat</span>, language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>
-    x <span class="op">=</span> <span class="va">language</span>, <span class="co"># column to translate</span>
-    levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="co"># values of the original data in preferred order</span>
-    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"monolingual"</span>, <span class="st">"bilingual"</span><span class="op">)</span> <span class="co"># labels for display</span>
-  <span class="op">)</span><span class="op">)</span></code></pre></div>
+  x <span class="op">=</span> <span class="va">language</span>, <span class="co"># column to translate</span>
+  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="co"># values of the original data in preferred order</span>
+  labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"monolingual"</span>, <span class="st">"bilingual"</span><span class="op">)</span> <span class="co"># labels for display</span>
+<span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Make sure that you always check the output of any code that you run. If after running this code <code>language</code> is full of <code>NA</code> values, it means that you have run the code twice. The first time would have worked and transformed the values from <code>1</code> to <code>monolingual</code> and <code>2</code> to <code>bilingual</code>. If you run the code again on the same dataset, it will look for the values <code>1</code> and <code>2</code>, and because there are no longer any that match, it will return NA. If this happens, you will need to reload the dataset from the csv file.</p>
 <p>A good way to avoid this is never to overwrite data, but to always store the output of code in new objects (e.g., <code>dat_recoded</code>) or new variables (<code>language_recoded</code>). For the purposes of this tutorial, overwriting provides a useful teachable moment so we'll leave it as it is.</p>
 </div>
@@ -124,14 +124,16 @@
 </h2>
 <p>Each function has a list of arguments it can take, and a default order for those arguments. You can get more information on each function by entering <code>?function_name</code> into the console, although be aware that learning to read the help documentation in R is a skill in itself. When you are writing R code, as long as you stick to the default order, you do not have to explicitly call the argument names, for example, the above code could also be written as:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">dat</span>, language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">language</span>, 
-                           <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, 
-                           <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"monolingual"</span>, <span class="st">"bilingual"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">dat</span>, language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>
+  <span class="va">language</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"monolingual"</span>, <span class="st">"bilingual"</span><span class="op">)</span>
+<span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>One of the challenges in learning R is that many of the "helpful" examples and solutions you will find online do not include argument names and so for novice learners are completely opaque. In this tutorial, we will include the argument names the first time a function is used, however, we will remove some argument names from subsequent examples to facilitate knowledge transfer to the help available online.</p>
 </div>
-<div id="demographic-information" class="section level2" number="2.5">
+<div id="summarising-data" class="section level2" number="2.5">
 <h2>
-<span class="header-section-number">2.5</span> Demographic information<a class="anchor" aria-label="anchor" href="#demographic-information"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5</span> Summarising data<a class="anchor" aria-label="anchor" href="#summarising-data"><i class="fas fa-link"></i></a>
 </h2>
 <p>You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (i.e., data processing). The code below uses the <code>%&gt;%</code> operator, otherwise known as the <em>pipe,</em> and can be translated as "<em>and then"</em>. For example, the below code can be read as:</p>
 <ul>
@@ -240,36 +242,41 @@
   <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:bar1"></span>
-<img src="02-ch2_files/figure-html/bar1-1.png" alt="Bar chart of counts." width="100%"><p class="caption">
+<img src="02-ch2_files/figure-html/bar1-1.png" alt="Bar chart of counts." width="80%"><p class="caption">
 Figure 2.1: Bar chart of counts.
 </p>
 </div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_bar</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Percent"</span>, labels<span class="op">=</span><span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/scales/man/label_percent.html">percent</a></span><span class="op">)</span> </code></pre></div>
+<div class="inline-figure"><img src="02-ch2_files/figure-html/unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto;"></div>
 <p>The first line of code sets up the base of the plot.</p>
 <ul>
 <li><p><code>data</code> specifies which data source to use for the plot</p></li>
-<li><p><code>mapping</code> specifies which variables to map to which aesthetics (<code>aes</code>) of the plot. Aesthetic mappings describe how variables in the data are mapped to visual properties (aesthetics) of geoms.</p></li>
+<li><p><code>mapping</code> specifies which variables to map to which aesthetics (<code>aes</code>) of the plot. Mappings describe how variables in the data are mapped to visual properties (aesthetics) of geoms.</p></li>
 <li><p><code>x</code> specifies which variable to put on the x-axis</p></li>
 </ul>
 <p>The second line of code adds a <code>geom</code>, and is connected to the base code with <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code>. In this case, we ask for <code>geom_bar()</code>. Each <code>geom</code> has an associated default statistic. For <code>geom_bar()</code>, the default statistic is to count the data passed to it. This means that you do not have to specify a <code>y</code> variable when making a bar plot of counts; when given an <code>x</code> variable <code>geom_bar()</code> will automatically calculate counts of the groups in that variable. In this example, it counts the number of data points that are in each category of the <code>language</code> variable.</p>
 <p>The base and geoms layers work in symbiosis so it is worthwhile checking the mapping rules as these are related to the default statistic for the plot's geom.</p>
 </div>
-<div id="plotting-existing-aggregates-and-percent" class="section level2" number="2.7">
+<div id="aggregates-and-percentages" class="section level2" number="2.7">
 <h2>
-<span class="header-section-number">2.7</span> Plotting existing aggregates and percent<a class="anchor" aria-label="anchor" href="#plotting-existing-aggregates-and-percent"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.7</span> Aggregates and percentages<a class="anchor" aria-label="anchor" href="#aggregates-and-percentages"><i class="fas fa-link"></i></a>
 </h2>
-<p>If your dataset already has the counts that you want to plot, you can set <code>stat="identity"</code> inside of <code>geom_bar()</code> to use that number instead of counting rows. For example, there is currently no function to plot percentages rather than counts within <code>ggplot2</code>, you need to calculate these and store them in a new object that is then used as the dataset.</p>
-<p>Notice that we are now omitting the names of the arguments <code>data</code> and <code>mapping</code> in the <code>ggplot()</code> function.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p>If your dataset already has the counts that you want to plot, you can set <code>stat="identity"</code> inside of <code>geom_bar()</code> to use that number instead of counting rows. For example, to plot percentages rather than counts within <code>ggplot2</code>, you can calculate these and store them in a new object that is then used as the dataset. You can do this in the software you are most comfortable in, save the new data, and import it as a new table, or you can use code to manipulate the data.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat_percent</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op">%&gt;%</span>    <span class="co"># start with the data in dat</span>
   <span class="fu">count</span><span class="op">(</span><span class="va">language</span><span class="op">)</span> <span class="op">%&gt;%</span>     <span class="co"># count rows per language (makes a new column called n)</span>
   <span class="fu">mutate</span><span class="op">(</span>percent <span class="op">=</span> <span class="op">(</span><span class="va">n</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="co"># make a new column 'percent' equal to </span>
-                                   <span class="co"># n divided by the sum of n times 100</span>
-
-<span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_percent</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">language</span>, y <span class="op">=</span> <span class="va">percent</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+                                   <span class="co"># n divided by the sum of n times 100</span></code></pre></div>
+<p>Notice that we are now omitting the names of the arguments <code>data</code> and <code>mapping</code> in the <code>ggplot()</code> function.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_percent</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">language</span>, y <span class="op">=</span> <span class="va">percent</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_bar</span><span class="op">(</span>stat<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span> </code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:bar-precalc"></span>
-<img src="02-ch2_files/figure-html/bar-precalc-1.png" alt="Bar chart of pre-calculated counts." width="100%"><p class="caption">
+<img src="02-ch2_files/figure-html/bar-precalc-1.png" alt="Bar chart of pre-calculated counts." width="80%"><p class="caption">
 Figure 2.2: Bar chart of pre-calculated counts.
 </p>
 </div>
@@ -279,22 +286,22 @@ Figure 2.2: Bar chart of pre-calculated counts.
 <span class="header-section-number">2.8</span> Histogram<a class="anchor" aria-label="anchor" href="#histogram"><i class="fas fa-link"></i></a>
 </h2>
 <p>The code to plot a histogram of <code>age</code> is very similar to the bar chart code. We start by setting up the plot space, the dataset to use, and mapping the variables to the relevant axis. In this case, we want to plot a histogram with <code>age</code> on the x-axis:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:histogram1"></span>
-<img src="02-ch2_files/figure-html/histogram1-1.png" alt="Histogram of ages." width="100%"><p class="caption">
+<img src="02-ch2_files/figure-html/histogram1-1.png" alt="Histogram of ages." width="80%"><p class="caption">
 Figure 2.3: Histogram of ages.
 </p>
 </div>
-<p>The base statistic for <code>geom_histogram()</code> is also count, and by default <code>geom_histogram()</code> divides the x-axis into "bins" and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message <code>stat_bin() using bins = 30. Pick better value with binwidth</code>. This means that, by default, <code>geom_histogram()</code> divides the x-axis into 30 bins. You can change this by either setting the number of bins (e.g., <code>bins = 20</code>) or the width of each bin (e.g., <code>binwidth = 5</code>) as an argument.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p>The base statistic for <code>geom_histogram()</code> is also count, and by default <code>geom_histogram()</code> divides the x-axis into 30 "bins" and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message "stat_bin() using bins = 30. Pick better value with binwidth". You can change this by either setting the number of bins (e.g., <code>bins = 20</code>) or the width of each bin (e.g., <code>binwidth = 5</code>) as an argument.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:histogram2"></span>
-<img src="02-ch2_files/figure-html/histogram2-1.png" alt="Histogram of ages where each bin covers five years." width="100%"><p class="caption">
+<img src="02-ch2_files/figure-html/histogram2-1.png" alt="Histogram of ages where each bin covers five years." width="80%"><p class="caption">
 Figure 2.4: Histogram of ages where each bin covers five years.
 </p>
 </div>
@@ -303,20 +310,20 @@ Figure 2.4: Histogram of ages where each bin covers five years.
 <h2>
 <span class="header-section-number">2.9</span> Customisation 1<a class="anchor" aria-label="anchor" href="#customisation-1"><i class="fas fa-link"></i></a>
 </h2>
-<p>So far we have made basic plots with the default visual appearance. Before we move on to the experimental data we will introduce some simple visual customisation options. There are many ways in which you can control or customise the visual appearance of figures in R. However, once you understand the logic of one, it becomes easier to understand others that you may see in other examples. Visual appearance of elements can be customised within a geom itself, within the aesthetic mapping, or by connecting additional layers with <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code>. In this section we look at the simplest and most commonly-used customisations: changing colours, adding axis labels, and adding themes.</p>
+<p>So far we have made basic plots with the default visual appearance. Before we move on to the experimental data, we will introduce some simple visual customisation options. There are many ways in which you can control or customise the visual appearance of figures in R. However, once you understand the logic of one, it becomes easier to understand others that you may see in other examples. The visual appearance of elements can be customised within a geom itself, within the aesthetic mapping, or by connecting additional layers with <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code>. In this section we look at the simplest and most commonly-used customisations: changing colours, adding axis labels, and adding themes.</p>
 <div id="changing-colours" class="section level3" number="2.9.1">
 <h3>
 <span class="header-section-number">2.9.1</span> Changing colours<a class="anchor" aria-label="anchor" href="#changing-colours"><i class="fas fa-link"></i></a>
 </h3>
 <p>For our basic bar chart, you can control colours used to display the bars by setting <code>fill</code> (internal colour) and <code>colour</code> (outline colour) inside the geom function. This method changes <strong>all</strong> bars; we will show you later how to set fill or colour separately for different groups.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, 
                  fill <span class="op">=</span> <span class="st">"white"</span>, 
                  colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:histogram-fill-color"></span>
-<img src="02-ch2_files/figure-html/histogram-fill-color-1.png" alt="Histogram with custom colors for bar fill and line colors." width="100%"><p class="caption">
+<img src="02-ch2_files/figure-html/histogram-fill-color-1.png" alt="Histogram with custom colors for bar fill and line colors." width="80%"><p class="caption">
 Figure 2.5: Histogram with custom colors for bar fill and line colors.
 </p>
 </div>
@@ -327,7 +334,7 @@ Figure 2.5: Histogram with custom colors for bar fill and line colors.
 </h3>
 <p>To edit axis names and labels you can connect <code>scale_*</code> functions to your plot with <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> to add layers. These functions are part of <code>ggplot2</code> and the one you use depends on which aesthetic you wish to edit (e.g., x-axis, y-axis, fill, colour) as well as the type of data it represents (discrete, continuous).</p>
 <p>For the bar chart of counts, the x-axis is mapped to a discrete (categorical) variable whilst the y-axis is continuous. For each of these there is a relevant scale function with various elements that can be customised. Each axis then has its own function added as a layer to the basic plot.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_x_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Language group"</span>, 
@@ -336,7 +343,7 @@ Figure 2.5: Histogram with custom colors for bar fill and line colors.
                      breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span>,<span class="fl">40</span>,<span class="fl">50</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:bar3"></span>
-<img src="02-ch2_files/figure-html/bar3-1.png" alt="Bar chart with custom axis labels." width="100%"><p class="caption">
+<img src="02-ch2_files/figure-html/bar3-1.png" alt="Bar chart with custom axis labels." width="80%"><p class="caption">
 Figure 2.6: Bar chart with custom axis labels.
 </p>
 </div>
@@ -344,40 +351,35 @@ Figure 2.6: Bar chart with custom axis labels.
 <li><p><code>name</code> controls the overall name of the axis (note the use of quotation marks)</p></li>
 <li><p><code>labels</code> controls the names of the conditions with a discrete variable.</p></li>
 <li><p><code><a href="https://rdrr.io/r/base/c.html">c()</a></code> is a function that you will see in many different contexts and is used to combine multiple values. In this case, the labels we want to apply are combined within <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> by enclosing each word within their own parenthesis, and are in the order displayed on the plot. A very common error is to forget to enclose multiple values in <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>.</p></li>
-<li><p><code>breaks</code> controls the tick marks on the axis. Again because there are multiple values, they are enclosed within <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> although because they are numeric and not text, they do not need quotation marks.</p></li>
+<li><p><code>breaks</code> controls the tick marks on the axis. Again, because there are multiple values, they are enclosed within <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>. Because they are numeric and not text, they do not need quotation marks.</p></li>
 </ul>
-</div>
-<div id="discrete-vs.-continuous-errors" class="section level3" number="2.9.3">
-<h3>
-<span class="header-section-number">2.9.3</span> Discrete vs. continuous errors<a class="anchor" aria-label="anchor" href="#discrete-vs.-continuous-errors"><i class="fas fa-link"></i></a>
-</h3>
-<p>Another common error is to map the wrong type of <code>scale_</code> function to a variable. Try running the below code:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<p>A common error is to map the wrong type of <code>scale_</code> function to a variable. Try running the below code:</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># produces an error</span>
 <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Language group"</span>, 
-                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Monolingual"</span>, <span class="st">"Bilingual"</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
+                     labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Monolingual"</span>, <span class="st">"Bilingual"</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
 <p>This will produce the error <code>Discrete value supplied to continuous scale</code> because we have used a <code>continuous</code> scale function, despite the fact that x-axis variable is discrete. If you get this error (or the reverse), check the type of data on each axis and the function you have used.</p>
 </div>
-<div id="adding-a-theme" class="section level3" number="2.9.4">
+<div id="adding-a-theme" class="section level3" number="2.9.3">
 <h3>
-<span class="header-section-number">2.9.4</span> Adding a theme<a class="anchor" aria-label="anchor" href="#adding-a-theme"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.9.3</span> Adding a theme<a class="anchor" aria-label="anchor" href="#adding-a-theme"><i class="fas fa-link"></i></a>
 </h3>
 <p><code>ggplot2</code> has a number of built-in visual themes that you can apply as an extra layer. The below code updates the x-axis and y-axis labels to the histogram, but also applies <code>theme_minimal()</code>. Each part of a theme can be independently customised, which may be necessary, for example, if you have journal guidelines on fonts for publication. There are further instructions for how to do this in the online appendices.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"wheat"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Participant age (years)"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:histogram-theme"></span>
-<img src="02-ch2_files/figure-html/histogram-theme-1.png" alt="Histogram with a custom theme." width="100%"><p class="caption">
+<img src="02-ch2_files/figure-html/histogram-theme-1.png" alt="Histogram with a custom theme." width="80%"><p class="caption">
 Figure 2.7: Histogram with a custom theme.
 </p>
 </div>
 <p>You can set the theme globally so that all subsequent plots use a theme. <code>theme_set()</code> is not part of a <code>ggplot()</code> object, you should run this code on its own. It may be useful to add this code to the top of your script so that all plots produced subsequently use the same theme.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>If you wished to return to the default theme, change the above to specify <code>theme_grey()</code>.</p>
 </div>
@@ -394,7 +396,7 @@ Figure 2.7: Histogram with a custom theme.
 <button>
 Solution 1
 </button>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"wheat"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Participant age (years)"</span><span class="op">)</span> <span class="op">+</span>
@@ -408,7 +410,7 @@ Solution 1
 <button>
 Solution 2
 </button>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_bar</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
 </div>
@@ -419,7 +421,7 @@ Solution 2
 <button>
 Solution 3
 </button>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#multiple options here e.g., theme_classic()</span>
 <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"wheat"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
@@ -637,16 +639,15 @@ $( document ).ready(function() {
 <li><a class="nav-link" href="#loading-data"><span class="header-section-number">2.2</span> Loading data</a></li>
 <li><a class="nav-link" href="#handling-numeric-factors"><span class="header-section-number">2.3</span> Handling numeric factors</a></li>
 <li><a class="nav-link" href="#argument-names"><span class="header-section-number">2.4</span> Argument names</a></li>
-<li><a class="nav-link" href="#demographic-information"><span class="header-section-number">2.5</span> Demographic information</a></li>
+<li><a class="nav-link" href="#summarising-data"><span class="header-section-number">2.5</span> Summarising data</a></li>
 <li><a class="nav-link" href="#bar-chart-of-counts"><span class="header-section-number">2.6</span> Bar chart of counts</a></li>
-<li><a class="nav-link" href="#plotting-existing-aggregates-and-percent"><span class="header-section-number">2.7</span> Plotting existing aggregates and percent</a></li>
+<li><a class="nav-link" href="#aggregates-and-percentages"><span class="header-section-number">2.7</span> Aggregates and percentages</a></li>
 <li><a class="nav-link" href="#histogram"><span class="header-section-number">2.8</span> Histogram</a></li>
 <li>
 <a class="nav-link" href="#customisation-1"><span class="header-section-number">2.9</span> Customisation 1</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#changing-colours"><span class="header-section-number">2.9.1</span> Changing colours</a></li>
 <li><a class="nav-link" href="#editing-axis-names-and-labels"><span class="header-section-number">2.9.2</span> Editing axis names and labels</a></li>
-<li><a class="nav-link" href="#discrete-vs.-continuous-errors"><span class="header-section-number">2.9.3</span> Discrete vs. continuous errors</a></li>
-<li><a class="nav-link" href="#adding-a-theme"><span class="header-section-number">2.9.4</span> Adding a theme</a></li>
+<li><a class="nav-link" href="#adding-a-theme"><span class="header-section-number">2.9.3</span> Adding a theme</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#activities-1"><span class="header-section-number">2.10</span> Activities 1</a></li>
@@ -667,7 +668,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-12-05.</p>
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-12-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
