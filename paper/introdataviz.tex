@@ -110,6 +110,29 @@
   \let\oldsubparagraph\subparagraph
   \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 % Manuscript styling
 \usepackage{upgreek}
 \captionsetup{font=singlespacing,justification=justified}
@@ -152,7 +175,7 @@
   {}{\typeout{Failed to patch title.}}
 \makeatother
 \shorttitle{Dataviz in R}
-\keywords{visualization, ggplot, plots, R\newline\indent Word count: 11472}
+\keywords{visualization, ggplot, plots, R}
 \usepackage{lineno}
 
 \linenumbers
@@ -173,26 +196,6 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
-  \fi
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \title{Data visualisation using R, for researchers who don't use R}
 \author{Emily Nordmann\textsuperscript{1}, Phil McAleer\textsuperscript{1}, Wilhelmiina Toivo\textsuperscript{1}, Helena Paterson\textsuperscript{1}, \& Lisa M. DeBruine\textsuperscript{2}}
@@ -243,13 +246,13 @@ In addition to the benefits of reproducibility, using R for data visualisation g
 \hypertarget{a-layered-grammar-of-graphics}{%
 \subsection{A layered grammar of graphics}\label{a-layered-grammar-of-graphics}}
 
-There are multiple approaches to data visualisation in R; in this paper we use the popular package\footnote{The power of R is that it is extendable and open source - put simply, if a function doesn't exist or is difficult to use, anyone can create a new \textbf{package} that contains data and code to allow you to perform new tasks. You may find it helpful to think of packages as additional apps that you need to download separately to extend the functionality beyond what comes with ``Base R.''} \texttt{ggplot2} (Wickham, 2016a) which is part of the larger \texttt{tidyverse}\footnote{Because there are so many different ways to achieve the same thing in R, when Googling for help with R, it is useful to append the name of the package or approach you are using, e.g., ``how to make a histogram ggplot2.''} (Wickham, 2017) collection of packages that provide functions for data wrangling, descriptives, and visualisation. A grammar of graphics (Wilkinson, Anand, \& Grossman, 2005) is a standardised way to describe the components of a graphic. \texttt{ggplot2} uses a layered grammar of graphics (Wickham, 2010), in which plots are built up in a series of layers. It may be helpful to think about any picture as having multiple elements that sit semi-transparently over each other. A good analogy is old Disney movies where artists would create a background and then add moveable elements on top of the background via transparencies.
+There are multiple approaches to data visualisation in R; in this paper we use the popular package\footnote{The power of R is that it is extendable and open source - put simply, if a function doesn't exist or is difficult to use, anyone can create a new \textbf{package} that contains data and code to allow you to perform new tasks. You may find it helpful to think of packages as additional apps that you need to download separately to extend the functionality beyond what comes with ``Base R''.} \texttt{ggplot2} (Wickham, 2016a) which is part of the larger \texttt{tidyverse}\footnote{Because there are so many different ways to achieve the same thing in R, when Googling for help with R, it is useful to append the name of the package or approach you are using, e.g., ``how to make a histogram ggplot2''.} (Wickham, 2017) collection of packages that provide functions for data wrangling, descriptives, and visualisation. A grammar of graphics (Wilkinson, Anand, \& Grossman, 2005) is a standardised way to describe the components of a graphic. \texttt{ggplot2} uses a layered grammar of graphics (Wickham, 2010), in which plots are built up in a series of layers. It may be helpful to think about any picture as having multiple elements that sit semi-transparently over each other. A good analogy is old Disney movies where artists would create a background and then add moveable elements on top of the background via transparencies.
 
 Figure~\ref{fig:layers} displays the evolution of a simple scatterplot using this layered approach. First, the plot space is built (layer 1); the variables are specified (layer 2); the type of visualisation (known as a \texttt{geom}) that is desired for these variables is specified (layer 3) - in this case \texttt{geom\_point()} is called to visualise individual data points; a second geom is added to include a line of best fit (layer 4), the axis labels are edited for readability (layer 5), and finally, a theme is applied to change the overall appearance of the plot (layer 6).
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/layers-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/layers-1} 
 
 }
 
@@ -260,7 +263,7 @@ Importantly, each layer is independent and independently customisable. For examp
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/remove-layer-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/remove-layer-1} 
 
 }
 
@@ -342,7 +345,7 @@ This tutorial will require you to use the packages in the \texttt{tidyverse} col
 \end{Highlighting}
 \end{Shaded}
 
-The R Markdown workbook available in the \href{https://osf.io/bj83f/files/}{online materials} contains all the code in this tutorial and there is more information and links to additional resources for how to use R Markdown for reproducible reports in the additional resources.
+R Markdown is a dynamic format that allows you to combine text and code into one reproducible document. The R Markdown workbook available in the \href{https://osf.io/bj83f/files/}{online materials} contains all the code in this tutorial and there is more information and links to additional resources for how to use R Markdown for reproducible reports in the additional resources.
 
 The reason that the above code is not included in the workbook is that every time you run the install command code it will install the latest version of the package. Leaving this code in your script can lead you to unintentionally install a package update you didn't want. For this reason, avoid including install code in any script or Markdown document.
 
@@ -370,7 +373,7 @@ When working with your own data, you can rename columns in Excel, but the resour
 \hypertarget{data-values}{%
 \subsubsection{Data values}\label{data-values}}
 
-A benefit of R is that categorical data can be entered as text. In the tutorial dataset, language group is entered as 1 or 2, so that we can show you how to recode numeric values into factors with labels. However, we recommend recording meaningful labels rather than numbers from the beginning of data collection to avoid misinterpreting data due to coding errors. Note that values must match \emph{exactly} in order to be considered in the same category and R is case sensitive, so ``mono,'' ``Mono,'' and ``monolingual'' would be classified as members of three separate categories.
+A benefit of R is that categorical data can be entered as text. In the tutorial dataset, language group is entered as 1 or 2, so that we can show you how to recode numeric values into factors with labels. However, we recommend recording meaningful labels rather than numbers from the beginning of data collection to avoid misinterpreting data due to coding errors. Note that values must match \emph{exactly} in order to be considered in the same category and R is case sensitive, so ``mono'', ``Mono'', and ``monolingual'' would be classified as members of three separate categories.
 
 Finally, importing data is more straightforward if cells that represent missing data are left empty rather than containing values like \texttt{NA}, \texttt{missing} or \texttt{999}\footnote{If your data use a missing value like \texttt{NA} or \texttt{999}, you can indicate this in the \texttt{na} argument of \texttt{read\_csv()} when you read in your data. For example, \texttt{read\_csv("data.csv",\ na\ =\ c("",\ "NA",\ 999))} allows you to use blank cells \texttt{""}, the letters \texttt{"NA"}, and the number \texttt{999} as missing values.}. A complementary rule of thumb is that each column should only contain one type of data, such as words or numbers, not both.
 
@@ -423,7 +426,7 @@ Because the factor \texttt{language} is coded as 1 and 2, R has categorised this
 \item
   \texttt{mutate()} makes new columns in a data table, or overwrites a column;
 \item
-  \texttt{factor()} translates the language column into a factor with the labels ``monolingual'' and ``bilingual.'' You can also use \texttt{factor()} to set the display order of a column that contains words. Otherwise, they will display in alphabetical order. In this case we are replacing the numeric data (1 and 2) in the \texttt{language} column with the equivalent English labels \texttt{monolingual} for 1 and \texttt{bilingual} for 2. At the same time we will change the column type to be a factor, which is how R defines categorical data.
+  \texttt{factor()} translates the language column into a factor with the labels ``monolingual'' and ``bilingual''. You can also use \texttt{factor()} to set the display order of a column that contains words. Otherwise, they will display in alphabetical order. In this case we are replacing the numeric data (1 and 2) in the \texttt{language} column with the equivalent English labels \texttt{monolingual} for 1 and \texttt{bilingual} for 2. At the same time we will change the column type to be a factor, which is how R defines categorical data.
 \end{itemize}
 
 \begin{Shaded}
@@ -460,7 +463,7 @@ One of the challenges in learning R is that many of the ``helpful'' examples and
 \hypertarget{summarising-data}{%
 \subsection{Summarising data}\label{summarising-data}}
 
-You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (i.e., data processing). The code below uses the \texttt{\%\textgreater{}\%} operator, otherwise known as the \emph{pipe,} and can be translated as "\emph{and then"}. For example, the below code can be read as:
+You can calculate and plot some basic descriptive information about the demographics of our sample using the imported dataset without any additional wrangling (i.e., data processing). The code below uses the \texttt{\%\textgreater{}\%} operator, otherwise known as the \emph{pipe,} and can be translated as ``\emph{and then''}. For example, the below code can be read as:
 
 \begin{itemize}
 \item
@@ -580,7 +583,7 @@ For our first plot, we will make a simple bar chart of counts that shows the num
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/bar1-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/bar1-1} 
 
 }
 
@@ -597,7 +600,7 @@ For our first plot, we will make a simple bar chart of counts that shows the num
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/unnamed-chunk-8-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/unnamed-chunk-8-1} 
 
 }
 
@@ -644,7 +647,7 @@ Notice that we are now omitting the names of the arguments \texttt{data} and \te
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/bar-precalc-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/bar-precalc-1} 
 
 }
 
@@ -665,14 +668,14 @@ The code to plot a histogram of \texttt{age} is very similar to the bar chart co
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/histogram1-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/histogram1-1} 
 
 }
 
 \caption{Histogram of ages.}\label{fig:histogram1}
 \end{figure}
 
-The base statistic for \texttt{geom\_histogram()} is also count, and by default \texttt{geom\_histogram()} divides the x-axis into 30 ``bins'' and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message ``stat\_bin() using bins = 30. Pick better value with binwidth.'' You can change this by either setting the number of bins (e.g., \texttt{bins\ =\ 20}) or the width of each bin (e.g., \texttt{binwidth\ =\ 5}) as an argument.
+The base statistic for \texttt{geom\_histogram()} is also count, and by default \texttt{geom\_histogram()} divides the x-axis into 30 ``bins'' and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message ``stat\_bin() using bins = 30. Pick better value with binwidth''. You can change this by either setting the number of bins (e.g., \texttt{bins\ =\ 20}) or the width of each bin (e.g., \texttt{binwidth\ =\ 5}) as an argument.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -683,7 +686,7 @@ The base statistic for \texttt{geom\_histogram()} is also count, and by default 
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/histogram2-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/histogram2-1} 
 
 }
 
@@ -711,7 +714,7 @@ For our basic bar chart, you can control colours used to display the bars by set
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/histogram-fill-color-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/histogram-fill-color-1} 
 
 }
 
@@ -738,7 +741,7 @@ For the bar chart of counts, the x-axis is mapped to a discrete (categorical) va
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/bar3-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/bar3-1} 
 
 }
 
@@ -786,7 +789,7 @@ This will produce the error \texttt{Discrete\ value\ supplied\ to\ continuous\ s
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/histogram-theme-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/histogram-theme-1} 
 
 }
 
@@ -826,7 +829,7 @@ Before you move on try the following:
 
 To visualise the experimental reaction time and accuracy data using \texttt{ggplot2}, we first need to reshape the data from wide format to long format. This step can cause friction with novice users of R. Traditionally, psychologists have been taught data skills using wide-format data. Wide-format data typically has one row of data for each participant, with separate columns for each score or variable. For repeated-measures variables, the dependent variable is split across different columns. For between-groups variables, a separate column is added to encode the group to which a participant or observation belongs.
 
-The simulated lexical decision data is currently in wide format (see Table~\ref{tab:wide-data}), where each participant's aggregated\footnote{In this tutorial we have chosen to gloss over the data processing steps that must occur to get from the raw data to aggregated values. This type of processing requires a more extensive tutorial than we can provide in the current paper. More importantly, it is still possible to use R for data visualisation having done the preparatory steps using existing workflows in Excel and SPSS. We bypass these initial steps and focus on tangible outputs that may then encourage further mastery of reproducible methods. Collectively we tend to call the steps for reshaping data and for processing raw data or for getting data ready to use statistical functions ``wrangling.''} reaction time and accuracy for each level of the within-subject variable is split across multiple columns for the repeated factor of conditon (words versus non-words).
+The simulated lexical decision data is currently in wide format (see Table~\ref{tab:wide-data}), where each participant's aggregated \footnote{In this tutorial we have chosen to gloss over the data processing steps that must occur to get from the raw data to aggregated values. This type of processing requires a more extensive tutorial than we can provide in the current paper. More importantly, it is still possible to use R for data visualisation having done the preparatory steps using existing workflows in Excel and SPSS. We bypass these initial steps and focus on tangible outputs that may then encourage further mastery of reproducible methods. Collectively we tend to call the steps for reshaping data and for processing raw data or for getting data ready to use statistical functions ``wrangling''.} reaction time and accuracy for each level of the within-subject variable is split across multiple columns for the repeated factor of conditon (words versus non-words).
 
 \begin{table}
 
@@ -1041,7 +1044,7 @@ Now that we have the experimental data in the right form, we can begin to create
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/histograms-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/histograms-1} 
 
 }
 
@@ -1063,7 +1066,7 @@ The layer system makes it easy to create new types of plots by adapting existing
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/density-rt-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/density-rt-1} 
 
 }
 
@@ -1099,7 +1102,7 @@ Density plots are most useful for comparing the distributions of different group
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/density-grouped-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/density-grouped-1} 
 
 }
 
@@ -1120,7 +1123,7 @@ Scatterplots are created by calling \texttt{geom\_point()} and require both an \
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/point-plot-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/point-plot-1} 
 
 }
 
@@ -1139,7 +1142,7 @@ A line of best fit can be added with an additional layer that calls the function
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/smooth-plot-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/smooth-plot-1} 
 
 }
 
@@ -1163,7 +1166,7 @@ Similar to the density plot, the scatterplot can also be easily adjusted to disp
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/scatter-grouped-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/scatter-grouped-1} 
 
 }
 
@@ -1185,7 +1188,7 @@ Following the rule that \emph{anything that shares an axis should probably be in
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/unnamed-chunk-15-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/unnamed-chunk-15-1} 
 
 }
 
@@ -1227,7 +1230,7 @@ S006 & 357.1710 & 367.3355 & 96 & 78\\
 \hypertarget{accessible-colour-schemes}{%
 \subsubsection{Accessible colour schemes}\label{accessible-colour-schemes}}
 
-One of the drawbacks of using \texttt{ggplot2} for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in greyscale. You can specify exact custom colours for your plots, but one easy option is to use a custom colour palette. These take the same arguments as their default \texttt{scale} sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. For categorical colours, the ``Set2,'' ``Dark2'' and ``Paired'' palettes from the \texttt{brewer} scale functions are colourblind-safe (but are hard to distinhuish in greyscale). For continuous colours, such as when colour is representing the magnitude of a correlation in a tile plot, the \texttt{viridis} scale functions provide a number of different colourblind and greyscale-safe options.
+One of the drawbacks of using \texttt{ggplot2} for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in greyscale. You can specify exact custom colours for your plots, but one easy option is to use a custom colour palette. These take the same arguments as their default \texttt{scale} sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. For categorical colours, the ``Set2'', ``Dark2'' and ``Paired'' palettes from the \texttt{brewer} scale functions are colourblind-safe (but are hard to distinhuish in greyscale). For continuous colours, such as when colour is representing the magnitude of a correlation in a tile plot, the \texttt{viridis} scale functions provide a number of different colourblind and greyscale-safe options.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1242,7 +1245,7 @@ One of the drawbacks of using \texttt{ggplot2} for visualisation is that the def
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/brewer-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/brewer-1} 
 
 }
 
@@ -1310,7 +1313,7 @@ As with \texttt{geom\_point()}, boxplots also require an x- and y-variable to be
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/boxplot1-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/boxplot1-1} 
 
 }
 
@@ -1338,7 +1341,7 @@ As with histograms and density plots, \texttt{fill} can be used to create groupe
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/boxplot3-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/boxplot3-1} 
 
 }
 
@@ -1366,7 +1369,7 @@ Violin plots display the distribution of a dataset and can be created by calling
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/violin1-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/violin1-1} 
 
 }
 
@@ -1398,7 +1401,7 @@ To summarise the data into means, we use a new function \texttt{stat\_summary()}
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/badbar1-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/badbar1-1} 
 
 }
 
@@ -1425,7 +1428,7 @@ To add the error bars, another layer is added with a second call to \texttt{stat
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/badbar2-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/badbar2-1} 
 
 }
 
@@ -1459,7 +1462,7 @@ The power of the layered system for making figures is further highlighted by the
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/viobox1-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/viobox1-1} 
 
 }
 
@@ -1482,7 +1485,7 @@ It is important to note that the order of the layers matters and it is worth exp
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/viobox1b-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/viobox1b-1} 
 
 }
 
@@ -1510,7 +1513,7 @@ As with previous plots, another variable can be mapped to \texttt{fill} for the 
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/viobox2-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/viobox2-1} 
 
 }
 
@@ -1542,7 +1545,7 @@ To rectify this we need to adjust the argument \texttt{position} for each of the
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/viobox3-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/viobox3-1} 
 
 }
 
@@ -1578,7 +1581,7 @@ There are a number of solutions to this problem. One solution is to adjust the t
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/viobox6-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/viobox6-1} 
 
 }
 
@@ -1608,7 +1611,7 @@ Alternatively, we can change the fill of individual geoms by adding \texttt{fill
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/viobox5-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/viobox5-1} 
 
 }
 
@@ -1667,7 +1670,7 @@ Interaction plots are commonly used to help display or interpret a factorial des
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/ixn-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/ixn-1} 
 
 }
 
@@ -1718,7 +1721,7 @@ This code is more complex than all prior code because it does not use a universa
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/ixn-by-subj-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/ixn-by-subj-1} 
 
 }
 
@@ -1749,7 +1752,7 @@ So far we have produced single plots that display all the desired variables. How
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/scatterplot-facet-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/scatterplot-facet-1} 
 
 }
 
@@ -1772,7 +1775,7 @@ As another example, we can use \texttt{facet\_wrap()} as an alternative to the g
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/violin-boxplot-facet-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/violin-boxplot-facet-1} 
 
 }
 
@@ -1798,7 +1801,7 @@ Finally, note that one way to edit the labels for faceted variables involves con
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/violin-facet-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/violin-facet-1} 
 
 }
 
@@ -1831,7 +1834,7 @@ Importantly, layers can then be added to these saved objects. For example, the b
 \hypertarget{saving-plots-as-images}{%
 \subsection{Saving plots as images}\label{saving-plots-as-images}}
 
-In addition to saving plots to objects for further use in R, the function \texttt{ggsave()} can be used to save plots as images on your hard drive. The only required argument for \texttt{ggsave} is the file name of the image file you will create, complete with file extension (this can be ``eps,'' ``ps,'' ``tex,'' ``pdf,'' ``jpeg,'' ``tiff,'' ``png,'' ``bmp,'' ``svg'' or ``wmf''). By default, \texttt{ggsave()} will save the last plot displayed. However, you can also specify a specific plot object if you have one saved.
+In addition to saving plots to objects for further use in R, the function \texttt{ggsave()} can be used to save plots as images on your hard drive. The only required argument for \texttt{ggsave} is the file name of the image file you will create, complete with file extension (this can be ``eps'', ``ps'', ``tex'', ``pdf'', ``jpeg'', ``tiff'', ``png'', ``bmp'', ``svg'' or ``wmf''). By default, \texttt{ggsave()} will save the last plot displayed. However, you can also specify a specific plot object if you have one saved.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1860,7 +1863,7 @@ Two plots can be combined side-by-side or stacked on top of each other. These co
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/patchwork-side-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/patchwork-side-1} 
 
 }
 
@@ -1875,7 +1878,7 @@ Two plots can be combined side-by-side or stacked on top of each other. These co
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/patchwork-stack-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/patchwork-stack-1} 
 
 }
 
@@ -1914,7 +1917,7 @@ Previously when we edited the main axis labels we used the \texttt{scale\_*} fun
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/edited-labels-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/edited-labels-1} 
 
 }
 
@@ -1949,7 +1952,7 @@ The code below adds \texttt{fill\ =\ language} to violin-boxplots that are also 
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/unnamed-chunk-22-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/unnamed-chunk-22-1} 
 
 }
 
@@ -1990,7 +1993,7 @@ Split-violin plots remove the redundancy of mirrored violin plots and make it ea
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/splitviolin-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/splitviolin-1} 
 
 }
 
@@ -2004,7 +2007,7 @@ Raincloud plots combine a density plot, boxplot, raw data points, and any desire
 
 \textbackslash begin\{figure\}
 
-\{\centering \includegraphics[width=1\linewidth]{images/raincloud-1}
+\{\centering \includegraphics[width=0.8\linewidth]{images/raincloud-1}
 
 \}
 
@@ -2018,7 +2021,7 @@ Ridge plots are a series of density plots that show the distribution of values f
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/ridgeplot-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/ridgeplot-1} 
 
 }
 
@@ -2032,7 +2035,7 @@ Alluvial plots visualise multi-level categorical data through flows that can eas
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/alluvial-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/alluvial-1} 
 
 }
 
@@ -2046,7 +2049,7 @@ Working with maps can be tricky. The \texttt{sf} package provides functions that
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/map-1} 
+{\centering \includegraphics[width=0.8\linewidth]{images/map-1} 
 
 }
 
@@ -2170,7 +2173,7 @@ Wickham, H. (2017). \emph{Tidyverse: Easily install and load the 'tidyverse'}. R
 Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., \ldots{} Yutani, H. (2019). Welcome to the {tidyverse}. \emph{Journal of Open Source Software}, \emph{4}(43), 1686. \url{https://doi.org/10.21105/joss.01686}
 
 \leavevmode\vadjust pre{\hypertarget{ref-wickham2014tidy}{}}%
-Wickham, H., \& others. (2014). Tidy data. \emph{Journal of Statistical Software}, \emph{59}(10), 1--23.
+Wickham, H.others. (2014). Tidy data. \emph{Journal of Statistical Software}, \emph{59}(10), 1--23.
 
 \leavevmode\vadjust pre{\hypertarget{ref-R-ggridges}{}}%
 Wilke, C. O. (2021). \emph{Ggridges: Ridgeline plots in 'ggplot2'}. Retrieved from \url{https://CRAN.R-project.org/package=ggridges}

@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -81,7 +81,7 @@
 </h2>
 <p><strong>Vertical Lines - geom_vline()</strong></p>
 <p>Often it can be useful to put a marker into our plots to highlight a certain criterion value. For example, if you were working with a scale that has a cut-off, perhaps the Austim Spectrum Quotient 10 <span class="citation">(<a href="references.html#ref-allison2012toward" role="doc-biblioref">Allison et al., 2012</a>)</span>, then you might want to put a line at a score of 7; the point at which the researchers suggest the participant is referred further. Alternatively, thinking about the Stroop test we have looked at in this paper, perhaps you had a level of accuracy that you wanted to make sure was reached - let's say 80%. If we refer back to Figure <a href="transforming-data.html#fig:histograms">3.1</a>, which used the code below:</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">acc</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Accuracy (0-100)"</span><span class="op">)</span></code></pre></div>
@@ -93,7 +93,7 @@ Figure B.1: Histogram of accuracy scores.
 </p>
 </div>
 <p>if we wanted to add a line at the 80% level then we could use the <code>geom_vline()</code> function, again from the <strong><code>ggplot2</code></strong>, with the argument of <code>xintercept = 80</code>, meaning cut the x-axis at 80, as follows:</p>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">acc</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Accuracy (0-100)"</span><span class="op">)</span> <span class="op">+</span>
@@ -105,7 +105,7 @@ Figure B.2: Histogram of accuracy scores with black solid vertical line indicati
 </p>
 </div>
 <p>Now that looks ok but the line is a bit hard to see so we can change the style (<code>linetype = value</code>), color (<code>color = "color"</code>) and weight (<code>size = value</code>) as follows:</p>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">acc</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Accuracy (0-100)"</span><span class="op">)</span> <span class="op">+</span>
@@ -118,7 +118,7 @@ Figure B.3: Histogram of accuracy scores with red dashed vertical line indicatin
 </div>
 <p><strong>Horizontal Lines - geom_hline()</strong></p>
 <p>Another situation may be that you want to put a horizontal line on your figure to mark a value of interest on the y-axis. Again thinking about our Stroop experiment, perhaps we wanted to indicate the 80% accuracy line on our boxplot figures. If we look at Figure <a href="representing-summary-statistics.html#fig:boxplot1">4.1</a>, which used this code to display the basic boxplot:</p>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y <span class="op">=</span> <span class="va">acc</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
@@ -128,7 +128,7 @@ Figure B.4: Basic boxplot.
 </p>
 </div>
 <p>we could then use the <code>geom_hline()</code> function, from the <strong><code>ggplot2</code></strong>, with, this time, the argument of <code>yintercept = 80</code>, meaning cut the y-axis at 80, as follows:</p>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y <span class="op">=</span> <span class="va">acc</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">80</span><span class="op">)</span></code></pre></div>
@@ -139,7 +139,7 @@ Figure B.5: Basic boxplot with black solid horizontal line indicating 80% accura
 </p>
 </div>
 <p>and again we can embellish the line using the same arguments as above. We will put in some different values here just to show the changes:</p>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y <span class="op">=</span> <span class="va">acc</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">80</span>, linetype <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
@@ -189,7 +189,7 @@ Figure B.6: Basic boxplot with blue dotted horizontal line indicating 80% accura
 </table></div>
 <p><strong>Diagonal Lines - geom_abline()</strong></p>
 <p>The last type of line you might want to overlay on a figure is perhaps a diagonal line. For example, perhaps you have created a scatterplot and you want to have the true diagonal line for reference to the line of best fit. To show this, we will refer back to Figure <a href="transforming-data.html#fig:smooth-plot">3.5</a> which displayed the line of best fit for the reaction time versus age, and used the following code:</p>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, y <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></code></pre></div>
@@ -200,7 +200,7 @@ Figure B.7: Line of best fit for reaction time versus age.
 </p>
 </div>
 <p>By eye that would appear to be a fairly flat relationship but we will add the true diagonal to help clarify. To do this we use the <code>geom_abline()</code>, again from <strong><code>ggplot2</code></strong>, and we give it the arguements of the slope (<code>slope  = value</code>) and the intercept (<code>intercept = value</code>). We are also going to scale the data to turn it into z-scores to help us visualise the relationship better, as follows:</p>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat_long_scale</span> <span class="op">&lt;-</span> <span class="va">dat_long</span> <span class="op">%&gt;%</span>
   <span class="fu">mutate</span><span class="op">(</span>rt_zscore <span class="op">=</span> <span class="op">(</span><span class="va">rt</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">rt</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">rt</span><span class="op">)</span>,
          age_zscore <span class="op">=</span> <span class="op">(</span><span class="va">age</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span>
@@ -216,7 +216,7 @@ Figure B.8: Line of best fit (blue line) for reaction time versus age with true 
 </p>
 </div>
 <p>So now we can see the line of best fit (blue line) in relation to the true diagonal (black line). We will come back to why we z-scored the data in a minute, but first let's finish tidying up this figure, using some of the customisation we have seen as it is a bit messy. Something like this might look cleaner:</p>
-<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long_scale</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt_zscore</span>, y <span class="op">=</span> <span class="va">age_zscore</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_abline</span><span class="op">(</span>slope <span class="op">=</span> <span class="fl">1</span>, intercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="st">"solid"</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
@@ -232,7 +232,7 @@ Figure B.9: Line of best fit (blue solid line) for reaction time versus age with
 <p>That maybe looks a bit cluttered but it gives a nice example of how you can use the different geoms for adding lines to add information to your figure, clearly visualising the weak relationship between reaction time and age. <strong>Note:</strong> Do remember about the layering system however; you will notice that in the code for Figure <a href="additional-customisation-options.html#fig:smooth-plot-abline2">B.9</a> we have changed the order of the code lines so that the geom lines are behind the points!</p>
 <p><strong>Top Tip: Your intercepts must be values you can see</strong></p>
 <p>Thinking back to why we z-scored the data for that last figure, we sort of skipped over that, but it did serve a purpose. Here is the original data and the original scatterplot but with the <code>geom_abline()</code> added to the code:</p>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, y <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>
@@ -244,7 +244,7 @@ Figure B.10: Line of best fit (blue solid line) for reaction time versus age wit
 </p>
 </div>
 <p>The code runs but the diagonal line is nowhere to be seen. The reason is that you figure is zoomed in on the data and the diagonal is "out of shot" if you like. If we were to zoom out on the data we would then see the diagonal line as such:</p>
-<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, y <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>
@@ -263,7 +263,7 @@ Figure B.11: Zoomed out to show Line of best fit (blue solid line) for reaction 
 <span class="header-section-number">B.2</span> Zooming in and out<a class="anchor" aria-label="anchor" href="#zooming-in-and-out"><i class="fas fa-link"></i></a>
 </h2>
 <p>Like in the example above, it can be very beneficial to be able to zoom in and out of figures, mainly to focus the frame on a given section. One function we can use to do this is the <code>coord_cartesian()</code>, in <strong><code>ggplot2</code></strong>. The main arguments are the limits on the x-axis (<code>xlim = c(value, value)</code>), the limits on the y-axis (<code>ylim = c(value, value)</code>), and whether to add a small expansion to those limits or not (<code>expand = TRUE/FALSE</code>). Looking at the scatterplot of age and reaction time again, we could use <code>coord_cartesian()</code> to zoom fully out:</p>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, y <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>
@@ -275,7 +275,7 @@ Figure B.12: Zoomed out on scatterplot with no expansion around set limits
 </p>
 </div>
 <p>And we can add a small expansion by changing the <code>expand</code> argument to <code>TRUE</code>:</p>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, y <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>
@@ -287,7 +287,7 @@ Figure B.13: Zoomed out on scatterplot with small expansion around set limits
 </p>
 </div>
 <p>Or we can zoom right in on a specific area of the plot if there was something we wanted to highlight. Here for example we are just showing the reaction times between 500 and 725 msecs, and all ages between 15 and 55:</p>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, y <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>
@@ -306,7 +306,7 @@ Figure B.14: Zoomed in on scatterplot with small expansion around set limits
 </h2>
 <p><strong>Continuous scales</strong></p>
 <p>You may have noticed that depending on the spread of your data, and how much of the figure you see, the values on the axes tend to change. Often we don't want this and want the values to be constant. We have already used functions to control this in the main body of the paper - the <code>scale_*</code> functions. Here we will use <code>scale_x_continuous()</code> and <code>scale_y_continuous()</code> to set the values on the axes to what we want. The main arguments in both functions are the limits (<code>limts = c(value, value)</code>) and the breaks (the tick marks essentially, <code>breaks = value:value</code>). Note that the limits are just two values (minimum and maximum), whereas the breaks are a series of values (from 0 to 100, for example). If we use the scatterplot of age and reaction time, then our code might look like this:</p>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, y <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>
@@ -319,7 +319,7 @@ Figure B.15: Changing the values on the axes
 </p>
 </div>
 <p>That actually looks rubbish because we simply have too many values on our axes, so we can use the <code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code> function, from <strong><code>baseR</code></strong>, to get a bit more control. The arguments here are the first value (<code>from = value</code>), the last value (<code>last = value</code>), and the size of the steps (<code>by = value</code>). For example, <code><a href="https://rdrr.io/r/base/seq.html">seq(0,10,2)</a></code> would give all values between 0 and 10 in steps of 2, (i.e. 0, 2, 4, 6, 8 and 10). So using that idea we can change the y-axis in steps of 5 (years) and the x-axis in steps of 50 (msecs) as follows:</p>
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, y <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>
@@ -332,7 +332,7 @@ Figure B.16: Changing the values on the axes using the seq() function
 </p>
 </div>
 <p>Which gives us a much nicer and cleaner set of values on our axes. And if we combine that approach for setting the axes values with our zoom function (<code>coord_cartesian()</code>), then we can get something that looks like this:</p>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, y <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>
@@ -346,7 +346,7 @@ Figure B.17: Combining scale functions and zoom functions
 </p>
 </div>
 <p>Which actually looks much like our original scatterplot but with better definition on the axes. So you can see we can actually have a lot of control over the axes and what we see. However, one thing to note, is that you should not use the <code>limits</code> argument within the <code>scale_*</code> functions as a zoom. It won't work like that and instead will just disregard data. Look at this example:</p>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">rt</span>, y <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>
@@ -362,7 +362,7 @@ Figure B.18: Combining scale functions and zoom functions
 <p>It may look like it has zoomed in on the data but actually it has removed all data outwith the limits. That is what the warnings are telling you, and you can see that as there is no data above and below the limits, but we know there should be based on the earlier plots. So <code>scale_*</code> functions can change the values on the axes, but <code>coord_cartesian()</code> is for zooming in and out.</p>
 <p><strong>Discrete scales</strong></p>
 <p>The same idea of <code>limits</code> within a <code>scale_*</code> function can also be used to change the order of categories on a discrete scale. For example if we look at our boxplots again in Figure <a href="representing-summary-statistics.html#fig:viobox6">4.10</a>, we see this figure:</p>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
@@ -377,7 +377,7 @@ Figure B.19: Using transparency on the fill color.
 </p>
 </div>
 <p>The figures always default to the alphabetical order. Sometimes that is what we want; sometimes that is not what we want. If we wanted to switch the order of <strong>word</strong> and <strong>non-word</strong> so that the non-word condition comes first we would use the <code>scale_x_discrete()</code> function and set the limits within it (<code>limits = c("category","category")</code>) as follows:</p>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
@@ -393,7 +393,7 @@ Figure B.20: Switching orders of categorical variables
 </p>
 </div>
 <p>And that works just the same if you have more conditions, which you will see if you compare Figure <a href="additional-customisation-options.html#fig:viobox6-scale1">B.20</a> to the below figure where we have flipped the order of non-word and word from the original default alphabetical order</p>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span><span class="fl">.9</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -413,7 +413,7 @@ Figure B.21: Same as earlier figure but with order of conditions on x-axis alter
 <p><strong>Changing Order of Factors</strong></p>
 <p>Again, you have a lot of control beyond the default alphabetical order that <strong><code>ggplot2</code></strong> tends to plot in. One question you might have though is why <strong>monolingual</strong> and <strong>bilingual</strong> are not in alphabetical order? f they were then the <strong>bilingual</strong> condition would be plotted first. The answer is, thinking back to the start of the paper, we changed our conditions from <strong>1</strong> and <strong>2</strong> to the factor names of <strong>monolingual</strong> and <strong>bilingual</strong>, and <strong><code>ggplot()</code></strong> maintains that factor order when plotting. So if we want to plot it in a different fashion we need to do a bit of factor reordering. This can be done much like earlier using the <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> function and stating the order of conditions we want (<code>levels = c("factor","factor")</code>). But be careful with spelling as it must match up to the names of the factors that already exist.</p>
 <p>In this example, we will reorder the factors so that <strong>bilingual</strong> is presented first but leave the order of <strong>word</strong> and <strong>non-word</strong> as the alphabetical default. Note in the code though that we are not permanently storing the factor change as we don't want to keep this new order. We are just changing the order "on the fly" for this one example before putting it into the plot.</p>
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat_long</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">language</span>, 
                            levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bilingual"</span>,<span class="st">"monolingual"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -446,7 +446,7 @@ Figure B.23: Switching factor orders
 </h2>
 <p><strong>Using the <code>guides()</code></strong></p>
 <p>Whilst we are on the subject of changing order and position of elements of the figure, you might think about changing the position of a figure legend. There is actually a few ways of doing it but a simple approach is to use the the <code>guides()</code> function and add that to the ggplot chain. For example, if we run the below code and look at the output:</p>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
@@ -462,7 +462,7 @@ Figure B.24: Figure Legend removed using <code>guides()</code>
 </p>
 </div>
 <p>We see the same display as Figure <a href="additional-customisation-options.html#fig:viobox6-add">B.19</a> but with no legend. That is quite useful because the legend just repeats the x-axis and becomes redundant. The <code>guides()</code> function works but setting the legened associated with the <code>fill</code> layer (i.e. <code>fill = condition</code>) to <code>"none"</code>, basically removing it. One thing to note with this approach is that you need to set a guide for every legend, otherwise a legend will appear. What that means is that if you had set both <code>fill = condition</code> and <code>color = condition</code>, then you would need to set both <code>fill</code> and <code>color</code> to <code>"none"</code> within <code>guides()</code> as follows:</p>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">condition</span>, color <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
@@ -478,7 +478,7 @@ Figure B.25: Removing more than one legend with <code>guides()</code>
 </p>
 </div>
 <p>Whereas if you hadn't used <code>guides()</code> you would see the following:</p>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">condition</span>, color <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
@@ -495,7 +495,7 @@ Figure B.26: Figure with more than one Legend
 <p>The key thing to note here is that in the above figure there is actually two legends (one for <code>fill</code> and one for <code>color</code>) but they are overlaid on top of each other as they are associated with the same variable. You can test this by removing either one of the options from the <code>guides()</code> function. One of the legends will still remain. So you need to turn them both off or you can use it to leave certain parts clear.</p>
 <p><strong>Using the <code>theme()</code></strong></p>
 <p>An alternative to the guides function is using the <code>theme()</code> function. The <code>theme()</code> function can actually be used to control a whole host of options in the plot, which we will come on to, but you can use it as a quick way to turn off the legend as follows:</p>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_long</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">condition</span>, y<span class="op">=</span> <span class="va">rt</span>, fill <span class="op">=</span> <span class="va">condition</span>, color <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_violin</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_boxplot</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>, fatten <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
@@ -533,7 +533,7 @@ Figure B.29: Legend position options using theme()
 </h2>
 <p>The <code>theme()</code> function, as we mentioned, does a lot more than just change the position of a legend and can be used to really control a variety of elements and to eventually create your own "theme" for your figures - say you want to have a consistent look to your figures across your publications or across your lab posters. We will try to show some of that here, but first lets start with a very basic plot that we have seen before:</p>
 <p><strong>THIS BIT NEEDS WORK</strong></p>
-<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># set up custom theme to add to all plots</span>
 <span class="va">mytheme</span> <span class="op">&lt;-</span> <span class="fu">theme_minimal</span><span class="op">(</span>     <span class="co"># always start with a base theme_****</span>
   base_size <span class="op">=</span> <span class="fl">16</span>,             <span class="co"># 16-point font (adjusted for axes)</span>
@@ -781,7 +781,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-12-09.</p>
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-12-12.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -42,7 +42,7 @@ fig:splitviolin
 fig:raincloud
 fig:ridgeplot
 fig:alluvial
-fig:unnamed-chunk-2
+fig:map
 fig:histogram-acc-vline1
 fig:histogram-acc-vline2
 fig:histogram-acc-vline3
@@ -82,6 +82,7 @@ fig:dumbbell2
 fig:dumbbell3
 fig:piechart-full
 fig:pie-basic1
+fig:unnamed-chunk-2
 citing
 introduction
 why-r-for-data-visualisation
