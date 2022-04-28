@@ -518,36 +518,4 @@ Or even as a coordinate within your figure expressed as a propotion of your figu
 
 And so with a little trial and error you can position your legend where you want it without crashing into your figure, hopefully!
 
-## Setting A Lab Theme using `theme()`
-
-The `theme()` function, as we mentioned, does a lot more than just change the position of a legend and can be used to really control a variety of elements and to eventually create your own "theme" for your figures - say you want to have a consistent look to your figures across your publications or across your lab posters. We will try to show some of that here, but first lets start with a very basic plot that we have seen before:
-
-**THIS BIT NEEDS WORK**
-
-
-```r
-# set up custom theme to add to all plots
-mytheme <- theme_minimal(     # always start with a base theme_****
-  base_size = 16,             # 16-point font (adjusted for axes)
-  base_family = "Helvetica"   # font style
-) +                           # add more specific customisations with theme()
-theme(
-  text             = element_text(color = "white"),  # most text
-  axis.text        = element_text(color = "grey60"), # axis label text
-  axis.line        = element_line(color = "grey60"), # x and y axes
-  plot.background  = element_rect(fill = "black"),   # main background
-  panel.background = element_blank(),                # defaults to plot background fill
-  panel.grid       = element_blank()                 # get rid of gridlines
-)
-
-# plot with custom theme
-ggplot(diamonds, aes(carat, price, color = cut)) +
-  geom_smooth() + 
-  mytheme
-```
-
-<div class="figure" style="text-align: center">
-<img src="appendix-b-custom_files/figure-html/unnamed-chunk-1-1.png" alt="buidling something like this idea" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-1)buidling something like this idea</p>
-</div>
 

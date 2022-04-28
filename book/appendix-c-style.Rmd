@@ -1,0 +1,488 @@
+# Styling Plots {#plotstyle}
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+library(ggthemes)
+```
+
+
+## Aesthetics
+
+### Colour/Fill
+
+The `colour` argument changes the point and line colour, while the `fill` argument changes the interior colour of shapes. Type `colours()` into the console to see a list of all the named colours in R. Alternatively, you can use hexadecimal colours like `"#FF8000"` or the `rgb()` function to set red, green, and blue values on a scale from 0 to 1.
+
+Hover over a colour to see its R name.
+
+<style>
+  .colordemo { list-item-style: none; padding: 0; margin: 0;}
+  
+  .colordemo li, main ul.colordemo > li:first-child { 
+    display: inline-block; 
+    border: 0.25px solid black; 
+    margin: 0px; 
+    padding: 1.3em 0.2em 0.2em 1.2em; 
+  }
+  
+  .colordemo li span { 
+    display: none; 
+    background-color: white; 
+    border: 0.25px solid black; 
+    padding: 0.25em 0.5em; 
+    border-radius: 0 1em 1em 1em;
+  }
+  .colordemo li:hover span { 
+    display: inline; 
+    position: absolute;
+  }
+</style>
+
+```{r colour-demo, echo = FALSE, results='asis'}
+
+name <- colours(TRUE)
+rgb <- col2rgb(name) 
+hsv <- rgb2hsv(rgb)
+hex <- as.hexmode(rgb) %>% as.character() %>% 
+  apply(2, paste, collapse = "")
+
+colors <- tibble(name = name,
+       hue = hsv[1, ] %>% round(2),
+       sat = hsv[2, ] %>% round(2),
+       val = hsv[3, ] %>% round(2),
+       hex = hex) %>%
+  arrange(hue, sat, val)
+
+glue::glue("    <li style='background-color: #{colors$hex};'><span>{colors$name}</span></li>") %>%
+  paste(collapse = "\n") %>%
+  paste0("\n<ul class='colordemo'>\n", ., "\n</ul>\n") %>%
+  cat()
+```
+
+### Alpha
+
+The `alpha` argument changes transparency (0 = totally transparent, 1 = totally opaque). 
+
+```{r alpha-demo, echo = FALSE, fig.height = 3, fig.width = 10, fig.cap="Varying alpha values."}
+alphas <- crossing(alpha = seq(0, 1, .1), y = 0:1)
+ggplot(alphas, aes(x = alpha, y = y, alpha = I(alpha), 
+                   color = as.factor(y))) +
+  geom_hline(yintercept = 0, size = 5, color = "dodgerblue") +
+  geom_hline(yintercept = 1, size = 5, color = "black") +
+  geom_point(size = 20, show.legend = FALSE) +
+  scale_x_continuous("alpha", breaks = alphas$alpha) +
+  scale_y_continuous("", breaks = -1:2, limits = c(-1, 2)) +
+  scale_color_manual(values = c("black", "dodgerblue")) +
+  theme_minimal(base_size = 20) +
+  theme(axis.text.y = element_blank(),
+        panel.grid.minor = element_blank())
+```
+
+### Shape
+
+The `shape` argument changes the shape of points. 
+
+```{r shape-demo, echo = FALSE, fig.height = 2, fig.width = 10, fig.cap="The 25 shape values"}
+shapes <- tibble(shape = 1:25, y = 0)
+ggplot(shapes, aes(x = shape, y = y, shape = I(shape))) +
+  geom_point(size = 8) +
+  scale_x_continuous("", breaks = shapes$shape) +
+  scale_y_continuous("", breaks = 0) +
+  theme_minimal(base_size = 20) +
+  theme(axis.text.y = element_blank(),
+        panel.grid.minor = element_blank())
+```
+
+### Linetype
+
+You can probably guess what the `linetype` argument does.
+
+
+```{r linetype-demo, echo = FALSE, fig.height = 4, fig.width = 10, fig.cap="The 6 linetype values at different sizes."}
+lines <- crossing(linetype = 1:6, size = c(0.25, 0.5, 1, 2)) %>% 
+  mutate(x = linetype)
+ggplot(lines) +
+  geom_vline(aes(xintercept = linetype, 
+                 linetype = I(linetype),
+                 size = I(size))) +
+  scale_x_continuous("linetype", breaks = 1:6, 
+                     expand = expansion(add = 1)) +
+  facet_wrap(~size, nrow = 1, labeller = label_both) +
+  theme_minimal(base_size = 20) +
+  theme(axis.text.y = element_blank(),
+        panel.grid.minor = element_blank())
+```
+
+## Palettes
+
+```{r, include = FALSE}
+palette_demo <- function(levels, seed = 8675309) {
+  set.seed(seed)
+  
+  dat <- faux::sim_design(
+    within = list(level = 1:levels),
+    between = list(condition= c("control", "experimental")),
+    n = 50, dv = "score",
+    plot = FALSE, long = TRUE)
+  
+  ggplot(dat, aes(x = level, 
+                  y = score, 
+                  color = level, 
+                  fill = level)) + 
+    geom_violin(alpha = 0.8, color = "black") +
+    stat_summary(fun = mean) +
+    scale_x_discrete(name = "") +
+    guides(color = "none", fill = "none") +
+     theme(axis.text.y = element_blank(),
+           axis.title.y = element_blank(),
+           axis.ticks.y = element_blank())
+}
+
+palette_plot <- function(g, p) { 
+  g + scale_color_brewer(palette = p) +
+    scale_fill_brewer(palette = p) +
+    ggtitle(glue::glue("palette = \"{p}\""))
+}
+
+viridis_d_plot <- function(g, option = "viridis") { 
+  g + scale_color_viridis_d(option = option) +
+    scale_fill_viridis_d(option = option) +
+    ggtitle(glue::glue("option = \"{option}\""))
+}
+
+
+```
+
+Discrete palettes change depending on the number of categories. 
+
+```{r, fig.width = 8, fig.height = 10, fig.cap="Default discrete palette with different numbers of levels."}
+plots <- lapply(1:8, palette_demo)
+wrap_plots(plots, ncol = 2)
+```
+
+
+### Viridis Palettes
+
+Viridis palettes are very good for colourblind-safe and greyscale-safe plots. The work with any number of categories, but are best for larger numbers of categories or continuous colours.
+
+#### Discrete Viridis Palettes
+
+Set `r glossary("discrete")` viridis colours with `scale_colour_viridis_d()` or `scale_fill_viridis_d()` and set the `option` argument to one of the options below. Set `direction = -1` to reverse the order of colours.
+
+
+```{r, fig.width = 8, fig.height = 10, fig.cap="Discrete viridis palettes."}
+options <- list("magma", "inferno", "plasma", "viridis", "cividis")
+
+g <- palette_demo(5)
+plots5 <- lapply(options, viridis_d_plot, g = g)
+
+g <- palette_demo(15)
+plots15 <- lapply(options, viridis_d_plot, g = g)
+
+( wrap_plots(plots5, ncol = 1) | 
+  wrap_plots(plots15, ncol = 1)) +
+  plot_layout(widths = c(1, 3))
+```
+
+
+::: {.info data-latex=""}
+If the end colour is too light for your plot or the start colour too dark, you can set the `begin` and `end` arguments to values between 0 and 1, such as `r hl(scale_colour_viridis_c(begin = .1, end = .9))`.
+:::
+
+#### Continuous Viridis Palettes
+
+Set `r glossary("continuous")` viridis colours with `scale_colour_viridis_c()` or `scale_fill_viridis_c()` and set the `option` argument to one of the options below. Set `direction = -1` to reverse the order of colours.
+
+```{r, echo = FALSE, fig.width = 8, fig.height = 8, fig.cap="Continuous viridis palettes."}
+options <- list("magma", "inferno", "plasma", "viridis", "cividis")
+
+set.seed(8675309)
+g <- faux::rnorm_multi(
+    n = 10000,
+    vars = 2, 
+    r = 0.5) %>%
+  ggplot(aes(X1, X2)) + 
+  theme(axis.text.y = element_blank(),
+        axis.title.y = element_blank(),
+        axis.ticks.y = element_blank(), 
+        axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        axis.ticks.x = element_blank())
+
+# install hexbin if this fails
+viridis_c_plot <- function(g, option, geom = geom_hex) {
+  g + scale_color_viridis_c(option = option) +
+    geom_hex() +
+    scale_fill_viridis_c(option = option) +
+    ggtitle(glue::glue("option = \"{option}\""))
+}
+
+hex_plots <- lapply(options, viridis_c_plot, g = g)
+wrap_plots(hex_plots, nrow = 3)
+    
+```
+
+### Brewer Palettes
+
+Brewer palettes give you a lot of control over plot colour and fill. You set them with `scale_color_brewer()` or `scale_fill_brewer()` and set the `palette` argument to one of the palettes below. Set `direction = -1` to reverse the order of colours.
+
+#### Qualitative Brewer Palettes
+
+These palettes are good for `r glossary("categorical")` data with up to 8 categories (some palettes can handle up to 12). The "Paired" palette is useful if your categories are arranged in pairs.
+
+```{r, echo = FALSE, fig.width = 8, fig.height = 8, fig.cap="Qualitative brewer palettes."}
+palettes <- list("Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3")
+
+g <- palette_demo(12)
+plots <- lapply(palettes, palette_plot, g = g)
+wrap_plots(plots, ncol = 2)
+```
+
+#### Sequential Brewer Palettes
+
+These palettes are good for up to 9 `r glossary("ordinal")` categories with a lot of categories.
+
+```{r, warning=FALSE, echo = FALSE, fig.width = 8, fig.height = 18, fig.cap="Sequential brewer palettes."}
+palettes <- c("Reds", "RdPu",
+              "Oranges", "OrRd", 
+              "YlOrRd", "YlOrBr", "YlGn", "YlGnBu",
+              "Greens", "GnBu",
+              "Blues", "BuGn", "BuPu", 
+              "Purples", "PuRd", "PuBu", "PuBuGn",
+              "Greys")
+
+g <- palette_demo(9)
+plots <- lapply(palettes, palette_plot, g = g)
+wrap_plots(plots, ncol = 2)
+```
+
+#### Diverging Brewer Palettes
+
+These palettes are good for `r glossary("ordinal")` categories with up to 11 levels where the centre level is a neutral or baseline category and the levels above and below it differ in an important way, such as agree versus disagree options.
+
+```{r, fig.width = 8, fig.height = 10, fig.cap="Diverging brewer palettes."}
+palettes <- c("BrBG", "PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral")
+
+g <- palette_demo(11)
+plots <- lapply(palettes, palette_plot, g = g)
+wrap_plots(plots, ncol = 2)
+```
+
+## Themes {#themes-appendix}
+
+`r pkg("ggplot2")` has 8 built-in themes that you can add to a plot like `plot + theme_bw()` or set as the default theme at the top of your script like `theme_set(theme_bw())`.
+
+```{r, fig.width = 8, fig.height = 8, fig.cap="{ggplot2} themes."}
+g <- palette_demo(2) + facet_wrap(~condition)
+
+themes <- c("theme_bw", "theme_classic", "theme_dark", "theme_gray", "theme_light", "theme_linedraw", "theme_minimal", "theme_void")
+
+plots <- lapply(themes, function(f) {
+  g + get(f)() + ggtitle(glue::glue("{f}()"))
+})
+wrap_plots(plots, ncol = 2)
+```
+
+### ggthemes
+
+You can get more themes from add-on packages, like `r pkg("ggthemes", "https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/")`. Most of the themes also have custom `scale_` functions like `scale_colour_economist()`. Their website has extensive examples and instructions for alternate or dark versions of these themes.
+
+```{r, fig.width = 8, fig.height = 18, fig.cap="{ggthemes} themes."}
+g <- palette_demo(2) + facet_wrap(~condition)
+
+themes <- c("theme_wsj", "theme_tufte", "theme_stata", "theme_gdocs", "theme_fivethirtyeight", "theme_economist", "theme_igray", "theme_hc", "theme_few", "theme_map", "theme_excel", "theme_calc", "theme_economist_white", "theme_excel_new", "theme_pander", "theme_solarized", "theme_solarized_2") %>% sort() %>% setNames(., .)
+
+plots <- lapply(themes, function(f) {
+  scale_colour <- tryCatch({
+    get(gsub("theme_","scale_colour_", gsub("_(2|white)", "", f)))()
+  }, error = function(e) {
+    return(NULL)
+  })
+  
+  scale_fill <- tryCatch({
+    get(gsub("theme_","scale_fill_", gsub("_(2|white)", "", f)))()
+  }, error = function(e) {
+    return(NULL)
+  })
+  
+  g + get(f)() + 
+    ggtitle(glue::glue("{f}()")) + 
+    scale_colour + 
+    scale_fill
+})
+
+wrap_plots(plots, ncol = 2)
+```
+
+
+### Fonts
+
+You can customise the fonts used in themes. All computers should be able to recognise the families "sans", "serif", and "mono", and some computers will be able to access other installed fonts by name.
+
+```{r, include = FALSE}
+if (.Platform$OS.type == "windows") {
+  windowsFonts("Comic Sans MS" = windowsFont("Comic Sans MS"))
+}
+```
+
+```{r theme-font-demo, echo = TRUE, fig.width = 10, fig.height = 2.5, fig.cap="Different fonts."}
+sans <- g + theme_bw(base_family = "sans") + 
+  ggtitle("Sans")
+serif <- g + theme_bw(base_family = "serif") + 
+  ggtitle("Serif")
+mono <- g + theme_bw(base_family = "mono") + 
+  ggtitle("Mono")
+font <- g + theme_bw(base_family = "Comic Sans MS") + 
+  ggtitle("Comic Sans MS")
+
+sans + serif + mono + font + plot_layout(nrow = 1)
+```
+
+
+::: {.warning data-latex=""}
+If you are working on a Windows machine and get the error "font family not found in Windows font database", you may need to explicitly map the fonts. In your setup code chunk, add the following code, which should fix the error. You may need to do this for any fonts that you specify.
+
+```{r, eval = FALSE}
+windowsFonts("Comic Sans MS" = windowsFont("Comic Sans MS"))
+```
+:::
+
+
+The `r pkg("showtext")` package is a flexible way to add fonts.
+
+If you have a .ttf file from a font site, like [Font Squirrel](https://www.fontsquirrel.com){target="_blank"}, you can load the file directly using `font_add()`. Set `regular` as the path to the file for the regular version of the font, and optionally add other versions. Set the `family` to the name you want to use for the font. You will need to include any local font files if you are sharing your script with others.
+
+```{r, echo = TRUE}
+library(showtext)
+
+# font from https://www.fontsquirrel.com/fonts/SF-Cartoonist-Hand
+
+font_add(
+  regular = "fonts/cartoonist/SF_Cartoonist_Hand.ttf",
+  bold = "fonts/cartoonist/SF_Cartoonist_Hand_Bold.ttf",
+  italic = "fonts/cartoonist/SF_Cartoonist_Hand_Italic.ttf",
+  bolditalic = "fonts/cartoonist/SF_Cartoonist_Hand_Bold_Italic.ttf",
+  family = "cartoonist" 
+)
+```
+
+To download fonts directly from [Google fonts](https://fonts.google.com/){target="_blank"}, use the function `font_add_google()`, set the `name` to the exact name from the site, and the `family` to the name you want to use for the font.
+
+```{r, echo = TRUE}
+# download fonts from Google
+font_add_google(name = "Courgette", family = "courgette")
+font_add_google(name = "Poiret One", family = "poiret")
+```
+
+After you've added fonts from local files or Google, you need to make them available to R using `showtext_auto()`. You will have to do these steps in each script where you want to use the custom fonts.
+
+```{r, echo = TRUE}
+showtext_auto() # load the fonts
+```
+
+To change the fonts used overall in a plot, use the `theme()` function and set `text` to `element_text(family = "new_font_family")`.
+
+```{r, echo = TRUE, font-demo, fig.width = 8, fig.height = 2.5, fig.cap="Custom Fonts."}
+a <- g + theme(text = element_text(family = "courgette")) +
+  ggtitle("Courgette")
+b <- g + theme(text = element_text(family = "cartoonist")) +
+  ggtitle("Cartoonist Hand")
+c <- g + theme(text = element_text(family = "poiret")) +
+  ggtitle("Poiret One")
+
+a + b + c
+```
+
+To set the fonts for individual elements in the plot, you need to find the specific argument for that element. You can use the argument `face` to choose "bold", "italic",  or "bolditalic" versions, if they are available.
+
+```{r, echo = TRUE, demo-multi-text, fig.width = 6, fig.height = 2.5, fig.cap="Multiple custom fonts on the same plot."}
+g + ggtitle("Cartoonist Hand") +
+  theme(
+    title = element_text(family = "cartoonist", face = "bold"),
+    strip.text = element_text(family = "cartoonist", face = "italic"),
+    axis.text = element_text(family = "sans")
+  )
+```
+
+### Setting A Lab Theme using `theme()`
+
+The `theme()` function, as we mentioned, does a lot more than just change the position of a legend and can be used to really control a variety of elements and to eventually create your own "theme" for your figures - say you want to have a consistent look to your figures across your publications or across your lab posters. 
+
+First, we'll create a basic plot to demonstrate the changes.
+
+```{r theme-plot, echo = TRUE, fig.cap = "Basic plot in default theme"}
+g <- ggplot(diamonds, aes(x = carat, 
+                          y = price, 
+                          color = cut)) +
+  facet_wrap(~color, nrow = 2) +
+  geom_smooth(method = lm, formula = y~x) +
+  labs(title = "The relationship between carat and price",
+       subtitle = "For each level of color and cut",
+       caption = "Data from ggplot2::diamonds")
+
+g
+```
+
+
+Always start with a base theme, like `theme_minimal()` and set the size and font. Make sure to load any custom fonts.
+
+```{r, echo = TRUE}
+font_add_google(name = "Nunito", family = "Nunito")
+showtext_auto() # load the fonts
+
+# set up custom theme to add to all plots
+mytheme <- theme_minimal(     # always start with a base theme_****
+  base_size = 16,             # 16-point font (adjusted for axes)
+  base_family = "Nunito"      # custom font family
+)
+```
+
+```{r theme-basic, echo = TRUE, fig.cap="Basic customised theme"}
+g + mytheme
+```
+
+Now add specific theme customisations. See `?theme` for detailed explanations. Most theme arguments take a value of `element_blank()` to remove the feature entirely, or `element_text()`, `element_line()` or `element_rect()`, depending on whether the feature is text, a box, or a line.
+
+```{r, echo = TRUE}
+# add more specific customisations with theme()
+mytheme <- theme_minimal(
+  base_size = 16,
+  base_family = "Nunito" 
+) + 
+  theme(
+    plot.background  = element_rect(fill = "black"),
+    panel.background = element_rect(fill = "grey10",
+                                    color = "grey30"),
+    text             = element_text(color = "white"),
+    strip.text       = element_text(hjust = 0), # left justify
+    strip.background = element_rect(fill = "grey60", ),
+    axis.text        = element_text(color = "grey60"),
+    axis.line        = element_line(color = "grey60", size = 1), 
+    panel.grid       = element_blank(),
+    plot.title       = element_text(hjust = 0.5), # center justify
+    plot.subtitle    = element_text(hjust = 0.5, color = "grey60"),
+    plot.caption     = element_text(face = "italic")
+  )
+```
+
+
+```{r theme-custom, echo = TRUE, fig.cap="Further customised theme"}
+g + mytheme
+```
+
+
+You can still add further theme customisation for specific plots.
+
+```{r, theme-further, echo = TRUE, fig.cap="Plot-specific customising."}
+g + mytheme +
+  theme(
+    legend.title      = element_text(size = 11),
+    legend.text       = element_text(size = 9),
+    legend.key.height = unit(0.2, "inches"),
+    legend.position   = c(.9, 0.175)
+  )
+```
+

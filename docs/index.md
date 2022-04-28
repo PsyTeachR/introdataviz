@@ -1,7 +1,7 @@
 --- 
 title: "Data visualisation using R, for researchers who don’t use R"
 author: "Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine"
-date: "2021-12-17"
+date: "2022-04-28"
 site: bookdown::bookdown_site
 documentclass: book
 classoption: oneside # for PDFs
@@ -33,4 +33,4 @@ The dataset and code used in this tutorial is available at [https://osf.io/bj83f
 
 Please cite both the preprint and interactive online tutorial as: 
 
-Nordmann, E., McAleer, P., Toivo, W., Paterson, H. & DeBruine, L. (accepted). Data visualisation using R, for researchers who don't use R. Advances in Methods and Practices in Psychological Science.
+Nordmann, E., McAleer, P., Toivo, W., Paterson, H. & DeBruine, L. (2022). Data visualisation using R, for researchers who don't use R. Advances in Methods and Practices in Psychological Science. <https://doi.org/10.1177/25152459221074654>

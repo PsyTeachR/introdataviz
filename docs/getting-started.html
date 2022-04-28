@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -61,7 +61,8 @@
 <li class="book-part">Appendices</li>
 <li><a class="" href="additional-resources.html"><span class="header-section-number">A</span> Additional resources</a></li>
 <li><a class="" href="additional-customisation-options.html"><span class="header-section-number">B</span> Additional customisation options</a></li>
-<li><a class="" href="advanced-plots-1.html"><span class="header-section-number">C</span> Advanced Plots</a></li>
+<li><a class="" href="plotstyle.html"><span class="header-section-number">C</span> Styling Plots</a></li>
+<li><a class="" href="advanced-plots-1.html"><span class="header-section-number">D</span> Advanced Plots</a></li>
 <li><a class="" href="license.html">License</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -88,11 +89,11 @@
 <h2>
 <span class="header-section-number">2.2</span> Loading data<a class="anchor" aria-label="anchor" href="#loading-data"><i class="fas fa-link"></i></a>
 </h2>
-<p>To load the <a href="https://osf.io/bj83f/files/" target="_blank">simulated data</a> we use the function <code>read_csv()</code> from the <code>readr</code> tidyverse package. Note that there are many other ways of reading data into R, but the benefit of this function is that it enters the data into the R environment in such a way that it makes most sense for other tidyverse packages.</p>
+<p>To load the <a href="https://osf.io/bj83f/files/" target="_blank">simulated data</a> we use the function <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> from the <code>readr</code> tidyverse package. Note that there are many other ways of reading data into R, but the benefit of this function is that it enters the data into the R environment in such a way that it makes most sense for other tidyverse packages.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"ldt_data.csv"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"ldt_data.csv"</span><span class="op">)</span></code></pre></div>
 <p>This code has created an object <code>dat</code> into which you have read the data from the file <code>ldt_data.csv</code>. This object will appear in the environment pane in the top right. Note that the name of the data file must be in quotation marks and the file extension (<code>.csv</code>) must also be included. If you receive the error <code>…does not exist in current working directory</code> it is highly likely that you have made a typo in the file name (remember R is case sensitive), have forgotten to include the file extension <code>.csv</code>, or that the data file you want to load is not stored in your project folder. If you get the error <code>could not find function</code> it means you have either not loaded the correct package (a common beginner error is to write the code, but not run it), or you have made a typo in the function name.</p>
-<p>You should always check after importing data that the resulting table looks like you expect. To view the dataset, click <code>dat</code> in the environment pane or run <code><a href="https://rdrr.io/r/utils/View.html">View(dat)</a></code> in the console. The environment pane also tells us that the object <code>dat</code> has 100 observations of 7 variables, and this is a useful quick check to ensure one has loaded the right data. Note that the 7 variables have an additional piece of information <code>chr</code> and <code>num</code>; this specifies the kind of data in the column. Similar to Excel and SPSS, R uses this information (or variable type) to specify allowable manipulations of data. For instance character data such as the <code>id</code> cannot be averaged, while it is possible to do this with numerical data such as the <code>age</code>.</p>
+<p>You should always check after importing data that the resulting table looks like you expect. To view the dataset, click <code>dat</code> in the environment pane or run <code>View(dat)</code> in the console. The environment pane also tells us that the object <code>dat</code> has 100 observations of 7 variables, and this is a useful quick check to ensure one has loaded the right data. Note that the 7 variables have an additional piece of information <code>chr</code> and <code>num</code>; this specifies the kind of data in the column. Similar to Excel and SPSS, R uses this information (or variable type) to specify allowable manipulations of data. For instance character data such as the <code>id</code> cannot be averaged, while it is possible to do this with numerical data such as the <code>age</code>.</p>
 </div>
 <div id="handling-numeric-factors" class="section level2" number="2.3">
 <h2>
@@ -105,12 +106,12 @@
 <p>Because the factor <code>language</code> is coded as 1 and 2, R has categorised this column as containing numeric information and unless we correct it, this will cause problems for visualisation and analysis. The code below shows how to recode numeric codes into labels.</p>
 <ul>
 <li>
-<code>mutate()</code> makes new columns in a data table, or overwrites a column;</li>
+<code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> makes new columns in a data table, or overwrites a column;</li>
 <li>
 <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> translates the language column into a factor with the labels "monolingual" and "bilingual". You can also use <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> to set the display order of a column that contains words. Otherwise, they will display in alphabetical order. In this case we are replacing the numeric data (1 and 2) in the <code>language</code> column with the equivalent English labels <code>monolingual</code> for 1 and <code>bilingual</code> for 2. At the same time we will change the column type to be a factor, which is how R defines categorical data.</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">dat</span>, language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">dat</span>, language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>
   x <span class="op">=</span> <span class="va">language</span>, <span class="co"># column to translate</span>
   levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="co"># values of the original data in preferred order</span>
   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"monolingual"</span>, <span class="st">"bilingual"</span><span class="op">)</span> <span class="co"># labels for display</span>
@@ -124,7 +125,7 @@
 </h2>
 <p>Each function has a list of arguments it can take, and a default order for those arguments. You can get more information on each function by entering <code>?function_name</code> into the console, although be aware that learning to read the help documentation in R is a skill in itself. When you are writing R code, as long as you stick to the default order, you do not have to explicitly call the argument names, for example, the above code could also be written as:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">dat</span>, language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">dat</span>, language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>
   <span class="va">language</span>,
   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,
   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"monolingual"</span>, <span class="st">"bilingual"</span><span class="op">)</span>
@@ -143,91 +144,143 @@
 <li><p>Remove the grouping</p></li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">%&gt;%</span>
-  <span class="fu">group_by</span><span class="op">(</span><span class="va">language</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">count</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">language</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
-<thead><tr class="header">
-<th align="center">language</th>
-<th align="center">n</th>
+<thead><tr>
+<th style="text-align:center;">
+language
+</th>
+<th style="text-align:center;">
+n
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="center">monolingual</td>
-<td align="center">55</td>
+<tr>
+<td style="text-align:center;">
+monolingual
+</td>
+<td style="text-align:center;">
+55
+</td>
 </tr>
-<tr class="even">
-<td align="center">bilingual</td>
-<td align="center">45</td>
+<tr>
+<td style="text-align:center;">
+bilingual
+</td>
+<td style="text-align:center;">
+45
+</td>
 </tr>
 </tbody>
 </table></div>
-<p><code>group_by()</code> does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever functions called next are performed separately on each level of the grouping variable. This grouping remains in the object that is created so it is important to remove it with <code>ungroup()</code> to avoid future operations on the object unknowingly being performed by groups.</p>
-<p>The above code therefore counts the number of observations in each group of the variable <code>language</code>. If you just need the total number of observations, you could remove the <code>group_by()</code> and <code>ungroup()</code> lines, which would perform the operation on the whole dataset, rather than by groups:</p>
+<p><code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> does not result in surface level changes to the dataset, rather, it changes the underlying structure so that if groups are specified, whatever functions called next are performed separately on each level of the grouping variable. This grouping remains in the object that is created so it is important to remove it with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code> to avoid future operations on the object unknowingly being performed by groups.</p>
+<p>The above code therefore counts the number of observations in each group of the variable <code>language</code>. If you just need the total number of observations, you could remove the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code> lines, which would perform the operation on the whole dataset, rather than by groups:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">%&gt;%</span>
-  <span class="fu">count</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
-<thead><tr class="header">
-<th align="center">n</th>
+<thead><tr>
+<th style="text-align:center;">
+n
+</th>
 </tr></thead>
-<tbody><tr class="odd">
-<td align="center">100</td>
+<tbody><tr>
+<td style="text-align:center;">
+100
+</td>
 </tr></tbody>
 </table></div>
-<p>Similarly, we may wish to calculate the mean age (and SD) of the sample and we can do so using the function <code>summarise()</code> from the <code>dplyr</code> tidyverse package.</p>
+<p>Similarly, we may wish to calculate the mean age (and SD) of the sample and we can do so using the function <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> from the <code>dplyr</code> tidyverse package.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">%&gt;%</span>
-  <span class="fu">summarise</span><span class="op">(</span>mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>,
             sd_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>,
-            n_values <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+            n_values <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
-<thead><tr class="header">
-<th align="center">mean_age</th>
-<th align="center">sd_age</th>
-<th align="center">n_values</th>
+<thead><tr>
+<th style="text-align:center;">
+mean_age
+</th>
+<th style="text-align:center;">
+sd_age
+</th>
+<th style="text-align:center;">
+n_values
+</th>
 </tr></thead>
-<tbody><tr class="odd">
-<td align="center">29.75</td>
-<td align="center">8.28</td>
-<td align="center">100</td>
+<tbody><tr>
+<td style="text-align:center;">
+29.75
+</td>
+<td style="text-align:center;">
+8.28
+</td>
+<td style="text-align:center;">
+100
+</td>
 </tr></tbody>
 </table></div>
-<p>This code produces summary data in the form of a column named <code>mean_age</code> that contains the result of calculating the mean of the variable <code>age</code>. It then creates <code>sd_age</code> which does the same but for standard deviation. Finally, it uses the function <code>n()</code> to add the number of values used to calculate the statistic in a column named <code>n_values</code> - this is a useful sanity check whenever you make summary statistics.</p>
-<p>Note that the above code will not save the result of this operation, it will simply output the result in the console. If you wish to save it for future use, you can store it in an object by using the <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code> notation and print it later by typing the object name.</p>
+<p>This code produces summary data in the form of a column named <code>mean_age</code> that contains the result of calculating the mean of the variable <code>age</code>. It then creates <code>sd_age</code> which does the same but for standard deviation. Finally, it uses the function <code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code> to add the number of values used to calculate the statistic in a column named <code>n_values</code> - this is a useful sanity check whenever you make summary statistics.</p>
+<p>Note that the above code will not save the result of this operation, it will simply output the result in the console. If you wish to save it for future use, you can store it in an object by using the <code>&lt;-</code> notation and print it later by typing the object name.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">age_stats</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op">%&gt;%</span>
-  <span class="fu">summarise</span><span class="op">(</span>mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">age_stats</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>,
             sd_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>,
-            n_values <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>Finally, the <code>group_by()</code> function will work in the same way when calculating summary statistics -- the output of the function that is called after <code>group_by()</code> will be produced for each level of the grouping variable.</p>
+            n_values <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Finally, the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> function will work in the same way when calculating summary statistics -- the output of the function that is called after <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> will be produced for each level of the grouping variable.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">%&gt;%</span>
-  <span class="fu">group_by</span><span class="op">(</span><span class="va">language</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">summarise</span><span class="op">(</span>mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">language</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>,
             sd_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>,
-            n_values <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+            n_values <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
-<thead><tr class="header">
-<th align="center">language</th>
-<th align="center">mean_age</th>
-<th align="center">sd_age</th>
-<th align="center">n_values</th>
+<thead><tr>
+<th style="text-align:center;">
+language
+</th>
+<th style="text-align:center;">
+mean_age
+</th>
+<th style="text-align:center;">
+sd_age
+</th>
+<th style="text-align:center;">
+n_values
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="center">monolingual</td>
-<td align="center">27.96</td>
-<td align="center">6.78</td>
-<td align="center">55</td>
+<tr>
+<td style="text-align:center;">
+monolingual
+</td>
+<td style="text-align:center;">
+27.96
+</td>
+<td style="text-align:center;">
+6.78
+</td>
+<td style="text-align:center;">
+55
+</td>
 </tr>
-<tr class="even">
-<td align="center">bilingual</td>
-<td align="center">31.93</td>
-<td align="center">9.44</td>
-<td align="center">45</td>
+<tr>
+<td style="text-align:center;">
+bilingual
+</td>
+<td style="text-align:center;">
+31.93
+</td>
+<td style="text-align:center;">
+9.44
+</td>
+<td style="text-align:center;">
+45
+</td>
 </tr>
 </tbody>
 </table></div>
@@ -238,8 +291,8 @@
 </h2>
 <p>For our first plot, we will make a simple bar chart of counts that shows the number of participants in each <code>language</code> group.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:bar1"></span>
 <img src="02-ch2_files/figure-html/bar1-1.png" alt="Bar chart of counts." width="80%"><p class="caption">
@@ -247,9 +300,9 @@ Figure 2.1: Bar chart of counts.
 </p>
 </div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_bar</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Percent"</span>, labels<span class="op">=</span><span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/label_percent.html">percent</a></span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Percent"</span>, labels<span class="op">=</span><span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">)</span> </code></pre></div>
 <div class="inline-figure"><img src="02-ch2_files/figure-html/unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto;"></div>
 <p>The first line of code sets up the base of the plot.</p>
 <ul>
@@ -257,23 +310,23 @@ Figure 2.1: Bar chart of counts.
 <li><p><code>mapping</code> specifies which variables to map to which aesthetics (<code>aes</code>) of the plot. Mappings describe how variables in the data are mapped to visual properties (aesthetics) of geoms.</p></li>
 <li><p><code>x</code> specifies which variable to put on the x-axis</p></li>
 </ul>
-<p>The second line of code adds a <code>geom</code>, and is connected to the base code with <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code>. In this case, we ask for <code>geom_bar()</code>. Each <code>geom</code> has an associated default statistic. For <code>geom_bar()</code>, the default statistic is to count the data passed to it. This means that you do not have to specify a <code>y</code> variable when making a bar plot of counts; when given an <code>x</code> variable <code>geom_bar()</code> will automatically calculate counts of the groups in that variable. In this example, it counts the number of data points that are in each category of the <code>language</code> variable.</p>
+<p>The second line of code adds a <code>geom</code>, and is connected to the base code with <code>+</code>. In this case, we ask for <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>. Each <code>geom</code> has an associated default statistic. For <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>, the default statistic is to count the data passed to it. This means that you do not have to specify a <code>y</code> variable when making a bar plot of counts; when given an <code>x</code> variable <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> will automatically calculate counts of the groups in that variable. In this example, it counts the number of data points that are in each category of the <code>language</code> variable.</p>
 <p>The base and geoms layers work in symbiosis so it is worthwhile checking the mapping rules as these are related to the default statistic for the plot's geom.</p>
 </div>
 <div id="aggregates-and-percentages" class="section level2" number="2.7">
 <h2>
 <span class="header-section-number">2.7</span> Aggregates and percentages<a class="anchor" aria-label="anchor" href="#aggregates-and-percentages"><i class="fas fa-link"></i></a>
 </h2>
-<p>If your dataset already has the counts that you want to plot, you can set <code>stat="identity"</code> inside of <code>geom_bar()</code> to use that number instead of counting rows. For example, to plot percentages rather than counts within <code>ggplot2</code>, you can calculate these and store them in a new object that is then used as the dataset. You can do this in the software you are most comfortable in, save the new data, and import it as a new table, or you can use code to manipulate the data.</p>
+<p>If your dataset already has the counts that you want to plot, you can set <code>stat="identity"</code> inside of <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> to use that number instead of counting rows. For example, to plot percentages rather than counts within <code>ggplot2</code>, you can calculate these and store them in a new object that is then used as the dataset. You can do this in the software you are most comfortable in, save the new data, and import it as a new table, or you can use code to manipulate the data.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat_percent</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op">%&gt;%</span>    <span class="co"># start with the data in dat</span>
-  <span class="fu">count</span><span class="op">(</span><span class="va">language</span><span class="op">)</span> <span class="op">%&gt;%</span>     <span class="co"># count rows per language (makes a new column called n)</span>
-  <span class="fu">mutate</span><span class="op">(</span>percent <span class="op">=</span> <span class="op">(</span><span class="va">n</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="co"># make a new column 'percent' equal to </span>
+<code class="sourceCode R"><span class="va">dat_percent</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>    <span class="co"># start with the data in dat</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">language</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>     <span class="co"># count rows per language (makes a new column called n)</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>percent <span class="op">=</span> <span class="op">(</span><span class="va">n</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="co"># make a new column 'percent' equal to </span>
                                    <span class="co"># n divided by the sum of n times 100</span></code></pre></div>
-<p>Notice that we are now omitting the names of the arguments <code>data</code> and <code>mapping</code> in the <code>ggplot()</code> function.</p>
+<p>Notice that we are now omitting the names of the arguments <code>data</code> and <code>mapping</code> in the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> function.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat_percent</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">language</span>, y <span class="op">=</span> <span class="va">percent</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_bar</span><span class="op">(</span>stat<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dat_percent</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">language</span>, y <span class="op">=</span> <span class="va">percent</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>stat<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span> </code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:bar-precalc"></span>
 <img src="02-ch2_files/figure-html/bar-precalc-1.png" alt="Bar chart of pre-calculated counts." width="80%"><p class="caption">
@@ -287,18 +340,18 @@ Figure 2.2: Bar chart of pre-calculated counts.
 </h2>
 <p>The code to plot a histogram of <code>age</code> is very similar to the bar chart code. We start by setting up the plot space, the dataset to use, and mapping the variables to the relevant axis. In this case, we want to plot a histogram with <code>age</code> on the x-axis:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:histogram1"></span>
 <img src="02-ch2_files/figure-html/histogram1-1.png" alt="Histogram of ages." width="80%"><p class="caption">
 Figure 2.3: Histogram of ages.
 </p>
 </div>
-<p>The base statistic for <code>geom_histogram()</code> is also count, and by default <code>geom_histogram()</code> divides the x-axis into 30 "bins" and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message "stat_bin() using bins = 30. Pick better value with binwidth". You can change this by either setting the number of bins (e.g., <code>bins = 20</code>) or the width of each bin (e.g., <code>binwidth = 5</code>) as an argument.</p>
+<p>The base statistic for <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code> is also count, and by default <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code> divides the x-axis into 30 "bins" and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message "stat_bin() using bins = 30. Pick better value with binwidth". You can change this by either setting the number of bins (e.g., <code>bins = 20</code>) or the width of each bin (e.g., <code>binwidth = 5</code>) as an argument.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:histogram2"></span>
 <img src="02-ch2_files/figure-html/histogram2-1.png" alt="Histogram of ages where each bin covers five years." width="80%"><p class="caption">
@@ -310,15 +363,15 @@ Figure 2.4: Histogram of ages where each bin covers five years.
 <h2>
 <span class="header-section-number">2.9</span> Customisation 1<a class="anchor" aria-label="anchor" href="#customisation-1"><i class="fas fa-link"></i></a>
 </h2>
-<p>So far we have made basic plots with the default visual appearance. Before we move on to the experimental data, we will introduce some simple visual customisation options. There are many ways in which you can control or customise the visual appearance of figures in R. However, once you understand the logic of one, it becomes easier to understand others that you may see in other examples. The visual appearance of elements can be customised within a geom itself, within the aesthetic mapping, or by connecting additional layers with <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code>. In this section we look at the simplest and most commonly-used customisations: changing colours, adding axis labels, and adding themes.</p>
+<p>So far we have made basic plots with the default visual appearance. Before we move on to the experimental data, we will introduce some simple visual customisation options. There are many ways in which you can control or customise the visual appearance of figures in R. However, once you understand the logic of one, it becomes easier to understand others that you may see in other examples. The visual appearance of elements can be customised within a geom itself, within the aesthetic mapping, or by connecting additional layers with <code>+</code>. In this section we look at the simplest and most commonly-used customisations: changing colours, adding axis labels, and adding themes.</p>
 <div id="changing-colours" class="section level3" number="2.9.1">
 <h3>
 <span class="header-section-number">2.9.1</span> Changing colours<a class="anchor" aria-label="anchor" href="#changing-colours"><i class="fas fa-link"></i></a>
 </h3>
 <p>For our basic bar chart, you can control colours used to display the bars by setting <code>fill</code> (internal colour) and <code>colour</code> (outline colour) inside the geom function. This method changes <strong>all</strong> bars; we will show you later how to set fill or colour separately for different groups.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, 
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, 
                  fill <span class="op">=</span> <span class="st">"white"</span>, 
                  colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
@@ -332,14 +385,14 @@ Figure 2.5: Histogram with custom colors for bar fill and line colors.
 <h3>
 <span class="header-section-number">2.9.2</span> Editing axis names and labels<a class="anchor" aria-label="anchor" href="#editing-axis-names-and-labels"><i class="fas fa-link"></i></a>
 </h3>
-<p>To edit axis names and labels you can connect <code>scale_*</code> functions to your plot with <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> to add layers. These functions are part of <code>ggplot2</code> and the one you use depends on which aesthetic you wish to edit (e.g., x-axis, y-axis, fill, colour) as well as the type of data it represents (discrete, continuous).</p>
+<p>To edit axis names and labels you can connect <code>scale_*</code> functions to your plot with <code>+</code> to add layers. These functions are part of <code>ggplot2</code> and the one you use depends on which aesthetic you wish to edit (e.g., x-axis, y-axis, fill, colour) as well as the type of data it represents (discrete, continuous).</p>
 <p>For the bar chart of counts, the x-axis is mapped to a discrete (categorical) variable whilst the y-axis is continuous. For each of these there is a relevant scale function with various elements that can be customised. Each axis then has its own function added as a layer to the basic plot.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_x_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Language group"</span>, 
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Language group"</span>, 
                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Monolingual"</span>, <span class="st">"Bilingual"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Number of participants"</span>,
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Number of participants"</span>,
                      breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span>,<span class="fl">40</span>,<span class="fl">50</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:bar3"></span>
@@ -356,9 +409,9 @@ Figure 2.6: Bar chart with custom axis labels.
 <p>A common error is to map the wrong type of <code>scale_</code> function to a variable. Try running the below code:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># produces an error</span>
-<span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Language group"</span>, 
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Language group"</span>, 
                      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Monolingual"</span>, <span class="st">"Bilingual"</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
 <p>This will produce the error <code>Discrete value supplied to continuous scale</code> because we have used a <code>continuous</code> scale function, despite the fact that x-axis variable is discrete. If you get this error (or the reverse), check the type of data on each axis and the function you have used.</p>
 </div>
@@ -366,22 +419,22 @@ Figure 2.6: Bar chart with custom axis labels.
 <h3>
 <span class="header-section-number">2.9.3</span> Adding a theme<a class="anchor" aria-label="anchor" href="#adding-a-theme"><i class="fas fa-link"></i></a>
 </h3>
-<p><code>ggplot2</code> has a number of built-in visual themes that you can apply as an extra layer. The below code updates the x-axis and y-axis labels to the histogram, but also applies <code>theme_minimal()</code>. Each part of a theme can be independently customised, which may be necessary, for example, if you have journal guidelines on fonts for publication. There are further instructions for how to do this in the online appendices.</p>
+<p><code>ggplot2</code> has a number of built-in visual themes that you can apply as an extra layer. The below code updates the x-axis and y-axis labels to the histogram, but also applies <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code>. Each part of a theme can be independently customised, which may be necessary, for example, if you have journal guidelines on fonts for publication. There are further instructions for how to do this in the online appendices.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"wheat"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Participant age (years)"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"wheat"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Participant age (years)"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:histogram-theme"></span>
 <img src="02-ch2_files/figure-html/histogram-theme-1.png" alt="Histogram with a custom theme." width="80%"><p class="caption">
 Figure 2.7: Histogram with a custom theme.
 </p>
 </div>
-<p>You can set the theme globally so that all subsequent plots use a theme. <code>theme_set()</code> is not part of a <code>ggplot()</code> object, you should run this code on its own. It may be useful to add this code to the top of your script so that all plots produced subsequently use the same theme.</p>
+<p>You can set the theme globally so that all subsequent plots use a theme. <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set()</a></code> is not part of a <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> object, you should run this code on its own. It may be useful to add this code to the top of your script so that all plots produced subsequently use the same theme.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>If you wished to return to the default theme, change the above to specify <code>theme_grey()</code>.</p>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>If you wished to return to the default theme, change the above to specify <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_grey()</a></code>.</p>
 </div>
 </div>
 <div id="activities-1" class="section level2" number="2.10">
@@ -397,11 +450,11 @@ Figure 2.7: Histogram with a custom theme.
 Solution 1
 </button>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"wheat"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Participant age (years)"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Number of participants"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"wheat"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Participant age (years)"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Number of participants"</span><span class="op">)</span></code></pre></div>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li>Change the colour of the bars in the bar chart to red.</li>
@@ -411,11 +464,11 @@ Solution 1
 Solution 2
 </button>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_bar</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">language</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
 </div>
 <ol start="3" style="list-style-type: decimal">
-<li>Remove <code>theme_minimal()</code> from the histogram and instead apply one of the other available themes. To find out about other available themes, start typing <code>theme_</code> and the auto-complete will show you the available options - this will only work if you have loaded the <code>tidyverse</code> library with <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code>.</li>
+<li>Remove <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code> from the histogram and instead apply one of the other available themes. To find out about other available themes, start typing <code>theme_</code> and the auto-complete will show you the available options - this will only work if you have loaded the <code>tidyverse</code> library with <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code>.</li>
 </ol>
 <div class="webex-solution">
 <button>
@@ -423,16 +476,16 @@ Solution 3
 </button>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#multiple options here e.g., theme_classic()</span>
-<span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"wheat"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Participant age (years)"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"wheat"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Participant age (years)"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># theme_bw()</span>
-<span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"wheat"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Participant age (years)"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="st">"wheat"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Participant age (years)"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 
 </div>
@@ -668,7 +721,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-12-17.</p>
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2022-04-28.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -61,7 +61,8 @@
 <li class="book-part">Appendices</li>
 <li><a class="" href="additional-resources.html"><span class="header-section-number">A</span> Additional resources</a></li>
 <li><a class="" href="additional-customisation-options.html"><span class="header-section-number">B</span> Additional customisation options</a></li>
-<li><a class="" href="advanced-plots-1.html"><span class="header-section-number">C</span> Advanced Plots</a></li>
+<li><a class="" href="plotstyle.html"><span class="header-section-number">C</span> Styling Plots</a></li>
+<li><a class="" href="advanced-plots-1.html"><span class="header-section-number">D</span> Advanced Plots</a></li>
 <li><a class="" href="license.html">License</a></li>
 <li><a class="active" href="references.html">References</a></li>
 </ul>
@@ -92,13 +93,13 @@ Bertini, E., &amp; Stefaner, M. (2015). Amanda cox on working with r, NYT projec
 Munafò, M. R., Nosek, B. A., Bishop, D. V., Button, K. S., Chambers, C. D., Du Sert, N. P., Simonsohn, U., Wagenmakers, E.-J., Ware, J. J., &amp; Ioannidis, J. P. (2017). A manifesto for reproducible science. <em>Nature Human Behaviour</em>, <em>1</em>(1), 1–9.
 </div>
 <div id="ref-Nation2017" class="csl-entry">
-Nation, Z. (2017). Perceptions. In <em>GitHub repository</em>. <a href="https://github.com/zonination/perceptions%20%20">https://github.com/zonination/perceptions  </a>; GitHub.
+Nation, Z. (2017). Perceptions. In <em>GitHub repository</em>. <a href="https://github.com/zonination/perceptions%20%20" class="uri">https://github.com/zonination/perceptions  </a>; GitHub.
 </div>
 <div id="ref-newman2012bar" class="csl-entry">
 Newman, G. E., &amp; Scholl, B. J. (2012). Bar graphs depicting averages are perceptually misinterpreted: The within-the-bar bias. <em>Psychonomic Bulletin &amp; Review</em>, <em>19</em>(4), 601–607.
 </div>
 <div id="ref-R-base" class="csl-entry">
-R Core Team. (2021). <em>R: A language and environment for statistical computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>
+R Core Team. (2022). <em>R: A language and environment for statistical computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>
 </div>
 <div id="ref-robins2003learning" class="csl-entry">
 Robins, A., Rountree, J., &amp; Rountree, N. (2003). Learning and teaching programming: A review and discussion. <em>Computer Science Education</em>, <em>13</em>(2), 137–172.
@@ -129,17 +130,17 @@ Wills, A. (n.d.). Teaching research methods in r. In <em>rminr</em>. <a href="ht
 </div>
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
+<div class="footnotes footnotes-end-of-document">
+<hr>
+<ol>
+<li id="fn1"><p>The power of R is that it is extendable and open source - put simply, if a function doesn't exist or is difficult to use, anyone can create a new <strong>package</strong> that contains data and code to allow you to perform new tasks. You may find it helpful to think of packages as additional apps that you need to download separately to extend the functionality beyond what comes with "Base R".<a href="introduction.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Because there are so many different ways to achieve the same thing in R, when Googling for help with R, it is useful to append the name of the package or approach you are using, e.g., "how to make a histogram ggplot2".<a href="introduction.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>If your data use a missing value like <code>NA</code> or <code>999</code>, you can indicate this in the <code>na</code> argument of <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> when you read in your data. For example, <code>read_csv("data.csv", na = c("", "NA", 999))</code> allows you to use blank cells <code>""</code>, the letters <code>"NA"</code>, and the number <code>999</code> as missing values.<a href="introduction.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>In this tutorial we have chosen to gloss over the data processing steps that must occur to get from the raw data to aggregated values. This type of processing requires a more extensive tutorial than we can provide in the current paper. More importantly, it is still possible to use R for data visualisation having done the preparatory steps using existing workflows in Excel and SPSS. We bypass these initial steps and focus on tangible outputs that may then encourage further mastery of reproducible methods. Collectively we tend to call the steps for reshaping data and for processing raw data or for getting data ready to use statistical functions "wrangling".<a href="transforming-data.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>That is to say, if you are new to R, know that many before you have struggled with this conceptual shift - it does get better, it just takes time and your preferred choice of cursing.<a href="transforming-data.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>If the data in the x-axis column is numeric (e.g., 1 and 2 for the condition), you will see one boxplot and the message "Continuous x aesthetic -- did you forget aes(group=...)?" You can fix this by converting the column to a factor like this: <code>x = factor(condition)</code>.<a href="representing-summary-statistics.html#fnref6" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -353,7 +354,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-12-12.</p>
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2022-04-28.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

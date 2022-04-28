@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -61,7 +61,8 @@
 <li class="book-part">Appendices</li>
 <li><a class="active" href="additional-resources.html"><span class="header-section-number">A</span> Additional resources</a></li>
 <li><a class="" href="additional-customisation-options.html"><span class="header-section-number">B</span> Additional customisation options</a></li>
-<li><a class="" href="advanced-plots-1.html"><span class="header-section-number">C</span> Advanced Plots</a></li>
+<li><a class="" href="plotstyle.html"><span class="header-section-number">C</span> Styling Plots</a></li>
+<li><a class="" href="advanced-plots-1.html"><span class="header-section-number">D</span> Advanced Plots</a></li>
 <li><a class="" href="license.html">License</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -77,8 +78,9 @@
 </h1>
 <p>There are a number of incredible open-access online resources that, using the skills you have developed in this tutorial, will allow you to start adapting your figures and plots to make them as informative as possible for your reader. Additionally, there are also many excellent resources that expand on some of the topics we have covered here briefly, particularly data wrangling, that can help you consolidate and expand your skill set.</p>
 <p><strong>PsyTeachR</strong></p>
-<p>The psyTeachR team at the University of Glasgow School of Psychology and Institute of Neuroscience and Psychology has successfully made the transition to teaching reproducible research using R across all undergraduate and postgraduate levels. Our curriculum now emphasizes essential ‘data science’ graduate skills that have been overlooked in traditional approaches to teaching, including programming skills, data visualisation, data wrangling and reproducible reports. Students learn about probability and inference through data simulation as well as by working with real datasets. These materials cover all the functions we have used in this tutorial in more depth and all have Creative Commons licences to allow their use and reuse without attribution.</p>
+<p>The <a href="https://psyteachr.github.io/">psyTeachR</a> team at the University of Glasgow School of Psychology and Neuroscience has successfully made the transition to teaching reproducible research using R across all undergraduate and postgraduate levels. Our curriculum now emphasizes essential ‘data science’ graduate skills that have been overlooked in traditional approaches to teaching, including programming skills, data visualisation, data wrangling and reproducible reports. Students learn about probability and inference through data simulation as well as by working with real datasets. These materials cover all the functions we have used in this tutorial in more depth and all have Creative Commons licences to allow their use and reuse without attribution.</p>
 <ul>
+<li><a href="https://psyteachr.github.io/ads/">Applied Data Skills</a></li>
 <li><a href="https://psyteachr.github.io/data-skills/">Level 1 Data Skills</a></li>
 <li><a href="https://psyteachr.github.io/analyses/">Level 2 Analyses</a></li>
 <li><a href="https://psyteachr.github.io/stat-models/">Level 3 Statistical Models</a></li>
@@ -109,9 +111,23 @@
 </ul>
 <p><strong>Data visualisation</strong></p>
 <ul>
-<li><a href="https://www.r-graph-gallery.com/index.html">R Graph Gallery</a></li>
+<li><a href="https://www.r-graph-gallery.com/">R Graph Gallery</a></li>
 <li><a href="https://clauswilke.com/dataviz/">Fundamentals of Data Vizualisation</a></li>
 <li><a href="https://socviz.co/">Data Vizualisation: A Practical Introduction</a></li>
+<li>
+<a href="https://socviz.co/lookatdata.html">Look at Data</a> from <a href="http://socviz.co/">Data Vizualization for Social Science</a>
+</li>
+<li>
+<a href="http://www.cookbook-r.com/Graphs">Graphs</a> in <em>Cookbook for R</em>
+</li>
+<li><a href="http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html">Top 50 ggplot2 Visualizations</a></li>
+<li>
+<a href="http://www.cookbook-r.com/Graphs/">R Graphics Cookbook</a> by Winston Chang</li>
+<li><a href="https://exts.ggplot2.tidyverse.org/">ggplot extensions</a></li>
+<li>
+<a href="https://plot.ly/ggplot2/">plotly</a> for creating interactive graphs</li>
+<li><a href="https://r-spatial.org/r/2018/10/25/ggplot2-sf.html">Drawing Beautiful Maps Programmatically</a></li>
+<li><a href="https://gganimate.com/">gganimate</a></li>
 </ul>
 </div>
 <script>
@@ -327,7 +343,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2021-12-12.</p>
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2022-04-28.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -1,5 +1,7 @@
 # Advanced Plots
 
+This appendix provides some examples of more complex plots. See Lisa's tutorials for the 2022 [30-day chart challenge](https://debruine.github.io/30DCC-2022/) for even more plots.
+
 ## Easter Egg - Overlaying Plots
 
 Hopefully from some of the materials we have shown you, you will have found ways of presenting data in an informative manner - for example, we have shown violin plots and how they can be effective, when combined with boxplots, at displaying distributions. However, if you are familiar with other software you may be used to seeing this sort of information displayed differently, as perhaps a histogram with a normal curve overlaid. Whist the violin plots are better to convey that information we thought it might help to see alternative approaches here. Really it is about overlaying some of the plots we have already shown, but with some slight adjustments. For example, lets look at the histogram and density plot of reaction times we saw earlier - shown here side by side for convenience.

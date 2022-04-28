@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>C Styling Plots | Data visualisation using R, for researchers who don’t use R</title>
+<meta name="author" content="Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine">
+<meta name="description" content="C.1 Aesthetics  C.1.1 Colour/Fill The colour argument changes the point and line colour, while the fill argument changes the interior colour of shapes. Type colours() into the console to see a...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="C Styling Plots | Data visualisation using R, for researchers who don’t use R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://psyteachr.github.io/introdataviz/plotstyle.html">
+<meta property="og:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
+<meta property="og:description" content="C.1 Aesthetics  C.1.1 Colour/Fill The colour argument changes the point and line colour, while the fill argument changes the interior colour of shapes. Type colours() into the console to see a...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C Styling Plots | Data visualisation using R, for researchers who don’t use R">
+<meta name="twitter:description" content="C.1 Aesthetics  C.1.1 Colour/Fill The colour argument changes the point and line colour, while the fill argument changes the interior colour of shapes. Type colours() into the console to see a...">
+<meta name="twitter:image" content="https://psyteachr.github.io/introdataviz/images/logos/logo.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6NP3MF25W3');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Data visualisation using R, for researchers who don’t use R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="getting-started.html"><span class="header-section-number">2</span> Getting Started</a></li>
+<li><a class="" href="transforming-data.html"><span class="header-section-number">3</span> Transforming Data</a></li>
+<li><a class="" href="representing-summary-statistics.html"><span class="header-section-number">4</span> Representing Summary Statistics</a></li>
+<li><a class="" href="multi-part-plots.html"><span class="header-section-number">5</span> Multi-part Plots</a></li>
+<li><a class="" href="advanced-plots.html"><span class="header-section-number">6</span> Advanced Plots</a></li>
+<li><a class="" href="conclusion.html"><span class="header-section-number">7</span> Conclusion</a></li>
+<li class="book-part">Appendices</li>
+<li><a class="" href="additional-resources.html"><span class="header-section-number">A</span> Additional resources</a></li>
+<li><a class="" href="additional-customisation-options.html"><span class="header-section-number">B</span> Additional customisation options</a></li>
+<li><a class="active" href="plotstyle.html"><span class="header-section-number">C</span> Styling Plots</a></li>
+<li><a class="" href="advanced-plots-1.html"><span class="header-section-number">D</span> Advanced Plots</a></li>
+<li><a class="" href="license.html">License</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/psyteachr/introdataviz">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="plotstyle" class="section level1" number="10">
+<h1>
+<span class="header-section-number">C</span> Styling Plots<a class="anchor" aria-label="anchor" href="#plotstyle"><i class="fas fa-link"></i></a>
+</h1>
+<div id="aesthetics" class="section level2" number="10.1">
+<h2>
+<span class="header-section-number">C.1</span> Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"><i class="fas fa-link"></i></a>
+</h2>
+<div id="colourfill" class="section level3" number="10.1.1">
+<h3>
+<span class="header-section-number">C.1.1</span> Colour/Fill<a class="anchor" aria-label="anchor" href="#colourfill"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code>colour</code> argument changes the point and line colour, while the <code>fill</code> argument changes the interior colour of shapes. Type <code><a href="https://rdrr.io/r/grDevices/colors.html">colours()</a></code> into the console to see a list of all the named colours in R. Alternatively, you can use hexadecimal colours like <code>"#FF8000"</code> or the <code><a href="https://rdrr.io/r/grDevices/rgb.html">rgb()</a></code> function to set red, green, and blue values on a scale from 0 to 1.</p>
+<p>Hover over a colour to see its R name.</p>
+<style>
+  .colordemo { list-item-style: none; padding: 0; margin: 0;}
+  
+  .colordemo li, main ul.colordemo > li:first-child { 
+    display: inline-block; 
+    border: 0.25px solid black; 
+    margin: 0px; 
+    padding: 1.3em 0.2em 0.2em 1.2em; 
+  }
+  
+  .colordemo li span { 
+    display: none; 
+    background-color: white; 
+    border: 0.25px solid black; 
+    padding: 0.25em 0.5em; 
+    border-radius: 0 1em 1em 1em;
+  }
+  .colordemo li:hover span { 
+    display: inline; 
+    position: absolute;
+  }
+</style>
+<ul class="colordemo">
+<li style="background-color: #000000;">
+<span>black</span>
+</li>
+<li style="background-color: #030303;">
+<span>gray1</span>
+</li>
+<li style="background-color: #050505;">
+<span>gray2</span>
+</li>
+<li style="background-color: #080808;">
+<span>gray3</span>
+</li>
+<li style="background-color: #0a0a0a;">
+<span>gray4</span>
+</li>
+<li style="background-color: #0d0d0d;">
+<span>gray5</span>
+</li>
+<li style="background-color: #0f0f0f;">
+<span>gray6</span>
+</li>
+<li style="background-color: #121212;">
+<span>gray7</span>
+</li>
+<li style="background-color: #141414;">
+<span>gray8</span>
+</li>
+<li style="background-color: #171717;">
+<span>gray9</span>
+</li>
+<li style="background-color: #1a1a1a;">
+<span>gray10</span>
+</li>
+<li style="background-color: #1c1c1c;">
+<span>gray11</span>
+</li>
+<li style="background-color: #1f1f1f;">
+<span>gray12</span>
+</li>
+<li style="background-color: #212121;">
+<span>gray13</span>
+</li>
+<li style="background-color: #242424;">
+<span>gray14</span>
+</li>
+<li style="background-color: #262626;">
+<span>gray15</span>
+</li>
+<li style="background-color: #292929;">
+<span>gray16</span>
+</li>
+<li style="background-color: #2b2b2b;">
+<span>gray17</span>
+</li>
+<li style="background-color: #2e2e2e;">
+<span>gray18</span>
+</li>
+<li style="background-color: #303030;">
+<span>gray19</span>
+</li>
+<li style="background-color: #333333;">
+<span>gray20</span>
+</li>
+<li style="background-color: #363636;">
+<span>gray21</span>
+</li>
+<li style="background-color: #383838;">
+<span>gray22</span>
+</li>
+<li style="background-color: #3b3b3b;">
+<span>gray23</span>
+</li>
+<li style="background-color: #3d3d3d;">
+<span>gray24</span>
+</li>
+<li style="background-color: #404040;">
+<span>gray25</span>
+</li>
+<li style="background-color: #424242;">
+<span>gray26</span>
+</li>
+<li style="background-color: #454545;">
+<span>gray27</span>
+</li>
+<li style="background-color: #474747;">
+<span>gray28</span>
+</li>
+<li style="background-color: #4a4a4a;">
+<span>gray29</span>
+</li>
+<li style="background-color: #4d4d4d;">
+<span>gray30</span>
+</li>
+<li style="background-color: #4f4f4f;">
+<span>gray31</span>
+</li>
+<li style="background-color: #525252;">
+<span>gray32</span>
+</li>
+<li style="background-color: #545454;">
+<span>gray33</span>
+</li>
+<li style="background-color: #575757;">
+<span>gray34</span>
+</li>
+<li style="background-color: #595959;">
+<span>gray35</span>
+</li>
+<li style="background-color: #5c5c5c;">
+<span>gray36</span>
+</li>
+<li style="background-color: #5e5e5e;">
+<span>gray37</span>
+</li>
+<li style="background-color: #616161;">
+<span>gray38</span>
+</li>
+<li style="background-color: #636363;">
+<span>gray39</span>
+</li>
+<li style="background-color: #666666;">
+<span>gray40</span>
+</li>
+<li style="background-color: #696969;">
+<span>dimgray</span>
+</li>
+<li style="background-color: #6b6b6b;">
+<span>gray42</span>
+</li>
+<li style="background-color: #6e6e6e;">
+<span>gray43</span>
+</li>
+<li style="background-color: #707070;">
+<span>gray44</span>
+</li>
+<li style="background-color: #737373;">
+<span>gray45</span>
+</li>
+<li style="background-color: #757575;">
+<span>gray46</span>
+</li>
+<li style="background-color: #787878;">
+<span>gray47</span>
+</li>
+<li style="background-color: #7a7a7a;">
+<span>gray48</span>
+</li>
+<li style="background-color: #7d7d7d;">
+<span>gray49</span>
+</li>
+<li style="background-color: #7f7f7f;">
+<span>gray50</span>
+</li>
+<li style="background-color: #828282;">
+<span>gray51</span>
+</li>
+<li style="background-color: #858585;">
+<span>gray52</span>
+</li>
+<li style="background-color: #878787;">
+<span>gray53</span>
+</li>
+<li style="background-color: #8a8a8a;">
+<span>gray54</span>
+</li>
+<li style="background-color: #8c8c8c;">
+<span>gray55</span>
+</li>
+<li style="background-color: #8f8f8f;">
+<span>gray56</span>
+</li>
+<li style="background-color: #919191;">
+<span>gray57</span>
+</li>
+<li style="background-color: #949494;">
+<span>gray58</span>
+</li>
+<li style="background-color: #969696;">
+<span>gray59</span>
+</li>
+<li style="background-color: #999999;">
+<span>gray60</span>
+</li>
+<li style="background-color: #9c9c9c;">
+<span>gray61</span>
+</li>
+<li style="background-color: #9e9e9e;">
+<span>gray62</span>
+</li>
+<li style="background-color: #a1a1a1;">
+<span>gray63</span>
+</li>
+<li style="background-color: #a3a3a3;">
+<span>gray64</span>
+</li>
+<li style="background-color: #a6a6a6;">
+<span>gray65</span>
+</li>
+<li style="background-color: #a9a9a9;">
+<span>darkgray</span>
+</li>
+<li style="background-color: #a8a8a8;">
+<span>gray66</span>
+</li>
+<li style="background-color: #ababab;">
+<span>gray67</span>
+</li>
+<li style="background-color: #adadad;">
+<span>gray68</span>
+</li>
+<li style="background-color: #b0b0b0;">
+<span>gray69</span>
+</li>
+<li style="background-color: #b3b3b3;">
+<span>gray70</span>
+</li>
+<li style="background-color: #b5b5b5;">
+<span>gray71</span>
+</li>
+<li style="background-color: #b8b8b8;">
+<span>gray72</span>
+</li>
+<li style="background-color: #bababa;">
+<span>gray73</span>
+</li>
+<li style="background-color: #bdbdbd;">
+<span>gray74</span>
+</li>
+<li style="background-color: #bebebe;">
+<span>gray</span>
+</li>
+<li style="background-color: #bfbfbf;">
+<span>gray75</span>
+</li>
+<li style="background-color: #c2c2c2;">
+<span>gray76</span>
+</li>
+<li style="background-color: #c4c4c4;">
+<span>gray77</span>
+</li>
+<li style="background-color: #c7c7c7;">
+<span>gray78</span>
+</li>
+<li style="background-color: #c9c9c9;">
+<span>gray79</span>
+</li>
+<li style="background-color: #cccccc;">
+<span>gray80</span>
+</li>
+<li style="background-color: #cfcfcf;">
+<span>gray81</span>
+</li>
+<li style="background-color: #d1d1d1;">
+<span>gray82</span>
+</li>
+<li style="background-color: #d4d4d4;">
+<span>gray83</span>
+</li>
+<li style="background-color: #d3d3d3;">
+<span>lightgray</span>
+</li>
+<li style="background-color: #d6d6d6;">
+<span>gray84</span>
+</li>
+<li style="background-color: #d9d9d9;">
+<span>gray85</span>
+</li>
+<li style="background-color: #dcdcdc;">
+<span>gainsboro</span>
+</li>
+<li style="background-color: #dbdbdb;">
+<span>gray86</span>
+</li>
+<li style="background-color: #dedede;">
+<span>gray87</span>
+</li>
+<li style="background-color: #e0e0e0;">
+<span>gray88</span>
+</li>
+<li style="background-color: #e3e3e3;">
+<span>gray89</span>
+</li>
+<li style="background-color: #e5e5e5;">
+<span>gray90</span>
+</li>
+<li style="background-color: #e8e8e8;">
+<span>gray91</span>
+</li>
+<li style="background-color: #ebebeb;">
+<span>gray92</span>
+</li>
+<li style="background-color: #ededed;">
+<span>gray93</span>
+</li>
+<li style="background-color: #f0f0f0;">
+<span>gray94</span>
+</li>
+<li style="background-color: #f2f2f2;">
+<span>gray95</span>
+</li>
+<li style="background-color: #f5f5f5;">
+<span>gray96</span>
+</li>
+<li style="background-color: #f7f7f7;">
+<span>gray97</span>
+</li>
+<li style="background-color: #fafafa;">
+<span>gray98</span>
+</li>
+<li style="background-color: #fcfcfc;">
+<span>gray99</span>
+</li>
+<li style="background-color: #ffffff;">
+<span>white</span>
+</li>
+<li style="background-color: #8b8989;">
+<span>snow4</span>
+</li>
+<li style="background-color: #cdc9c9;">
+<span>snow3</span>
+</li>
+<li style="background-color: #eee9e9;">
+<span>snow2</span>
+</li>
+<li style="background-color: #fffafa;">
+<span>snow</span>
+</li>
+<li style="background-color: #8b6969;">
+<span>rosybrown4</span>
+</li>
+<li style="background-color: #bc8f8f;">
+<span>rosybrown</span>
+</li>
+<li style="background-color: #cd9b9b;">
+<span>rosybrown3</span>
+</li>
+<li style="background-color: #eeb4b4;">
+<span>rosybrown2</span>
+</li>
+<li style="background-color: #ffc1c1;">
+<span>rosybrown1</span>
+</li>
+<li style="background-color: #f08080;">
+<span>lightcoral</span>
+</li>
+<li style="background-color: #cd5c5c;">
+<span>indianred</span>
+</li>
+<li style="background-color: #8b3a3a;">
+<span>indianred4</span>
+</li>
+<li style="background-color: #ee6363;">
+<span>indianred2</span>
+</li>
+<li style="background-color: #ff6a6a;">
+<span>indianred1</span>
+</li>
+<li style="background-color: #cd5555;">
+<span>indianred3</span>
+</li>
+<li style="background-color: #8b2323;">
+<span>brown4</span>
+</li>
+<li style="background-color: #a52a2a;">
+<span>brown</span>
+</li>
+<li style="background-color: #cd3333;">
+<span>brown3</span>
+</li>
+<li style="background-color: #ee3b3b;">
+<span>brown2</span>
+</li>
+<li style="background-color: #ff4040;">
+<span>brown1</span>
+</li>
+<li style="background-color: #8b1a1a;">
+<span>firebrick4</span>
+</li>
+<li style="background-color: #b22222;">
+<span>firebrick</span>
+</li>
+<li style="background-color: #cd2626;">
+<span>firebrick3</span>
+</li>
+<li style="background-color: #ff3030;">
+<span>firebrick1</span>
+</li>
+<li style="background-color: #ee2c2c;">
+<span>firebrick2</span>
+</li>
+<li style="background-color: #8b0000;">
+<span>darkred</span>
+</li>
+<li style="background-color: #cd0000;">
+<span>red3</span>
+</li>
+<li style="background-color: #ee0000;">
+<span>red2</span>
+</li>
+<li style="background-color: #ff0000;">
+<span>red</span>
+</li>
+<li style="background-color: #cdb7b5;">
+<span>mistyrose3</span>
+</li>
+<li style="background-color: #8b7d7b;">
+<span>mistyrose4</span>
+</li>
+<li style="background-color: #eed5d2;">
+<span>mistyrose2</span>
+</li>
+<li style="background-color: #ffe4e1;">
+<span>mistyrose</span>
+</li>
+<li style="background-color: #fa8072;">
+<span>salmon</span>
+</li>
+<li style="background-color: #cd4f39;">
+<span>tomato3</span>
+</li>
+<li style="background-color: #8b3e2f;">
+<span>coral4</span>
+</li>
+<li style="background-color: #cd5b45;">
+<span>coral3</span>
+</li>
+<li style="background-color: #ee6a50;">
+<span>coral2</span>
+</li>
+<li style="background-color: #ff7256;">
+<span>coral1</span>
+</li>
+<li style="background-color: #ee5c42;">
+<span>tomato2</span>
+</li>
+<li style="background-color: #ff6347;">
+<span>tomato</span>
+</li>
+<li style="background-color: #8b3626;">
+<span>tomato4</span>
+</li>
+<li style="background-color: #e9967a;">
+<span>darksalmon</span>
+</li>
+<li style="background-color: #8b4c39;">
+<span>salmon4</span>
+</li>
+<li style="background-color: #cd7054;">
+<span>salmon3</span>
+</li>
+<li style="background-color: #ee8262;">
+<span>salmon2</span>
+</li>
+<li style="background-color: #ff8c69;">
+<span>salmon1</span>
+</li>
+<li style="background-color: #ff7f50;">
+<span>coral</span>
+</li>
+<li style="background-color: #8b2500;">
+<span>orangered4</span>
+</li>
+<li style="background-color: #cd3700;">
+<span>orangered3</span>
+</li>
+<li style="background-color: #ee4000;">
+<span>orangered2</span>
+</li>
+<li style="background-color: #cd8162;">
+<span>lightsalmon3</span>
+</li>
+<li style="background-color: #ee9572;">
+<span>lightsalmon2</span>
+</li>
+<li style="background-color: #ffa07a;">
+<span>lightsalmon</span>
+</li>
+<li style="background-color: #8b5742;">
+<span>lightsalmon4</span>
+</li>
+<li style="background-color: #a0522d;">
+<span>sienna</span>
+</li>
+<li style="background-color: #cd6839;">
+<span>sienna3</span>
+</li>
+<li style="background-color: #ee7942;">
+<span>sienna2</span>
+</li>
+<li style="background-color: #ff8247;">
+<span>sienna1</span>
+</li>
+<li style="background-color: #8b4726;">
+<span>sienna4</span>
+</li>
+<li style="background-color: #ff4500;">
+<span>orangered</span>
+</li>
+<li style="background-color: #8b8682;">
+<span>seashell4</span>
+</li>
+<li style="background-color: #cdc5bf;">
+<span>seashell3</span>
+</li>
+<li style="background-color: #eee5de;">
+<span>seashell2</span>
+</li>
+<li style="background-color: #fff5ee;">
+<span>seashell</span>
+</li>
+<li style="background-color: #8b4513;">
+<span>chocolate4</span>
+</li>
+<li style="background-color: #cd661d;">
+<span>chocolate3</span>
+</li>
+<li style="background-color: #d2691e;">
+<span>chocolate</span>
+</li>
+<li style="background-color: #ee7621;">
+<span>chocolate2</span>
+</li>
+<li style="background-color: #ff7f24;">
+<span>chocolate1</span>
+</li>
+<li style="background-color: #faf0e6;">
+<span>linen</span>
+</li>
+<li style="background-color: #8b7765;">
+<span>peachpuff4</span>
+</li>
+<li style="background-color: #cdaf95;">
+<span>peachpuff3</span>
+</li>
+<li style="background-color: #eecbad;">
+<span>peachpuff2</span>
+</li>
+<li style="background-color: #ffdab9;">
+<span>peachpuff</span>
+</li>
+<li style="background-color: #f4a460;">
+<span>sandybrown</span>
+</li>
+<li style="background-color: #8b5a2b;">
+<span>tan4</span>
+</li>
+<li style="background-color: #cd853f;">
+<span>peru</span>
+</li>
+<li style="background-color: #ee9a49;">
+<span>tan2</span>
+</li>
+<li style="background-color: #ffa54f;">
+<span>tan1</span>
+</li>
+<li style="background-color: #8b4500;">
+<span>darkorange4</span>
+</li>
+<li style="background-color: #cd6600;">
+<span>darkorange3</span>
+</li>
+<li style="background-color: #ee7600;">
+<span>darkorange2</span>
+</li>
+<li style="background-color: #ff7f00;">
+<span>darkorange1</span>
+</li>
+<li style="background-color: #cdc0b0;">
+<span>antiquewhite3</span>
+</li>
+<li style="background-color: #eedfcc;">
+<span>antiquewhite2</span>
+</li>
+<li style="background-color: #ffefdb;">
+<span>antiquewhite1</span>
+</li>
+<li style="background-color: #8b7d6b;">
+<span>bisque4</span>
+</li>
+<li style="background-color: #cdb79e;">
+<span>bisque3</span>
+</li>
+<li style="background-color: #eed5b7;">
+<span>bisque2</span>
+</li>
+<li style="background-color: #ffe4c4;">
+<span>bisque</span>
+</li>
+<li style="background-color: #8b7355;">
+<span>burlywood4</span>
+</li>
+<li style="background-color: #cdaa7d;">
+<span>burlywood3</span>
+</li>
+<li style="background-color: #deb887;">
+<span>burlywood</span>
+</li>
+<li style="background-color: #eec591;">
+<span>burlywood2</span>
+</li>
+<li style="background-color: #ffd39b;">
+<span>burlywood1</span>
+</li>
+<li style="background-color: #ff8c00;">
+<span>darkorange</span>
+</li>
+<li style="background-color: #8b8378;">
+<span>antiquewhite4</span>
+</li>
+<li style="background-color: #faebd7;">
+<span>antiquewhite</span>
+</li>
+<li style="background-color: #ffefd5;">
+<span>papayawhip</span>
+</li>
+<li style="background-color: #ffebcd;">
+<span>blanchedalmond</span>
+</li>
+<li style="background-color: #8b795e;">
+<span>navajowhite4</span>
+</li>
+<li style="background-color: #cdb38b;">
+<span>navajowhite3</span>
+</li>
+<li style="background-color: #eecfa1;">
+<span>navajowhite2</span>
+</li>
+<li style="background-color: #ffdead;">
+<span>navajowhite</span>
+</li>
+<li style="background-color: #d2b48c;">
+<span>tan</span>
+</li>
+<li style="background-color: #fffaf0;">
+<span>floralwhite</span>
+</li>
+<li style="background-color: #fdf5e6;">
+<span>oldlace</span>
+</li>
+<li style="background-color: #8b7e66;">
+<span>wheat4</span>
+</li>
+<li style="background-color: #cdba96;">
+<span>wheat3</span>
+</li>
+<li style="background-color: #eed8ae;">
+<span>wheat2</span>
+</li>
+<li style="background-color: #f5deb3;">
+<span>wheat</span>
+</li>
+<li style="background-color: #ffe7ba;">
+<span>wheat1</span>
+</li>
+<li style="background-color: #ffe4b5;">
+<span>moccasin</span>
+</li>
+<li style="background-color: #8b5a00;">
+<span>orange4</span>
+</li>
+<li style="background-color: #cd8500;">
+<span>orange3</span>
+</li>
+<li style="background-color: #ee9a00;">
+<span>orange2</span>
+</li>
+<li style="background-color: #ffa500;">
+<span>orange</span>
+</li>
+<li style="background-color: #daa520;">
+<span>goldenrod</span>
+</li>
+<li style="background-color: #ffc125;">
+<span>goldenrod1</span>
+</li>
+<li style="background-color: #8b6914;">
+<span>goldenrod4</span>
+</li>
+<li style="background-color: #cd9b1d;">
+<span>goldenrod3</span>
+</li>
+<li style="background-color: #eeb422;">
+<span>goldenrod2</span>
+</li>
+<li style="background-color: #8b6508;">
+<span>darkgoldenrod4</span>
+</li>
+<li style="background-color: #b8860b;">
+<span>darkgoldenrod</span>
+</li>
+<li style="background-color: #cd950c;">
+<span>darkgoldenrod3</span>
+</li>
+<li style="background-color: #eead0e;">
+<span>darkgoldenrod2</span>
+</li>
+<li style="background-color: #ffb90f;">
+<span>darkgoldenrod1</span>
+</li>
+<li style="background-color: #fff8dc;">
+<span>cornsilk</span>
+</li>
+<li style="background-color: #8b8878;">
+<span>cornsilk4</span>
+</li>
+<li style="background-color: #cdc8b1;">
+<span>cornsilk3</span>
+</li>
+<li style="background-color: #eee8cd;">
+<span>cornsilk2</span>
+</li>
+<li style="background-color: #8b814c;">
+<span>lightgoldenrod4</span>
+</li>
+<li style="background-color: #cdbe70;">
+<span>lightgoldenrod3</span>
+</li>
+<li style="background-color: #eedd82;">
+<span>lightgoldenrod</span>
+</li>
+<li style="background-color: #eedc82;">
+<span>lightgoldenrod2</span>
+</li>
+<li style="background-color: #ffec8b;">
+<span>lightgoldenrod1</span>
+</li>
+<li style="background-color: #8b7500;">
+<span>gold4</span>
+</li>
+<li style="background-color: #cdad00;">
+<span>gold3</span>
+</li>
+<li style="background-color: #eec900;">
+<span>gold2</span>
+</li>
+<li style="background-color: #ffd700;">
+<span>gold</span>
+</li>
+<li style="background-color: #8b8970;">
+<span>lemonchiffon4</span>
+</li>
+<li style="background-color: #cdc9a5;">
+<span>lemonchiffon3</span>
+</li>
+<li style="background-color: #eee9bf;">
+<span>lemonchiffon2</span>
+</li>
+<li style="background-color: #fffacd;">
+<span>lemonchiffon</span>
+</li>
+<li style="background-color: #eee8aa;">
+<span>palegoldenrod</span>
+</li>
+<li style="background-color: #f0e68c;">
+<span>khaki</span>
+</li>
+<li style="background-color: #bdb76b;">
+<span>darkkhaki</span>
+</li>
+<li style="background-color: #8b864e;">
+<span>khaki4</span>
+</li>
+<li style="background-color: #cdc673;">
+<span>khaki3</span>
+</li>
+<li style="background-color: #eee685;">
+<span>khaki2</span>
+</li>
+<li style="background-color: #fff68f;">
+<span>khaki1</span>
+</li>
+<li style="background-color: #8b8b83;">
+<span>ivory4</span>
+</li>
+<li style="background-color: #cdcdc1;">
+<span>ivory3</span>
+</li>
+<li style="background-color: #eeeee0;">
+<span>ivory2</span>
+</li>
+<li style="background-color: #fffff0;">
+<span>ivory</span>
+</li>
+<li style="background-color: #f5f5dc;">
+<span>beige</span>
+</li>
+<li style="background-color: #8b8b7a;">
+<span>lightyellow4</span>
+</li>
+<li style="background-color: #cdcdb4;">
+<span>lightyellow3</span>
+</li>
+<li style="background-color: #eeeed1;">
+<span>lightyellow2</span>
+</li>
+<li style="background-color: #ffffe0;">
+<span>lightyellow</span>
+</li>
+<li style="background-color: #fafad2;">
+<span>lightgoldenrodyellow</span>
+</li>
+<li style="background-color: #8b8b00;">
+<span>yellow4</span>
+</li>
+<li style="background-color: #cdcd00;">
+<span>yellow3</span>
+</li>
+<li style="background-color: #eeee00;">
+<span>yellow2</span>
+</li>
+<li style="background-color: #ffff00;">
+<span>yellow</span>
+</li>
+<li style="background-color: #6b8e23;">
+<span>olivedrab</span>
+</li>
+<li style="background-color: #698b22;">
+<span>olivedrab4</span>
+</li>
+<li style="background-color: #9acd32;">
+<span>olivedrab3</span>
+</li>
+<li style="background-color: #b3ee3a;">
+<span>olivedrab2</span>
+</li>
+<li style="background-color: #c0ff3e;">
+<span>olivedrab1</span>
+</li>
+<li style="background-color: #556b2f;">
+<span>darkolivegreen</span>
+</li>
+<li style="background-color: #6e8b3d;">
+<span>darkolivegreen4</span>
+</li>
+<li style="background-color: #a2cd5a;">
+<span>darkolivegreen3</span>
+</li>
+<li style="background-color: #bcee68;">
+<span>darkolivegreen2</span>
+</li>
+<li style="background-color: #caff70;">
+<span>darkolivegreen1</span>
+</li>
+<li style="background-color: #adff2f;">
+<span>greenyellow</span>
+</li>
+<li style="background-color: #458b00;">
+<span>chartreuse4</span>
+</li>
+<li style="background-color: #66cd00;">
+<span>chartreuse3</span>
+</li>
+<li style="background-color: #76ee00;">
+<span>chartreuse2</span>
+</li>
+<li style="background-color: #7cfc00;">
+<span>lawngreen</span>
+</li>
+<li style="background-color: #7fff00;">
+<span>chartreuse</span>
+</li>
+<li style="background-color: #838b83;">
+<span>honeydew4</span>
+</li>
+<li style="background-color: #c1cdc1;">
+<span>honeydew3</span>
+</li>
+<li style="background-color: #e0eee0;">
+<span>honeydew2</span>
+</li>
+<li style="background-color: #f0fff0;">
+<span>honeydew</span>
+</li>
+<li style="background-color: #698b69;">
+<span>darkseagreen4</span>
+</li>
+<li style="background-color: #8fbc8f;">
+<span>darkseagreen</span>
+</li>
+<li style="background-color: #9bcd9b;">
+<span>darkseagreen3</span>
+</li>
+<li style="background-color: #b4eeb4;">
+<span>darkseagreen2</span>
+</li>
+<li style="background-color: #c1ffc1;">
+<span>darkseagreen1</span>
+</li>
+<li style="background-color: #90ee90;">
+<span>lightgreen</span>
+</li>
+<li style="background-color: #98fb98;">
+<span>palegreen</span>
+</li>
+<li style="background-color: #548b54;">
+<span>palegreen4</span>
+</li>
+<li style="background-color: #7ccd7c;">
+<span>palegreen3</span>
+</li>
+<li style="background-color: #9aff9a;">
+<span>palegreen1</span>
+</li>
+<li style="background-color: #228b22;">
+<span>forestgreen</span>
+</li>
+<li style="background-color: #32cd32;">
+<span>limegreen</span>
+</li>
+<li style="background-color: #006400;">
+<span>darkgreen</span>
+</li>
+<li style="background-color: #008b00;">
+<span>green4</span>
+</li>
+<li style="background-color: #00cd00;">
+<span>green3</span>
+</li>
+<li style="background-color: #00ee00;">
+<span>green2</span>
+</li>
+<li style="background-color: #00ff00;">
+<span>green</span>
+</li>
+<li style="background-color: #3cb371;">
+<span>mediumseagreen</span>
+</li>
+<li style="background-color: #2e8b57;">
+<span>seagreen</span>
+</li>
+<li style="background-color: #43cd80;">
+<span>seagreen3</span>
+</li>
+<li style="background-color: #4eee94;">
+<span>seagreen2</span>
+</li>
+<li style="background-color: #54ff9f;">
+<span>seagreen1</span>
+</li>
+<li style="background-color: #f5fffa;">
+<span>mintcream</span>
+</li>
+<li style="background-color: #008b45;">
+<span>springgreen4</span>
+</li>
+<li style="background-color: #00cd66;">
+<span>springgreen3</span>
+</li>
+<li style="background-color: #00ee76;">
+<span>springgreen2</span>
+</li>
+<li style="background-color: #00ff7f;">
+<span>springgreen</span>
+</li>
+<li style="background-color: #66cdaa;">
+<span>aquamarine3</span>
+</li>
+<li style="background-color: #76eec6;">
+<span>aquamarine2</span>
+</li>
+<li style="background-color: #7fffd4;">
+<span>aquamarine</span>
+</li>
+<li style="background-color: #00fa9a;">
+<span>mediumspringgreen</span>
+</li>
+<li style="background-color: #458b74;">
+<span>aquamarine4</span>
+</li>
+<li style="background-color: #40e0d0;">
+<span>turquoise</span>
+</li>
+<li style="background-color: #48d1cc;">
+<span>mediumturquoise</span>
+</li>
+<li style="background-color: #20b2aa;">
+<span>lightseagreen</span>
+</li>
+<li style="background-color: #838b8b;">
+<span>azure4</span>
+</li>
+<li style="background-color: #c1cdcd;">
+<span>azure3</span>
+</li>
+<li style="background-color: #e0eeee;">
+<span>azure2</span>
+</li>
+<li style="background-color: #f0ffff;">
+<span>azure</span>
+</li>
+<li style="background-color: #7a8b8b;">
+<span>lightcyan4</span>
+</li>
+<li style="background-color: #b4cdcd;">
+<span>lightcyan3</span>
+</li>
+<li style="background-color: #d1eeee;">
+<span>lightcyan2</span>
+</li>
+<li style="background-color: #e0ffff;">
+<span>lightcyan</span>
+</li>
+<li style="background-color: #afeeee;">
+<span>paleturquoise</span>
+</li>
+<li style="background-color: #668b8b;">
+<span>paleturquoise4</span>
+</li>
+<li style="background-color: #96cdcd;">
+<span>paleturquoise3</span>
+</li>
+<li style="background-color: #aeeeee;">
+<span>paleturquoise2</span>
+</li>
+<li style="background-color: #bbffff;">
+<span>paleturquoise1</span>
+</li>
+<li style="background-color: #2f4f4f;">
+<span>darkslategray</span>
+</li>
+<li style="background-color: #528b8b;">
+<span>darkslategray4</span>
+</li>
+<li style="background-color: #79cdcd;">
+<span>darkslategray3</span>
+</li>
+<li style="background-color: #8deeee;">
+<span>darkslategray2</span>
+</li>
+<li style="background-color: #97ffff;">
+<span>darkslategray1</span>
+</li>
+<li style="background-color: #008b8b;">
+<span>cyan4</span>
+</li>
+<li style="background-color: #00cdcd;">
+<span>cyan3</span>
+</li>
+<li style="background-color: #00ced1;">
+<span>darkturquoise</span>
+</li>
+<li style="background-color: #00eeee;">
+<span>cyan2</span>
+</li>
+<li style="background-color: #00ffff;">
+<span>cyan</span>
+</li>
+<li style="background-color: #53868b;">
+<span>cadetblue4</span>
+</li>
+<li style="background-color: #5f9ea0;">
+<span>cadetblue</span>
+</li>
+<li style="background-color: #00868b;">
+<span>turquoise4</span>
+</li>
+<li style="background-color: #00c5cd;">
+<span>turquoise3</span>
+</li>
+<li style="background-color: #00e5ee;">
+<span>turquoise2</span>
+</li>
+<li style="background-color: #00f5ff;">
+<span>turquoise1</span>
+</li>
+<li style="background-color: #b0e0e6;">
+<span>powderblue</span>
+</li>
+<li style="background-color: #7ac5cd;">
+<span>cadetblue3</span>
+</li>
+<li style="background-color: #8ee5ee;">
+<span>cadetblue2</span>
+</li>
+<li style="background-color: #98f5ff;">
+<span>cadetblue1</span>
+</li>
+<li style="background-color: #68838b;">
+<span>lightblue4</span>
+</li>
+<li style="background-color: #9ac0cd;">
+<span>lightblue3</span>
+</li>
+<li style="background-color: #add8e6;">
+<span>lightblue</span>
+</li>
+<li style="background-color: #b2dfee;">
+<span>lightblue2</span>
+</li>
+<li style="background-color: #bfefff;">
+<span>lightblue1</span>
+</li>
+<li style="background-color: #00688b;">
+<span>deepskyblue4</span>
+</li>
+<li style="background-color: #009acd;">
+<span>deepskyblue3</span>
+</li>
+<li style="background-color: #00b2ee;">
+<span>deepskyblue2</span>
+</li>
+<li style="background-color: #00bfff;">
+<span>deepskyblue</span>
+</li>
+<li style="background-color: #87ceeb;">
+<span>skyblue</span>
+</li>
+<li style="background-color: #607b8b;">
+<span>lightskyblue4</span>
+</li>
+<li style="background-color: #8db6cd;">
+<span>lightskyblue3</span>
+</li>
+<li style="background-color: #a4d3ee;">
+<span>lightskyblue2</span>
+</li>
+<li style="background-color: #b0e2ff;">
+<span>lightskyblue1</span>
+</li>
+<li style="background-color: #87cefa;">
+<span>lightskyblue</span>
+</li>
+<li style="background-color: #4a708b;">
+<span>skyblue4</span>
+</li>
+<li style="background-color: #6ca6cd;">
+<span>skyblue3</span>
+</li>
+<li style="background-color: #7ec0ee;">
+<span>skyblue2</span>
+</li>
+<li style="background-color: #87ceff;">
+<span>skyblue1</span>
+</li>
+<li style="background-color: #f0f8ff;">
+<span>aliceblue</span>
+</li>
+<li style="background-color: #708090;">
+<span>slategray</span>
+</li>
+<li style="background-color: #778899;">
+<span>lightslategray</span>
+</li>
+<li style="background-color: #9fb6cd;">
+<span>slategray3</span>
+</li>
+<li style="background-color: #b9d3ee;">
+<span>slategray2</span>
+</li>
+<li style="background-color: #c6e2ff;">
+<span>slategray1</span>
+</li>
+<li style="background-color: #36648b;">
+<span>steelblue4</span>
+</li>
+<li style="background-color: #4682b4;">
+<span>steelblue</span>
+</li>
+<li style="background-color: #4f94cd;">
+<span>steelblue3</span>
+</li>
+<li style="background-color: #5cacee;">
+<span>steelblue2</span>
+</li>
+<li style="background-color: #63b8ff;">
+<span>steelblue1</span>
+</li>
+<li style="background-color: #104e8b;">
+<span>dodgerblue4</span>
+</li>
+<li style="background-color: #1874cd;">
+<span>dodgerblue3</span>
+</li>
+<li style="background-color: #1c86ee;">
+<span>dodgerblue2</span>
+</li>
+<li style="background-color: #1e90ff;">
+<span>dodgerblue</span>
+</li>
+<li style="background-color: #6e7b8b;">
+<span>lightsteelblue4</span>
+</li>
+<li style="background-color: #a2b5cd;">
+<span>lightsteelblue3</span>
+</li>
+<li style="background-color: #b0c4de;">
+<span>lightsteelblue</span>
+</li>
+<li style="background-color: #bcd2ee;">
+<span>lightsteelblue2</span>
+</li>
+<li style="background-color: #cae1ff;">
+<span>lightsteelblue1</span>
+</li>
+<li style="background-color: #6c7b8b;">
+<span>slategray4</span>
+</li>
+<li style="background-color: #6495ed;">
+<span>cornflowerblue</span>
+</li>
+<li style="background-color: #4169e1;">
+<span>royalblue</span>
+</li>
+<li style="background-color: #27408b;">
+<span>royalblue4</span>
+</li>
+<li style="background-color: #3a5fcd;">
+<span>royalblue3</span>
+</li>
+<li style="background-color: #436eee;">
+<span>royalblue2</span>
+</li>
+<li style="background-color: #4876ff;">
+<span>royalblue1</span>
+</li>
+<li style="background-color: #f8f8ff;">
+<span>ghostwhite</span>
+</li>
+<li style="background-color: #e6e6fa;">
+<span>lavender</span>
+</li>
+<li style="background-color: #191970;">
+<span>midnightblue</span>
+</li>
+<li style="background-color: #000080;">
+<span>navy</span>
+</li>
+<li style="background-color: #00008b;">
+<span>blue4</span>
+</li>
+<li style="background-color: #0000cd;">
+<span>blue3</span>
+</li>
+<li style="background-color: #0000ee;">
+<span>blue2</span>
+</li>
+<li style="background-color: #0000ff;">
+<span>blue</span>
+</li>
+<li style="background-color: #483d8b;">
+<span>darkslateblue</span>
+</li>
+<li style="background-color: #6a5acd;">
+<span>slateblue</span>
+</li>
+<li style="background-color: #7b68ee;">
+<span>mediumslateblue</span>
+</li>
+<li style="background-color: #8470ff;">
+<span>lightslateblue</span>
+</li>
+<li style="background-color: #836fff;">
+<span>slateblue1</span>
+</li>
+<li style="background-color: #473c8b;">
+<span>slateblue4</span>
+</li>
+<li style="background-color: #6959cd;">
+<span>slateblue3</span>
+</li>
+<li style="background-color: #7a67ee;">
+<span>slateblue2</span>
+</li>
+<li style="background-color: #5d478b;">
+<span>mediumpurple4</span>
+</li>
+<li style="background-color: #8968cd;">
+<span>mediumpurple3</span>
+</li>
+<li style="background-color: #9370db;">
+<span>mediumpurple</span>
+</li>
+<li style="background-color: #9f79ee;">
+<span>mediumpurple2</span>
+</li>
+<li style="background-color: #ab82ff;">
+<span>mediumpurple1</span>
+</li>
+<li style="background-color: #551a8b;">
+<span>purple4</span>
+</li>
+<li style="background-color: #7d26cd;">
+<span>purple3</span>
+</li>
+<li style="background-color: #8a2be2;">
+<span>blueviolet</span>
+</li>
+<li style="background-color: #9b30ff;">
+<span>purple1</span>
+</li>
+<li style="background-color: #912cee;">
+<span>purple2</span>
+</li>
+<li style="background-color: #a020f0;">
+<span>purple</span>
+</li>
+<li style="background-color: #9932cc;">
+<span>darkorchid</span>
+</li>
+<li style="background-color: #68228b;">
+<span>darkorchid4</span>
+</li>
+<li style="background-color: #9a32cd;">
+<span>darkorchid3</span>
+</li>
+<li style="background-color: #b23aee;">
+<span>darkorchid2</span>
+</li>
+<li style="background-color: #bf3eff;">
+<span>darkorchid1</span>
+</li>
+<li style="background-color: #9400d3;">
+<span>darkviolet</span>
+</li>
+<li style="background-color: #7a378b;">
+<span>mediumorchid4</span>
+</li>
+<li style="background-color: #b452cd;">
+<span>mediumorchid3</span>
+</li>
+<li style="background-color: #ba55d3;">
+<span>mediumorchid</span>
+</li>
+<li style="background-color: #d15fee;">
+<span>mediumorchid2</span>
+</li>
+<li style="background-color: #e066ff;">
+<span>mediumorchid1</span>
+</li>
+<li style="background-color: #8b7b8b;">
+<span>thistle4</span>
+</li>
+<li style="background-color: #cdb5cd;">
+<span>thistle3</span>
+</li>
+<li style="background-color: #d8bfd8;">
+<span>thistle</span>
+</li>
+<li style="background-color: #eed2ee;">
+<span>thistle2</span>
+</li>
+<li style="background-color: #ffe1ff;">
+<span>thistle1</span>
+</li>
+<li style="background-color: #8b668b;">
+<span>plum4</span>
+</li>
+<li style="background-color: #cd96cd;">
+<span>plum3</span>
+</li>
+<li style="background-color: #eeaeee;">
+<span>plum2</span>
+</li>
+<li style="background-color: #ffbbff;">
+<span>plum1</span>
+</li>
+<li style="background-color: #dda0dd;">
+<span>plum</span>
+</li>
+<li style="background-color: #ee82ee;">
+<span>violet</span>
+</li>
+<li style="background-color: #8b008b;">
+<span>darkmagenta</span>
+</li>
+<li style="background-color: #cd00cd;">
+<span>magenta3</span>
+</li>
+<li style="background-color: #ee00ee;">
+<span>magenta2</span>
+</li>
+<li style="background-color: #ff00ff;">
+<span>magenta</span>
+</li>
+<li style="background-color: #8b4789;">
+<span>orchid4</span>
+</li>
+<li style="background-color: #cd69c9;">
+<span>orchid3</span>
+</li>
+<li style="background-color: #da70d6;">
+<span>orchid</span>
+</li>
+<li style="background-color: #ee7ae9;">
+<span>orchid2</span>
+</li>
+<li style="background-color: #ff83fa;">
+<span>orchid1</span>
+</li>
+<li style="background-color: #8b1c62;">
+<span>maroon4</span>
+</li>
+<li style="background-color: #d02090;">
+<span>violetred</span>
+</li>
+<li style="background-color: #cd2990;">
+<span>maroon3</span>
+</li>
+<li style="background-color: #ee30a7;">
+<span>maroon2</span>
+</li>
+<li style="background-color: #ff34b3;">
+<span>maroon1</span>
+</li>
+<li style="background-color: #c71585;">
+<span>mediumvioletred</span>
+</li>
+<li style="background-color: #cd1076;">
+<span>deeppink3</span>
+</li>
+<li style="background-color: #ee1289;">
+<span>deeppink2</span>
+</li>
+<li style="background-color: #ff1493;">
+<span>deeppink</span>
+</li>
+<li style="background-color: #8b0a50;">
+<span>deeppink4</span>
+</li>
+<li style="background-color: #ee6aa7;">
+<span>hotpink2</span>
+</li>
+<li style="background-color: #ff6eb4;">
+<span>hotpink1</span>
+</li>
+<li style="background-color: #8b3a62;">
+<span>hotpink4</span>
+</li>
+<li style="background-color: #ff69b4;">
+<span>hotpink</span>
+</li>
+<li style="background-color: #8b2252;">
+<span>violetred4</span>
+</li>
+<li style="background-color: #cd3278;">
+<span>violetred3</span>
+</li>
+<li style="background-color: #ee3a8c;">
+<span>violetred2</span>
+</li>
+<li style="background-color: #ff3e96;">
+<span>violetred1</span>
+</li>
+<li style="background-color: #cd6090;">
+<span>hotpink3</span>
+</li>
+<li style="background-color: #8b8386;">
+<span>lavenderblush4</span>
+</li>
+<li style="background-color: #cdc1c5;">
+<span>lavenderblush3</span>
+</li>
+<li style="background-color: #eee0e5;">
+<span>lavenderblush2</span>
+</li>
+<li style="background-color: #fff0f5;">
+<span>lavenderblush</span>
+</li>
+<li style="background-color: #b03060;">
+<span>maroon</span>
+</li>
+<li style="background-color: #8b475d;">
+<span>palevioletred4</span>
+</li>
+<li style="background-color: #cd6889;">
+<span>palevioletred3</span>
+</li>
+<li style="background-color: #db7093;">
+<span>palevioletred</span>
+</li>
+<li style="background-color: #ee799f;">
+<span>palevioletred2</span>
+</li>
+<li style="background-color: #ff82ab;">
+<span>palevioletred1</span>
+</li>
+<li style="background-color: #8b636c;">
+<span>pink4</span>
+</li>
+<li style="background-color: #cd919e;">
+<span>pink3</span>
+</li>
+<li style="background-color: #eea9b8;">
+<span>pink2</span>
+</li>
+<li style="background-color: #ffb5c5;">
+<span>pink1</span>
+</li>
+<li style="background-color: #ffc0cb;">
+<span>pink</span>
+</li>
+<li style="background-color: #ffb6c1;">
+<span>lightpink</span>
+</li>
+<li style="background-color: #8b5f65;">
+<span>lightpink4</span>
+</li>
+<li style="background-color: #cd8c95;">
+<span>lightpink3</span>
+</li>
+<li style="background-color: #eea2ad;">
+<span>lightpink2</span>
+</li>
+<li style="background-color: #ffaeb9;">
+<span>lightpink1</span>
+</li>
+</ul>
+</div>
+<div id="alpha" class="section level3" number="10.1.2">
+<h3>
+<span class="header-section-number">C.1.2</span> Alpha<a class="anchor" aria-label="anchor" href="#alpha"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code>alpha</code> argument changes transparency (0 = totally transparent, 1 = totally opaque).</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:alpha-demo"></span>
+<img src="appendix-c-style_files/figure-html/alpha-demo-1.png" alt="Varying alpha values." width="80%"><p class="caption">
+Figure C.1: Varying alpha values.
+</p>
+</div>
+</div>
+<div id="shape" class="section level3" number="10.1.3">
+<h3>
+<span class="header-section-number">C.1.3</span> Shape<a class="anchor" aria-label="anchor" href="#shape"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code>shape</code> argument changes the shape of points.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:shape-demo"></span>
+<img src="appendix-c-style_files/figure-html/shape-demo-1.png" alt="The 25 shape values" width="80%"><p class="caption">
+Figure C.2: The 25 shape values
+</p>
+</div>
+</div>
+<div id="linetype" class="section level3" number="10.1.4">
+<h3>
+<span class="header-section-number">C.1.4</span> Linetype<a class="anchor" aria-label="anchor" href="#linetype"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can probably guess what the <code>linetype</code> argument does.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:linetype-demo"></span>
+<img src="appendix-c-style_files/figure-html/linetype-demo-1.png" alt="The 6 linetype values at different sizes." width="80%"><p class="caption">
+Figure C.3: The 6 linetype values at different sizes.
+</p>
+</div>
+</div>
+</div>
+<div id="palettes" class="section level2" number="10.2">
+<h2>
+<span class="header-section-number">C.2</span> Palettes<a class="anchor" aria-label="anchor" href="#palettes"><i class="fas fa-link"></i></a>
+</h2>
+<p>Discrete palettes change depending on the number of categories.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<img src="appendix-c-style_files/figure-html/unnamed-chunk-3-1.png" alt="Default discrete palette with different numbers of levels." width="80%"><p class="caption">
+Figure C.4: Default discrete palette with different numbers of levels.
+</p>
+</div>
+<div id="viridis-palettes" class="section level3" number="10.2.1">
+<h3>
+<span class="header-section-number">C.2.1</span> Viridis Palettes<a class="anchor" aria-label="anchor" href="#viridis-palettes"><i class="fas fa-link"></i></a>
+</h3>
+<p>Viridis palettes are very good for colourblind-safe and greyscale-safe plots. The work with any number of categories, but are best for larger numbers of categories or continuous colours.</p>
+<div id="discrete-viridis-palettes" class="section level4" number="10.2.1.1">
+<h4>
+<span class="header-section-number">C.2.1.1</span> Discrete Viridis Palettes<a class="anchor" aria-label="anchor" href="#discrete-viridis-palettes"><i class="fas fa-link"></i></a>
+</h4>
+<p>Set <a class="glossary" target="_blank" title="Data that can only take certain values, such as integers." href="https://psyteachr.github.io/glossary/d#discrete">discrete</a> viridis colours with <code><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_colour_viridis_d()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_d()</a></code> and set the <code>option</code> argument to one of the options below. Set <code>direction = -1</code> to reverse the order of colours.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-4"></span>
+<img src="appendix-c-style_files/figure-html/unnamed-chunk-4-1.png" alt="Discrete viridis palettes." width="80%"><p class="caption">
+Figure C.5: Discrete viridis palettes.
+</p>
+</div>
+<div class="info">
+<p>If the end colour is too light for your plot or the start colour too dark, you can set the <code>begin</code> and <code>end</code> arguments to values between 0 and 1, such as <code><span class="fu">scale_colour_viridis_c</span><span class="op">(</span>begin <span class="op">=</span> <span class="fl">0.1</span>, end <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></code>.</p>
+</div>
+</div>
+<div id="continuous-viridis-palettes" class="section level4" number="10.2.1.2">
+<h4>
+<span class="header-section-number">C.2.1.2</span> Continuous Viridis Palettes<a class="anchor" aria-label="anchor" href="#continuous-viridis-palettes"><i class="fas fa-link"></i></a>
+</h4>
+<p>Set <a class="glossary" target="_blank" title="Data that can take on any values between other existing values." href="https://psyteachr.github.io/glossary/c#continuous">continuous</a> viridis colours with <code><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_colour_viridis_c()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c()</a></code> and set the <code>option</code> argument to one of the options below. Set <code>direction = -1</code> to reverse the order of colours.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-5"></span>
+<img src="appendix-c-style_files/figure-html/unnamed-chunk-5-1.png" alt="Continuous viridis palettes." width="80%"><p class="caption">
+Figure 3.7: Continuous viridis palettes.
+</p>
+</div>
+</div>
+</div>
+<div id="brewer-palettes" class="section level3" number="10.2.2">
+<h3>
+<span class="header-section-number">C.2.2</span> Brewer Palettes<a class="anchor" aria-label="anchor" href="#brewer-palettes"><i class="fas fa-link"></i></a>
+</h3>
+<p>Brewer palettes give you a lot of control over plot colour and fill. You set them with <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_brewer()</a></code> and set the <code>palette</code> argument to one of the palettes below. Set <code>direction = -1</code> to reverse the order of colours.</p>
+<div id="qualitative-brewer-palettes" class="section level4" number="10.2.2.1">
+<h4>
+<span class="header-section-number">C.2.2.1</span> Qualitative Brewer Palettes<a class="anchor" aria-label="anchor" href="#qualitative-brewer-palettes"><i class="fas fa-link"></i></a>
+</h4>
+<p>These palettes are good for <a class="glossary" target="_blank" title="Data that can only take certain values, such as types of pet." href="https://psyteachr.github.io/glossary/c#categorical">categorical</a> data with up to 8 categories (some palettes can handle up to 12). The "Paired" palette is useful if your categories are arranged in pairs.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-6"></span>
+<img src="appendix-c-style_files/figure-html/unnamed-chunk-6-1.png" alt="Qualitative brewer palettes." width="80%"><p class="caption">
+Figure C.6: Qualitative brewer palettes.
+</p>
+</div>
+</div>
+<div id="sequential-brewer-palettes" class="section level4" number="10.2.2.2">
+<h4>
+<span class="header-section-number">C.2.2.2</span> Sequential Brewer Palettes<a class="anchor" aria-label="anchor" href="#sequential-brewer-palettes"><i class="fas fa-link"></i></a>
+</h4>
+<p>These palettes are good for up to 9 <a class="glossary" target="_blank" title="Discrete variables that have an inherent order, such as number of legs" href="https://psyteachr.github.io/glossary/o#ordinal">ordinal</a> categories with a lot of categories.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-7"></span>
+<img src="appendix-c-style_files/figure-html/unnamed-chunk-7-1.png" alt="Sequential brewer palettes." width="80%"><p class="caption">
+Figure C.7: Sequential brewer palettes.
+</p>
+</div>
+</div>
+<div id="diverging-brewer-palettes" class="section level4" number="10.2.2.3">
+<h4>
+<span class="header-section-number">C.2.2.3</span> Diverging Brewer Palettes<a class="anchor" aria-label="anchor" href="#diverging-brewer-palettes"><i class="fas fa-link"></i></a>
+</h4>
+<p>These palettes are good for <a class="glossary" target="_blank" title="Discrete variables that have an inherent order, such as number of legs" href="https://psyteachr.github.io/glossary/o#ordinal">ordinal</a> categories with up to 11 levels where the centre level is a neutral or baseline category and the levels above and below it differ in an important way, such as agree versus disagree options.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-8"></span>
+<img src="appendix-c-style_files/figure-html/unnamed-chunk-8-1.png" alt="Diverging brewer palettes." width="80%"><p class="caption">
+Figure C.8: Diverging brewer palettes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="themes-appendix" class="section level2" number="10.3">
+<h2>
+<span class="header-section-number">C.3</span> Themes<a class="anchor" aria-label="anchor" href="#themes-appendix"><i class="fas fa-link"></i></a>
+</h2>
+<p><code class="package">ggplot2</code> has 8 built-in themes that you can add to a plot like <code>plot + theme_bw()</code> or set as the default theme at the top of your script like <code>theme_set(theme_bw())</code>.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-9"></span>
+<img src="appendix-c-style_files/figure-html/unnamed-chunk-9-1.png" alt="{ggplot2} themes." width="80%"><p class="caption">
+Figure C.9: {ggplot2} themes.
+</p>
+</div>
+<div id="ggthemes" class="section level3" number="10.3.1">
+<h3>
+<span class="header-section-number">C.3.1</span> ggthemes<a class="anchor" aria-label="anchor" href="#ggthemes"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can get more themes from add-on packages, like <code class="package"><a href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/" target="_blank">ggthemes</a></code>. Most of the themes also have custom <code>scale_</code> functions like <code>scale_colour_economist()</code>. Their website has extensive examples and instructions for alternate or dark versions of these themes.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-10"></span>
+<img src="appendix-c-style_files/figure-html/unnamed-chunk-10-1.png" alt="{ggthemes} themes." width="80%"><p class="caption">
+Figure C.10: {ggthemes} themes.
+</p>
+</div>
+</div>
+<div id="fonts" class="section level3" number="10.3.2">
+<h3>
+<span class="header-section-number">C.3.2</span> Fonts<a class="anchor" aria-label="anchor" href="#fonts"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can customise the fonts used in themes. All computers should be able to recognise the families "sans", "serif", and "mono", and some computers will be able to access other installed fonts by name.</p>
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sans</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span>base_family <span class="op">=</span> <span class="st">"sans"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Sans"</span><span class="op">)</span>
+<span class="va">serif</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span>base_family <span class="op">=</span> <span class="st">"serif"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Serif"</span><span class="op">)</span>
+<span class="va">mono</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span>base_family <span class="op">=</span> <span class="st">"mono"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Mono"</span><span class="op">)</span>
+<span class="va">font</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span>base_family <span class="op">=</span> <span class="st">"Comic Sans MS"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Comic Sans MS"</span><span class="op">)</span>
+
+<span class="va">sans</span> <span class="op">+</span> <span class="va">serif</span> <span class="op">+</span> <span class="va">mono</span> <span class="op">+</span> <span class="va">font</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:theme-font-demo"></span>
+<img src="appendix-c-style_files/figure-html/theme-font-demo-1.png" alt="Different fonts." width="80%"><p class="caption">
+Figure C.11: Different fonts.
+</p>
+</div>
+<div class="warning">
+<p>If you are working on a Windows machine and get the error "font family not found in Windows font database", you may need to explicitly map the fonts. In your setup code chunk, add the following code, which should fix the error. You may need to do this for any fonts that you specify.</p>
+</div>
+<p>The <code class="package">showtext</code> package is a flexible way to add fonts.</p>
+<p>If you have a .ttf file from a font site, like <a href="https://www.fontsquirrel.com" target="_blank">Font Squirrel</a>, you can load the file directly using <code><a href="https://rdrr.io/pkg/sysfonts/man/font_add.html">font_add()</a></code>. Set <code>regular</code> as the path to the file for the regular version of the font, and optionally add other versions. Set the <code>family</code> to the name you want to use for the font. You will need to include any local font files if you are sharing your script with others.</p>
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/yixuan/showtext">showtext</a></span><span class="op">)</span>
+
+<span class="co"># font from https://www.fontsquirrel.com/fonts/SF-Cartoonist-Hand</span>
+
+<span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add.html">font_add</a></span><span class="op">(</span>
+  regular <span class="op">=</span> <span class="st">"fonts/cartoonist/SF_Cartoonist_Hand.ttf"</span>,
+  bold <span class="op">=</span> <span class="st">"fonts/cartoonist/SF_Cartoonist_Hand_Bold.ttf"</span>,
+  italic <span class="op">=</span> <span class="st">"fonts/cartoonist/SF_Cartoonist_Hand_Italic.ttf"</span>,
+  bolditalic <span class="op">=</span> <span class="st">"fonts/cartoonist/SF_Cartoonist_Hand_Bold_Italic.ttf"</span>,
+  family <span class="op">=</span> <span class="st">"cartoonist"</span> 
+<span class="op">)</span></code></pre></div>
+<p>To download fonts directly from <a href="https://fonts.google.com/" target="_blank">Google fonts</a>, use the function <code><a href="https://rdrr.io/pkg/sysfonts/man/font_add_google.html">font_add_google()</a></code>, set the <code>name</code> to the exact name from the site, and the <code>family</code> to the name you want to use for the font.</p>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># download fonts from Google</span>
+<span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add_google.html">font_add_google</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Courgette"</span>, family <span class="op">=</span> <span class="st">"courgette"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add_google.html">font_add_google</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Poiret One"</span>, family <span class="op">=</span> <span class="st">"poiret"</span><span class="op">)</span></code></pre></div>
+<p>After you've added fonts from local files or Google, you need to make them available to R using <code><a href="https://rdrr.io/pkg/showtext/man/showtext_auto.html">showtext_auto()</a></code>. You will have to do these steps in each script where you want to use the custom fonts.</p>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/showtext/man/showtext_auto.html">showtext_auto</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># load the fonts</span></code></pre></div>
+<p>To change the fonts used overall in a plot, use the <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code> function and set <code>text</code> to <code>element_text(family = "new_font_family")</code>.</p>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"courgette"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Courgette"</span><span class="op">)</span>
+<span class="va">b</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"cartoonist"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Cartoonist Hand"</span><span class="op">)</span>
+<span class="va">c</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"poiret"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Poiret One"</span><span class="op">)</span>
+
+<span class="va">a</span> <span class="op">+</span> <span class="va">b</span> <span class="op">+</span> <span class="va">c</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:font-demo"></span>
+<img src="appendix-c-style_files/figure-html/font-demo-1.png" alt="Custom Fonts." width="80%"><p class="caption">
+Figure C.12: Custom Fonts.
+</p>
+</div>
+<p>To set the fonts for individual elements in the plot, you need to find the specific argument for that element. You can use the argument <code>face</code> to choose "bold", "italic", or "bolditalic" versions, if they are available.</p>
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Cartoonist Hand"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>
+    title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"cartoonist"</span>, face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,
+    strip.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"cartoonist"</span>, face <span class="op">=</span> <span class="st">"italic"</span><span class="op">)</span>,
+    axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"sans"</span><span class="op">)</span>
+  <span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:demo-multi-text"></span>
+<img src="appendix-c-style_files/figure-html/demo-multi-text-1.png" alt="Multiple custom fonts on the same plot." width="80%"><p class="caption">
+Figure C.13: Multiple custom fonts on the same plot.
+</p>
+</div>
+</div>
+<div id="setting-a-lab-theme-using-theme" class="section level3" number="10.3.3">
+<h3>
+<span class="header-section-number">C.3.3</span> Setting A Lab Theme using <code>theme()</code><a class="anchor" aria-label="anchor" href="#setting-a-lab-theme-using-theme"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code> function, as we mentioned, does a lot more than just change the position of a legend and can be used to really control a variety of elements and to eventually create your own "theme" for your figures - say you want to have a consistent look to your figures across your publications or across your lab posters.</p>
+<p>First, we'll create a basic plot to demonstrate the changes.</p>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, 
+                          y <span class="op">=</span> <span class="va">price</span>, 
+                          color <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">color</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="va">lm</span>, formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"The relationship between carat and price"</span>,
+       subtitle <span class="op">=</span> <span class="st">"For each level of color and cut"</span>,
+       caption <span class="op">=</span> <span class="st">"Data from ggplot2::diamonds"</span><span class="op">)</span>
+
+<span class="va">g</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:theme-plot"></span>
+<img src="appendix-c-style_files/figure-html/theme-plot-1.png" alt="Basic plot in default theme" width="80%"><p class="caption">
+Figure C.14: Basic plot in default theme
+</p>
+</div>
+<p>Always start with a base theme, like <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code> and set the size and font. Make sure to load any custom fonts.</p>
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add_google.html">font_add_google</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Nunito"</span>, family <span class="op">=</span> <span class="st">"Nunito"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/showtext/man/showtext_auto.html">showtext_auto</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># load the fonts</span>
+
+<span class="co"># set up custom theme to add to all plots</span>
+<span class="va">mytheme</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>     <span class="co"># always start with a base theme_****</span>
+  base_size <span class="op">=</span> <span class="fl">16</span>,             <span class="co"># 16-point font (adjusted for axes)</span>
+  base_family <span class="op">=</span> <span class="st">"Nunito"</span>      <span class="co"># custom font family</span>
+<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">g</span> <span class="op">+</span> <span class="va">mytheme</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:theme-basic"></span>
+<img src="appendix-c-style_files/figure-html/theme-basic-1.png" alt="Basic customised theme" width="80%"><p class="caption">
+Figure C.15: Basic customised theme
+</p>
+</div>
+<p>Now add specific theme customisations. See <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">?theme</a></code> for detailed explanations. Most theme arguments take a value of <code><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank()</a></code> to remove the feature entirely, or <code><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect()</a></code>, depending on whether the feature is text, a box, or a line.</p>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># add more specific customisations with theme()</span>
+<span class="va">mytheme</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>
+  base_size <span class="op">=</span> <span class="fl">16</span>,
+  base_family <span class="op">=</span> <span class="st">"Nunito"</span> 
+<span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>
+    plot.background  <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span>,
+    panel.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"grey10"</span>,
+                                    color <span class="op">=</span> <span class="st">"grey30"</span><span class="op">)</span>,
+    text             <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>,
+    strip.text       <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, <span class="co"># left justify</span>
+    strip.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"grey60"</span>, <span class="op">)</span>,
+    axis.text        <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey60"</span><span class="op">)</span>,
+    axis.line        <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey60"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, 
+    panel.grid       <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+    plot.title       <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>, <span class="co"># center justify</span>
+    plot.subtitle    <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span>, color <span class="op">=</span> <span class="st">"grey60"</span><span class="op">)</span>,
+    plot.caption     <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"italic"</span><span class="op">)</span>
+  <span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">g</span> <span class="op">+</span> <span class="va">mytheme</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:theme-custom"></span>
+<img src="appendix-c-style_files/figure-html/theme-custom-1.png" alt="Further customised theme" width="80%"><p class="caption">
+Figure C.16: Further customised theme
+</p>
+</div>
+<p>You can still add further theme customisation for specific plots.</p>
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">g</span> <span class="op">+</span> <span class="va">mytheme</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>
+    legend.title      <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">11</span><span class="op">)</span>,
+    legend.text       <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>,
+    legend.key.height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="st">"inches"</span><span class="op">)</span>,
+    legend.position   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.9</span>, <span class="fl">0.175</span><span class="op">)</span>
+  <span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:theme-further"></span>
+<img src="appendix-c-style_files/figure-html/theme-further-1.png" alt="Plot-specific customising." width="80%"><p class="caption">
+Figure C.17: Plot-specific customising.
+</p>
+</div>
+
+</div>
+</div>
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+    
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+  
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+  
+  var cl = this.classList
+  
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+  
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+  
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+  
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+$( document ).ready(function() {
+  var cite = ' ';
+  var psyteachr = ' <a href="https://psyteachr.github.io/"><img src="images/logos/psyteachr_logo.png" style="height: 31px; color: white;" alt="psyTeachR: Reproducible Research" /></a>';
+  var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
+
+  $("footer div.row div:eq(1) p").html(
+    psyteachr + license + cite
+  );
+
+  function move_sidebar() {
+    var w = window.innerWidth;
+    if (w < 992) {
+      $("#toc").appendTo($("#main-nav"));
+    } else {
+      $("#toc").appendTo($("div.sidebar-chapter"));
+    }
+  }
+  move_sidebar();
+  window.onresize = move_sidebar;
+});
+</script><div class="chapter-nav">
+<div class="prev"><a href="additional-customisation-options.html"><span class="header-section-number">B</span> Additional customisation options</a></div>
+<div class="next"><a href="advanced-plots-1.html"><span class="header-section-number">D</span> Advanced Plots</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#plotstyle"><span class="header-section-number">C</span> Styling Plots</a></li>
+<li>
+<a class="nav-link" href="#aesthetics"><span class="header-section-number">C.1</span> Aesthetics</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#colourfill"><span class="header-section-number">C.1.1</span> Colour/Fill</a></li>
+<li><a class="nav-link" href="#alpha"><span class="header-section-number">C.1.2</span> Alpha</a></li>
+<li><a class="nav-link" href="#shape"><span class="header-section-number">C.1.3</span> Shape</a></li>
+<li><a class="nav-link" href="#linetype"><span class="header-section-number">C.1.4</span> Linetype</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#palettes"><span class="header-section-number">C.2</span> Palettes</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#viridis-palettes"><span class="header-section-number">C.2.1</span> Viridis Palettes</a></li>
+<li><a class="nav-link" href="#brewer-palettes"><span class="header-section-number">C.2.2</span> Brewer Palettes</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#themes-appendix"><span class="header-section-number">C.3</span> Themes</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#ggthemes"><span class="header-section-number">C.3.1</span> ggthemes</a></li>
+<li><a class="nav-link" href="#fonts"><span class="header-section-number">C.3.2</span> Fonts</a></li>
+<li><a class="nav-link" href="#setting-a-lab-theme-using-theme"><span class="header-section-number">C.3.3</span> Setting A Lab Theme using theme()</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/psyteachr/introdataviz/blob/master/book/appendix-c-style.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/psyteachr/introdataviz/edit/master/book/appendix-c-style.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Data visualisation using R, for researchers who don’t use R</strong>" was written by Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine. It was last built on 2022-04-28.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
