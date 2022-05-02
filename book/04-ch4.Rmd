@@ -25,9 +25,15 @@ ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
                     labels = c("Bilingual", "Monolingual")) +
   theme_classic() +
   scale_x_discrete(name = "Condition",
-                   labels = c("Word", "Non-word")) +
+                   labels = c("Non-Word", "Word")) +
   scale_y_continuous(name = "Accuracy")
 ```
+
+`r hide("Correction to paper")`
+
+Please note that the code and figure for this plot has been corrected from the published paper due to the labels "Word" and "Non-word" being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.
+
+`r unhide()`
 
 ## Violin plots
 
@@ -41,9 +47,16 @@ ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
                     labels = c("Bilingual", "Monolingual")) +
   theme_classic() +
   scale_x_discrete(name = "Condition",
-                   labels = c("Word", "Non-word")) +
+                   labels = c("Non-word", "Word")) +
   scale_y_continuous(name = "Accuracy")
 ```
+
+`r hide("Correction to paper")`
+
+Please note that the code and figure for this plot has been corrected from the published paper due to the labels "Word" and "Non-word" being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.
+
+
+`r unhide()`
 
 ## Bar chart of means
 
@@ -241,7 +254,7 @@ ggplot(dat_long, aes(x = rt, fill = condition)) +
   geom_density(alpha = .4)+
   scale_x_continuous(name = "Reaction time (ms)") +
   scale_fill_discrete(name = "Condition",
-                      labels = c("Word", "Non-word"))
+                      labels = c("Non-word", "Word"))
 ```
 
 `r unhide()`

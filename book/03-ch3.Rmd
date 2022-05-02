@@ -172,8 +172,14 @@ ggplot(dat_long, aes(x = rt, fill = condition)) +
   geom_density(alpha = 0.75)+
   scale_x_continuous(name = "Reaction time (ms)") +
   scale_fill_discrete(name = "Condition",
-                      labels = c("Word", "Non-word"))
+                      labels = c("Non-Word", "Word"))
 ```
+
+`r hide("Correction to paper")`
+
+Please note that the code and figure for this plot has been corrected from the published paper due to the labels "Word" and "Non-word" being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.
+
+`r unhide()`
 
 ## Scatterplots
 
@@ -201,8 +207,14 @@ ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
   geom_point() +
   geom_smooth(method = "lm") +
   scale_colour_discrete(name = "Condition",
-                      labels = c("Word", "Non-word"))
+                      labels = c("Non-Word", "Word"))
 ```
+
+`r hide("Correction to paper")`
+
+Please note that the code and figure for this plot has been corrected from the published paper due to the labels "Word" and "Non-word" being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.
+
+`r unhide()`
 
 ## Long to wide format
 
@@ -242,8 +254,14 @@ ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
   geom_smooth(method = "lm") +
   scale_color_brewer(palette = "Dark2",
                      name = "Condition",
-                     labels = c("Word", "Non-word"))
+                     labels = c("Non-word", "Word"))
 ```
+
+`r hide("Correction to paper")`
+
+Please note that the code and figure for this plot has been corrected from the published paper due to the labels "Word" and "Non-word" being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.
+
+`r unhide()`
 
 ### Specifying axis `breaks` with `seq()`
 
@@ -335,7 +353,7 @@ ggplot(dat_long, aes(x = rt, fill = condition)) +
   scale_x_continuous(name = "Reaction time (ms)") +
   scale_fill_brewer(palette = "Set2", # or "Dark2" or "Paired"
                     name = "Condition",
-                    labels = c("Word", "Non-word"))
+                    labels = c("Non-word", "Word"))
 ```
 
 `r unhide()`

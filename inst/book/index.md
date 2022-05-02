@@ -1,7 +1,7 @@
 --- 
 title: "Data visualisation using R, for researchers who don’t use R"
 author: "Emily Nordmann, Phil McAleer, Wilhelmiina Toivo, Helena Paterson, Lisa DeBruine"
-date: "2022-04-28"
+date: "2022-05-02"
 site: bookdown::bookdown_site
 documentclass: book
 classoption: oneside # for PDFs

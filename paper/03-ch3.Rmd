@@ -4,9 +4,9 @@
 
 To visualise the experimental reaction time and accuracy data using `ggplot2`, we first need to reshape the data from wide format to long format. This step can cause friction with novice users of R. Traditionally, psychologists have been taught data skills using wide-format data. Wide-format data typically has one row of data for each participant, with separate columns for each score or variable. For repeated-measures variables, the dependent variable is split across different columns. For between-groups variables, a separate column is added to encode the group to which a participant or observation belongs. 
 
-The simulated lexical decision data is currently in wide format (see Table\ \@ref(tab:wide-data)), where each participant's aggregated [^3] reaction time and accuracy for each level of the within-subject variable is split across multiple columns for the repeated factor of conditon (words versus non-words).
+The simulated lexical decision data is currently in wide format (see Table\ \@ref(tab:wide-data)), where each participant's aggregated [^ch3-1] reaction time and accuracy for each level of the within-subject variable is split across multiple columns for the repeated factor of condition (words versus non-words).
 
-[^3]: In this tutorial we have chosen to gloss over the data processing steps that must occur to get from the raw data to aggregated values. This type of processing requires a more extensive tutorial than we can provide in the current paper. More importantly, it is still possible to use R for data visualisation having done the preparatory steps using existing workflows in Excel and SPSS. We bypass these initial steps and focus on tangible outputs that may then encourage further mastery of reproducible methods. Collectively we tend to call the steps for reshaping data and for processing raw data or for getting data ready to use statistical functions "wrangling".
+[^ch3-1]: In this tutorial we have chosen to gloss over the data processing steps that must occur to get from the raw data to aggregated values. This type of processing requires a more extensive tutorial than we can provide in the current paper. More importantly, it is still possible to use R for data visualisation having done the preparatory steps using existing workflows in Excel and SPSS. We bypass these initial steps and focus on tangible outputs that may then encourage further mastery of reproducible methods. Collectively we tend to call the steps for reshaping data and for processing raw data or for getting data ready to use statistical functions "wrangling".
 
 ```{r wide-data, echo=FALSE}
 head(dat) %>% knitr::kable(digits = 2, caption="Data in wide format.")
@@ -14,9 +14,9 @@ head(dat) %>% knitr::kable(digits = 2, caption="Data in wide format.")
 
 Wide format is popular because it is intuitive to read and easy to enter data into as all the data for one participant is contained within a single row. However, for the purposes of analysis, and particularly for analysis using R, this format is unsuitable. Whilst it is intuitive to read by a human, the same is not true for a computer. Wide-format data concatenates multiple pieces of information in a single column, for example in Table\ \@ref(tab:wide-data), `rt_word` contains information related to both a DV and one level of an IV. In comparison, long-format data separates the DV from the IVs so that each column represents only one variable. The less intuitive part is that long-format data has multiple rows for each participant (one row for each observation) and a column that encodes the level of the IV (`word` or `nonword`). Wickham [-@wickham2014tidy] provides a comprehensive overview of the benefits of a similar format known as tidy data, which is a standard way of mapping a dataset to its structure. For the purposes of this tutorial there are two important rules: each column should be a *variable* and each row should be an *observation*. 
 
-Moving from using wide-format to long-format datasets can require a conceptual shift on the part of the researcher and one that usually only comes with practice and repeated exposure[^4]. It may be helpful to make a note that “row = participant” (wide format) and “row = observation” (long format) until you get used to moving between the formats. For our example dataset, adhering to these rules for reshaping the data would produce Table\ \@ref(tab:long). Rather than different observations of the same dependent variable being split across columns, there is now a single column for the DV reaction time, and a single column for the DV accuracy. Each participant now has multiple rows of data, one for each observation (i.e., for each participant there will be as many rows as there are levels of the within-subject IV). Although there is some repetition of age and language group, each row is unique when looking at the combination of measures.
+Moving from using wide-format to long-format datasets can require a conceptual shift on the part of the researcher and one that usually only comes with practice and repeated exposure[^ch3-2]. It may be helpful to make a note that “row = participant” (wide format) and “row = observation” (long format) until you get used to moving between the formats. For our example dataset, adhering to these rules for reshaping the data would produce Table\ \@ref(tab:long). Rather than different observations of the same dependent variable being split across columns, there is now a single column for the DV reaction time, and a single column for the DV accuracy. Each participant now has multiple rows of data, one for each observation (i.e., for each participant there will be as many rows as there are levels of the within-subject IV). Although there is some repetition of age and language group, each row is unique when looking at the combination of measures.
 
-[^4]: That is to say, if you are new to R, know that many before you have struggled with this conceptual shift - it does get better, it just takes time and your preferred choice of cursing.
+[^ch3-2]: That is to say, if you are new to R, know that many before you have struggled with this conceptual shift - it does get better, it just takes time and your preferred choice of cursing.
 
 ```{r tidying, echo = FALSE}
 long <- pivot_longer(dat, 
@@ -164,7 +164,7 @@ Density plots are most useful for comparing the distributions of different group
 
 * In addition to mapping `rt` to the x-axis, we specify the `fill` aesthetic to fill the visualisation so that each level of the `condition` variable is represented by a different colour. 
 * Because the density plots are overlapping, we set `alpha = 0.75` to make the geoms 75% transparent.
-* As with the x and y-axis scale functions, we can edit the names and labels of our fill aesthetic by adding on another `scale_*` layer (`scale_fill_discrete()`).
+* As with the x and y-axis scale functions, we can edit the names and labels of our fill aesthetic by adding on another `scale_*` layer (`scale_fill_discrete()`)[^ch3-3].
 * Note that the `fill` here is set inside the `aes()` function, which tells ggplot to set the fill differently for each value in the `condition` column. You cannot specify which colour here (e.g., `fill="red"`), like you could when you set `fill` inside the `geom_*()` function before.
 
 ```{r density-grouped, fig.cap="Density plot of reaction times grouped by condition."}
@@ -172,8 +172,10 @@ ggplot(dat_long, aes(x = rt, fill = condition)) +
   geom_density(alpha = 0.75)+
   scale_x_continuous(name = "Reaction time (ms)") +
   scale_fill_discrete(name = "Condition",
-                      labels = c("Word", "Non-word"))
+                      labels = c("Non-Word", "Word"))
 ```
+
+[^ch3-3]: Please note that the code and figure for this plot has been corrected from the published paper due to the labels "Word" and "Non-word" being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.
 
 ## Scatterplots
 
@@ -194,15 +196,17 @@ ggplot(dat_long, aes(x = rt, y = age)) +
 
 ### Grouped scatterplots
 
-Similar to the density plot, the scatterplot can also be easily adjusted to display grouped data. For `geom_point()`, the grouping variable is mapped to `colour` rather than `fill` and the relevant `scale_*` function is added.
+Similar to the density plot, the scatterplot can also be easily adjusted to display grouped data. For `geom_point()`, the grouping variable is mapped to `colour` rather than `fill` and the relevant `scale_*` function is added[^ch3-4].
 
 ```{r scatter-grouped, warning = FALSE,fig.cap="Grouped scatterplot of reaction time versus age by condition.", message = FALSE}
 ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
   geom_point() +
   geom_smooth(method = "lm") +
   scale_colour_discrete(name = "Condition",
-                      labels = c("Word", "Non-word"))
+                      labels = c("Non-Word", "Word"))
 ```
+
+[^ch3-4]: Please note that the code and figure for this plot has been corrected from the published paper due to the labels "Word" and "Non-word" being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.
 
 ## Long to wide format
 
@@ -234,7 +238,7 @@ dat_wide %>%
 
 ### Accessible colour schemes
 
-One of the drawbacks of using `ggplot2` for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in greyscale. You can specify exact custom colours for your plots, but one easy option is to use a custom colour palette. These take the same arguments as their default `scale` sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. For categorical colours, the "Set2", "Dark2" and "Paired" palettes from the `brewer` scale functions are colourblind-safe (but are hard to distinhuish in greyscale). For continuous colours, such as when colour is representing the magnitude of a correlation in a tile plot, the `viridis` scale functions provide a number of different colourblind and greyscale-safe options.
+One of the drawbacks of using `ggplot2` for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in greyscale. You can specify exact custom colours for your plots, but one easy option is to use a custom colour palette. These take the same arguments as their default `scale` sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. For categorical colours, the "Set2", "Dark2" and "Paired" palettes from the `brewer` scale functions are colourblind-safe (but are hard to distinhuish in greyscale). For continuous colours, such as when colour is representing the magnitude of a correlation in a tile plot, the `viridis` scale functions provide a number of different colourblind and greyscale-safe options[^ch3-5].
 
 ```{r brewer, warning = FALSE,fig.cap="Use the Dark2 brewer colour scheme for accessibility.", message = FALSE}
 ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
@@ -242,8 +246,10 @@ ggplot(dat_long, aes(x = rt, y = age, colour = condition)) +
   geom_smooth(method = "lm") +
   scale_color_brewer(palette = "Dark2",
                      name = "Condition",
-                     labels = c("Word", "Non-word"))
+                     labels = c("Non-word", "Word"))
 ```
+
+[^ch3-5]: Please note that the code and figure for this plot has been corrected from the published paper due to the labels "Word" and "Non-word" being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.
 
 ### Specifying axis `breaks` with `seq()`
 

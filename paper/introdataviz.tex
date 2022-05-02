@@ -3,7 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  english,
   doc,floatsintext]{apa6}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
@@ -133,6 +132,15 @@
 \newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{english}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
 % Manuscript styling
 \usepackage{upgreek}
 \captionsetup{font=singlespacing,justification=justified}
@@ -163,6 +171,20 @@
 % \setlength{\parindent}{0.5in}
 % \setlength{\parskip}{0pt plus 0pt minus 0pt}
 
+% Overwrite redefinition of paragraph and subparagraph by the default LaTeX template
+% See https://github.com/crsh/papaja/issues/292
+\makeatletter
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries\itshape\typesectitle}}
+
+\renewcommand{\subparagraph}[1]{\@startsection{subparagraph}{5}{1em}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-\z@\relax}%
+  {\normalfont\normalsize\itshape\hspace{\parindent}{#1}\textit{\addperi}}{\relax}}
+\makeatother
+
 % \usepackage{etoolbox}
 \makeatletter
 \patchcmd{\HyOrg@maketitle}
@@ -174,7 +196,15 @@
   {\section*{\protect\normalfont{\@title}}}
   {}{\typeout{Failed to patch title.}}
 \makeatother
-\shorttitle{Dataviz in R}
+
+\usepackage{xpatch}
+\makeatletter
+\xapptocmd\appendix
+  {\xapptocmd\section
+    {\addcontentsline{toc}{section}{\appendixname\ifoneappendix\else~\theappendix\fi\\: #1}}
+    {}{\InnerPatchFailed}%
+  }
+{}{\PatchFailed}
 \keywords{visualization, ggplot, plots, R}
 \usepackage{lineno}
 
@@ -183,16 +213,6 @@
 \usepackage{float}
 \floatplacement{figure}{H}
 \raggedbottom
-\ifXeTeX
-  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
-  \usepackage{polyglossia}
-  \setmainlanguage[]{english}
-\else
-  \usepackage[main=english]{babel}
-% get rid of language-specific shorthands (see #6817):
-\let\LanguageShortHands\languageshorthands
-\def\languageshorthands#1{}
-\fi
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -202,7 +222,7 @@
 \date{}
 
 
-\note{Preprint}
+\shorttitle{Dataviz in R}
 
 \authornote{
 
@@ -218,7 +238,9 @@ Correspondence concerning this article should be addressed to Emily Nordmann, 62
 
 \affiliation{\vspace{0.5cm}\textsuperscript{1} School of Psychology, University of Glasgow\\\textsuperscript{2} Institute of Neuroscience and Psychology, University of Glasgow}
 
-\abstract{
+\note{Preprint}
+
+\abstract{%
 In addition to benefiting reproducibility and transparency, one of the advantages of using R is that researchers have a much larger range of fully customisable data visualisations options than are typically available in point-and-click software, due to the open-source nature of R. These visualisation options not only look attractive, but can increase transparency about the distribution of the underlying data rather than relying on commonly used visualisations of aggregations such as bar charts of means. In this tutorial, we provide a practical introduction to data visualisation using R, specifically aimed at researchers who have little to no prior experience of using R. First we detail the rationale for using R for data visualisation and introduce the ``grammar of graphics'' that underlies data visualisation using the ggplot package. The tutorial then walks the reader through how to replicate plots that are commonly available in point-and-click software such as histograms and boxplots, as well as showing how the code for these ``basic'' plots can be easily extended to less commonly available options such as violin-boxplots. The dataset and code used in this tutorial as well as an interactive version with activity solutions, additional resources and advanced plotting options is available at \url{https://osf.io/bj83f/}.
 }
 
@@ -403,7 +425,7 @@ To load the \href{https://osf.io/bj83f/files/}{simulated data} we use the functi
 \end{Highlighting}
 \end{Shaded}
 
-This code has created an object \texttt{dat} into which you have read the data from the file \texttt{ldt\_data.csv}. This object will appear in the environment pane in the top right. Note that the name of the data file must be in quotation marks and the file extension (\texttt{.csv}) must also be included. If you receive the error \texttt{\ldots{}does\ not\ exist\ in\ current\ working\ directory} it is highly likely that you have made a typo in the file name (remember R is case sensitive), have forgotten to include the file extension \texttt{.csv}, or that the data file you want to load is not stored in your project folder. If you get the error \texttt{could\ not\ find\ function} it means you have either not loaded the correct package (a common beginner error is to write the code, but not run it), or you have made a typo in the function name.
+This code has created an object \texttt{dat} into which you have read the data from the file \texttt{ldt\_data.csv}. This object will appear in the environment pane in the top right. Note that the name of the data file must be in quotation marks and the file extension (\texttt{.csv}) must also be included. If you receive the error \texttt{…does\ not\ exist\ in\ current\ working\ directory} it is highly likely that you have made a typo in the file name (remember R is case sensitive), have forgotten to include the file extension \texttt{.csv}, or that the data file you want to load is not stored in your project folder. If you get the error \texttt{could\ not\ find\ function} it means you have either not loaded the correct package (a common beginner error is to write the code, but not run it), or you have made a typo in the function name.
 
 You should always check after importing data that the resulting table looks like you expect. To view the dataset, click \texttt{dat} in the environment pane or run \texttt{View(dat)} in the console. The environment pane also tells us that the object \texttt{dat} has 100 observations of 7 variables, and this is a useful quick check to ensure one has loaded the right data. Note that the 7 variables have an additional piece of information \texttt{chr} and \texttt{num}; this specifies the kind of data in the column. Similar to Excel and SPSS, R uses this information (or variable type) to specify allowable manipulations of data. For instance character data such as the \texttt{id} cannot be averaged, while it is possible to do this with numerical data such as the \texttt{age}.
 
@@ -829,7 +851,7 @@ Before you move on try the following:
 
 To visualise the experimental reaction time and accuracy data using \texttt{ggplot2}, we first need to reshape the data from wide format to long format. This step can cause friction with novice users of R. Traditionally, psychologists have been taught data skills using wide-format data. Wide-format data typically has one row of data for each participant, with separate columns for each score or variable. For repeated-measures variables, the dependent variable is split across different columns. For between-groups variables, a separate column is added to encode the group to which a participant or observation belongs.
 
-The simulated lexical decision data is currently in wide format (see Table~\ref{tab:wide-data}), where each participant's aggregated \footnote{In this tutorial we have chosen to gloss over the data processing steps that must occur to get from the raw data to aggregated values. This type of processing requires a more extensive tutorial than we can provide in the current paper. More importantly, it is still possible to use R for data visualisation having done the preparatory steps using existing workflows in Excel and SPSS. We bypass these initial steps and focus on tangible outputs that may then encourage further mastery of reproducible methods. Collectively we tend to call the steps for reshaping data and for processing raw data or for getting data ready to use statistical functions ``wrangling''.} reaction time and accuracy for each level of the within-subject variable is split across multiple columns for the repeated factor of conditon (words versus non-words).
+The simulated lexical decision data is currently in wide format (see Table~\ref{tab:wide-data}), where each participant's aggregated \footnote{In this tutorial we have chosen to gloss over the data processing steps that must occur to get from the raw data to aggregated values. This type of processing requires a more extensive tutorial than we can provide in the current paper. More importantly, it is still possible to use R for data visualisation having done the preparatory steps using existing workflows in Excel and SPSS. We bypass these initial steps and focus on tangible outputs that may then encourage further mastery of reproducible methods. Collectively we tend to call the steps for reshaping data and for processing raw data or for getting data ready to use statistical functions ``wrangling''.} reaction time and accuracy for each level of the within-subject variable is split across multiple columns for the repeated factor of condition (words versus non-words).
 
 \begin{table}
 
@@ -1085,7 +1107,7 @@ Density plots are most useful for comparing the distributions of different group
 \item
   Because the density plots are overlapping, we set \texttt{alpha\ =\ 0.75} to make the geoms 75\% transparent.
 \item
-  As with the x and y-axis scale functions, we can edit the names and labels of our fill aesthetic by adding on another \texttt{scale\_*} layer (\texttt{scale\_fill\_discrete()}).
+  As with the x and y-axis scale functions, we can edit the names and labels of our fill aesthetic by adding on another \texttt{scale\_*} layer (\texttt{scale\_fill\_discrete()})\footnote{Please note that the code and figure for this plot has been corrected from the published paper due to the labels ``Word'' and ``Non-word'' being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.}.
 \item
   Note that the \texttt{fill} here is set inside the \texttt{aes()} function, which tells ggplot to set the fill differently for each value in the \texttt{condition} column. You cannot specify which colour here (e.g., \texttt{fill="red"}), like you could when you set \texttt{fill} inside the \texttt{geom\_*()} function before.
 \end{itemize}
@@ -1096,7 +1118,7 @@ Density plots are most useful for comparing the distributions of different group
   \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.75}\NormalTok{)}\SpecialCharTok{+}
   \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"Reaction time (ms)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{scale\_fill\_discrete}\NormalTok{(}\AttributeTok{name =} \StringTok{"Condition"}\NormalTok{,}
-                      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Word"}\NormalTok{, }\StringTok{"Non{-}word"}\NormalTok{))}
+                      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Non{-}Word"}\NormalTok{, }\StringTok{"Word"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1152,7 +1174,7 @@ A line of best fit can be added with an additional layer that calls the function
 \hypertarget{grouped-scatterplots}{%
 \subsubsection{Grouped scatterplots}\label{grouped-scatterplots}}
 
-Similar to the density plot, the scatterplot can also be easily adjusted to display grouped data. For \texttt{geom\_point()}, the grouping variable is mapped to \texttt{colour} rather than \texttt{fill} and the relevant \texttt{scale\_*} function is added.
+Similar to the density plot, the scatterplot can also be easily adjusted to display grouped data. For \texttt{geom\_point()}, the grouping variable is mapped to \texttt{colour} rather than \texttt{fill} and the relevant \texttt{scale\_*} function is added\footnote{Please note that the code and figure for this plot has been corrected from the published paper due to the labels ``Word'' and ``Non-word'' being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1160,7 +1182,7 @@ Similar to the density plot, the scatterplot can also be easily adjusted to disp
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{scale\_colour\_discrete}\NormalTok{(}\AttributeTok{name =} \StringTok{"Condition"}\NormalTok{,}
-                      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Word"}\NormalTok{, }\StringTok{"Non{-}word"}\NormalTok{))}
+                      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Non{-}Word"}\NormalTok{, }\StringTok{"Word"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1230,7 +1252,7 @@ S006 & 357.1710 & 367.3355 & 96 & 78\\
 \hypertarget{accessible-colour-schemes}{%
 \subsubsection{Accessible colour schemes}\label{accessible-colour-schemes}}
 
-One of the drawbacks of using \texttt{ggplot2} for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in greyscale. You can specify exact custom colours for your plots, but one easy option is to use a custom colour palette. These take the same arguments as their default \texttt{scale} sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. For categorical colours, the ``Set2'', ``Dark2'' and ``Paired'' palettes from the \texttt{brewer} scale functions are colourblind-safe (but are hard to distinhuish in greyscale). For continuous colours, such as when colour is representing the magnitude of a correlation in a tile plot, the \texttt{viridis} scale functions provide a number of different colourblind and greyscale-safe options.
+One of the drawbacks of using \texttt{ggplot2} for visualisation is that the default colour scheme is not accessible (or visually appealing). The red and green default palette is difficult for colour-blind people to differentiate, and also does not display well in greyscale. You can specify exact custom colours for your plots, but one easy option is to use a custom colour palette. These take the same arguments as their default \texttt{scale} sister functions for updating axis names and labels, but display plots in contrasting colours that can be read by colour-blind people and that also print well in grey scale. For categorical colours, the ``Set2'', ``Dark2'' and ``Paired'' palettes from the \texttt{brewer} scale functions are colourblind-safe (but are hard to distinhuish in greyscale). For continuous colours, such as when colour is representing the magnitude of a correlation in a tile plot, the \texttt{viridis} scale functions provide a number of different colourblind and greyscale-safe options\footnote{Please note that the code and figure for this plot has been corrected from the published paper due to the labels ``Word'' and ``Non-word'' being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1239,7 +1261,7 @@ One of the drawbacks of using \texttt{ggplot2} for visualisation is that the def
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Dark2"}\NormalTok{,}
                      \AttributeTok{name =} \StringTok{"Condition"}\NormalTok{,}
-                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Word"}\NormalTok{, }\StringTok{"Non{-}word"}\NormalTok{))}
+                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Non{-}word"}\NormalTok{, }\StringTok{"Word"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1323,7 +1345,7 @@ As with \texttt{geom\_point()}, boxplots also require an x- and y-variable to be
 \hypertarget{grouped-boxplots}{%
 \subsubsection{Grouped boxplots}\label{grouped-boxplots}}
 
-As with histograms and density plots, \texttt{fill} can be used to create grouped boxplots. This looks like a lot of complicated code at first glance, but most of it is just editing the axis labels.
+As with histograms and density plots, \texttt{fill} can be used to create grouped boxplots. This looks like a lot of complicated code at first glance, but most of it is just editing the axis labels\footnote{Please note that the code and figure for this plot has been corrected from the published paper due to the labels ``Word'' and ``Non-word'' being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1334,7 +1356,7 @@ As with histograms and density plots, \texttt{fill} can be used to create groupe
                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Bilingual"}\NormalTok{, }\StringTok{"Monolingual"}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{name =} \StringTok{"Condition"}\NormalTok{,}
-                   \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Word"}\NormalTok{, }\StringTok{"Non{-}word"}\NormalTok{)) }\SpecialCharTok{+}
+                   \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Non{-}Word"}\NormalTok{, }\StringTok{"Word"}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"Accuracy"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -1351,7 +1373,7 @@ As with histograms and density plots, \texttt{fill} can be used to create groupe
 \hypertarget{violin-plots}{%
 \subsection{Violin plots}\label{violin-plots}}
 
-Violin plots display the distribution of a dataset and can be created by calling \texttt{geom\_violin()}. They are so-called because the shape they make sometimes looks something like a violin. They are essentially sideways, mirrored density plots. Note that the below code is identical to the code used to draw the boxplots above, except for the call to \texttt{geom\_violin()} rather than \texttt{geom\_boxplot().}
+Violin plots display the distribution of a dataset and can be created by calling \texttt{geom\_violin()}. They are so-called because the shape they make sometimes looks something like a violin. They are essentially sideways, mirrored density plots. Note that the below code is identical to the code used to draw the boxplots above, except for the call to \texttt{geom\_violin()} rather than \texttt{geom\_boxplot()}{[}\^{}ch4-3{]}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1362,7 +1384,7 @@ Violin plots display the distribution of a dataset and can be created by calling
                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Bilingual"}\NormalTok{, }\StringTok{"Monolingual"}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{name =} \StringTok{"Condition"}\NormalTok{,}
-                   \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Word"}\NormalTok{, }\StringTok{"Non{-}word"}\NormalTok{)) }\SpecialCharTok{+}
+                   \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Non{-}word"}\NormalTok{, }\StringTok{"Word"}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"Accuracy"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -2116,10 +2138,10 @@ Allen, M., Poggiali, D., Whitaker, K., Marshall, T. R., van Langen, J., \& Kievi
 Aust, F., \& Barth, M. (2020). \emph{{papaja}: {Create} {APA} manuscripts with {R Markdown}}. Retrieved from \url{https://github.com/crsh/papaja}
 
 \leavevmode\vadjust pre{\hypertarget{ref-barrett2019six}{}}%
-Barrett, T. S. (2019). Six reasons to consider using r in psychological research.
+Barrett, T. S. (2019). \emph{Six reasons to consider using r in psychological research}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-NYT-R}{}}%
-Bertini, E., \& Stefaner, M. (2015). Amanda cox on working with r, NYT projects, favorite data {[}podcast{]}. \emph{Data Stories}. Retrieved from \url{https://datastori.es/ds-56-amanda-cox-nyt/}
+Bertini, E., \& Stefaner, M. (2015). Amanda cox on working with r, NYT projects, favorite data {[}podcast{]}. Retrieved from \url{https://datastori.es/ds-56-amanda-cox-nyt/}
 
 \leavevmode\vadjust pre{\hypertarget{ref-R-ggalluvial-article}{}}%
 Brunson, J. C. (2020). {ggalluvial}: Layered grammar for alluvial plots. \emph{Journal of Open Source Software}, \emph{5}(49), 2017. \url{https://doi.org/10.21105/joss.02017}
@@ -2131,7 +2153,7 @@ DeBruine, L. (2021). \emph{Faux: Simulation for factorial designs}. Zenodo. \url
 Munafò, M. R., Nosek, B. A., Bishop, D. V., Button, K. S., Chambers, C. D., Du Sert, N. P., \ldots{} Ioannidis, J. P. (2017). A manifesto for reproducible science. \emph{Nature Human Behaviour}, \emph{1}(1), 1--9.
 
 \leavevmode\vadjust pre{\hypertarget{ref-Nation2017}{}}%
-Nation, Z. (2017). Perceptions. \emph{GitHub repository}. \url{https://github.com/zonination/perceptions\%20\%20}; GitHub.
+Nation, Z. (2017). Perceptions. \url{https://github.com/zonination/perceptions\%20\%20}; GitHub.
 
 \leavevmode\vadjust pre{\hypertarget{ref-newman2012bar}{}}%
 Newman, G. E., \& Scholl, B. J. (2012). Bar graphs depicting averages are perceptually misinterpreted: The within-the-bar bias. \emph{Psychonomic Bulletin \& Review}, \emph{19}(4), 601--607.
@@ -2155,7 +2177,7 @@ RStudio Team. (2021). \emph{RStudio: Integrated development environment for r}. 
 South, A. (2017). \emph{Rnaturalearth: World map data from natural earth}. Retrieved from \url{https://CRAN.R-project.org/package=rnaturalearth}
 
 \leavevmode\vadjust pre{\hypertarget{ref-BBC-R}{}}%
-Visual, B., \& Journalism, D. (2019). How the BBC visual and data journalism team works with graphics in r. \emph{Medium}. Retrieved from \url{https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535}
+Visual, B., \& Journalism, D. (2019). How the BBC visual and data journalism team works with graphics in r. Retrieved from \url{https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535}
 
 \leavevmode\vadjust pre{\hypertarget{ref-wickham2010layered}{}}%
 Wickham, H. (2010). A layered grammar of graphics. \emph{Journal of Computational and Graphical Statistics}, \emph{19}(1), 3--28.
@@ -2179,10 +2201,10 @@ Wickham, H.others. (2014). Tidy data. \emph{Journal of Statistical Software}, \e
 Wilke, C. O. (2021). \emph{Ggridges: Ridgeline plots in 'ggplot2'}. Retrieved from \url{https://CRAN.R-project.org/package=ggridges}
 
 \leavevmode\vadjust pre{\hypertarget{ref-wilkinson2005graph}{}}%
-Wilkinson, L., Anand, A., \& Grossman, R. (2005). Graph-theoretic scagnostics. In \emph{IEEE symposium on information visualization (InfoVis 05)} (pp. 157--158). IEEE Computer Society.
+Wilkinson, L., Anand, A., \& Grossman, R. (2005). Graph-theoretic scagnostics. \emph{IEEE Symposium on Information Visualization (InfoVis 05)}, 157--158. IEEE Computer Society.
 
 \leavevmode\vadjust pre{\hypertarget{ref-rminr}{}}%
-Wills, A. (n.d.). Teaching research methods in r. \emph{rminr}. Retrieved from \url{https://www.andywills.info/rminr/rminrinpsy.html}
+Wills, A. (n.d.). Teaching research methods in r. Retrieved from \url{https://www.andywills.info/rminr/rminrinpsy.html}
 
 \end{CSLReferences}
 

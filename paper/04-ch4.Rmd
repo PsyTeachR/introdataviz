@@ -4,18 +4,18 @@ The layering approach that is used in `ggplot2` to make figures comes into its o
 
 ## Boxplots
 
-As with `geom_point()`, boxplots also require an x- and y-variable to be specified. In this case, `x` must be a discrete, or categorical variable[^5], whilst `y` must be continuous. 
+As with `geom_point()`, boxplots also require an x- and y-variable to be specified. In this case, `x` must be a discrete, or categorical variable[^ch4-1], whilst `y` must be continuous. 
 
 ```{r boxplot1, fig.cap="Basic boxplot."}
 ggplot(dat_long, aes(x = condition, y = acc)) +
   geom_boxplot()
 ```
 
-[^5]: If the data in the x-axis column is numeric (e.g., 1 and 2 for the condition), you will see one boxplot and the message "Continuous x aesthetic -- did you forget aes(group=...)?" You can fix this by converting the column to a factor like this: `x = factor(condition)`.
+[^ch4-1]: If the data in the x-axis column is numeric (e.g., 1 and 2 for the condition), you will see one boxplot and the message "Continuous x aesthetic -- did you forget aes(group=...)?" You can fix this by converting the column to a factor like this: `x = factor(condition)`.
 
 ### Grouped boxplots
 
-As with histograms and density plots, `fill` can be used to create grouped boxplots. This looks like a lot of complicated code at first glance, but most of it is just editing the axis labels.
+As with histograms and density plots, `fill` can be used to create grouped boxplots. This looks like a lot of complicated code at first glance, but most of it is just editing the axis labels[^ch4-2].
 
 ```{r boxplot3, fig.cap="Grouped boxplots"}
 ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
@@ -25,13 +25,15 @@ ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
                     labels = c("Bilingual", "Monolingual")) +
   theme_classic() +
   scale_x_discrete(name = "Condition",
-                   labels = c("Word", "Non-word")) +
+                   labels = c("Non-Word", "Word")) +
   scale_y_continuous(name = "Accuracy")
 ```
 
+[^ch4-2]: Please note that the code and figure for this plot has been corrected from the published paper due to the labels "Word" and "Non-word" being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.
+
 ## Violin plots
 
-Violin plots display the distribution of a dataset and can be created by calling `geom_violin()`. They are so-called because the shape they make sometimes looks something like a violin. They are essentially sideways, mirrored density plots. Note that the below code is identical to the code used to draw the boxplots above, except for the call to `geom_violin()` rather than `geom_boxplot().`
+Violin plots display the distribution of a dataset and can be created by calling `geom_violin()`. They are so-called because the shape they make sometimes looks something like a violin. They are essentially sideways, mirrored density plots. Note that the below code is identical to the code used to draw the boxplots above, except for the call to `geom_violin()` rather than `geom_boxplot()`[^ch4-3].
 
 ```{r violin1, fig.cap="Violin plot."}
 ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
@@ -41,9 +43,11 @@ ggplot(dat_long, aes(x = condition, y = acc, fill = language)) +
                     labels = c("Bilingual", "Monolingual")) +
   theme_classic() +
   scale_x_discrete(name = "Condition",
-                   labels = c("Word", "Non-word")) +
+                   labels = c("Non-word", "Word")) +
   scale_y_continuous(name = "Accuracy")
 ```
+
+[^ch3-3]: Please note that the code and figure for this plot has been corrected from the published paper due to the labels "Word" and "Non-word" being incorrectly reversed. This is of course mortifying as authors, although it does provide a useful teachable moment that R will do what you tell it to do, no more, no less, regardless of whether what you tell it to do is wrong.
 
 ## Bar chart of means
 
