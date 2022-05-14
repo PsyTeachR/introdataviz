@@ -8,7 +8,7 @@ The [psyTeachR](https://psyteachr.github.io/) team at the University of Glasgow 
 
 * [Applied Data Skills](https://psyteachr.github.io/ads/)
 * [Level 1 Data Skills](https://psyteachr.github.io/data-skills/)
-* [Level 2 Analyses](https://psyteachr.github.io/analyses/)
+* [Level 2 Analyses](https://psyteachr.github.io/analysis/)
 * [Level 3 Statistical Models](https://psyteachr.github.io/stat-models/)
 * [Msc Fundamentals of Quantititive Analysis](https://psyteachr.github.io/fun-quant/)
 * [MSc Data Skills for Reproducible Research](https://psyteachr.github.io/reprores/)
