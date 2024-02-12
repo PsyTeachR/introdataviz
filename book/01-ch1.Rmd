@@ -22,7 +22,7 @@ There are multiple approaches to data visualisation in R; in this paper we use t
 
 Figure\ \@ref(fig:layers) displays the evolution of a simple scatterplot using this layered approach. First, the plot space is built (layer 1); the variables are specified (layer 2); the type of visualisation (known as a `geom`) that is desired for these variables is specified (layer 3) - in this case `geom_point()` is called to visualise individual data points; a second geom is added to include a line of best fit (layer 4), the axis labels are edited for readability (layer 5), and finally, a theme is applied to change the overall appearance of the plot (layer 6).
 
-```{r layers, fig.cap="Evolution of a layered plot", echo = FALSE, message=FALSE}
+```{r layers, fig.cap="Evolution of a layered plot.", echo = FALSE, message=FALSE}
 dat <- read_csv(file = "ldt_data.csv")
 dat_long <- pivot_longer(data = dat, 
                      cols = rt_word:acc_nonword, 
@@ -107,7 +107,7 @@ Before you start visualising your data, it must be in an appropriate format. The
 
 ### Data format
 
-The simulated lexical decision data is provided in a `csv` (comma-separated variable) file. Functions exist in R to read many other types of data files; the `rio` package's `import()` function can read most types of files. However, `csv` files avoids problems like Excel's insistence on mangling anything that even vaguely resembles a date. You may wish to export your data as a `csv` file that contains only the data you want to visualise, rather than a full, larger workbook. It is possible to clean almost any file reproducibly in R, however, as noted above, this can require higher level coding skills. For getting started with visualisation, we suggest removing summary rows or additional notes from any files you import so the file only contains the rows and columns of data you want to plot. 
+The simulated lexical decision data is provided in a `csv` (comma-separated values) file. Functions exist in R to read many other types of data files; the `rio` package's `import()` function can read most types of files. However, `csv` files avoids problems like Excel's insistence on mangling anything that even vaguely resembles a date. You may wish to export your data as a `csv` file that contains only the data you want to visualise, rather than a full, larger workbook. It is possible to clean almost any file reproducibly in R, however, as noted above, this can require higher level coding skills. For getting started with visualisation, we suggest removing summary rows or additional notes from any files you import so the file only contains the rows and columns of data you want to plot. 
 
 ### Variable names
 
